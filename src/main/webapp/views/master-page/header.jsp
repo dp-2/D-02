@@ -69,7 +69,7 @@
 
 
 <div align="center">
-	<a href="#"><img src="${banner}" alt="Acme-Madruga Co., Inc."
+	<a href="#"><img src="${banner}" alt="Acme-Parade Co., Inc."
 		width="450px" height="200px" /></a>
 </div>
 
