@@ -21,5 +21,5 @@ public interface SponsorshipRepository extends JpaRepository<Sponsorship, Intege
 	Sponsorship findSponsorshipByCreditCardId(Integer creditCardId);
 
 	@Query("select s from Sponsorship s where s.parade.id = ?1")
-	Sponsorship findSponsorshipByParaded(Integer paradeId);
+	Sponsorship findSponsorshipByParadeId(Integer paradeId);
 }
