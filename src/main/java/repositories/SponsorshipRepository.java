@@ -18,7 +18,16 @@ public interface SponsorshipRepository extends JpaRepository<Sponsorship, Intege
 
 	//query a.2.1
 	@Query("select avg(1.0 * (select count(*) from Sponsorship s where s.sponsor = sp.id)) from Sponsor sp")
-	Double avgSponsorshipPorSponsor();
+	Double avgSponsorshipBySponsor();
+	//query a.2.2
+	@Query("select min(1.0 * (select count(*) from Sponsorship s where s.sponsor = sp.id)) from Sponsor sp")
+	Double minSponsorshipBySponsor();
+	//query a.2.3
+	@Query("select max(1.0 * (select count(*) from Sponsorship s where s.sponsor = sp.id)) from Sponsor sp")
+	Double maxSponsorshipBySponsor();
+	//query a.2.4
+	@Query("select stddev(1.0 * (select count(*) from Sponsorship s where s.sponsor = sp.id)) from Sponsor sp")
+	Double stddevSponsorshipBySponsor();
 
 	//Other queries-----------------------------------------------------------------
 
