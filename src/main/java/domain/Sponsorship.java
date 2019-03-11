@@ -20,7 +20,7 @@ public class Sponsorship extends DomainEntity {
 	// ATRIBUTOS
 	private String	banner;
 	private String	target;
-	private boolean	isActive;
+	private boolean	Active;
 
 
 	@NotBlank
@@ -44,11 +44,11 @@ public class Sponsorship extends DomainEntity {
 	}
 
 	public boolean isActive() {
-		return this.isActive;
+		return this.Active;
 	}
 
-	public void setActive(final boolean isActive) {
-		this.isActive = isActive;
+	public void setActive(final boolean active) {
+		this.Active = active;
 	}
 
 
@@ -56,7 +56,7 @@ public class Sponsorship extends DomainEntity {
 
 	private Sponsor		sponsor;
 	private CreditCard	creditCard;
-	private Parade	parade;
+	private Parade		parade;
 
 
 	@NotNull

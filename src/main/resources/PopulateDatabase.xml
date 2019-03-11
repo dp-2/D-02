@@ -269,6 +269,7 @@
 		<property name="banner"
 			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
 		<property name="target" value="http://sponsorship1.com" />
+		<property name="Active" value="true" />
 		<property name="sponsor" ref="sponsor1" />
 		<property name="creditCard" ref="creditcard1" />
 		<property name="parade" ref="parade2" />
@@ -278,6 +279,7 @@
 		<property name="banner"
 			value="https://lettersystems.com.ar/files/thumbs/clienteVer/clientes/2015/10/01/5970d19a38334-cocacola.jpg" />
 		<property name="target" value="http://sponsorship2.com" />
+		<property name="Active" value="true" />
 		<property name="sponsor" ref="sponsor2" />
 		<property name="creditCard" ref="creditcard2" />
 		<property name="parade" ref="parade4" />
@@ -287,6 +289,7 @@
 		<property name="banner"
 			value="https://i5.walmartimages.com/asr/c5c0c18c-2c15-4b64-8ec6-6ac388635f14_1.cc600c48d70486a9371b3d11975088f4.jpeg" />
 		<property name="target" value="https://www.pepsi.com/" />
+		<property name="Active" value="true" />
 		<property name="sponsor" ref="sponsor4" />
 		<property name="creditCard" ref="creditcard3" />
 		<property name="parade" ref="parade2" />
@@ -296,6 +299,7 @@
 		<property name="banner"
 			value="http://tiyc.blogia.com/upload/20140601232111-logo-pepsi.jpg" />
 		<property name="target" value="https://www.pepsi.com/" />
+		<property name="Active" value="false" />
 		<property name="sponsor" ref="sponsor4" />
 		<property name="creditCard" ref="creditcard4" />
 		<property name="parade" ref="parade4" />
