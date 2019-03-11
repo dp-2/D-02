@@ -65,7 +65,7 @@ public class March extends DomainEntity {
 	// Relationships
 
 	private Member		member;
-	private Procession	procession;
+	private Parade	parade;
 
 
 	@Valid
@@ -82,12 +82,12 @@ public class March extends DomainEntity {
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
-	public Procession getProcession() {
-		return this.procession;
+	public Parade getParade() {
+		return this.parade;
 	}
 
-	public void setProcession(final Procession procession) {
-		this.procession = procession;
+	public void setParade(final Parade parade) {
+		this.parade = parade;
 	}
 
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Configuration;
-import domain.Procession;
+import domain.Parade;
 import repositories.ConfigurationRepository;
 
 @Service
@@ -32,7 +32,7 @@ public class ConfigurationService {
 	private AdministratorService	administratorService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService		paradeService;
 
 
 	//Metodos--------------------------------------------------------------------
@@ -54,8 +54,8 @@ public class ConfigurationService {
 	//Otros-----------------------------------------------------------------------
 
 	@SuppressWarnings("deprecation")
-	public String generateTicker(final Procession procession) {
-		final Date date = procession.getMomentOrganised();
+	public String generateTicker(final Parade parade) {
+		final Date date = parade.getMomentOrganised();
 		final Integer s1 = date.getDate();
 		String day = s1.toString();
 		if (day.length() == 1)
@@ -80,12 +80,12 @@ public class ConfigurationService {
 		return new String(text);
 	}
 
-	public String isUniqueTicker(final Procession procession) {
-		String result = this.generateTicker(procession);
+	public String isUniqueTicker(final Parade parade) {
+		String result = this.generateTicker(parade);
 
-		for (final Procession procession1 : this.processionService.findAll())
-			if (procession1.getTicker().equals(result))
-				result = this.isUniqueTicker(procession);
+		for (final Parade parade1 : this.paradeService.findAll())
+			if (parade1.getTicker().equals(result))
+				result = this.isUniqueTicker(parade);
 
 		return result;
 	}

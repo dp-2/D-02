@@ -35,9 +35,9 @@ public class MarchServiceTest extends AbstractTest {
 		System.out.println("========== testCreate() ==========");
 		this.authenticate("member1");
 		final int memberId = this.getEntityId("member1");
-		final int processionId = this.getEntityId("procession1");
+		final int paradeId = this.getEntityId("parade1");
 		try {
-			final March march = this.marchService.create(processionId, memberId);
+			final March march = this.marchService.create(paradeId, memberId);
 
 			march.setStatus("PENDING");
 			march.setReason("");
@@ -61,10 +61,10 @@ public class MarchServiceTest extends AbstractTest {
 
 		this.authenticate("member1");
 		final int memberId = this.getEntityId("member1");
-		final int processionId = this.getEntityId("procession1");
+		final int paradeId = this.getEntityId("parade1");
 		final List<Integer> a = new ArrayList<>();
 		try {
-			march = this.marchService.create(processionId, memberId);
+			march = this.marchService.create(paradeId, memberId);
 			march.setReason("aaa");
 			march.setStatus("PENDING");
 			march.setLocation(a);

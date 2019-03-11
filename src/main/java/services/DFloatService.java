@@ -14,7 +14,7 @@ import security.LoginService;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.DFloat;
-import domain.Procession;
+import domain.Parade;
 
 @Service
 @Transactional
@@ -37,11 +37,11 @@ public class DFloatService {
 	public DFloat create() {
 		DFloat res;
 		Brotherhood brotherhood;
-		final Collection<Procession> processions = new ArrayList<>();
+		final Collection<Parade> parades = new ArrayList<>();
 		brotherhood = (Brotherhood) this.actorService.findByUserAccount(LoginService.getPrincipal());
 		res = new DFloat();
 		res.setBrotherhood(brotherhood);
-		res.setProcessions(processions);
+		res.setParades(parades);
 
 		return res;
 	}
@@ -83,19 +83,19 @@ public class DFloatService {
 		return this.dfloatRepository.SearchDFloatsWithoutBrotherhood();
 	}
 
-	//	public List<DFloat> findDFloatsByProcessionId(final int processionId) {
-	//		return this.dfloatRepository.findDFloatsByProcessionId(processionId);
+	//	public List<DFloat> findDFloatsByParadeId(final int paradeId) {
+	//		return this.dfloatRepository.findDFloatsByParadeId(paradeId);
 	//	
 
-	public Collection<DFloat> searchFloatNotInProcessionByIdByActorId(final Procession procession, final Actor actor) {
-		this.serviceUtils.checkObject(procession);
+	public Collection<DFloat> searchFloatNotInParadeByIdByActorId(final Parade parade, final Actor actor) {
+		this.serviceUtils.checkObject(parade);
 		this.serviceUtils.checkObject(actor);
-		return this.dfloatRepository.searchFloatNotInProcessionByIdByActorId(procession.getId(), actor.getId());
+		return this.dfloatRepository.searchFloatNotInParadeByIdByActorId(parade.getId(), actor.getId());
 	}
 
-	public Collection<DFloat> searchFloatInProcessionByIdByActorId(final Procession procession, final Actor actor) {
-		this.serviceUtils.checkObject(procession);
+	public Collection<DFloat> searchFloatInParadeByIdByActorId(final Parade parade, final Actor actor) {
+		this.serviceUtils.checkObject(parade);
 		this.serviceUtils.checkObject(actor);
-		return this.dfloatRepository.searchFloatInProcessionByIdByActorId(procession.getId(), actor.getId());
+		return this.dfloatRepository.searchFloatInParadeByIdByActorId(parade.getId(), actor.getId());
 	}
 }

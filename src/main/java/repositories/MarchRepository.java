@@ -17,18 +17,18 @@ public interface MarchRepository extends JpaRepository<March, Integer> {
 	@Query("select a from March a where a.member.id = ?1")
 	Collection<March> findMarchsByMember(int memberId);
 
-	@Query("select a from March a where a.procession.id = ?1")
-	Collection<March> findMarchsByProcession(int processionId);
+	@Query("select a from March a where a.parade.id = ?1")
+	Collection<March> findMarchsByParade(int paradeId);
 
-	@Query("select count(m) from March m where m.procession.id = ?1 and m.member.id = ?2")
-	Double findMatchByProcessionidAndMemberid(int processionId, int memberId);
+	@Query("select count(m) from March m where m.parade.id = ?1 and m.member.id = ?2")
+	Double findMatchByParadeidAndMemberid(int paradeId, int memberId);
 
 	//Queries Dashboard-----------------------------------------------------------
 
-	//The ratio of requests to march in a procession, grouped by their status.
+	//The ratio of requests to march in a parade, grouped by their status.
 
-	@Query("select 1.0*count(m)/(select count(mm) from March mm ) from March m where m.status='APPROVED' and m.procession.id=?1 group by m.status")
-	List<Double> ratioAcceptedMarchByProcession(int processionId);
+	@Query("select 1.0*count(m)/(select count(mm) from March mm ) from March m where m.status='APPROVED' and m.parade.id=?1 group by m.status")
+	List<Double> ratioAcceptedMarchByParade(int paradeId);
 
 	//The listing of members who have got at least 10% the maximum number of request to march accepted.
 

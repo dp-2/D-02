@@ -6,21 +6,21 @@ import javax.validation.constraints.NotNull;
 
 import domain.DFloat;
 import domain.DomainEntity;
-import domain.Procession;
+import domain.Parade;
 
-public class ProcessionFloatForm extends DomainEntity {
+public class ParadeFloatForm extends DomainEntity {
 
-	private Procession	procession;
+	private Parade	parade;
 	private DFloat		dFloat;
 
 
 	@NotNull
 	@Valid
-	public Procession getProcession() {
-		return this.procession;
+	public Parade getParade() {
+		return this.parade;
 	}
-	public void setProcession(final Procession procession) {
-		this.procession = procession;
+	public void setParade(final Parade parade) {
+		this.parade = parade;
 	}
 
 	@NotNull

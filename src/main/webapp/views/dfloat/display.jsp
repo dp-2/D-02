@@ -22,13 +22,13 @@
 <acme:out code="dfloat.description" value="${dfloat.description}"/>
 <acme:out code="dfloat.pictures" value="${dfloat.pictures}"/>
 <acme:out code="dfloat.brotherhood" value="${dfloat.title}"/>
-<%-- <acme:out code="dfloat.procession" value="${dfloat.procession}"/> --%>
+<%-- <acme:out code="dfloat.parade" value="${dfloat.parade}"/> --%>
 
 <fieldset>
 				<legend>
-					<b><spring:message code="dfloat.processions"></spring:message></b>
+					<b><spring:message code="dfloat.parades"></spring:message></b>
 				</legend>
-				<display:table name="myProcessions" id="processions" pagesize="5"
+				<display:table name="myParades" id="parades" pagesize="5"
 					class="displaytag">
 
 					<spring:message code="dfloat.title" var="title"></spring:message>

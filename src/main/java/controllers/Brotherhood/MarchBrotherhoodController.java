@@ -46,16 +46,16 @@ public class MarchBrotherhoodController extends AbstractController {
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int processionId) {
+	public ModelAndView list(@RequestParam final int paradeId) {
 		ModelAndView result;
 		Collection<March> marchs;
 
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		marchs = this.marchService.findMarchsByProcession(processionId);
+		marchs = this.marchService.findMarchsByParade(paradeId);
 		result = new ModelAndView("march/list");
 		result.addObject("marchs", marchs);
 		result.addObject("banner", this.configurationService.findOne().getBanner());
-		result.addObject("requestURI", "march/brotherhood/list.do?processionId=" + processionId);
+		result.addObject("requestURI", "march/brotherhood/list.do?paradeId=" + paradeId);
 		result.addObject("brotherhoodId", a.getId());
 		return result;
 	}
@@ -83,8 +83,8 @@ public class MarchBrotherhoodController extends AbstractController {
 			try {
 
 				this.marchService.save(march);
-				final int processionId = march.getProcession().getId();
-				result = new ModelAndView("redirect:list.do?processionId=" + processionId);
+				final int paradeId = march.getParade().getId();
+				result = new ModelAndView("redirect:list.do?paradeId=" + paradeId);
 			} catch (final Throwable oops) {
 				if (oops.getMessage().equals("errorposition"))
 					result = this.createEditModelAndView(march, "march.commit.errorposition");

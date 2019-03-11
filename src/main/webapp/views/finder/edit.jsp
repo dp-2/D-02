@@ -26,7 +26,7 @@
 	<form:hidden path="version" />
 	<form:hidden path="lastUpdate" />
 	<form:hidden path="member" />
-	<form:hidden path="processions" />
+	<form:hidden path="parades" />
 
 	<acme:textbox code="finder.keyword" path="keyword" />
 	<acme:textbox code="finder.dateMin" path="minDate"
@@ -34,7 +34,7 @@
 	<acme:textbox code="finder.dateMax" path="maxDate"
 		placeholder="yyyy/MM/dd" />
 
-	<acme:select items="${areas}" itemLabel="name" code="procession.area"
+	<acme:select items="${areas}" itemLabel="name" code="parade.area"
 		path="area" />
 
 	<input type="submit" name="save"

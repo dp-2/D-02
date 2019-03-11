@@ -31,13 +31,13 @@ import services.FinderService;
 import services.MarchService;
 import services.MemberService;
 import services.PositionService;
-import services.ProcessionService;
+import services.ParadeService;
 import services.WarningService;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Enroll;
 import domain.Member;
-import domain.Procession;
+import domain.Parade;
 import domain.Warning;
 
 @Controller
@@ -48,7 +48,7 @@ public class AdministratorController extends AbstractController {
 	private PositionService			positionService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private AdministratorService	administratorService;
@@ -166,9 +166,9 @@ public class AdministratorController extends AbstractController {
 		result.addObject("positionCountOfficer", positionCountOfficer);
 		result.addObject("positionCountVocal", positionCountVocal);
 
-		//-----------------------Processions Statics
-		final List<Procession> processionsIn30Days = this.processionService.findProcessionsIn30Days();
-		result.addObject("processionsIn30Days", processionsIn30Days);
+		//-----------------------Parades Statics
+		final List<Parade> paradesIn30Days = this.paradeService.findParadesIn30Days();
+		result.addObject("paradesIn30Days", paradesIn30Days);
 
 		//-----------------------March Statics
 		final List<Member> members10RequestAccepted = this.marchService.members10PerMarchAccepted();

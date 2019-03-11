@@ -56,7 +56,7 @@ public class Sponsorship extends DomainEntity {
 
 	private Sponsor		sponsor;
 	private CreditCard	creditCard;
-	private Procession	procession;
+	private Parade	parade;
 
 
 	@NotNull
@@ -83,12 +83,12 @@ public class Sponsorship extends DomainEntity {
 
 	@Valid
 	@ManyToOne(optional = false)
-	public Procession getProcession() {
-		return this.procession;
+	public Parade getParade() {
+		return this.parade;
 	}
 
-	public void setProcession(final Procession procession) {
-		this.procession = procession;
+	public void setParade(final Parade parade) {
+		this.parade = parade;
 	}
 
 }

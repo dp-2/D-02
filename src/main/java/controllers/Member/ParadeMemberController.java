@@ -14,19 +14,19 @@ import security.LoginService;
 import services.ActorService;
 import services.ConfigurationService;
 import services.MarchService;
-import services.ProcessionService;
+import services.ParadeService;
 import controllers.AbstractController;
 import domain.Actor;
-import domain.Procession;
+import domain.Parade;
 
 @Controller
-@RequestMapping("/procession/member")
-public class ProcessionMemberController extends AbstractController {
+@RequestMapping("/parade/member")
+public class ParadeMemberController extends AbstractController {
 
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -40,19 +40,19 @@ public class ProcessionMemberController extends AbstractController {
 
 	// Constructor---------------------------------------------------------
 
-	public ProcessionMemberController() {
+	public ParadeMemberController() {
 		super();
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int brotherhoodId) {
-		final ModelAndView modelAndView = new ModelAndView("procession/list");
+		final ModelAndView modelAndView = new ModelAndView("parade/list");
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		final List<Procession> processions = this.processionService.findProcessionsFinalByBrotherhoodId(brotherhoodId);
+		final List<Parade> parades = this.paradeService.findParadesFinalByBrotherhoodId(brotherhoodId);
 
-		modelAndView.addObject("processions", processions);
+		modelAndView.addObject("parades", parades);
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
-		modelAndView.addObject("requestURI", "procession/list.do");
+		modelAndView.addObject("requestURI", "parade/list.do");
 		modelAndView.addObject("marchService", this.marchService);
 		modelAndView.addObject("memberId", a.getId());
 		return modelAndView;

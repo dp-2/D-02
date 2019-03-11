@@ -25,12 +25,12 @@ import org.springframework.web.servlet.ModelAndView;
 import controllers.AbstractController;
 import domain.Area;
 import domain.Finder;
-import domain.Procession;
+import domain.Parade;
 import services.AreaService;
 import services.ConfigurationService;
 import services.FinderService;
 import services.MemberService;
-import services.ProcessionService;
+import services.ParadeService;
 
 @Controller
 @RequestMapping("/finder/member")
@@ -46,7 +46,7 @@ public class FinderMemberController extends AbstractController {
 	private AreaService				areaService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -94,13 +94,13 @@ public class FinderMemberController extends AbstractController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		final ModelAndView modelAndView = new ModelAndView("procession/list");
+		final ModelAndView modelAndView = new ModelAndView("parade/list");
 		final Finder finder = this.finderService.findOneByPrincipal();
-		List<Procession> processions = new ArrayList<>();
+		List<Parade> parades = new ArrayList<>();
 
-		processions = this.finderService.updateCache(finder);
+		parades = this.finderService.updateCache(finder);
 
-		modelAndView.addObject("processions", processions);
+		modelAndView.addObject("parades", parades);
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
 		modelAndView.addObject("numResults", this.configurationService.findOne().getNumResults());
 		modelAndView.addObject("requestURI", "finder/member/list.do");
@@ -122,9 +122,9 @@ public class FinderMemberController extends AbstractController {
 
 		final List<Area> areas = new ArrayList<>();
 
-		final List<Procession> list = this.processionService.findProcessionsFinal();
-		for (final Procession procession : list) {
-			final Area area = this.areaService.findAreaByBrotherhoodId(procession.getBrotherhood().getId());
+		final List<Parade> list = this.paradeService.findParadesFinal();
+		for (final Parade parade : list) {
+			final Area area = this.areaService.findAreaByBrotherhoodId(parade.getBrotherhood().getId());
 			if (!areas.contains(area))
 				areas.add(area);
 		}

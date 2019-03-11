@@ -63,12 +63,12 @@ public class MarchMemberController extends AbstractController {
 	}
 	// Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int processionId) {
+	public ModelAndView create(@RequestParam final int paradeId) {
 		ModelAndView result;
 		March march;
 
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		march = this.marchService.create(processionId, a.getId());
+		march = this.marchService.create(paradeId, a.getId());
 		result = this.createEditModelAndView(march);
 		result.addObject("memberId", a.getId());
 

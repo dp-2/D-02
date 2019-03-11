@@ -182,13 +182,13 @@
 					</security:authorize>
 				</ul></li>
 			<security:authorize access="hasRole('BROTHERHOOD')">
-				<li><a class="fNiv" href="procession/list.do"><spring:message
-							code="master.page.processions" /></a>
+				<li><a class="fNiv" href="parade/list.do"><spring:message
+							code="master.page.parades" /></a>
 					<ul>
 
 						<li class="arrow"></li>
-						<li><a href="procession/brotherhood/myList.do"><spring:message
-									code="master.page.processions.brotherhood" /></a></li>
+						<li><a href="parade/brotherhood/myList.do"><spring:message
+									code="master.page.parades.brotherhood" /></a></li>
 
 
 					</ul>

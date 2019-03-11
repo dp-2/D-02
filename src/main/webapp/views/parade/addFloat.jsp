@@ -10,14 +10,14 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <jstl:if test="${isPrincipalAuthorizedEdit}">
 	
-	<form:form action="procession/brotherhood/removeFloat.do" modelAttribute="processionFloatForm">
+	<form:form action="parade/brotherhood/addFloat.do" modelAttribute="paradeFloatForm">
 		
-		<form:hidden path="procession" /> 
-			
-		<acme:select code="float" itemLabel="title" items="${floatsForRemove}" path="dFloat" />
-			
-		<acme:submit code="procession.removeFloat" name="remove" />
-		<acme:cancel url="procession/list.do" code="procession.back" />
+		<form:hidden path="parade" /> 
+		
+		<acme:select code="float" itemLabel="title" items="${floatsForAdd}" path="dFloat" />
+									
+		<acme:submit code="parade.addFloat" name="add" />
+		<acme:cancel url="parade/list.do" code="parade.back" />
 	
 	</form:form>
 

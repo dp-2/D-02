@@ -14,7 +14,7 @@ import domain.DFloat;
 import services.ActorService;
 import services.ConfigurationService;
 import services.DFloatService;
-import services.ProcessionService;
+import services.ParadeService;
 
 @Controller
 @RequestMapping("/dfloat")
@@ -28,7 +28,7 @@ public class DFloatController extends AbstractController {
 	ActorService					actorService;
 
 	@Autowired
-	ProcessionService				processionService;
+	ParadeService				paradeService;
 
 	@Autowired
 	private ConfigurationService	configurationService;

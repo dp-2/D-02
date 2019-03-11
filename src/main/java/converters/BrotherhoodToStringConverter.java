@@ -21,13 +21,13 @@ import domain.Brotherhood;
 public class BrotherhoodToStringConverter implements Converter<Brotherhood, String> {
 
 	@Override
-	public String convert(final Brotherhood procession) {
+	public String convert(final Brotherhood parade) {
 		String result;
 
-		if (procession == null)
+		if (parade == null)
 			result = null;
 		else
-			result = String.valueOf(procession.getId());
+			result = String.valueOf(parade.getId());
 
 		return result;
 	}

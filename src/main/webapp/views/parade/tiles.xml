@@ -16,24 +16,24 @@
        
 <tiles-definitions>
 
-	<definition name="procession/list" extends="master.page">	
-		<put-attribute name="title" value="Processions List" />
-		<put-attribute name="body" value="/views/procession/list.jsp" />
+	<definition name="parade/list" extends="master.page">	
+		<put-attribute name="title" value="Parades List" />
+		<put-attribute name="body" value="/views/parade/list.jsp" />
 	</definition>
 	
-	<definition name="procession/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit a Procession" />
-		<put-attribute name="body" value="/views/procession/edit.jsp" />
+	<definition name="parade/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit a Parade" />
+		<put-attribute name="body" value="/views/parade/edit.jsp" />
 	</definition>
 	
-	<definition name="procession/add" extends="master.page">
+	<definition name="parade/add" extends="master.page">
 		<put-attribute name="title" value="Add a float" />
-		<put-attribute name="body" value="/views/procession/addFloat.jsp" />
+		<put-attribute name="body" value="/views/parade/addFloat.jsp" />
 	</definition>
 	
-	<definition name="procession/remove" extends="master.page">
+	<definition name="parade/remove" extends="master.page">
 		<put-attribute name="title" value="Remove a float" />
-		<put-attribute name="body" value="/views/procession/removeFloat.jsp" />
+		<put-attribute name="body" value="/views/parade/removeFloat.jsp" />
 	</definition>
 	
 </tiles-definitions>

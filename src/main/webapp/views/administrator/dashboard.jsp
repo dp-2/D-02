@@ -146,15 +146,15 @@
 
 	<fieldset>
 		<legend>
-			<spring:message code="dashboard.processionsIn30Days">
+			<spring:message code="dashboard.paradesIn30Days">
 			</spring:message>
 		</legend>
 
-		<display:table name="processionsIn30Days" id="procession">
-			<acme:column code="dashboard.procession.title"
-				value="${ procession.title}"></acme:column>
-			<acme:column code="dashboard.procession.momentOrganised"
-				value="${ procession.momentOrganised}"></acme:column>
+		<display:table name="paradesIn30Days" id="parade">
+			<acme:column code="dashboard.parade.title"
+				value="${ parade.title}"></acme:column>
+			<acme:column code="dashboard.parade.momentOrganised"
+				value="${ parade.momentOrganised}"></acme:column>
 		</display:table>
 
 	</fieldset>

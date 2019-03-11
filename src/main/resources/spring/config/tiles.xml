@@ -23,7 +23,7 @@
 		<value>/views/law/tiles.xml</value>
 		<value>/views/configuration/tiles.xml</value>
 		<value>/views/actor/tiles.xml</value>
-		<value>/views/procession/tiles.xml</value>
+		<value>/views/parade/tiles.xml</value>
 		<value>/views/member/tiles.xml</value>
 		<value>/views/dfloat/tiles.xml</value>
 		<value>/views/enroll/tiles.xml</value>

@@ -19,40 +19,40 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="procession/brotherhood/edit.do"
-	modelAttribute="procession">
+<form:form action="parade/brotherhood/edit.do"
+	modelAttribute="parade">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="brotherhood" />
 	<form:hidden path="ticker" />
 
-	<acme:textbox code="procession.title" path="title" readonly="${isRead}" />
-	<acme:textbox code="procession.description" path="description"
+	<acme:textbox code="parade.title" path="title" readonly="${isRead}" />
+	<acme:textbox code="parade.description" path="description"
 		readonly="${isRead}" />
-	<acme:textbox code="procession.moment" path="momentOrganised"
+	<acme:textbox code="parade.moment" path="momentOrganised"
 		readonly="${isRead}" placeholder="yyyy/mm/dd" />
 
 
 
 
 	<jstl:if test="${isRead == false}">
-		<acme:checkbox code="procession.final" path="ffinal" />
+		<acme:checkbox code="parade.final" path="ffinal" />
 
 		<input type="submit" name="save"
-			value="<spring:message code="procession.save" />" />
+			value="<spring:message code="parade.save" />" />
 
-		<jstl:if test="${procession.id != 0}">
+		<jstl:if test="${parade.id != 0}">
 			<input type="submit" name="delete"
-				value="<spring:message code="procession.delete" />" />
+				value="<spring:message code="parade.delete" />" />
 		</jstl:if>
 
-		<acme:cancel url="procession/brotherhood/myList.do"
-			code="procession.cancel" />
+		<acme:cancel url="parade/brotherhood/myList.do"
+			code="parade.cancel" />
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
 
-		<acme:cancel url="procession/list.do" code="procession.back" />
+		<acme:cancel url="parade/list.do" code="parade.back" />
 
 	</jstl:if>
 

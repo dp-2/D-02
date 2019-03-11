@@ -19,18 +19,18 @@ import security.LoginService;
 import services.AreaService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
-import services.ProcessionService;
+import services.ParadeService;
 import domain.Brotherhood;
-import domain.Procession;
+import domain.Parade;
 
 @Controller
-@RequestMapping("/procession")
-public class ProcessionController extends AbstractController {
+@RequestMapping("/parade")
+public class ParadeController extends AbstractController {
 
 	//Services--------------------------------------------------------------------
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -44,15 +44,15 @@ public class ProcessionController extends AbstractController {
 
 	//Constructor-----------------------------------------------------------------
 
-	public ProcessionController() {
+	public ParadeController() {
 		super();
 	}
 
-	//List of Procession all actors-----------------------------------------------
+	//List of Parade all actors-----------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		final ModelAndView modelAndView = new ModelAndView("procession/list");
+		final ModelAndView modelAndView = new ModelAndView("parade/list");
 
 		final SecurityContext context = SecurityContextHolder.getContext();
 		Assert.notNull(context);
@@ -67,27 +67,27 @@ public class ProcessionController extends AbstractController {
 			}
 		}
 
-		final List<Procession> processions = this.processionService.findProcessionsFinal();
+		final List<Parade> parades = this.paradeService.findParadesFinal();
 
-		modelAndView.addObject("processions", processions);
+		modelAndView.addObject("parades", parades);
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
 		modelAndView.addObject("numResults", this.configurationService.findOne().getNumResults());
-		modelAndView.addObject("requestURI", "procession/list.do");
+		modelAndView.addObject("requestURI", "parade/list.do");
 
 		return modelAndView;
 	}
 
-	//List of Procession Navigation Brotherhood-----------------------------------------------
+	//List of Parade Navigation Brotherhood-----------------------------------------------
 	@RequestMapping(value = "/listBrotherhood", method = RequestMethod.GET)
-	public ModelAndView listBrotherhood(final int processionId) {
-		final ModelAndView modelAndView = new ModelAndView("procession/list");
+	public ModelAndView listBrotherhood(final int paradeId) {
+		final ModelAndView modelAndView = new ModelAndView("parade/list");
 
-		final Brotherhood brotherhood = this.processionService.findOne(processionId).getBrotherhood();
-		final List<Procession> processions = this.processionService.findProcessionsFinalByBrotherhoodId(brotherhood.getId());
+		final Brotherhood brotherhood = this.paradeService.findOne(paradeId).getBrotherhood();
+		final List<Parade> parades = this.paradeService.findParadesFinalByBrotherhoodId(brotherhood.getId());
 
-		modelAndView.addObject("processions", processions);
+		modelAndView.addObject("parades", parades);
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
-		//modelAndView.addObject("requestURI", "procession/listBrotherhood.do");
+		//modelAndView.addObject("requestURI", "parade/listBrotherhood.do");
 
 		return modelAndView;
 	}
@@ -96,12 +96,12 @@ public class ProcessionController extends AbstractController {
 	public ModelAndView listBrotherhoodAllUsers(@RequestParam final int brotherhoodId) {
 		final ModelAndView modelAndView;
 
-		final List<Procession> processions = this.processionService.findProcessionsFinalByBrotherhoodId(brotherhoodId);
+		final List<Parade> parades = this.paradeService.findParadesFinalByBrotherhoodId(brotherhoodId);
 
-		modelAndView = new ModelAndView("procession/list");
-		modelAndView.addObject("requestURI", "procession/listBrotherhoodAllUsers.do");
+		modelAndView = new ModelAndView("parade/list");
+		modelAndView.addObject("requestURI", "parade/listBrotherhoodAllUsers.do");
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
-		modelAndView.addObject("processions", processions);
+		modelAndView.addObject("parades", parades);
 
 		return modelAndView;
 	}

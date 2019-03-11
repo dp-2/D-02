@@ -30,7 +30,7 @@ public class MarchService {
 	//Servicios externos(cambiar los repositorios por servicios cuando se creen)
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService	paradeService;
 
 	@Autowired
 	private MemberService		memberService;
@@ -52,12 +52,12 @@ public class MarchService {
 	}
 
 	// Simple CRUD methods ------------------------------ (Operaciones básicas, pueden tener restricciones según los requisitos)
-	public March create(final int processionId, final int MemberId) {
+	public March create(final int paradeId, final int MemberId) {
 		March march;
 
 		march = new March();
 		march.setMember(this.memberService.findOne(MemberId));
-		march.setProcession(this.processionService.findOne(processionId));
+		march.setParade(this.paradeService.findOne(paradeId));
 		march.setStatus("PENDING");
 		final List<Integer> a = new ArrayList<>();
 		march.setLocation(a);
@@ -99,7 +99,7 @@ public class MarchService {
 				final Message message1 = this.messageService.create(this.boxService.findBoxByActorAndName(system, "outBox"));
 				message1.setBody("Status changed");
 				message1.setPriority("HIGH");
-				message1.setRecipient(march.getProcession().getBrotherhood());
+				message1.setRecipient(march.getParade().getBrotherhood());
 				message1.setSubject("Status changed");
 				message1.setTags("");
 				this.messageService.save(message1, true);
@@ -141,21 +141,21 @@ public class MarchService {
 		return true;
 	}
 	public Boolean checkPrincipalBro(final March march) {
-		final Brotherhood brotherhood = march.getProcession().getBrotherhood();
+		final Brotherhood brotherhood = march.getParade().getBrotherhood();
 		Assert.isTrue(brotherhood.getUserAccount().equals(LoginService.getPrincipal()), "No es su propietario");
 		return true;
 	}
-	public Collection<March> findMarchsByProcession(final int processionId) {
-		return this.marchRepository.findMarchsByProcession(processionId);
+	public Collection<March> findMarchsByParade(final int paradeId) {
+		return this.marchRepository.findMarchsByParade(paradeId);
 	}
 
 	public Collection<March> findMarchsByMember(final int memberId) {
 		return this.marchRepository.findMarchsByMember(memberId);
 	}
 
-	public Double findMatchByProcessionidAndMemberid(final int processionId, final int memberId) {
+	public Double findMatchByParadeidAndMemberid(final int paradeId, final int memberId) {
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		return this.marchRepository.findMatchByProcessionidAndMemberid(processionId, a.getId());
+		return this.marchRepository.findMatchByParadeidAndMemberid(paradeId, a.getId());
 	}
 
 	private List<Integer> generarNum() {

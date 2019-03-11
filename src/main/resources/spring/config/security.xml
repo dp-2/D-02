@@ -54,11 +54,11 @@
 		<security:intercept-url pattern="/register/actor.do"
 			access="permitAll" />
 
-		<security:intercept-url pattern="/procession/list.do"
+		<security:intercept-url pattern="/parade/list.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/procession/listBrotherhood.do"
+		<security:intercept-url pattern="/parade/listBrotherhood.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/procession/listBrotherhoodAllUsers.do"
+		<security:intercept-url pattern="/parade/listBrotherhoodAllUsers.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/dfloat/list.do"
 			access="permitAll" />
@@ -121,7 +121,7 @@
 			access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/member/edit.do"
 			access="hasRole('MEMBER')" />
-		<security:intercept-url pattern="/procession/member/list.do"
+		<security:intercept-url pattern="/parade/member/list.do"
 			access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/finder/member/update.do"
 			access="hasRole('MEMBER')" />
@@ -140,13 +140,13 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/march/brotherhood/save.do"
 			access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/procession/brotherhood/mylist.do"
+		<security:intercept-url pattern="/parade/brotherhood/mylist.do"
 			access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/procession/brotherhood/edit.do"
+		<security:intercept-url pattern="/parade/brotherhood/edit.do"
 			access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/procession/brotherhood/show.do"
+		<security:intercept-url pattern="/parade/brotherhood/show.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/procession/brotherhood/create.do"
+		<security:intercept-url pattern="/parade/brotherhood/create.do"
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/enroll/brotherhood/list.do"
 			access="hasRole('BROTHERHOOD')" />
@@ -168,7 +168,7 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/area/display.do"
 			access="hasAnyRole('BROTHERHOOD','ADMIN')" />
-		<security:intercept-url pattern="/procession/brotherhood/**"
+		<security:intercept-url pattern="/parade/brotherhood/**"
 			access="hasRole('BROTHERHOOD')" />
 
 

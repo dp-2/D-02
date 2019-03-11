@@ -18,11 +18,11 @@ import security.LoginService;
 import services.ActorService;
 import services.ConfigurationService;
 import services.DFloatService;
-import services.ProcessionService;
+import services.ParadeService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.DFloat;
-import domain.Procession;
+import domain.Parade;
 
 @Controller
 @RequestMapping("/dfloat/brotherhood")
@@ -36,7 +36,7 @@ public class DFloatBrotherhoodController extends AbstractController {
 	ActorService			actorService;
 
 	@Autowired
-	ProcessionService		processionService;
+	ParadeService		paradeService;
 
 	@Autowired
 	ConfigurationService	configurationService;
@@ -67,12 +67,12 @@ public class DFloatBrotherhoodController extends AbstractController {
 	public ModelAndView display(@RequestParam final int dfloatId) {
 		ModelAndView result;
 		DFloat dfloat;
-		Collection<Procession> myProcessions;
+		Collection<Parade> myParades;
 		dfloat = this.dfloatService.findOne(dfloatId);
-		myProcessions = dfloat.getProcessions();
+		myParades = dfloat.getParades();
 		result = new ModelAndView("dfloat/display");
 		result.addObject("dfloat", dfloat);
-		result.addObject("myProcessions", myProcessions);
+		result.addObject("myParades", myParades);
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;
@@ -94,18 +94,18 @@ public class DFloatBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		DFloat er;
 
-		Collection<Procession> allProcessions;
-		final Collection<Procession> myProcessions;
+		Collection<Parade> allParades;
+		final Collection<Parade> myParades;
 
 		er = this.dfloatService.findOne(dfloatId);
 		Assert.notNull(er);
 		final Brotherhood br = er.getBrotherhood();
-		allProcessions = this.processionService.findProcessionsByBrotherhoodId(br.getId());
-		myProcessions = er.getProcessions();
+		allParades = this.paradeService.findParadesByBrotherhoodId(br.getId());
+		myParades = er.getParades();
 
 		result = this.createEditModelAndView(er);
-		result.addObject("allProcessions", allProcessions);
-		result.addObject("myProcessions", myProcessions);
+		result.addObject("allParades", allParades);
+		result.addObject("myParades", myParades);
 
 		return result;
 

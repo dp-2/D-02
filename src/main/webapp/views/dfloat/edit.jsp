@@ -36,7 +36,7 @@
 			<form:hidden path="version" />
 
 			<form:hidden path="brotherhood" />
-			<form:hidden path="processions" />
+			<form:hidden path="parades" />
 
 
 			<fieldset>
@@ -51,9 +51,9 @@
 
 			<%-- <fieldset>
 				<legend>
-					<b><spring:message code="dfloat.processions"></spring:message></b>
+					<b><spring:message code="dfloat.parades"></spring:message></b>
 				</legend>
-				<display:table name="myProcessions" id="processions" pagesize="5"
+				<display:table name="myParades" id="parades" pagesize="5"
 					class="displaytag">
 
 					<spring:message code="dfloat.title" var="title"></spring:message>
@@ -74,9 +74,9 @@
 
 				<fieldset>
 					<legend>
-						<b><spring:message code="dfloat.processions"></spring:message></b>
+						<b><spring:message code="dfloat.parades"></spring:message></b>
 					</legend>
-					<display:table name="allProcessions" id="processions" pagesize="5"
+					<display:table name="allParades" id="parades" pagesize="5"
 						class="displaytag">
 
 						<spring:message code="dfloat.title" var="title"></spring:message>

@@ -15,25 +15,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Procession;
-import repositories.ProcessionRepository;
+import domain.Parade;
+import repositories.ParadeRepository;
 
 @Component
 @Transactional
-public class StringToProcessionConverter implements Converter<String, Procession> {
+public class StringToParadeConverter implements Converter<String, Parade> {
 
 	@Autowired
-	ProcessionRepository processionRepository;
+	ParadeRepository paradeRepository;
 
 
 	@Override
-	public Procession convert(final String text) {
-		Procession result;
+	public Parade convert(final String text) {
+		Parade result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.processionRepository.findOne(id);
+			result = this.paradeRepository.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}

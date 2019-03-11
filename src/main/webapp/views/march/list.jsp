@@ -37,7 +37,7 @@
 		</jstl:if>
 	</security:authorize>
 	<security:authorize access="hasRole('BROTHERHOOD')">
-		<jstl:if test="${brotherhoodId==row.procession.brotherhood.id}">
+		<jstl:if test="${brotherhoodId==row.parade.brotherhood.id}">
 			<display:column>
 
 				<a href="march/brotherhood/edit.do?marchId=${row.id}"> <spring:message
@@ -74,7 +74,7 @@
 		</jstl:if>
 	</display:column>
 		
-		<display:column property="procession.title" titleKey="march.procession" />
+		<display:column property="parade.title" titleKey="march.parade" />
 		
 	
 

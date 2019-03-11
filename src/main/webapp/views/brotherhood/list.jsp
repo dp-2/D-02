@@ -40,11 +40,11 @@
 	<acme:column value="member/list.do?brotherhoodId=${row.id}" url="true"
 		alt="${titleListMembers}" />
 
-	<spring:message code='brotherhood.listprocessions'
-		var="titleListProcessions" />
+	<spring:message code='brotherhood.listparades'
+		var="titleListParades" />
 	<acme:column
-		value="procession/listBrotherhoodAllUsers.do?brotherhoodId=${row.id}"
-		url="true" alt="${titleListProcessions}" />
+		value="parade/listBrotherhoodAllUsers.do?brotherhoodId=${row.id}"
+		url="true" alt="${titleListParades}" />
 	
 
 	<spring:message code='brotherhood.listfloats' var="titleListFloats" />

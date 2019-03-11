@@ -1,26 +1,19 @@
 
-package domain;
+package forms;
 
 import java.util.Date;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
-@Access(AccessType.PROPERTY)
-public class Procession extends DomainEntity {
+public class ParadeForm {
 
-	// Properties
+	private int		id;
+	private int		version;
 
 	private String	ticker;
 	private String	title;
@@ -28,9 +21,27 @@ public class Procession extends DomainEntity {
 	private Date	momentOrganised;
 	private boolean	ffinal;
 
+	private int		finderId;
+	private int		brotherhoodId;
 
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(final int id) {
+		this.id = id;
+	}
+
+	public int getVersion() {
+		return this.version;
+	}
+
+	public void setVersion(final int version) {
+		this.version = version;
+	}
 	@NotBlank
-	@SafeHtml
+	@Pattern(regexp = "^\\d{6}-[A-Z]{6}$")
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -39,7 +50,6 @@ public class Procession extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml
 	public String getTitle() {
 		return this.title;
 	}
@@ -48,7 +58,6 @@ public class Procession extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml
 	public String getDescription() {
 		return this.description;
 	}
@@ -56,9 +65,8 @@ public class Procession extends DomainEntity {
 		this.description = description;
 	}
 
-	@NotNull
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@DateTimeFormat(pattern = "yyyy/mm/dd")
 	public Date getMomentOrganised() {
 		return this.momentOrganised;
 	}
@@ -73,21 +81,20 @@ public class Procession extends DomainEntity {
 		this.ffinal = ffinal;
 	}
 
-
-	//Relationships
-
-	private Brotherhood	brotherhood;
-
-
-	@Valid
-	@NotNull
-	@ManyToOne(optional = false)
-	public Brotherhood getBrotherhood() {
-		return this.brotherhood;
+	public int getFinderId() {
+		return this.finderId;
 	}
 
-	public void setBrotherhood(final Brotherhood brotherhood) {
-		this.brotherhood = brotherhood;
+	public void setFinderId(final int finderId) {
+		this.finderId = finderId;
+	}
+
+	public int getBrotherhoodId() {
+		return this.brotherhoodId;
+	}
+
+	public void setBrotherhoodId(final int brotherhoodId) {
+		this.brotherhoodId = brotherhoodId;
 	}
 
 }

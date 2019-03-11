@@ -10,24 +10,24 @@
 
 <tiles-definitions>
 
-	<definition name="procession/list" extends="master.page">
+	<definition name="parade/list" extends="master.page">
 		<put-attribute name="title" value="Lista de Procesiones" />
-		<put-attribute name="body" value="/views/procession/list.jsp" />
+		<put-attribute name="body" value="/views/parade/list.jsp" />
 	</definition>
 
-	<definition name="procession/edit" extends="master.page">
+	<definition name="parade/edit" extends="master.page">
 		<put-attribute name="title" value="Editar una Procesion" />
-		<put-attribute name="body" value="/views/procession/edit.jsp" />
+		<put-attribute name="body" value="/views/parade/edit.jsp" />
 	</definition>
 	
-	<definition name="procession/add" extends="master.page">
+	<definition name="parade/add" extends="master.page">
 		<put-attribute name="title" value="Añadir un paso" />
-		<put-attribute name="body" value="/views/procession/addFloat.jsp" />
+		<put-attribute name="body" value="/views/parade/addFloat.jsp" />
 	</definition>
 	
-	<definition name="procession/remove" extends="master.page">
+	<definition name="parade/remove" extends="master.page">
 		<put-attribute name="title" value="Quitar un paso" />
-		<put-attribute name="body" value="/views/procession/removeFloat.jsp" />
+		<put-attribute name="body" value="/views/parade/removeFloat.jsp" />
 	</definition>
 
 </tiles-definitions>

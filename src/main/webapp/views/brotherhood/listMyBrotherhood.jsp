@@ -43,11 +43,11 @@
 		alt="${titleListMembers}" />
 
 	<security:authorize access="hasRole('MEMBER')">
-		<spring:message code='brotherhood.listMyprocessions'
-			var="titleListProcessions" />
+		<spring:message code='brotherhood.listMyparades'
+			var="titleListParades" />
 		<acme:column
-			value="procession/member/list.do?brotherhoodId=${row.id}"
-			url="true" alt="${titleListProcessions}" />
+			value="parade/member/list.do?brotherhoodId=${row.id}"
+			url="true" alt="${titleListParades}" />
 	</security:authorize>
 
 	<spring:message code='brotherhood.listfloats' var="titleListFloats" />

@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 
 import domain.Finder;
 import domain.Member;
-import domain.Procession;
+import domain.Parade;
 import repositories.FinderRepository;
 import security.Authority;
 import security.LoginService;
@@ -36,7 +36,7 @@ public class FinderService {
 	private ConfigurationService	configurationService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private ServiceUtils			serviceUtils;
@@ -48,11 +48,11 @@ public class FinderService {
 		final Finder finder = new Finder();
 		final Member member = this.memberService.findMemberByUserAcountId(LoginService.getPrincipal().getId());
 		final Date lastUpdate = new Date();
-		final List<Procession> processions = new ArrayList<>();
+		final List<Parade> parades = new ArrayList<>();
 
 		finder.setMember(member);
 		finder.setLastUpdate(lastUpdate);
-		finder.setProcessions(processions);
+		finder.setParades(parades);
 
 		return finder;
 	}
@@ -69,8 +69,8 @@ public class FinderService {
 		Assert.isTrue(this.checkPrincipal(finder));
 		if (finder.getVersion() > 0) {
 			finder.setLastUpdate(new Date(System.currentTimeMillis() - 1000));
-			final List<Procession> processions = this.findProcessionByFinder(finder);
-			finder.setProcessions(processions);
+			final List<Parade> parades = this.findParadeByFinder(finder);
+			finder.setParades(parades);
 		}
 		return this.finderRepository.save(finder);
 	}
@@ -91,14 +91,14 @@ public class FinderService {
 		return true;
 	}
 
-	public List<Procession> searchProcessions(final String keyword, final Date dateMin, final Date dateMax) {
-		final List<Procession> res = new ArrayList<>();
+	public List<Parade> searchParades(final String keyword, final Date dateMin, final Date dateMax) {
+		final List<Parade> res = new ArrayList<>();
 
-		final List<Procession> processions = this.processionService.findProcessionsFinal();
-		for (final Procession procession : processions)
-			if ((procession.getTitle().toLowerCase().contains(keyword.toLowerCase()) || procession.getDescription().toLowerCase().contains(keyword.toLowerCase())) && procession.getMomentOrganised().after(dateMin)
-				&& procession.getMomentOrganised().before(dateMax))
-				res.add(procession);
+		final List<Parade> parades = this.paradeService.findParadesFinal();
+		for (final Parade parade : parades)
+			if ((parade.getTitle().toLowerCase().contains(keyword.toLowerCase()) || parade.getDescription().toLowerCase().contains(keyword.toLowerCase())) && parade.getMomentOrganised().after(dateMin)
+				&& parade.getMomentOrganised().before(dateMax))
+				res.add(parade);
 		return res;
 	}
 
@@ -106,31 +106,31 @@ public class FinderService {
 		return this.finderRepository.findFinderByMemberId(memberId);
 	}
 
-	public List<Procession> updateCache(final Finder finder) {
+	public List<Parade> updateCache(final Finder finder) {
 		final Integer timeCache = this.configurationService.findOne().getCacheFinder();
 		final Date dnow = new Date();
 
-		List<Procession> processions = new ArrayList<>();
+		List<Parade> parades = new ArrayList<>();
 
 		if (finder.getLastUpdate() == null || dnow.getTime() - finder.getLastUpdate().getTime() > (timeCache * 3600000)) {
-			processions = this.findProcessionByFinder(finder);
+			parades = this.findParadeByFinder(finder);
 			finder.setLastUpdate(new Date(System.currentTimeMillis() - 1000));
-			finder.setProcessions(processions);
+			finder.setParades(parades);
 			this.save(finder);
 		} else
-			processions = finder.getProcessions();
+			parades = finder.getParades();
 
-		return processions;
+		return parades;
 
 	}
 
-	public List<Procession> findProcessionByFinder(final Finder f) {
+	public List<Parade> findParadeByFinder(final Finder f) {
 		final Finder finder = new Finder();
 		finder.setMaxDate(f.getMaxDate());
 		finder.setMinDate(f.getMinDate());
 		finder.setKeyword(f.getKeyword());
 		finder.setArea(f.getArea());
-		List<Procession> res = new ArrayList<>();
+		List<Parade> res = new ArrayList<>();
 
 		if (finder.getMaxDate() == null) {
 			final Date dmax = new Date();
@@ -148,16 +148,16 @@ public class FinderService {
 			finder.setKeyword("");
 
 		if (finder.getArea() == null)
-			res = this.searchProcessions(finder.getKeyword(), finder.getMinDate(), finder.getMaxDate());
+			res = this.searchParades(finder.getKeyword(), finder.getMinDate(), finder.getMaxDate());
 		else {
-			final List<Procession> processions = this.searchProcessions(finder.getKeyword(), finder.getMinDate(), finder.getMaxDate());
-			for (final Procession procession : processions)
-				if (finder.getArea().getBrotherhood().getId() == procession.getBrotherhood().getId())
-					res.add(procession);
+			final List<Parade> parades = this.searchParades(finder.getKeyword(), finder.getMinDate(), finder.getMaxDate());
+			for (final Parade parade : parades)
+				if (finder.getArea().getBrotherhood().getId() == parade.getBrotherhood().getId())
+					res.add(parade);
 		}
 
 		if (f.getArea() == null && f.getMinDate() == null && f.getMaxDate() == null && f.getMaxDate() == null)
-			res = this.processionService.findProcessionsFinal();
+			res = this.paradeService.findParadesFinal();
 
 		return res;
 	}

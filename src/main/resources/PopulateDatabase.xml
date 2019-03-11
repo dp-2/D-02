@@ -271,7 +271,7 @@
 		<property name="target" value="http://sponsorship1.com" />
 		<property name="sponsor" ref="sponsor1" />
 		<property name="creditCard" ref="creditcard1" />
-		<property name="procession" ref="procession2" />
+		<property name="parade" ref="parade2" />
 	</bean>
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
@@ -280,7 +280,7 @@
 		<property name="target" value="http://sponsorship2.com" />
 		<property name="sponsor" ref="sponsor2" />
 		<property name="creditCard" ref="creditcard2" />
-		<property name="procession" ref="procession4" />
+		<property name="parade" ref="parade4" />
 	</bean>
 
 	<bean id="sponsorship3" class="domain.Sponsorship">
@@ -289,7 +289,7 @@
 		<property name="target" value="https://www.pepsi.com/" />
 		<property name="sponsor" ref="sponsor4" />
 		<property name="creditCard" ref="creditcard3" />
-		<property name="procession" ref="procession2" />
+		<property name="parade" ref="parade2" />
 	</bean>
 
 	<bean id="sponsorship4" class="domain.Sponsorship">
@@ -298,7 +298,7 @@
 		<property name="target" value="https://www.pepsi.com/" />
 		<property name="sponsor" ref="sponsor4" />
 		<property name="creditCard" ref="creditcard4" />
-		<property name="procession" ref="procession4" />
+		<property name="parade" ref="parade4" />
 	</bean>
 
 	<!-- CREDIT CARD -->
@@ -1201,9 +1201,9 @@
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
 		<property name="brotherhood" ref="brotherhood1" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
+				<ref bean="parade1" />
 			</list>
 		</property>
 	</bean>
@@ -1215,9 +1215,9 @@
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
 		<property name="brotherhood" ref="brotherhood2" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession2" />
+				<ref bean="parade2" />
 			</list>
 		</property>
 	</bean>
@@ -1268,9 +1268,9 @@
 	</bean>
 
 
-	<!-- Procession -->
+	<!-- Parade -->
 
-	<bean id="procession1" class="domain.Procession">
+	<bean id="parade1" class="domain.Parade">
 		<property name="ticker" value="123456-ASDGH" />
 		<property name="title" value="El Cachorro" />
 		<property name="description"
@@ -1280,7 +1280,7 @@
 		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
-	<bean id="procession2" class="domain.Procession">
+	<bean id="parade2" class="domain.Parade">
 		<property name="ticker" value="173456-AUDFG" />
 		<property name="title" value="La pasion de Cristo" />
 		<property name="description"
@@ -1290,7 +1290,7 @@
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
-	<bean id="procession3" class="domain.Procession">
+	<bean id="parade3" class="domain.Parade">
 		<property name="ticker" value="123456-ASDBH" />
 		<property name="title" value="Procesion de los valientes" />
 		<property name="description"
@@ -1300,7 +1300,7 @@
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
-	<bean id="procession4" class="domain.Procession">
+	<bean id="parade4" class="domain.Parade">
 		<property name="ticker" value="173456-BUDFG" />
 		<property name="title" value="La pasion de Cristo" />
 		<property name="description"
@@ -1433,7 +1433,7 @@
 
 	<bean id="finder1" class="domain.Finder">
 		<property name="member" ref="member1" />
-		<property name="processions">
+		<property name="parades">
 			<list>
 			</list>
 		</property>
@@ -1442,7 +1442,7 @@
 
 	<bean id="finder2" class="domain.Finder">
 		<property name="member" ref="member2" />
-		<property name="processions">
+		<property name="parades">
 			<list>
 			</list>
 		</property>
@@ -1451,7 +1451,7 @@
 
 	<bean id="finder3" class="domain.Finder">
 		<property name="member" ref="member3" />
-		<property name="processions">
+		<property name="parades">
 			<list>
 			</list>
 		</property>
@@ -1460,7 +1460,7 @@
 
 	<bean id="finder4" class="domain.Finder">
 		<property name="member" ref="member4" />
-		<property name="processions">
+		<property name="parades">
 			<list>
 			</list>
 
@@ -1469,7 +1469,7 @@
 	</bean>
 
 	<!-- <bean id="finder4" class="domain.Finder"> <property name="member" ref="member4" 
-		/> <property name="processions"> <list> <ref bean="procession4" /> </list> 
+		/> <property name="parades"> <list> <ref bean="parade4" /> </list> 
 		</property> <property name="lastUpdate" value="Feb 2, 2018" /> <property 
 		name="minDate" value="Feb 1, 2020" /> <property name="maxDate" value="Feb 
 		1, 2022" /> <property name="keyword" value="finder3" /> </bean> -->
@@ -1557,7 +1557,7 @@
 		<property name="nameSys" value="Acme-Madrugá" />
 		<property name="banner" value="https://tinyurl.com/acme-madruga" />
 		<property name="welcomeMessageEN"
-			value="Welcome to Acme Madrugá¡! The site to organise your processions." />
+			value="Welcome to Acme Madrugá¡! The site to organise your parades." />
 		<property name="welcomeMessageES"
 			value="¡Bienvenidos a Acme Madrugá¡! Tu sitio para organizar procesiones." />
 		<property name="spamWordsEN">
@@ -1627,14 +1627,14 @@
 	<bean id="march1" class="domain.March">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member1" />
-		<property name="procession" ref="procession1" />
+		<property name="parade" ref="parade1" />
 	</bean>
 
 	<bean id="march2" class="domain.March">
 		<property name="status" value="REJECTED"></property>
 		<property name="reason" value="NO SE PUEDE"></property>
 		<property name="member" ref="member2" />
-		<property name="procession" ref="procession1" />
+		<property name="parade" ref="parade1" />
 	</bean>
 
 	<bean id="march3" class="domain.March">
@@ -1646,14 +1646,14 @@
 			</list>
 		</property>
 		<property name="member" ref="member2" />
-		<property name="procession" ref="procession1" />
+		<property name="parade" ref="parade1" />
 	</bean>
 
 	<bean id="march4" class="domain.March">
 		<property name="status" value="PENDING"></property>
 		<property name="reason" value=""></property>
 		<property name="member" ref="member1" />
-		<property name="procession" ref="procession1" />
+		<property name="parade" ref="parade1" />
 	</bean>
 
 
@@ -1666,13 +1666,13 @@
 			</list>
 		</property>
 		<property name="member" ref="member1" />
-		<property name="procession" ref="procession3" />
+		<property name="parade" ref="parade3" />
 	</bean>
 
 	<!-- <bean id="march6" class="domain.March"> <property name="status" value="APPROVED" 
 		/> <property name="location"> <list> <value>2</value> <value>2</value> </list> 
-		</property> <property name="member" ref="member1" /> <property name="procession" 
-		ref="procession4" /> </bean> -->
+		</property> <property name="member" ref="member1" /> <property name="parade" 
+		ref="parade4" /> </bean> -->
 
 	<!-- Other domain beans come here -->
 

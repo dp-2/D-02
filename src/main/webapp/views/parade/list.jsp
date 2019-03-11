@@ -18,23 +18,23 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="processions" id="row" requestURI="${requestURI}"
+<display:table name="parades" id="row" requestURI="${requestURI}"
 	pagesize="${numResults}" class="displaytag">
 
 	<security:authorize access="hasRole('BROTHERHOOD')">
 
 		<display:column>
 			<jstl:if test="${row.ffinal == false}">
-				<a href="procession/brotherhood/edit.do?processionId=${row.id}">
-					<spring:message code="procession.edit" />
+				<a href="parade/brotherhood/edit.do?paradeId=${row.id}">
+					<spring:message code="parade.edit" />
 				</a>
 				<br>
-				<a href="procession/brotherhood/addFloat.do?processionId=${row.id}">
-					<spring:message code="procession.addFloat" />
+				<a href="parade/brotherhood/addFloat.do?paradeId=${row.id}">
+					<spring:message code="parade.addFloat" />
 				</a>
 				<br>
-				<a href="procession/brotherhood/removeFloat.do?processionId=${row.id}">
-					<spring:message code="procession.removeFloat" />
+				<a href="parade/brotherhood/removeFloat.do?paradeId=${row.id}">
+					<spring:message code="parade.removeFloat" />
 				</a>
 				
 			</jstl:if>
@@ -43,19 +43,19 @@
 
 
 
-	<display:column titleKey="procession.hood">
-		<a href="procession/listBrotherhood.do?processionId=${row.id}"> <jstl:out
+	<display:column titleKey="parade.hood">
+		<a href="parade/listBrotherhood.do?paradeId=${row.id}"> <jstl:out
 				value="${row.brotherhood.name}" />
 		</a>
 	</display:column>
 
-	<display:column property="ticker" titleKey="procession.ticker" />
+	<display:column property="ticker" titleKey="parade.ticker" />
 	<security:authorize access="hasRole('BROTHERHOOD')">
 
-		<display:column titleKey="procession.member">
+		<display:column titleKey="parade.member">
 
-			<a href="march/brotherhood/list.do?processionId=${row.id}"> <spring:message
-					code="procession.list" />
+			<a href="march/brotherhood/list.do?paradeId=${row.id}"> <spring:message
+					code="parade.list" />
 			</a>
 
 		</display:column>
@@ -65,8 +65,8 @@
 
 	<display:column>
 
-		<a href="procession/brotherhood/show.do?processionId=${row.id}"> <spring:message
-				code="procession.show" />
+		<a href="parade/brotherhood/show.do?paradeId=${row.id}"> <spring:message
+				code="parade.show" />
 		</a>
 
 	</display:column>
@@ -76,9 +76,9 @@
 	<security:authorize access="hasRole('MEMBER')">
 	
 		<display:column>
-		<jstl:if test="${marchService.findMatchByProcessionidAndMemberid(row.id,memberId)==0}">
-			<a href="march/member/create.do?processionId=${row.id}"> <spring:message
-					code="procession.createMarch" />
+		<jstl:if test="${marchService.findMatchByParadeidAndMemberid(row.id,memberId)==0}">
+			<a href="march/member/create.do?paradeId=${row.id}"> <spring:message
+					code="parade.createMarch" />
 			</a>
 		</jstl:if>
 		</display:column>
@@ -90,14 +90,14 @@
 <br />
 <security:authorize access="hasRole('BROTHERHOOD')">
 	<jstl:if test="${hasArea != null}">
-		<a href="procession/brotherhood/create.do"> <spring:message
-				code="procession.create" />
+		<a href="parade/brotherhood/create.do"> <spring:message
+				code="parade.create" />
 		</a>
 	</jstl:if>
 
 	<jstl:if test="${hasArea == null}">
 		<p>
-			<spring:message code="procession.area.null" />
+			<spring:message code="parade.area.null" />
 		</p>
 	</jstl:if>
 </security:authorize>

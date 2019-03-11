@@ -23,11 +23,11 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="member" />
-	<form:hidden path="procession" />
+	<form:hidden path="parade" />
 	<security:authorize access="hasRole('MEMBER')">
 		<form:hidden path="status" />
 		<h1>
-			<b><spring:message code="march.create1"></spring:message>${march.procession.title}</b>
+			<b><spring:message code="march.create1"></spring:message>${march.parade.title}</b>
 		</h1>
 	</security:authorize>
 	<security:authorize access="hasRole('BROTHERHOOD')">
@@ -73,7 +73,7 @@
 
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<acme:cancel
-			url="/march/brotherhood/list.do?processionId=${march.getProcession().getId()}"
+			url="/march/brotherhood/list.do?paradeId=${march.getParade().getId()}"
 			code="march.cancel" />
 
 		<br />

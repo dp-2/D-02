@@ -22,7 +22,7 @@ import services.ActorService;
 import services.ConfigurationService;
 import services.EnrollService;
 import services.MemberService;
-import services.ProcessionService;
+import services.ParadeService;
 import services.SocialProfileService;
 
 @Controller
@@ -48,7 +48,7 @@ public class MemberController extends AbstractController {
 	EnrollService					enrollService;
 
 	@Autowired
-	ProcessionService				processionService;
+	ParadeService				paradeService;
 
 	@Autowired
 	SocialProfileService			socialProfileService;
