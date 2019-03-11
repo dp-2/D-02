@@ -1,19 +1,21 @@
 
 package repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import domain.Sponsor;
 import domain.Sponsorship;
 
 @Repository
 public interface SponsorshipRepository extends JpaRepository<Sponsorship, Integer> {
 
 	//query a.1
-	@Query("select 1.0*count(s)/(select count(ss) from Sponsorship ss ) from Sponsorship s where s.isActive=true")
+	@Query("select 1.0*count(s)/(select count(ss) from Sponsorship ss ) from Sponsorship s where s.active=true")
 	Double ratioActiveSponsorship();
 
 	//query a.2.1
@@ -28,6 +30,10 @@ public interface SponsorshipRepository extends JpaRepository<Sponsorship, Intege
 	//query a.2.4
 	@Query("select stddev(1.0 * (select count(*) from Sponsorship s where s.sponsor = sp.id)) from Sponsor sp")
 	Double stddevSponsorshipBySponsor();
+
+	//query a.3
+	@Query("select s.sponsor.userAccount.username from Sponsorship s where s.active = true group by s.sponsor.id order by count(s) desc")
+	public ArrayList<Sponsor> top5Sponsors();
 
 	//Other queries-----------------------------------------------------------------
 
