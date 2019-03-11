@@ -133,6 +133,57 @@
 		</property>
 	</bean>
 
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount12" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+
+	<bean id="userAccount13" class="security.UserAccount">
+		<property name="username" value="sponsor3" />
+		<property name="password" value="857a54956061fdc1b88d7722cafe6519" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount14" class="security.UserAccount">
+		<property name="username" value="sponsor4" />
+		<property name="password" value="a8be034fe44a453e912feadc414dc803" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
 	<!-- La contraseña de system es intencional, no se puede acceder a esta 
 		cuenta -->
 
@@ -151,7 +202,142 @@
 
 
 	<!-- Other domain beans come here -->
+	<!-- SPONSOR -->
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="name" value="RedBull" />
+		<property name="middleName" value="middleName5" />
+		<property name="surname" value="surname5" />
+		<property name="photo"
+			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
+		<property name="email" value="emailSponsor1@gmail.com" />
+		<property name="phone" value="650190444" />
+		<property name="address" value="adress5" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="score" value="0.3" />
+		<property name="userAccount" ref="userAccount11" />
+	</bean>
 
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="name" value="CocaCola" />
+		<property name="middleName" value="middleName6" />
+		<property name="surname" value="surname5" />
+		<property name="photo"
+			value="https://lettersystems.com.ar/files/thumbs/clienteVer/clientes/2015/10/01/5970d19a38334-cocacola.jpg" />
+		<property name="email" value="emailSponsor2@gmail.com" />
+		<property name="phone" value="650190487" />
+		<property name="address" value="adress6" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="score" value="0.2" />
+		<property name="userAccount" ref="userAccount12" />
+	</bean>
+
+	<bean id="sponsor3" class="domain.Sponsor">
+		<property name="name" value="Cruzcampo" />
+		<property name="middleName" value="middleName10" />
+		<property name="surname" value="surname10" />
+		<property name="photo"
+			value="http://rotudec.com/imagenes/clientecruzcampo.svg" />
+		<property name="email" value="emailSponsor3@gmail.com" />
+		<property name="phone" value="650190409" />
+		<property name="address" value="adress7" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="score" value="0.1" />
+		<property name="userAccount" ref="userAccount13" />
+	</bean>
+
+	<bean id="sponsor4" class="domain.Sponsor">
+		<property name="name" value="Pepsi" />
+		<property name="middleName" value="middleName11" />
+		<property name="surname" value="surname11" />
+		<property name="photo"
+			value="http://tiyc.blogia.com/upload/20140601232111-logo-pepsi.jpg" />
+		<property name="email" value="emailSponsor4@gmail.com" />
+		<property name="phone" value="650190403" />
+		<property name="address" value="adress8" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="score" value="0.0" />
+		<property name="userAccount" ref="userAccount14" />
+	</bean>
+	
+	<!-- SPONSORSHIPS -->
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="banner"
+			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
+		<property name="target" value="http://sponsorship1.com" />
+		<property name="sponsor" ref="sponsor1" />
+		<property name="creditCard" ref="creditcard1" />
+		<property name="procession" ref="procession2" />
+	</bean>
+
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="banner"
+			value="https://lettersystems.com.ar/files/thumbs/clienteVer/clientes/2015/10/01/5970d19a38334-cocacola.jpg" />
+		<property name="target" value="http://sponsorship2.com" />
+		<property name="sponsor" ref="sponsor2" />
+		<property name="creditCard" ref="creditcard2" />
+		<property name="procession" ref="procession4" />
+	</bean>
+
+	<bean id="sponsorship3" class="domain.Sponsorship">
+		<property name="banner"
+			value="https://i5.walmartimages.com/asr/c5c0c18c-2c15-4b64-8ec6-6ac388635f14_1.cc600c48d70486a9371b3d11975088f4.jpeg" />
+		<property name="target" value="https://www.pepsi.com/" />
+		<property name="sponsor" ref="sponsor4" />
+		<property name="creditCard" ref="creditcard3" />
+		<property name="procession" ref="procession2" />
+	</bean>
+
+	<bean id="sponsorship4" class="domain.Sponsorship">
+		<property name="banner"
+			value="http://tiyc.blogia.com/upload/20140601232111-logo-pepsi.jpg" />
+		<property name="target" value="https://www.pepsi.com/" />
+		<property name="sponsor" ref="sponsor4" />
+		<property name="creditCard" ref="creditcard4" />
+		<property name="procession" ref="procession4" />
+	</bean>
+	
+	<!-- CREDIT CARD -->
+
+	<bean id="creditcard1" class="domain.CreditCard">
+		<property name="holderName" value="holderName1" />
+		<property name="makeName" value="VISA" />
+		<property name="number" value="4172711227177926" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2021" />
+		<property name="CVVCode" value="110" />
+	</bean>
+
+	<bean id="creditcard2" class="domain.CreditCard">
+		<property name="holderName" value="holderName2" />
+		<property name="makeName" value="MCARD" />
+		<property name="number" value="5545176232272269" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2022" />
+		<property name="CVVCode" value="220" />
+	</bean>
+
+	<bean id="creditcard3" class="domain.CreditCard">
+		<property name="holderName" value="holderName3" />
+		<property name="makeName" value="DINNERS" />
+		<property name="number" value="38084454680414" />
+		<property name="expirationMonth" value="2" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="303" />
+	</bean>
+
+	<bean id="creditcard4" class="domain.CreditCard">
+		<property name="holderName" value="holderName4" />
+		<property name="makeName" value="FLY" />
+		<property name="number" value="374258474911460" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="440" />
+	</bean>
+	
 
 	<!-- Administrators -->
 
@@ -254,8 +440,213 @@
 
 
 	<!-- Box -->
+	
+	<!-- Boxes del sponsor1 -->
 
+	<bean id="folder1Sponsor1" class="domain.Box">
+		<property name="name" value="inBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder1Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+
+	</bean>
+
+	<bean id="folder2Sponsor1" class="domain.Box">
+		<property name="name" value="outBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder2Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+
+	</bean>
+
+	<bean id="folder3Sponsor1" class="domain.Box">
+		<property name="name" value="trashBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder3Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+
+	</bean>
+
+
+	<bean id="folder4Sponsor1" class="domain.Box">
+		<property name="name" value="spamBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder4Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+
+	</bean>
+
+	<bean id="folder5Sponsor1" class="domain.Box">
+		<property name="name" value="notificationBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder5Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+
+	</bean>
+
+	<bean id="folder6Sponsor1" class="domain.Box">
+		<property name="name" value="testBox" />
+		<property name="isSystem" value="false" />
+		<property name="rootBox" ref="folder5Sponsor1" />
+		<property name="actor" ref="sponsor1" />
+
+	</bean>
+
+	<!-- Boxes del sponsor2 -->
+
+	<bean id="folder1Sponsor2" class="domain.Box">
+		<property name="name" value="inBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder1Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+
+	</bean>
+
+	<bean id="folder2Sponsor2" class="domain.Box">
+		<property name="name" value="outBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder2Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+
+	</bean>
+
+	<bean id="folder3Sponsor2" class="domain.Box">
+		<property name="name" value="trashBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder3Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+
+	</bean>
+
+
+	<bean id="folder4Sponsor2" class="domain.Box">
+		<property name="name" value="spamBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder4Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+
+	</bean>
+
+	<bean id="folder5Sponsor2" class="domain.Box">
+		<property name="name" value="notificationBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder5Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+
+	</bean>
+
+	<bean id="folder6Sponsor2" class="domain.Box">
+		<property name="name" value="testBox" />
+		<property name="isSystem" value="false" />
+		<property name="rootBox" ref="folder5Sponsor2" />
+		<property name="actor" ref="sponsor2" />
+
+	</bean>
+	
+	<!-- Boxes del sponsor3 -->
+
+	<bean id="folder1Sponsor3" class="domain.Box">
+		<property name="name" value="inBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder1Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+
+	</bean>
+
+	<bean id="folder2Sponsor3" class="domain.Box">
+		<property name="name" value="outBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder2Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+
+	</bean>
+
+	<bean id="folder3Sponsor3" class="domain.Box">
+		<property name="name" value="trashBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder3Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+
+	</bean>
+
+
+	<bean id="folder4Sponsor3" class="domain.Box">
+		<property name="name" value="spamBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder4Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+
+	</bean>
+
+	<bean id="folder5Sponsor3" class="domain.Box">
+		<property name="name" value="notificationBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder5Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+
+	</bean>
+
+	<bean id="folder6Sponsor3" class="domain.Box">
+		<property name="name" value="testBox" />
+		<property name="isSystem" value="false" />
+		<property name="rootBox" ref="folder5Sponsor3" />
+		<property name="actor" ref="sponsor3" />
+
+	</bean>
+	
+	<!-- Boxes del sponsor4 -->
+
+	<bean id="folder1Sponsor4" class="domain.Box">
+		<property name="name" value="inBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder1Sponsor4" />
+		<property name="actor" ref="sponsor4" />
+
+	</bean>
+
+	<bean id="folder2Sponsor4" class="domain.Box">
+		<property name="name" value="outBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder2Sponsor4" />
+		<property name="actor" ref="sponsor4" />
+
+	</bean>
+
+	<bean id="folder3Sponsor4" class="domain.Box">
+		<property name="name" value="trashBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder3Sponsor4" />
+		<property name="actor" ref="sponsor4" />
+
+	</bean>
+
+
+	<bean id="folder4Sponsor4" class="domain.Box">
+		<property name="name" value="spamBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder4Sponsor4" />
+		<property name="actor" ref="sponsor4" />
+
+	</bean>
+
+	<bean id="folder5Sponsor4" class="domain.Box">
+		<property name="name" value="notificationBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder5Sponsor4" />
+		<property name="actor" ref="sponsor4" />
+
+	</bean>
+
+	<bean id="folder6Sponsor4" class="domain.Box">
+		<property name="name" value="testBox" />
+		<property name="isSystem" value="false" />
+		<property name="rootBox" ref="folder5Sponsor4" />
+		<property name="actor" ref="sponsor4" />
+
+	</bean>
+	
 	<!-- Boxes del system -->
+	
 	<bean id="inboxSystem" class="domain.Box">
 		<property name="name" value="inBox" />
 		<property name="isSystem" value="true" />
@@ -288,7 +679,7 @@
 		<property name="actor" ref="system" />
 
 	</bean>
-	
+
 	<bean id="notificationBoxSystem" class="domain.Box">
 		<property name="name" value="notificationBox" />
 		<property name="isSystem" value="true" />
