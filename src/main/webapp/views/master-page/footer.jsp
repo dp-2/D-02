@@ -36,5 +36,5 @@
 </div>
 
 <b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" />
-	Acme-Madruga Co., Inc.
+	Acme-Parade Co., Inc.
 </b>
