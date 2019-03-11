@@ -1,8 +1,8 @@
 /*
  * Authority.java
- * 
+ *
  * Copyright (C) 2019 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -27,7 +27,7 @@ public class Authority implements GrantedAuthority {
 
 	// Constructors -----------------------------------------------------------
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
 
 	public Authority() {
@@ -41,13 +41,14 @@ public class Authority implements GrantedAuthority {
 	public static final String	MEMBER		= "MEMBER";
 	public static final String	BROTHERHOOD	= "BROTHERHOOD";
 	public static final String	BANNED		= "BANNED";
+	public static final String	SPONSOR		= "SPONSOR";
 	// Attributes -------------------------------------------------------------
 
 	private String				authority;
 
 
 	@NotBlank
-	@Pattern(regexp = "^" + Authority.ADMIN + "|" + Authority.BANNED + "|" + Authority.BROTHERHOOD + "|" + Authority.MEMBER + "$")
+	@Pattern(regexp = "^" + Authority.ADMIN + "|" + Authority.BANNED + "|" + Authority.BROTHERHOOD + "|" + Authority.MEMBER + "|" + Authority.SPONSOR + "$")
 	@Override
 	public String getAuthority() {
 		return this.authority;
@@ -77,6 +78,10 @@ public class Authority implements GrantedAuthority {
 
 		authority = new Authority();
 		authority.setAuthority(Authority.BANNED);
+		result.add(authority);
+
+		authority = new Authority();
+		authority.setAuthority(Authority.SPONSOR);
 		result.add(authority);
 
 		return result;
