@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import utilities.AbstractTest;
 import domain.Box;
 import domain.Message;
+import utilities.AbstractTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -74,7 +74,7 @@ public class MessageServiceTest extends AbstractTest {
 	public void saveTest(final String username, final Message message, final Class<?> expected) {
 		super.authenticate(username);
 		try {
-			this.messageService.save(message);
+			this.messageService.save(message, null);
 		} catch (final Throwable t) {
 			final Class<?> caught = t.getClass();
 			super.checkExceptions(expected, caught);
