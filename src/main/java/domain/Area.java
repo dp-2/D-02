@@ -4,6 +4,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 
@@ -45,6 +46,7 @@ public class Area extends DomainEntity {
 	// Relationships
 
 	private Brotherhood	brotherhood;
+	private Chapter		chapter;
 
 
 	@Valid
@@ -52,8 +54,19 @@ public class Area extends DomainEntity {
 	public Brotherhood getBrotherhood() {
 		return this.brotherhood;
 	}
+
 	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
+	}
+
+	@Valid
+	@ManyToOne(optional = false)
+	public Chapter getChapter() {
+		return this.chapter;
+	}
+
+	public void setChapter(final Chapter chapter) {
+		this.chapter = chapter;
 	}
 
 }
