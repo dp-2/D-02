@@ -54,6 +54,16 @@
 			</jstl:if>
 		</display:column>
 	</security:authorize>
+	
+	<security:authorize access="hasRole('CHAPTER')">
+	<display:column>
+			<jstl:if test="${row.chapter==null}">
+				<a href="area/coordinate.do?areaId=${row.id}"> <spring:message
+						code="area.coordinate" />
+				</a>
+			</jstl:if>
+		</display:column>
+		</security:authorize>
 </display:table>
 
 

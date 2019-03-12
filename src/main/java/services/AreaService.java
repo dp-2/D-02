@@ -10,11 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.AreaRepository;
+import security.LoginService;
 import domain.Actor;
 import domain.Area;
 import domain.Brotherhood;
-import repositories.AreaRepository;
-import security.LoginService;
+import domain.Chapter;
 
 @Service
 @Transactional
@@ -31,6 +32,9 @@ public class AreaService {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private ChapterService		chapterService;
 
 
 	// Simple CRUD methods
@@ -75,6 +79,16 @@ public class AreaService {
 		area.setBrotherhood(bro);
 		this.areaRepository.save(area);
 	}
+
+	public void coordinate(final Area area) {
+
+		Assert.isTrue(area.getChapter() == null);
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final Chapter chapter = this.chapterService.findOne(a.getId());
+		area.setChapter(chapter);
+		this.areaRepository.save(area);
+	}
+
 	//--------------Other Methods-------------------------------
 
 	public Map<String, Double> statsBrotherhoodPerArea() {

@@ -1,5 +1,5 @@
 
-package controllers.Brotherhood;
+package controllers;
 
 import java.util.Collection;
 
@@ -13,16 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.AreaService;
 import services.ConfigurationService;
-import controllers.AbstractController;
 import domain.Area;
 
 @Controller
 @RequestMapping("/area")
-public class AreaBrotherhoodController extends AbstractController {
+public class AreaController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public AreaBrotherhoodController() {
+	public AreaController() {
 		super();
 	}
 
@@ -67,6 +66,21 @@ public class AreaBrotherhoodController extends AbstractController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "/coordinate", method = RequestMethod.GET)
+	public ModelAndView coordinate(@RequestParam final int areaId) {
+
+		ModelAndView result;
+		final Area area = this.areaService.findOne(areaId);
+		try {
+			this.areaService.coordinate(area);
+			result = this.list();
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(area, "area.commit.error");
+		}
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final Area area) {
 		ModelAndView result;
 
