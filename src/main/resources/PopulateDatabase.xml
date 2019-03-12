@@ -402,13 +402,13 @@
 
 	<bean id="proclaim1" class="domain.Proclaim">
 		<property name="text" value="she proclaim" />
-		<property name="lastUpdate" value="Feb 1, 2019" />
+		<property name="moment" value="Feb 1, 2019" />
 		<property name="chapter" ref="chapter1" />
 	</bean>
 
 	<bean id="proclaim2" class="domain.Proclaim">
 		<property name="text" value="she proclaim two" />
-		<property name="lastUpdate" value="Apr 21, 2009" />
+		<property name="moment" value="Apr 21, 2009" />
 		<property name="chapter" ref="chapter1" />
 	</bean>
 
