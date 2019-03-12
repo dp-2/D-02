@@ -1201,7 +1201,7 @@
 
 	<bean id="dfloat1" class="domain.DFloat">
 		<property name="title" value="La pasion de cristo" />
-		<property name="description" value="La pasion de cristo es una procesion normal " />
+		<property name="description" value="La pasion de cristo es una desfile normal " />
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
 		<property name="brotherhood" ref="brotherhood1" />
@@ -1278,7 +1278,7 @@
 		<property name="ticker" value="123456-ASDGH" />
 		<property name="title" value="El Cachorro" />
 		<property name="description"
-			value="El Cachorro es una procesion normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
+			value="El Cachorro es una desfile normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
 		<property name="momentOrganised" value="2019/03/14" />
 		<property name="ffinal" value="false" />
 		<property name="brotherhood" ref="brotherhood1" />
@@ -1288,7 +1288,7 @@
 		<property name="ticker" value="173456-AUDFG" />
 		<property name="title" value="La pasion de Cristo" />
 		<property name="description"
-			value="La pasion de Cristo es una procesion normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
+			value="La pasion de Cristo es una desfile normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
 		<property name="momentOrganised" value="2019/09/02" />
 		<property name="ffinal" value="true" />
 		<property name="brotherhood" ref="brotherhood2" />
@@ -1298,7 +1298,7 @@
 		<property name="ticker" value="123456-ASDBH" />
 		<property name="title" value="Procesion de los valientes" />
 		<property name="description"
-			value=" es una procesion normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
+			value=" es una desfile normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
 		<property name="momentOrganised" value="2020/09/02" />
 		<property name="ffinal" value="false" />
 		<property name="brotherhood" ref="brotherhood2" />
@@ -1308,7 +1308,7 @@
 		<property name="ticker" value="173456-BUDFG" />
 		<property name="title" value="La pasion de Cristo" />
 		<property name="description"
-			value="La pasion de Cristo es una procesion normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
+			value="La pasion de Cristo es una desfile normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
 		<property name="momentOrganised" value="2020/09/02" />
 		<property name="ffinal" value="true" />
 		<property name="brotherhood" ref="brotherhood2" />
@@ -1473,10 +1473,10 @@
 	</bean>
 
 	<!-- <bean id="finder4" class="domain.Finder"> <property name="member" ref="member4" 
-		/> <property name="parades"> <list> <ref bean="parade4" /> </list> 
-		</property> <property name="lastUpdate" value="Feb 2, 2018" /> <property 
-		name="minDate" value="Feb 1, 2020" /> <property name="maxDate" value="Feb 
-		1, 2022" /> <property name="keyword" value="finder3" /> </bean> -->
+		/> <property name="parades"> <list> <ref bean="parade4" /> </list> </property> 
+		<property name="lastUpdate" value="Feb 2, 2018" /> <property name="minDate" 
+		value="Feb 1, 2020" /> <property name="maxDate" value="Feb 1, 2022" /> <property 
+		name="keyword" value="finder3" /> </bean> -->
 
 
 
@@ -1561,9 +1561,9 @@
 		<property name="nameSys" value="Acme-Madrugá" />
 		<property name="banner" value="https://tinyurl.com/acme-parade" />
 		<property name="welcomeMessageEN"
-			value="Welcome to Acme Madrugá¡! The site to organise your parades." />
+			value="Welcome to Acme Parade¡! The site to organise your parades." />
 		<property name="welcomeMessageES"
-			value="¡Bienvenidos a Acme Madrugá¡! Tu sitio para organizar procesiones." />
+			value="¡Bienvenidos a Acme Parade¡! Tu sitio para organizar desfiles." />
 		<property name="spamWordsEN">
 			<list>
 				<value>sex</value>
@@ -1625,6 +1625,15 @@
 		<property name="cacheFinder" value="1" />
 		<property name="numResults" value="10" />
 		<property name="countryCode" value="34" />
+		<property name="makeName">
+			<list>
+				<value>VISA</value>
+				<value>MCARD</value>
+				<value>DINNERS</value>
+				<value>AMEX</value>
+				<value>FLY</value>
+			</list>
+		</property>
 	</bean>
 
 	<!-- March -->
