@@ -66,6 +66,14 @@
 		<bean class="converters.DFloatToStringConverter" />
 		<bean class="converters.StringToDFloatConverter" />
 		
+		<bean class="converters.SponsorshipToStringConverter" />
+		<bean class="converters.StringToSponsorshipConverter" />
+		
+		<bean class="converters.SponsorToStringConverter" />
+		<bean class="converters.StringToSponsorConverter" />
+		
+		<bean class="converters.CreditCardToStringConverter" />
+		<bean class="converters.StringToCreditCardConverter" />
 	</util:list>
 
 </beans>

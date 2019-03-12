@@ -40,7 +40,7 @@
 		<value>/views/brotherhood/messages</value>
 		
 		<value>/views/area/messages</value>
-		
+		<value>/views/sponsorship/messages</value>
 
 
 	</util:list>
