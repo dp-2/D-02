@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -19,8 +20,19 @@ public class InceptionRecord extends DomainEntity {
 	//Atributos
 	private Collection<Url>	photos;
 
+	//relaciones
+	private History			history;
 
-	//Relaciones
+
+	@Valid
+	@OneToOne
+	public History getHistory() {
+		return this.history;
+	}
+
+	public void setHistory(final History history) {
+		this.history = history;
+	}
 
 	//Getters y Setters
 	@ElementCollection

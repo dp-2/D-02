@@ -8,6 +8,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -19,13 +20,26 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class PeriodRecord {
+public class PeriodRecord extends DomainEntity {
 
 	//Atributos
 	private Date			startYear;
 	private Date			endYear;
 	private Collection<Url>	photos;
 
+	//relaciones
+	private History			history;
+
+
+	@Valid
+	@ManyToOne(optional = false)
+	public History getHistory() {
+		return this.history;
+	}
+
+	public void setHistory(final History history) {
+		this.history = history;
+	}
 
 	//Getters y Setters
 	@NotNull

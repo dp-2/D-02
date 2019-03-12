@@ -1702,12 +1702,11 @@
 		<property name="text" value="Aqui adjunto mi historial con los records que proceden"></property>
 		
 		
-		<property name="inceptionRecords">
-			<list>
-			</list>
+		<property name="inceptionRecord" ref="inceptionRecord1">
 		</property>
 		<property name="periodRecords">
 			<list>
+			<ref bean="periodRecord1"/>
 			</list>
 		</property>
 		<property name="linkRecords">
@@ -1741,6 +1740,26 @@
 		</property>
 
 	</bean>
+	
+	
+	
+	
+	<!-- Period record -->
+	
+	<bean id="periodRecord1" class="domain.PeriodRecord">
+		<property name="startYear" value="2016/03/14"></property>
+		<property name="endYear" value="2018/03/14"></property>
+		<property name="photos">
+		<list>
+				<bean id="photo1PeriodRecord1" class="domain.Url">
+					<property name="url"
+						value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D" />
+				</bean>
+			</list>
+		</property>
+		<property name="history" ref="history1"></property>
+	</bean>
+	
 	
 	
 	

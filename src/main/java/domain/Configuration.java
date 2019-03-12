@@ -155,6 +155,8 @@ public class Configuration extends DomainEntity {
 		this.countryCode = countrtCode;
 	}
 
+	@NotEmpty
+	@ElementCollection
 	public List<String> getMakeName() {
 		return this.makeName;
 	}

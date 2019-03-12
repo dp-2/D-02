@@ -58,7 +58,7 @@ public class History extends DomainEntity {
 	public Brotherhood getBrotherhood() {
 		return this.brotherhood;
 	}
-	public void setHandyWorker(final Brotherhood brotherhood) {
+	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
 	}
 
