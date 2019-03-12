@@ -1702,12 +1702,11 @@
 		<property name="text" value="Aqui adjunto mi historial con los records que proceden"></property>
 		
 		
-		<property name="inceptionRecords">
-			<list>
-			</list>
+		<property name="inceptionRecord" ref="inceptionRecord1">
 		</property>
 		<property name="periodRecords">
 			<list>
+			<ref bean="periodRecord1"/>
 			</list>
 		</property>
 		<property name="linkRecords">
@@ -1741,6 +1740,54 @@
 		</property>
 
 	</bean>
+	
+	
+	
+	
+	<!-- Period record -->
+	
+	<bean id="periodRecord1" class="domain.PeriodRecord">
+		<property name="startYear" value="2016/03/14"></property>
+		<property name="endYear" value="2018/03/14"></property>
+		<property name="photos">
+		<list>
+				<bean id="photo1PeriodRecord1" class="domain.Url">
+					<property name="url"
+						value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D" />
+				</bean>
+			</list>
+		</property>
+		<property name="history" ref="history1"></property>
+	</bean>
+	
+	
+		<bean id="linkRecord1" class="domain.LinkRecord">
+		<property name="history" ref="history1" />
+
+		<property name="linkBrotherhood"
+			value="https://www.instagram.com/explore/locations/256999308/hermandad-del-gran-poder/" />
+
+
+	</bean>
+
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+		<property name="history" ref="history1" />
+
+
+	</bean>
+
+	<bean id="legalRecord1" class="domain.LegalRecord">
+		<property name="history" ref="history1" />
+		<property name="legalName" value="Normativa legal del cristo del gran poder"></property>
+		<property name="VATNumber" value="1234567890 "></property>
+		<property name="laws" value="La antiguedad determina la posicion , amar a cristo sobre todas las cosas"></property>
+				
+		
+		
+
+
+	</bean>
+	
 	
 	
 	
