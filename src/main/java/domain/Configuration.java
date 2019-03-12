@@ -34,6 +34,7 @@ public class Configuration extends DomainEntity {
 	private int				numResults;
 	private int				cacheFinder;
 	private int				countryCode;
+	private List<String>	makeName;
 
 
 	@NotBlank
@@ -148,8 +149,18 @@ public class Configuration extends DomainEntity {
 		return this.countryCode;
 	}
 
+	@NotEmpty
+	@ElementCollection
 	public void setCountryCode(final int countrtCode) {
 		this.countryCode = countrtCode;
+	}
+
+	public List<String> getMakeName() {
+		return this.makeName;
+	}
+
+	public void setMakeName(final List<String> makeName) {
+		this.makeName = makeName;
 	}
 
 }

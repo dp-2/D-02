@@ -60,6 +60,7 @@
 		readonly="${isRead}" />
 	<acme:textbox code="conf.positiveES" path="positiveWordsES"
 		readonly="${isRead}" />
+	<acme:textbox code="conf.makeName" path="makeName" readonly="${isRead}" />
 
 
 	<jstl:if test="${isRead == false}">

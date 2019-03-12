@@ -32,7 +32,7 @@ public class ConfigurationService {
 	private AdministratorService	administratorService;
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
 
 
 	//Metodos--------------------------------------------------------------------
@@ -45,6 +45,8 @@ public class ConfigurationService {
 	public Configuration save(final Configuration configuration) {
 		Assert.notNull(configuration);
 		Assert.isTrue(this.administratorService.isPrincipalAdmin(), "noAdmin");
+
+		configuration.setMakeName(this.makeNameUpper(configuration));
 
 		final Configuration saved = this.configurationRepository.save(configuration);
 
@@ -100,6 +102,14 @@ public class ConfigurationService {
 			res = configuration.getWelcomeMessageES();
 
 		return res;
+	}
+
+	public List<String> makeNameUpper(final Configuration configuration) {
+		final List<String> result = new ArrayList<>();
+		final List<String> makeNames = configuration.getMakeName();
+		for (final String string : makeNames)
+			result.add(string.toUpperCase());
+		return result;
 	}
 
 }

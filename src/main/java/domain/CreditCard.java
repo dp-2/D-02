@@ -4,7 +4,6 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
@@ -33,7 +32,7 @@ public class CreditCard extends DomainEntity {
 		this.holderName = holderName;
 	}
 
-	@Pattern(regexp = "^(VISA|MCARD|DINNERS|AMEX|FLY)$")
+	@NotBlank
 	public String getMakeName() {
 		return this.makeName;
 	}
