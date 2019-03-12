@@ -117,7 +117,7 @@ public class SponsorService {
 
 			//Comprobamos que el actor sea un Sponsor
 			final String[] auths = new String[] {
-				"MEMBER", "ADMIN"
+				"SPONSOR", "ADMIN"
 			};
 			this.serviceUtils.checkAnyAuthority(auths);
 			//esto es para ver si el actor que está logueado es el mismo que se está editando
