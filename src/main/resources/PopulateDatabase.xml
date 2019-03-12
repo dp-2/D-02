@@ -370,6 +370,7 @@
 	<!-- CHAPTER -->
 
 	<bean id="chapter1" class="domain.Chapter">
+		<property name="title" value="Reunión1" />
 		<property name="name" value="Carlos" />
 		<property name="surname" value="Sánchez" />
 		<property name="photo"
@@ -384,6 +385,7 @@
 	</bean>
 
 	<bean id="chapter2" class="domain.Chapter">
+		<property name="title" value="Reunión2" />
 		<property name="name" value="Manuel" />
 		<property name="middleName" value="Jesús" />
 		<property name="surname" value="Montoro" />
