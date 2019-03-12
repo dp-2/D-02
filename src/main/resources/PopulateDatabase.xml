@@ -1856,25 +1856,6 @@
 			value="Aqui adjunto mi historial con los records que proceden"></property>
 
 
-		<property name="inceptionRecord" ref="inceptionRecord1">
-		</property>
-		<property name="periodRecords">
-			<list>
-				<ref bean="periodRecord1" />
-			</list>
-		</property>
-		<property name="linkRecords">
-			<list>
-			</list>
-		</property>
-		<property name="miscellaneousRecords">
-			<list>
-			</list>
-		</property>
-		<property name="legalRecords">
-			<list>
-			</list>
-		</property>
 	</bean>
 
 	<bean id="inceptionRecord1" class="domain.InceptionRecord">
