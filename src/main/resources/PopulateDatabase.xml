@@ -183,6 +183,30 @@
 		</property>
 	</bean>
 
+	<bean id="userAccount15" class="security.UserAccount">
+		<property name="username" value="chapter1" />
+		<property name="password" value="178494D73A41F7D68E80F685324D3662" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount16" class="security.UserAccount">
+		<property name="username" value="chapter2" />
+		<property name="password" value="07A29F2348D728FAD16C5260823F93EF" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 
 	<!-- La contraseña de system es intencional, no se puede acceder a esta 
 		cuenta -->
@@ -343,7 +367,50 @@
 		<property name="CVVCode" value="440" />
 	</bean>
 
+	<!-- CHAPTER -->
 
+	<bean id="chapter1" class="domain.Chapter">
+		<property name="name" value="Carlos" />
+		<property name="surname" value="Sánchez" />
+		<property name="photo"
+			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
+		<property name="email" value="chapter1@gmail.com" />
+		<property name="phone" value="650190444" />
+		<property name="address" value="adress1" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="score" value="0.3" />
+		<property name="userAccount" ref="userAccount15" />
+	</bean>
+
+	<bean id="chapter2" class="domain.Chapter">
+		<property name="name" value="Manuel" />
+		<property name="middleName" value="Jesús" />
+		<property name="surname" value="Montoro" />
+		<property name="photo"
+			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
+		<property name="email" value="chapter2@gmail.com" />
+		<property name="phone" value="650190444" />
+		<property name="address" value="adress2" />
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="score" value="0.5" />
+		<property name="userAccount" ref="userAccount15" />
+	</bean>
+
+	<!-- CHAPTER -->
+
+	<bean id="proclaim1" class="domain.Proclaim">
+		<property name="text" value="she proclaim" />
+		<property name="lastUpdate" value="Feb 1, 2019" />
+		<property name="chapter" ref="chapter1" />
+	</bean>
+
+	<bean id="proclaim2" class="domain.Proclaim">
+		<property name="text" value="she proclaim two" />
+		<property name="lastUpdate" value="Apr 21, 2009" />
+		<property name="chapter" ref="chapter1" />
+	</bean>
 
 	<!-- Administrators -->
 
@@ -403,8 +470,7 @@
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
-
-
+		<property name="chapter" ref="chapter1" />
 	</bean>
 
 	<bean id="area2" class="domain.Area">
@@ -412,35 +478,35 @@
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
-
+		<property name="chapter" ref="chapter1" />
 	</bean>
 
 	<bean id="area3" class="domain.Area">
 		<property name="name" value="Capilla del pueblo" />
 		<property name="pictures"
 			value="https://www.verpueblos.com/fotos_originales/1/5/0/00294150.jpg,http://www.catedralalmeria.com/wp-content/uploads/2016/01/capilla_galeria.jpg" />
-
+		<property name="chapter" ref="chapter1" />
 	</bean>
 
 
 	<bean id="area4" class="domain.Area">
 		<property name="name" value="Area sin imagenes" />
 		<property name="pictures" value="http://a.com" />
-
+		<property name="chapter" ref="chapter1" />
 	</bean>
 
 	<bean id="area5" class="domain.Area">
 		<property name="name" value="Capilla del pueblo" />
 		<property name="pictures"
 			value="https://205015-618768-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2018/06/basilica-san-pedro-interior.jpeg,https://static8.depositphotos.com/1004999/906/i/950/depositphotos_9062415-stock-photo-interior-of-st-peters-basilica.jpg" />
-
+		<property name="chapter" ref="chapter2" />
 	</bean>
 
 	<bean id="area6" class="domain.Area">
 		<property name="name" value="Capilla del pueblo" />
 		<property name="pictures"
 			value="https://www.informador.mx/__export/1506032862276/sites/elinformador/img/historico/0/618383.jpg_1970638775.jpg" />
-
+		<property name="chapter" ref="chapter2" />
 	</bean>
 
 
@@ -689,6 +755,91 @@
 
 	</bean>
 
+	<!-- Boxes del chapter1 -->
+
+	<bean id="folder1Chapter1" class="domain.Box">
+		<property name="name" value="inBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder1Chapter1" />
+		<property name="actor" ref="chapter1" />
+
+	</bean>
+
+	<bean id="folder2Chapter1" class="domain.Box">
+		<property name="name" value="outBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder2Chapter1" />
+		<property name="actor" ref="chapter1" />
+
+	</bean>
+
+	<bean id="folder3Chapter1" class="domain.Box">
+		<property name="name" value="trashBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder3Chapter1" />
+		<property name="actor" ref="chapter1" />
+
+	</bean>
+
+
+	<bean id="folder4Chapter1" class="domain.Box">
+		<property name="name" value="spamBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder4Chapter1" />
+		<property name="actor" ref="chapter1" />
+
+	</bean>
+
+	<bean id="folder5Chapter1" class="domain.Box">
+		<property name="name" value="notificationBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder5Chapter1" />
+		<property name="actor" ref="chapter1" />
+
+	</bean>
+
+	<!-- Boxes del chapter2 -->
+
+	<bean id="folder1Chapter2" class="domain.Box">
+		<property name="name" value="inBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder1Chapter2" />
+		<property name="actor" ref="chapter2" />
+
+	</bean>
+
+	<bean id="folder2Chapter2" class="domain.Box">
+		<property name="name" value="outBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder2Chapter2" />
+		<property name="actor" ref="chapter2" />
+
+	</bean>
+
+	<bean id="folder3Chapter2" class="domain.Box">
+		<property name="name" value="trashBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder3Chapter2" />
+		<property name="actor" ref="chapter2" />
+
+	</bean>
+
+
+	<bean id="folder4Chapter2" class="domain.Box">
+		<property name="name" value="spamBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder4Chapter2" />
+		<property name="actor" ref="chapter2" />
+
+	</bean>
+
+	<bean id="folder5Chapter2" class="domain.Box">
+		<property name="name" value="notificationBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="folder5Chapter2" />
+		<property name="actor" ref="chapter2" />
+
+	</bean>
 
 	<!-- Boxes del member1 -->
 
@@ -1693,20 +1844,21 @@
 		<property name="isWarning" value="false" />
 
 
-<!-- _______________________________________________ACME PARADE_____________________________________________________________ -->
+		<!-- _______________________________________________ACME PARADE_____________________________________________________________ -->
 
 	</bean>
-		<bean id="history1" class="domain.History">
+	<bean id="history1" class="domain.History">
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="title" value="History1"></property>
-		<property name="text" value="Aqui adjunto mi historial con los records que proceden"></property>
-		
-		
+		<property name="text"
+			value="Aqui adjunto mi historial con los records que proceden"></property>
+
+
 		<property name="inceptionRecord" ref="inceptionRecord1">
 		</property>
 		<property name="periodRecords">
 			<list>
-			<ref bean="periodRecord1"/>
+				<ref bean="periodRecord1" />
 			</list>
 		</property>
 		<property name="linkRecords">
@@ -1722,16 +1874,16 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="inceptionRecord1" class="domain.InceptionRecord">
-			<property name="history" ref="history1" />
-			<property name="photos">
+		<property name="history" ref="history1" />
+		<property name="photos">
 			<list>
 				<bean id="photo1inceptionRecord1" class="domain.Url">
 					<property name="url"
 						value="http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg" />
 				</bean>
-				
+
 				<bean id="photo2inceptionRecord1" class="domain.Url">
 					<property name="url"
 						value="http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG" />
@@ -1740,17 +1892,17 @@
 		</property>
 
 	</bean>
-	
-	
-	
-	
+
+
+
+
 	<!-- Period record -->
-	
+
 	<bean id="periodRecord1" class="domain.PeriodRecord">
 		<property name="startYear" value="2016/03/14"></property>
 		<property name="endYear" value="2018/03/14"></property>
 		<property name="photos">
-		<list>
+			<list>
 				<bean id="photo1PeriodRecord1" class="domain.Url">
 					<property name="url"
 						value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D" />
@@ -1759,9 +1911,9 @@
 		</property>
 		<property name="history" ref="history1"></property>
 	</bean>
-	
-	
-		<bean id="linkRecord1" class="domain.LinkRecord">
+
+
+	<bean id="linkRecord1" class="domain.LinkRecord">
 		<property name="history" ref="history1" />
 
 		<property name="linkBrotherhood"
@@ -1780,20 +1932,21 @@
 		<property name="history" ref="history1" />
 		<property name="legalName" value="Normativa legal del cristo del gran poder"></property>
 		<property name="VATNumber" value="1234567890 "></property>
-		<property name="laws" value="La antiguedad determina la posicion , amar a cristo sobre todas las cosas"></property>
-				
-		
-		
+		<property name="laws"
+			value="La antiguedad determina la posicion , amar a cristo sobre todas las cosas"></property>
+
+
+
 
 
 	</bean>
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 
 
 </beans>
