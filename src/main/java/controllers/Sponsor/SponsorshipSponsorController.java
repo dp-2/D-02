@@ -119,7 +119,7 @@ public class SponsorshipSponsorController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Sponsorship sponsorship, final String message) {
 		ModelAndView result;
-		final Collection<Parade> parades = this.paradeService.findParadesFinal();
+		final Collection<Parade> parades = this.paradeService.findParadesAccepted();
 
 		result = new ModelAndView("sponsorship/edit");
 		result.addObject("sponsorship", sponsorship);

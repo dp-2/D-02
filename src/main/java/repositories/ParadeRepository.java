@@ -17,6 +17,9 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select p from Parade p where p.ffinal = true and p.momentOrganised > CURRENT_DATE")
 	List<Parade> findParadesFinal();
 
+	@Query("select p from Parade p where p.status = 'ACCEPTED' and p.momentOrganised > CURRENT_DATE and p.ffinal=true")
+	List<Parade> findParadesAccepted();
+
 	@Query("select p from Parade p where p.ffinal = true and p.momentOrganised > CURRENT_DATE and p.brotherhood.id = ?1")
 	List<Parade> findParadesFinalByBrotherhoodId(int brotherhoodId);
 
@@ -38,4 +41,7 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 
 	@Query("select 1.0*count(p)/(select count(pp) from Parade pp) from Parade p where p.ffinal=true group by p.status")
 	List<Double> ratioAreasNoCoordinated();
+
+	@Query("select 1.0*count(p)/(select count(pp) from Parade pp where pp.ffinal=false) from Parade p where p.ffinal=true")
+	Double ratioParadesDraftVsParadesFinal();
 }

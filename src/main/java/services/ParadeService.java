@@ -18,13 +18,13 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.ParadeRepository;
+import security.LoginService;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.DFloat;
 import domain.Parade;
 import forms.ParadeForm;
-import repositories.ParadeRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -33,7 +33,7 @@ public class ParadeService {
 	//Repository-----------------------------------------------------------------
 
 	@Autowired
-	private ParadeRepository	paradeRepository;
+	private ParadeRepository		paradeRepository;
 
 	//Service--------------------------------------------------------------------
 
@@ -151,6 +151,10 @@ public class ParadeService {
 
 	public List<Parade> findParadesFinal() {
 		return this.paradeRepository.findParadesFinal();
+	}
+
+	public List<Parade> findParadesAccepted() {
+		return this.paradeRepository.findParadesAccepted();
 	}
 
 	public List<Parade> findParadesFinalByBrotherhoodId(final int brotherhoodId) {
