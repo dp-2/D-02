@@ -16,7 +16,7 @@ import domain.Proclaim;
 public interface ProclaimRepository extends JpaRepository<Proclaim, Integer> {
 
 	@Query("select a from Area a where a.chapter.id = ?1")
-	Collection<Area> findChapterByChapter(int chapterId);
+	Collection<Area> findAreaByChapter(int chapterId);
 
 	@Query("select a.brotherhood from Area a where a.chapter.id = ?1")
 	Collection<Brotherhood> findBrotherhoodByChapter(int chapterId);
