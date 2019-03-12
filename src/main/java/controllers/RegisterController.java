@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
-import services.ActorService;
-import services.ConfigurationService;
 import domain.Actor;
 import domain.Administrator;
 import forms.ActorForm;
+import security.Authority;
+import services.ActorService;
+import services.ConfigurationService;
 
 @Controller
 @RequestMapping("/register")
@@ -38,6 +38,8 @@ public class RegisterController extends AbstractController {
 			Actor actor = null;
 			// Faltan actores
 			switch (authority) {
+			case "SPONSOR":
+				actor = this.actorService.create("SPONSOR");
 			case "MEMBER":
 				actor = this.actorService.create("MEMBER");
 				break;
@@ -103,6 +105,8 @@ public class RegisterController extends AbstractController {
 			result = new ModelAndView("register/member");
 		else if (actorForm.getAuthority().equals(Authority.BROTHERHOOD))
 			result = new ModelAndView("register/brotherhood");
+		else if (actorForm.getAuthority().equals(Authority.SPONSOR))
+			result = new ModelAndView("register/sponsor");
 		else
 			throw new NullPointerException();
 
@@ -122,6 +126,8 @@ public class RegisterController extends AbstractController {
 			principal = null;
 		}
 		if (principal == null && form.getAuthority().equals(Authority.MEMBER))
+			res = true;
+		if (principal == null && form.getAuthority().equals(Authority.SPONSOR))
 			res = true;
 		if (principal instanceof Administrator && form.getAuthority().equals(Authority.ADMIN))
 			res = true;
