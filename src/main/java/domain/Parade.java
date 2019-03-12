@@ -11,9 +11,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -27,8 +29,18 @@ public class Parade extends DomainEntity {
 	private String	description;
 	private Date	momentOrganised;
 	private boolean	ffinal;
+	private String	status;
 
 
+	@NotBlank
+	@Pattern(regexp = "^SUBMITTED$|^ACCEPTED$|^REJECTED$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getStatus() {
+		return this.status;
+	}
+	public void setStatus(final String status) {
+		this.status = status;
+	}
 	@NotBlank
 	@SafeHtml
 	public String getTicker() {

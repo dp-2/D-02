@@ -472,7 +472,7 @@
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
-		<property name="chapter" ref="chapter1" />
+		
 	</bean>
 
 	<bean id="area2" class="domain.Area">
@@ -480,7 +480,7 @@
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
-		<property name="chapter" ref="chapter1" />
+		
 	</bean>
 
 	<bean id="area3" class="domain.Area">
@@ -1434,6 +1434,7 @@
 			value="El Cachorro es una desfile normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
 		<property name="momentOrganised" value="2019/03/14" />
 		<property name="ffinal" value="false" />
+		<property name="status" value="SUBMITTED" />
 		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
@@ -1444,6 +1445,7 @@
 			value="La pasion de Cristo es una desfile normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
 		<property name="momentOrganised" value="2019/09/02" />
 		<property name="ffinal" value="true" />
+		<property name="status" value="ACCEPTED" />
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
@@ -1453,7 +1455,8 @@
 		<property name="description"
 			value=" es una desfile normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
 		<property name="momentOrganised" value="2020/09/02" />
-		<property name="ffinal" value="false" />
+		<property name="ffinal" value="true" />
+		<property name="status" value="REJECTED" />
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
@@ -1464,6 +1467,7 @@
 			value="La pasion de Cristo es una desfile normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
 		<property name="momentOrganised" value="2020/09/02" />
 		<property name="ffinal" value="true" />
+		<property name="status" value="ACCEPTED" />
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 

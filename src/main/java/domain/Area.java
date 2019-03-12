@@ -60,7 +60,7 @@ public class Area extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Chapter getChapter() {
 		return this.chapter;
 	}

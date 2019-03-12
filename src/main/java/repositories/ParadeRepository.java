@@ -36,4 +36,6 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select p from Parade p, DFloat f where p.brotherhood.id = f.brotherhood.id and p not in f.parades and f.id = ?1")
 	List<Parade> findParadesForAdd(Integer dfloatId);
 
+	@Query("select 1.0*count(p)/(select count(pp) from Parade pp) from Parade p where p.ffinal=true group by p.status")
+	List<Double> ratioAreasNoCoordinated();
 }
