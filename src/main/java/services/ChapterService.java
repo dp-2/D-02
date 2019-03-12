@@ -78,9 +78,9 @@ public class ChapterService {
 		return this.chapterRepository.findOne(id);
 	}
 
-	public Chapter findChapterByCreditCardId(final int creditCardId) {
-		return this.chapterRepository.findChapterByCreditCardId(creditCardId);
-	}
+	//	public Chapter findChapterByCreditCardId(final int creditCardId) {
+	//		return this.chapterRepository.findChapterByCreditCardId(creditCardId);
+	//	}
 
 	public void flush() {
 		this.chapterRepository.flush();

@@ -15,7 +15,6 @@ import repositories.ProclaimRepository;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
-import domain.Parade;
 import domain.Proclaim;
 
 @Service
@@ -82,9 +81,9 @@ public class ProclaimService {
 		return this.proclaimRepository.findBrotherhoodByChapter(chapterId);
 	}
 
-	public Collection<Parade> findParadeByChapter(final int chapterId) {
-		return this.proclaimRepository.findParadeByChapter(chapterId);
-	}
+	//	public Collection<Parade> findParadeByChapter(final int chapterId) {
+	//		return this.proclaimRepository.findParadeByChapter(chapterId);
+	//	}
 
 	public Collection<Proclaim> findProclaimByChapter(final int chapterId) {
 		return this.proclaimRepository.findProclaimByChapter(chapterId);
