@@ -1761,6 +1761,34 @@
 	</bean>
 	
 	
+		<bean id="linkRecord1" class="domain.LinkRecord">
+		<property name="history" ref="history1" />
+
+		<property name="linkBrotherhood"
+			value="https://www.instagram.com/explore/locations/256999308/hermandad-del-gran-poder/" />
+
+
+	</bean>
+
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+		<property name="history" ref="history1" />
+
+
+	</bean>
+
+	<bean id="legalRecord1" class="domain.LegalRecord">
+		<property name="history" ref="history1" />
+		<property name="legalName" value="Normativa legal del cristo del gran poder"></property>
+		<property name="VATNumber" value="1234567890 "></property>
+		<property name="laws" value="La antiguedad determina la posicion , amar a cristo sobre todas las cosas"></property>
+				
+		
+		
+
+
+	</bean>
+	
+	
 	
 	
 	
