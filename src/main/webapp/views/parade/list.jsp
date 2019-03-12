@@ -40,7 +40,17 @@
 			</jstl:if>
 		</display:column>
 	</security:authorize>
+	
+	<security:authorize access="hasRole('CHAPTER')">
 
+		<display:column>
+			<jstl:if test="${row.ffinal == false}">
+				<a href="parade/chapter/edit.do?paradeId=${row.id}">
+					<spring:message code="parade.edit" />
+				</a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 
 
 	<display:column titleKey="parade.hood">

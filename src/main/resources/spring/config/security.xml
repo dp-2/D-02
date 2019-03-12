@@ -189,6 +189,9 @@
 			access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/enroll/member/goOut.do"
 			access="hasRole('MEMBER')" />
+			
+		<security:intercept-url pattern="parade/chapter/edit.do"
+			access="hasRole('CHAPTER')" />
 
 
 
