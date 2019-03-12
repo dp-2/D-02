@@ -194,8 +194,12 @@
 					</ul>
 			</security:authorize>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('SPONSOR')">
 
-
+			<li><a class="fNiv" href="sponsorship/sponsor/MyList.do"><spring:message
+						code="master.page.sponsorship" /></a></li>
+		</security:authorize>
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>

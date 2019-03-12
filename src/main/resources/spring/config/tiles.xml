@@ -34,6 +34,7 @@
 		<value>/views/box/tiles.xml</value>
 		<value>/views/brotherhood/tiles.xml</value>
 		<value>/views/area/tiles.xml</value>
+		<value>/views/sponsorship/tiles.xml</value>
 	
 	</util:list>
 

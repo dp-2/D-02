@@ -43,7 +43,7 @@ public class Sponsorship extends DomainEntity {
 		this.target = target;
 	}
 
-	public boolean isActive() {
+	public boolean getActive() {
 		return this.Active;
 	}
 
