@@ -17,14 +17,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import repositories.SponsorRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Brotherhood;
 import domain.Configuration;
 import domain.Sponsor;
 import forms.BrotherhoodForm;
 import forms.SponsorForm;
-import repositories.SponsorRepository;
-import security.Authority;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -61,7 +61,7 @@ public class SponsorService {
 		//establezco ya su tipo de userAccount porque no va a cambiar
 		result.setUserAccount(new UserAccount());
 		final Authority authority = new Authority();
-		authority.setAuthority(Authority.MEMBER);
+		authority.setAuthority(Authority.SPONSOR);
 		result.getUserAccount().addAuthority(authority);
 		//los atributos que no pueden estar vacíos
 		result.setBanned(false);
