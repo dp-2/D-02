@@ -397,7 +397,7 @@
 		<property name="spammer" value="false" />
 		<property name="banned" value="false" />
 		<property name="score" value="0.5" />
-		<property name="userAccount" ref="userAccount15" />
+		<property name="userAccount" ref="userAccount16" />
 	</bean>
 
 	<!-- CHAPTER -->
