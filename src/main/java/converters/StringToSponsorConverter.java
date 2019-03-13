@@ -6,25 +6,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import services.PositionService;
-import domain.Position;
+import services.SponsorService;
+import domain.Sponsor;
 
 @Component
 @Transactional
-public class StringToSponsorConverter implements Converter<String, Position> {
+public class StringToSponsorConverter implements Converter<String, Sponsor> {
 
 	@Autowired
-	PositionService	positionService;
+	SponsorService	sponsorService;
 
 
 	@Override
-	public Position convert(final String text) {
-		Position result;
+	public Sponsor convert(final String text) {
+		Sponsor result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.positionService.findOne(id);
+			result = this.sponsorService.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}

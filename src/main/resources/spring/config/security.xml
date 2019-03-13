@@ -205,6 +205,9 @@
 			access="hasRole('SPONSOR')" />
 			<security:intercept-url pattern="/sponsorship/sponsor/edit.do"
 			access="hasRole('SPONSOR')" />
+			<security:intercept-url pattern="/sponsorship/sponsor/deActive.do"
+			access="hasRole('SPONSOR')" />
+		
 		<security:intercept-url pattern="/dfloat/brotherhood/**"
 			access="hasRole('BROTHERHOOD')" />
 

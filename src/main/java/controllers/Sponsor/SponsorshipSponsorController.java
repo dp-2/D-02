@@ -113,6 +113,20 @@ public class SponsorshipSponsorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/deActive", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int sponsorshipId) {
+
+		ModelAndView result;
+		final Sponsorship sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+		try {
+			this.sponsorshipService.deActive(sponsorship);
+			result = this.list();
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
+		}
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final Sponsorship sponsorship) {
 		ModelAndView result;
 

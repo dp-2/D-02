@@ -41,8 +41,10 @@
 
 		<acme:select items="${parades}" itemLabel="title"
 			code="sponsorship.parades" path="parade" />
-
+		<br />
+		
 		<fieldset>
+		
 			<legend>
 				<spring:message code="sponsorship.creditcard" />
 			</legend>
@@ -57,7 +59,7 @@
 			</form:label>
 			<form:select path="creditCard.makeName" items="${makeName}" />
 			<form:errors cssClass="error" path="creditCard.makeName"></form:errors>
-
+			<br>
 			<br>
 
 			<acme:textbox code="creditCard.number" path="creditCard.number" />
@@ -72,10 +74,10 @@
 			<br>
 
 			<acme:textbox code="creditCard.CVVCode" path="creditCard.CVVCode" />
-			<br>
+			
 
 		</fieldset>
-
+		<br>
 
 
 		<jstl:if test="${isRead == false}">

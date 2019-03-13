@@ -44,7 +44,14 @@
 
 
 		<display:column property="sponsor.name" titleKey="sponsorship.sponsor" />
-
+		
+		<display:column>
+			<jstl:if test="${sponsorId==row.sponsor.id}">
+				<a href="sponsorship/sponsor/deActive.do?sponsorshipId=${row.id}"> <spring:message
+						code="sponsorship.deActive" />
+				</a>
+			</jstl:if>
+		</display:column>
 
 	</display:table>
 

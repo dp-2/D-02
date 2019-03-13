@@ -75,6 +75,7 @@ public class SponsorshipService {
 		Sponsorship result = sponsorship;
 		final CreditCard c = this.creditCardService.save(sponsorship.getCreditCard());
 		result.setCreditCard(c);
+		result.setSponsor(sponsorship.getSponsor());
 		result = this.sponsorshipRepository.save(sponsorship);
 
 		return result;
