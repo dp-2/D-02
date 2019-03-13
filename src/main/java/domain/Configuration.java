@@ -35,6 +35,7 @@ public class Configuration extends DomainEntity {
 	private int				cacheFinder;
 	private int				countryCode;
 	private List<String>	makeName;
+	private int				vat;
 
 
 	@NotBlank
@@ -163,6 +164,15 @@ public class Configuration extends DomainEntity {
 
 	public void setMakeName(final List<String> makeName) {
 		this.makeName = makeName;
+	}
+
+	@Range(min = 1, max = 100)
+	public int getVat() {
+		return this.vat;
+	}
+
+	public void setVat(final int vat) {
+		this.vat = vat;
 	}
 
 }

@@ -1790,6 +1790,7 @@
 		<property name="cacheFinder" value="1" />
 		<property name="numResults" value="10" />
 		<property name="countryCode" value="34" />
+		<property name="vat" value="21" />
 		<property name="makeName">
 			<list>
 				<value>VISA</value>

@@ -44,6 +44,7 @@
 		readonly="${isRead}" />
 	<acme:textbox code="conf.numResults" path="numResults"
 		readonly="${isRead}" />
+	<acme:textbox code="conf.vat" path="vat" readonly="${isRead}" />
 	<acme:textbox code="conf.welcomeMessageEN" path="welcomeMessageEN"
 		readonly="${isRead}" />
 	<acme:textbox code="conf.welcomeMessageES" path="welcomeMessageES"
