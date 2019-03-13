@@ -17,83 +17,50 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('HANDYWORKER')">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$(function() {
+		$("#datepicker1").datepicker();
+	});
+</script>
+
+
+<security:authentication property="principal.username" var="username" />
+<jstl:if
+		test='${periodRecord.history.brotherhood.userAccount.username == username || periodRecord.id == 0}'>
+<security:authorize access="hasRole('BROTHERHOOD')">
 	<div>
 
-		<form:form action="educationRecord/handyWorker/edit.do" method="post"
-			id="formCreate" name="formCreate" modelAttribute="educationRecord">
+		<form:form action="periodRecord/brotherhood/edit.do" method="post"
+			id="formCreate" name="formCreate" modelAttribute="periodRecord">
 
 			<!-- Atributos hidden-->
 
 			<form:hidden path="id" />
 			<form:hidden path="version" />
-			<form:hidden path="curriculum" />
+			<form:hidden path="history" />
 
 
 			<fieldset>
 				<!-------------------Form ------------------------------------>
-				<div>
-					<form:label path="diplomaTitle">
-						<spring:message code="educationRecord.diplomaTitle"></spring:message>
-					</form:label>
-					<form:input path="diplomaTitle" id="diplomaTitle"
-						name="diplomaTitle" />
-					<form:errors cssClass="error" path="diplomaTitle" />
-					<br />
-				</div>
-
-				<div>
-					<form:label path="start">
-						<spring:message code="educationRecord.start"></spring:message>
-					</form:label>
-					<form:input path="start" id="start" name="start" />
-					<form:errors cssClass="error" path="start" />
-					<br />
-				</div>
-
-				<div>
-					<form:label path="end">
-						<spring:message code="educationRecord.end"></spring:message>
-					</form:label>
-					<form:input path="end" id="end" name="end" />
-					<form:errors cssClass="error" path="end" />
-					<br />
-				</div>
-
-				<div>
-					<form:label path="institution">
-						<spring:message code="educationRecord.institution"></spring:message>
-					</form:label>
-					<form:input path="institution" id="institution" name="institution" />
-					<form:errors cssClass="error" path="institution" />
-					<br />
-				</div>
-
-				<div>
-					<form:label path="attachment">
-						<spring:message code="educationRecord.attachment"></spring:message>
-					</form:label>
-					<form:input path="attachment" id="attachment" name="attachment" />
-					<form:errors cssClass="error" path="attachment" />
-					<br />
-				</div>
-
-
-
-				<div>
-					<form:label path="comments">
-						<spring:message code="educationRecord.comments"></spring:message>
-					</form:label>
-					<form:input path="comments" id="comments" name="comments" />
-					<form:errors cssClass="error" path="comments" />
-					<br />
-				</div>
-
-
-
-
-
+				<acme:labelForm code="periodRecord.title" path="title" />
+				<acme:labelForm code="periodRecord.text" path="text" />
+				<acme:labelForm code="periodRecord.title" path="title" />
+				
+				<form:label path="startYear"><spring:message code="periodRecord.startYear"></spring:message></form:label>
+				<form:input path="startYear" id="datepicker1" />
+				<form:errors cssClass="error" path="startYear" />
+				<br>
+				
+				<form:label path="endYear"><spring:message code="periodRecord.endYear"></spring:message></form:label>
+				<form:input path="endYear" id="datepicker1" />
+				<form:errors cssClass="error" path="endYear" />
+				<br>
+				
+				
 
 			</fieldset>
 
@@ -101,17 +68,17 @@
 			<!--  Los botones de crear y cancelar -->
 
 			<input type="submit" name="save"
-				value="<spring:message code="educationRecord.save"></spring:message>" />
+				value="<spring:message code="periodRecord.save"></spring:message>" />
 
 			<button type="button"
-				onclick="javascript: relativeRedir('educationRecord/handyWorker/list.do')">
-				<spring:message code="educationRecord.cancel" />
+				onclick="javascript: relativeRedir('periodRecord/brotherhood/list.do')">
+				<spring:message code="periodRecord.cancel" />
 			</button>
 
-			<jstl:if test="${educationRecord.id != 0}">
+			<jstl:if test="${periodRecord.id != 0}">
 				<input type="submit" name="delete"
-					value="<spring:message code="educationRecord.delete" />"
-					onclick="return confirm('<spring:message code="educationRecord.confirm.delete" />')" />&nbsp;
+					value="<spring:message code="periodRecord.delete" />"
+					onclick="return confirm('<spring:message code="periodRecord.confirm.delete" />')" />&nbsp;
 	</jstl:if>
 
 
@@ -128,3 +95,22 @@
 
 
 </security:authorize>
+
+</jstl:if>
+<jstl:if
+	test='${periodRecord.history.brotherhood.userAccount.username != username && periodRecord.id != 0}'>
+	<h1 style="color: red;">
+		<b><spring:message code="dfloat.permissions"></spring:message></b>
+	</h1>
+	
+	<img src="https://cdn.shopify.com/s/files/1/1061/1924/products/Very_Angry_Emoji_7f7bb8df-d9dc-4cda-b79f-5453e764d4ea_large.png?v=1480481058" alt="Cuestionario Picture"
+			style="width: 10%; height: 10%;">
+
+		<br />
+		<br />
+	
+	<button type="button"
+				onclick="javascript: relativeRedir('dfloat/brotherhood/list.do')">
+				<spring:message code="dfloat.cancel" />
+			</button>
+</jstl:if>

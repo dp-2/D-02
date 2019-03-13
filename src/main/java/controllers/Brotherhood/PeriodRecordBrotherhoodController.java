@@ -3,10 +3,15 @@ package controllers.Brotherhood;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -63,20 +68,17 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	}
 	//-----------------Display-------------------------
 
-	//	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	//	public ModelAndView display(@RequestParam final int dfloatId) {
-	//		ModelAndView result;
-	//		DFloat dfloat;
-	//		Collection<Parade> myParades;
-	//		dfloat = this.dfloatService.findOne(dfloatId);
-	//		myParades = dfloat.getParades();
-	//		result = new ModelAndView("dfloat/display");
-	//		result.addObject("dfloat", dfloat);
-	//		result.addObject("myParades", myParades);
-	//		result.addObject("banner", this.configurationService.findOne().getBanner());
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int periodRecordId) {
+		ModelAndView result;
+		PeriodRecord periodRecord;
+		periodRecord = this.periodRecordService.findOne(periodRecordId);
+		result = new ModelAndView("periodRecord/display");
+		result.addObject("periodRecord", periodRecord);
+		result.addObject("banner", this.configurationService.findOne().getBanner());
+
+		return result;
+	}
 	//
 	//	//------------------------------------------
 	//	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -89,65 +91,57 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	//
 	//	}
 	//
-	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	//	public ModelAndView edit(@RequestParam final int dfloatId) {
-	//		ModelAndView result;
-	//		DFloat er;
-	//
-	//		Collection<Parade> allParades;
-	//		final Collection<Parade> myParades;
-	//
-	//		er = this.dfloatService.findOne(dfloatId);
-	//		Assert.notNull(er);
-	//		final Brotherhood br = er.getBrotherhood();
-	//		allParades = this.paradeService.findParadesByBrotherhoodId(br.getId());
-	//		myParades = er.getParades();
-	//
-	//		result = this.createEditModelAndView(er);
-	//		result.addObject("allParades", allParades);
-	//		result.addObject("myParades", myParades);
-	//
-	//		return result;
-	//
-	//	}
-	//
-	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	//	public ModelAndView save(@Valid final DFloat dfloat, final BindingResult binding) {
-	//		ModelAndView result;
-	//
-	//		if (binding.hasErrors()) {
-	//			result = this.createEditModelAndView(dfloat);
-	//			System.out.println(binding.getAllErrors());
-	//		} else
-	//			try {
-	//				this.dfloatService.save(dfloat);
-	//				result = new ModelAndView("redirect:list.do");
-	//			} catch (final Throwable oops) {
-	//				result = this.createEditModelAndView(dfloat, "dfloat.commit.error");
-	//			}
-	//		return result;
-	//	}
-	//
-	//	protected ModelAndView createEditModelAndView(final DFloat dfloat, final String message) {
-	//		final ModelAndView result;
-	//
-	//		result = new ModelAndView("dfloat/edit");
-	//
-	//		result.addObject("dfloat", dfloat);
-	//		result.addObject("banner", this.configurationService.findOne().getBanner());
-	//		result.addObject("message", message);
-	//		result.addObject("requestURI", "dfloat/brotherhood/edit.do");
-	//
-	//		return result;
-	//	}
-	//
-	//	protected ModelAndView createEditModelAndView(final DFloat dfloat) {
-	//		ModelAndView result;
-	//
-	//		result = this.createEditModelAndView(dfloat, null);
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int periodRecordId) {
+		ModelAndView result;
+		final PeriodRecord periodRecord;
+
+		periodRecord = this.periodRecordService.findOne(periodRecordId);
+		Assert.notNull(periodRecord);
+
+		result = this.createEditModelAndView(periodRecord);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final PeriodRecord periodRecord, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			result = this.createEditModelAndView(periodRecord);
+			System.out.println(binding.getAllErrors());
+		} else
+			try {
+				this.periodRecordService.save(periodRecord);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+			}
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final PeriodRecord periodRecord, final String message) {
+		final ModelAndView result;
+
+		result = new ModelAndView("periodRecord/edit");
+
+		result.addObject("periodRecord", periodRecord);
+		result.addObject("banner", this.configurationService.findOne().getBanner());
+		result.addObject("message", message);
+		result.addObject("requestURI", "periodRecord/brotherhood/edit.do");
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final PeriodRecord periodRecord) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(periodRecord, null);
+
+		return result;
+	}
 	//
 	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	//	public ModelAndView delete(final DFloat dfloat, final BindingResult binding) {
