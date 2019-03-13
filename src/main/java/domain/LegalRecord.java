@@ -13,7 +13,9 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 public class LegalRecord extends DomainEntity {
 
-	//Atributos
+	//Atributos	
+	private String	title;
+	private String	text;
 	private String	legalName;
 	private String	VATNumber;
 	private String	laws;
@@ -21,6 +23,26 @@ public class LegalRecord extends DomainEntity {
 	//relaciones
 	private History	history;
 
+
+	//Getters y setters de los atributos propios
+
+	@NotBlank
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(final String title) {
+		this.title = title;
+	}
+
+	@NotBlank
+	public String getText() {
+		return this.text;
+	}
+
+	public void setText(final String text) {
+		this.text = text;
+	}
 
 	@Valid
 	@ManyToOne(optional = false)

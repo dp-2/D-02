@@ -15,7 +15,6 @@ public class History extends DomainEntity {
 
 	//Atributos
 	private String		title;
-	private String		text;
 
 	//Relaciones
 	private Brotherhood	brotherhood;
@@ -31,6 +30,10 @@ public class History extends DomainEntity {
 	public void setTitle(final String title) {
 		this.title = title;
 	}
+
+
+	private String	text;
+
 
 	@NotBlank
 	public String getText() {
