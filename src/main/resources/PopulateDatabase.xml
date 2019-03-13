@@ -473,7 +473,7 @@
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
 
-		
+
 
 
 
@@ -485,7 +485,7 @@
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
 
-		
+
 
 
 
@@ -1724,7 +1724,7 @@
 
 	<bean id="configuration" class="domain.Configuration">
 		<property name="nameSys" value="Acme-Madrugá" />
-		<property name="banner" value="https://tinyurl.com/acme-parade" />
+		<property name="banner" value="https://tinyurl.com/acme-madruga" />
 		<property name="welcomeMessageEN"
 			value="Welcome to Acme Parade¡! The site to organise your parades." />
 		<property name="welcomeMessageES"
@@ -1869,14 +1869,16 @@
 
 
 	</bean>
-	
-	
+
+
 
 	<bean id="inceptionRecord1" class="domain.InceptionRecord">
 		<property name="history" ref="history1" />
-		<property name="title" value="Registro inicial sobre la Hermandad del Gran poder"></property>		
-		<property name="text" value="Aqui adjunto algunas capturas de la primera procesion de nuestra hermandad"></property>
-		
+		<property name="title"
+			value="Registro inicial sobre la Hermandad del Gran poder"></property>
+		<property name="text"
+			value="Aqui adjunto algunas capturas de la primera procesion de nuestra hermandad"></property>
+
 		<property name="photos">
 			<list>
 				<bean id="photo1inceptionRecord1" class="domain.Url">
@@ -1892,11 +1894,11 @@
 		</property>
 
 	</bean>
-	
 
-	
-	
-	
+
+
+
+
 
 
 
@@ -1904,11 +1906,13 @@
 	<!-- Period record -->
 
 	<bean id="periodRecord1" class="domain.PeriodRecord">
-	
-		<property name="title" value="Period Record sobre la hermandad del Gran Poder"></property>		
-		<property name="text" value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
+
+		<property name="title"
+			value="Period Record sobre la hermandad del Gran Poder"></property>
+		<property name="text"
+			value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
 		<property name="history" ref="history1"></property>
-		
+
 		<property name="startYear" value="2016/03/14"></property>
 		<property name="endYear" value="2018/03/14"></property>
 		<property name="photos">
@@ -1923,8 +1927,10 @@
 
 
 	<bean id="linkRecord1" class="domain.LinkRecord">
-		<property name="title" value="Link Record sobre la hermandad del Gran Poder"></property>		
-		<property name="text" value="Aqui adjunto algo de informacion sobre los registros de los enlaces sobre nuestra hermandad,la del gran poder para aquel que este interesado"></property>
+		<property name="title"
+			value="Link Record sobre la hermandad del Gran Poder"></property>
+		<property name="text"
+			value="Aqui adjunto algo de informacion sobre los registros de los enlaces sobre nuestra hermandad,la del gran poder para aquel que este interesado"></property>
 		<property name="history" ref="history1" />
 
 		<property name="linkBrotherhood"
@@ -1934,8 +1940,10 @@
 	</bean>
 
 	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
-		<property name="title" value="Demas Registros sobre la hermandad del Gran Poder"></property>		
-		<property name="text" value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
+		<property name="title"
+			value="Demas Registros sobre la hermandad del Gran Poder"></property>
+		<property name="text"
+			value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
 		<property name="history" ref="history1" />
 
 
@@ -1943,9 +1951,11 @@
 
 	<bean id="legalRecord1" class="domain.LegalRecord">
 		<property name="history" ref="history1" />
-		<property name="title" value="Registros legales sobre la hermandad del Gran Poder"></property>		
-		<property name="text" value="Todo el tema de la normativa legal la dejo aqui para quien pueda necesitarla"></property>
-		
+		<property name="title"
+			value="Registros legales sobre la hermandad del Gran Poder"></property>
+		<property name="text"
+			value="Todo el tema de la normativa legal la dejo aqui para quien pueda necesitarla"></property>
+
 		<property name="legalName" value="Normativa legal del cristo del gran poder"></property>
 		<property name="VATNumber" value="1234567890 "></property>
 		<property name="laws"
@@ -1969,9 +1979,11 @@
 
 	<bean id="inceptionRecord2" class="domain.InceptionRecord">
 		<property name="history" ref="history2" />
-		<property name="title" value="Registro inicial sobre la Hermandad de los Gitanos"></property>		
-		<property name="text" value="Aqui adjunto algunas capturas de la primera procesion de nuestra hermandad"></property>
-		
+		<property name="title"
+			value="Registro inicial sobre la Hermandad de los Gitanos"></property>
+		<property name="text"
+			value="Aqui adjunto algunas capturas de la primera procesion de nuestra hermandad"></property>
+
 		<property name="photos">
 			<list>
 				<bean id="photo1inceptionRecord2" class="domain.Url">
@@ -1994,11 +2006,13 @@
 	<!-- Period record -->
 
 	<bean id="periodRecord2" class="domain.PeriodRecord">
-	
-		<property name="title" value="Period Record sobre la hermandad del Gran Poder"></property>		
-		<property name="text" value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
+
+		<property name="title"
+			value="Period Record sobre la hermandad del Gran Poder"></property>
+		<property name="text"
+			value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
 		<property name="history" ref="history2"></property>
-		
+
 		<property name="startYear" value="2015/07/14"></property>
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
@@ -2013,8 +2027,10 @@
 
 
 	<bean id="linkRecord2" class="domain.LinkRecord">
-		<property name="title" value="Link Record sobre la hermandad de los Gitanos"></property>		
-		<property name="text" value="Aqui adjunto algo de informacion sobre los registros de los enlaces sobre nuestra hermandad,la de los Gitanos para aquel que este interesado"></property>
+		<property name="title"
+			value="Link Record sobre la hermandad de los Gitanos"></property>
+		<property name="text"
+			value="Aqui adjunto algo de informacion sobre los registros de los enlaces sobre nuestra hermandad,la de los Gitanos para aquel que este interesado"></property>
 		<property name="history" ref="history2" />
 
 		<property name="linkBrotherhood"
@@ -2024,8 +2040,10 @@
 	</bean>
 
 	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
-		<property name="title" value="Demas Registros sobre la hermandad de los Gitanos"></property>		
-		<property name="text" value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
+		<property name="title"
+			value="Demas Registros sobre la hermandad de los Gitanos"></property>
+		<property name="text"
+			value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
 		<property name="history" ref="history2" />
 
 
@@ -2033,9 +2051,11 @@
 
 	<bean id="legalRecord2" class="domain.LegalRecord">
 		<property name="history" ref="history2" />
-		<property name="title" value="Registros legales sobre la hermandad de los Gitanos"></property>		
-		<property name="text" value="Todo el tema de la normativa legal la dejo aqui para quien pueda necesitarla"></property>
-		
+		<property name="title"
+			value="Registros legales sobre la hermandad de los Gitanos"></property>
+		<property name="text"
+			value="Todo el tema de la normativa legal la dejo aqui para quien pueda necesitarla"></property>
+
 		<property name="legalName" value="Normativa legal del cristo del gran poder"></property>
 		<property name="VATNumber" value="1234567890 "></property>
 		<property name="laws"
@@ -2047,8 +2067,8 @@
 
 	</bean>
 
-	
-			<bean id="history3" class="domain.History">
+
+	<bean id="history3" class="domain.History">
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="title" value="History sobre los Gitanos Volumen 2"></property>
 		<property name="text"
@@ -2059,9 +2079,11 @@
 
 	<bean id="inceptionRecord3" class="domain.InceptionRecord">
 		<property name="history" ref="history3" />
-		<property name="title" value="Registro nº2 sobre la Hermandad de los Gitanos"></property>		
-		<property name="text" value="Aqui adjunto algunas capturas de la primera procesion de nuestra hermandad"></property>
-		
+		<property name="title"
+			value="Registro nº2 sobre la Hermandad de los Gitanos"></property>
+		<property name="text"
+			value="Aqui adjunto algunas capturas de la primera procesion de nuestra hermandad"></property>
+
 		<property name="photos">
 			<list>
 				<bean id="photo1inceptionRecord3" class="domain.Url">
@@ -2084,11 +2106,13 @@
 	<!-- Period record -->
 
 	<bean id="periodRecord3" class="domain.PeriodRecord">
-	
-		<property name="title" value="Period Record sobre la hermandad del Gran Poder nº2"></property>		
-		<property name="text" value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
+
+		<property name="title"
+			value="Period Record sobre la hermandad del Gran Poder nº2"></property>
+		<property name="text"
+			value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
 		<property name="history" ref="history3"></property>
-		
+
 		<property name="startYear" value="2015/07/14"></property>
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
@@ -2103,8 +2127,10 @@
 
 
 	<bean id="linkRecord3" class="domain.LinkRecord">
-		<property name="title" value="Link Record sobre la hermandad de los Gitanos nº2"></property>		
-		<property name="text" value="Aqui adjunto algo de informacion sobre los registros de los enlaces sobre nuestra hermandad,la de los Gitanos para aquel que este interesado"></property>
+		<property name="title"
+			value="Link Record sobre la hermandad de los Gitanos nº2"></property>
+		<property name="text"
+			value="Aqui adjunto algo de informacion sobre los registros de los enlaces sobre nuestra hermandad,la de los Gitanos para aquel que este interesado"></property>
 		<property name="history" ref="history3" />
 
 		<property name="linkBrotherhood"
@@ -2114,8 +2140,10 @@
 	</bean>
 
 	<bean id="miscellaneousRecord3" class="domain.MiscellaneousRecord">
-		<property name="title" value="Demas Registros sobre la hermandad de los Gitanos nº2"></property>		
-		<property name="text" value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
+		<property name="title"
+			value="Demas Registros sobre la hermandad de los Gitanos nº2"></property>
+		<property name="text"
+			value="Aqui adjunto algo de informacion sobre los registros de los periodos sobre nuestra hermandad"></property>
 		<property name="history" ref="history3" />
 
 
@@ -2123,9 +2151,11 @@
 
 	<bean id="legalRecord3" class="domain.LegalRecord">
 		<property name="history" ref="history3" />
-		<property name="title" value="Registros legales sobre la hermandad de los Gitanos nº2"></property>		
-		<property name="text" value="Todo el tema de la normativa legal la dejo aqui para quien pueda necesitarla"></property>
-		
+		<property name="title"
+			value="Registros legales sobre la hermandad de los Gitanos nº2"></property>
+		<property name="text"
+			value="Todo el tema de la normativa legal la dejo aqui para quien pueda necesitarla"></property>
+
 		<property name="legalName" value="Normativa legal del cristo del gran poder"></property>
 		<property name="VATNumber" value="1234567890 "></property>
 		<property name="laws"
