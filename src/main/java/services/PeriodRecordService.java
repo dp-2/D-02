@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.PeriodRecordRepository;
 import domain.PeriodRecord;
+import repositories.PeriodRecordRepository;
 
 @Service
 @Transactional
@@ -63,4 +63,21 @@ public class PeriodRecordService {
 	public Collection<PeriodRecord> findAllByHistoryId(final int historyId) {
 		return this.periodRecordRepository.findPeriodRecordsByHistoryId(historyId);
 	}
+
+	public Double avgQueryC1() {
+		return this.periodRecordRepository.avgQueryC1();
+	}
+
+	public Double maxQueryC1() {
+		return this.periodRecordRepository.maxQueryC1();
+	}
+
+	public Double minQueryC1() {
+		return this.periodRecordRepository.minQueryC1();
+	}
+
+	public Double stddevQueryC1() {
+		return this.periodRecordRepository.stddevQueryC1();
+	}
+
 }

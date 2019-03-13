@@ -19,15 +19,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
-import repositories.BrotherhoodRepository;
-import security.Authority;
-import security.UserAccount;
-import security.UserAccountRepository;
 import domain.Brotherhood;
 import domain.Enroll;
 import domain.Member;
 import domain.Url;
 import forms.BrotherhoodForm;
+import repositories.BrotherhoodRepository;
+import security.Authority;
+import security.UserAccount;
+import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -235,6 +235,14 @@ public class BrotherhoodService {
 		result = this.repository.listBrotherhoodByMembers();
 		final Brotherhood bh = result.get(result.size() - 1);
 		return bh;
+	}
+
+	public Brotherhood brotherhoodLargestHistory() {
+		return this.repository.brotherhoodLargestHistory();
+	}
+
+	public List<Brotherhood> brotherhoodLargestHistoryThanAVG() {
+		return this.repository.brotherhoodLargestHistoryThanAVG();
 	}
 
 }
