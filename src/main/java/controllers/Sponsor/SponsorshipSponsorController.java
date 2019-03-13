@@ -139,7 +139,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		ModelAndView result;
 		final Collection<Parade> parades = this.paradeService.findParadesAccepted();
 		final Collection<String> makeName = this.configurationService.findOne().getMakeName();
-		final double flatFare = this.configurationService.findOne().getFlatFare();
+		final Double flatFare = this.configurationService.flatFareWithVAT();
 
 		result = new ModelAndView("sponsorship/edit");
 		result.addObject("sponsorship", sponsorship);

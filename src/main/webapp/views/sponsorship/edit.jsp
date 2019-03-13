@@ -42,17 +42,18 @@
 		<acme:select items="${parades}" itemLabel="title"
 			code="sponsorship.parades" path="parade" />
 		<br />
-		
+
 		<fieldset>
-		
+
 			<legend>
 				<spring:message code="sponsorship.creditcard" />
 			</legend>
-			
-			<div>
-			
-			</div>
 
+			<div style="text-decoration: underline;">
+				<spring:message code="sponsorship.flatFare" />
+				${flatFare} euros.
+			</div>
+			<br />
 			<acme:textbox code="creditCard.holderName"
 				path="creditCard.holderName" />
 			<br>
@@ -63,8 +64,7 @@
 			</form:label>
 			<form:select path="creditCard.makeName" items="${makeName}" />
 			<form:errors cssClass="error" path="creditCard.makeName"></form:errors>
-			<br>
-			<br>
+			<br> <br>
 
 			<acme:textbox code="creditCard.number" path="creditCard.number" />
 			<br>
@@ -78,7 +78,7 @@
 			<br>
 
 			<acme:textbox code="creditCard.CVVCode" path="creditCard.CVVCode" />
-			
+
 
 		</fieldset>
 		<br>

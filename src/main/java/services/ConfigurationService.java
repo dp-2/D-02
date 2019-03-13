@@ -112,4 +112,10 @@ public class ConfigurationService {
 		return result;
 	}
 
+	public Double flatFareWithVAT() {
+		Double res = this.findOne().getFlatFare() + (this.findOne().getFlatFare() * this.findOne().getVat() / 100);
+		res = Math.floor(res * 1e2) / 1e2;
+		return res;
+	}
+
 }
