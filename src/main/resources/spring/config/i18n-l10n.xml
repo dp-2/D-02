@@ -41,6 +41,7 @@
 		
 		<value>/views/area/messages</value>
 		<value>/views/sponsorship/messages</value>
+		<value>/views/periodRecord/messages</value>
 
 
 	</util:list>
