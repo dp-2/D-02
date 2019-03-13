@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import controllers.AbstractController;
+import domain.Actor;
+import domain.Parade;
+import domain.Sponsorship;
 import security.LoginService;
 import services.ActorService;
 import services.ConfigurationService;
 import services.ParadeService;
 import services.SponsorshipService;
-import controllers.AbstractController;
-import domain.Actor;
-import domain.Parade;
-import domain.Sponsorship;
 
 @Controller
 @RequestMapping("/sponsorship/sponsor")
@@ -48,7 +48,7 @@ public class SponsorshipSponsorController extends AbstractController {
 	public SponsorshipSponsorController() {
 		super();
 	}
-	//List ---------------------------------------------------------------		
+	//List ---------------------------------------------------------------
 	@RequestMapping(value = "/MyList", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
@@ -139,12 +139,15 @@ public class SponsorshipSponsorController extends AbstractController {
 		ModelAndView result;
 		final Collection<Parade> parades = this.paradeService.findParadesAccepted();
 		final Collection<String> makeName = this.configurationService.findOne().getMakeName();
+		final double flatFare = this.configurationService.findOne().getFlatFare();
+
 		result = new ModelAndView("sponsorship/edit");
 		result.addObject("sponsorship", sponsorship);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("parades", parades);
 		result.addObject("makeName", makeName);
+		result.addObject("flatFare", flatFare);
 		result.addObject("requestURI", "sponsorship/sponsor/edit.do");
 
 		return result;

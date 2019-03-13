@@ -48,6 +48,10 @@
 			<legend>
 				<spring:message code="sponsorship.creditcard" />
 			</legend>
+			
+			<div>
+			
+			</div>
 
 			<acme:textbox code="creditCard.holderName"
 				path="creditCard.holderName" />
