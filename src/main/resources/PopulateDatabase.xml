@@ -1791,6 +1791,7 @@
 		<property name="numResults" value="10" />
 		<property name="countryCode" value="34" />
 		<property name="vat" value="21" />
+		<property name="flatFare" value="500.00" />
 		<property name="makeName">
 			<list>
 				<value>VISA</value>
