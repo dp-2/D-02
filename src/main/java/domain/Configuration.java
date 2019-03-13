@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -36,6 +37,7 @@ public class Configuration extends DomainEntity {
 	private int				countryCode;
 	private List<String>	makeName;
 	private int				vat;
+	private double			flatFare;
 
 
 	@NotBlank
@@ -173,6 +175,15 @@ public class Configuration extends DomainEntity {
 
 	public void setVat(final int vat) {
 		this.vat = vat;
+	}
+
+	@Digits(integer = 99999, fraction = 2)
+	public double getFlatFare() {
+		return this.flatFare + (this.flatFare * this.vat / 100);
+	}
+
+	public void setFlatFare(final double flatFare) {
+		this.flatFare = flatFare;
 	}
 
 }
