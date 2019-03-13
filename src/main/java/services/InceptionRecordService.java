@@ -9,19 +9,23 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.InceptionRecordRepository;
+import domain.History;
 import domain.InceptionRecord;
 
 @Service
 @Transactional
 public class InceptionRecordService {
 
-	//Managed Repository
+	//--------------------------Managed Repository----------------------------------------
 
 	@Autowired
 	private InceptionRecordRepository	InceptionRecordRepository;
 
+	// ----------------------Supporting Service------------------------------------
 
-	// Supporting Service
+	@Autowired
+	private HistoryService				historyService;
+
 
 	public InceptionRecordService() {
 		super();
@@ -58,4 +62,17 @@ public class InceptionRecordService {
 		Assert.notNull(p);
 		this.InceptionRecordRepository.delete(p);
 	}
+
+	public History getHistoryByBrotherhood(final int historyId) {
+		final History res = this.historyService.findOne(historyId);
+
+		return res;
+	}
+
+	public InceptionRecord getInceptionRecordByBrotherhood(final int historyId) {
+		final InceptionRecord res = this.InceptionRecordRepository.findInceptionByHistoryId(historyId);
+
+		return res;
+	}
+
 }

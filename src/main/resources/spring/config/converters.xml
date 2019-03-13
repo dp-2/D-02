@@ -74,6 +74,13 @@
 		
 		<bean class="converters.CreditCardToStringConverter" />
 		<bean class="converters.StringToCreditCardConverter" />
+		
+
+		<bean class="converters.InceptionRecordToStringConverter" />
+		<bean class="converters.StringToInceptionRecordConverter" />
+
+		<bean class="converters.PeriodRecordToStringConverter" />
+		<bean class="converters.StringToPeriodRecordConverter" />
 
 	</util:list>
 

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.ActorService;
+import services.ConfigurationService;
 import services.ParadeService;
 import services.SponsorshipService;
 import controllers.AbstractController;
@@ -30,13 +31,16 @@ public class SponsorshipSponsorController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private SponsorshipService	sponsorshipService;
+	private SponsorshipService		sponsorshipService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	//Constructor---------------------------------------------------------
@@ -120,13 +124,13 @@ public class SponsorshipSponsorController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Sponsorship sponsorship, final String message) {
 		ModelAndView result;
 		final Collection<Parade> parades = this.paradeService.findParadesAccepted();
-
+		final Collection<String> makeName = this.configurationService.findOne().getMakeName();
 		result = new ModelAndView("sponsorship/edit");
 		result.addObject("sponsorship", sponsorship);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("parades", parades);
-
+		result.addObject("makeName", makeName);
 		result.addObject("requestURI", "sponsorship/sponsor/edit.do");
 
 		return result;
