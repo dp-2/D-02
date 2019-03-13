@@ -208,4 +208,12 @@ public class ParadeService {
 		return this.paradeRepository.findParadesForAdd(dfloat.getId());
 	}
 
+	public List<Double> ratioParadeFinalByStatus() {
+		return this.paradeRepository.ratioParadeFinalByStatus();
+	}
+
+	public Double ratioParadesDraftVsParadesFinal() {
+		return this.paradeRepository.ratioParadesDraftVsParadesFinal();
+	}
+
 }

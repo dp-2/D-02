@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -104,4 +105,22 @@ public class SponsorshipService {
 		return this.sponsorshipRepository.findSponsorshipByParadeId(paradeId);
 	}
 
+	public Double ratioActiveSponsorship() {
+		return this.sponsorshipRepository.ratioActiveSponsorship();
+	}
+	public Double avgSponsorshipBySponsor() {
+		return this.sponsorshipRepository.avgSponsorshipBySponsor();
+	}
+	public Double minSponsorshipBySponsor() {
+		return this.sponsorshipRepository.minSponsorshipBySponsor();
+	}
+	public Double maxSponsorshipBySponsor() {
+		return this.sponsorshipRepository.maxSponsorshipBySponsor();
+	}
+	public Double stddevSponsorshipBySponsor() {
+		return this.sponsorshipRepository.ratioActiveSponsorship();
+	}
+	public ArrayList<Sponsor> top5Sponsors() {
+		return this.sponsorshipRepository.top5Sponsors();
+	}
 }

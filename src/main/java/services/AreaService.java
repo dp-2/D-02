@@ -125,4 +125,8 @@ public class AreaService {
 		return this.areaRepository.stddevHermandadesPorArea();
 	}
 
+	public Double ratioAreasNoCoordinated() {
+		return this.areaRepository.ratioAreasNoCoordinated();
+	}
+
 }
