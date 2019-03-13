@@ -1,8 +1,8 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -24,14 +24,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class PeriodRecord extends DomainEntity {
 
 	//Atributos
-	private String			title;
-	private String			text;
-	private Date			startYear;
-	private Date			endYear;
-	private Collection<Url>	photos;
+	private String		title;
+	private String		text;
+	private Date		startYear;
+	private Date		endYear;
+	private List<Url>	photos;
 
 	//relaciones
-	private History			history;
+	private History		history;
 
 
 	//Getters y setters de los atributos propios
@@ -91,11 +91,11 @@ public class PeriodRecord extends DomainEntity {
 	@Valid
 	@NotNull
 	@NotEmpty
-	public Collection<Url> getPhotos() {
+	public List<Url> getPhotos() {
 		return this.photos;
 	}
 
-	public void setPhotos(final Collection<Url> photos) {
+	public void setPhotos(final List<Url> photos) {
 		this.photos = photos;
 	}
 

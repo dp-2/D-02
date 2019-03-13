@@ -13,7 +13,7 @@ import domain.PeriodRecord;
 public interface PeriodRecordRepository extends JpaRepository<PeriodRecord, Integer> {
 
 	@Query("select p from PeriodRecord p where p.history.id = ?1")
-	Collection<PeriodRecord> findLegalRecordsByHistoryId(Integer historyId);
+	Collection<PeriodRecord> findPeriodRecordsByHistoryId(Integer historyId);
 
 	//Queries Dashboard PARADE-------------------------------------------------------------
 
