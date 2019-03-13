@@ -50,7 +50,7 @@
 			<br>
 
 			<acme:select items="${makeName}" itemLabel="makeName"
-				code="sponsorship.makeName" path="makeName" />
+				code="creditCard.makeName" path="creditCard.makeName" />
 			<br>
 
 			<acme:textbox code="creditCard.number" path="creditCard.number" />
