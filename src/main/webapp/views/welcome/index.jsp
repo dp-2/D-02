@@ -18,6 +18,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+<h3>${nameSys}</h3>
+<br />
+<p>${welcomeMessage}</p>
 <!-- Mensaje De Seguridad -->
 
 <security:authorize access="hasRole('ADMIN')">
@@ -51,10 +55,6 @@
 	</fieldset>
 </security:authorize>
 
-<h3>${nameSys}</h3>
-<br />
-<p>${welcomeMessage}</p>
-
 <p>
 	<spring:message code="welcome.greeting.current.time" />
 	${moment}
@@ -70,9 +70,9 @@
 				<h2>
 					<spring:message code="master.security.message1" />
 				</h2>
-				<p style="color: blue; font-size: 15px;">${securityMessage}</p>
+				<p style="font-size: 15px;">${securityMessage}</p>
 
-				<p style="color: blue; font-size: 15px;">
+				<p style="font-size: 15px;">
 					<spring:message code="master.security.message2" />
 				</p>
 
