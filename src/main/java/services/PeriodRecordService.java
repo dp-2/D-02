@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.PeriodRecord;
 import repositories.PeriodRecordRepository;
+import security.LoginService;
+import domain.Brotherhood;
+import domain.History;
+import domain.PeriodRecord;
 
 @Service
 @Transactional
@@ -26,6 +29,12 @@ public class PeriodRecordService {
 	@Autowired
 	private ServiceUtils			serviceUtils;
 
+	@Autowired
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
+	private HistoryService			historyService;
+
 
 	// --------------------------Constructor-----------------------
 	public PeriodRecordService() {
@@ -35,9 +44,13 @@ public class PeriodRecordService {
 	// --------------------CRUD methods----------------------------
 	public PeriodRecord create() {
 		final PeriodRecord periodRecord = new PeriodRecord();
+		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId());
+
+		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
+
+		periodRecord.setHistory(history);
 		return periodRecord;
 	}
-
 	public PeriodRecord save(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
 		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
@@ -62,6 +75,10 @@ public class PeriodRecordService {
 
 	public Collection<PeriodRecord> findAllByHistoryId(final int historyId) {
 		return this.periodRecordRepository.findPeriodRecordsByHistoryId(historyId);
+	}
+
+	public void delete(final PeriodRecord periodRecord) {
+		this.periodRecordRepository.delete(periodRecord);
 	}
 
 	public Double avgQueryC1() {

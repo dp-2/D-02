@@ -24,14 +24,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class PeriodRecord extends DomainEntity {
 
 	//Atributos
-	private String		title;
-	private String		text;
-	private Date		startYear;
-	private Date		endYear;
-	private List<Url>	photos;
+	private String			title;
+	private String			text;
+	private Date			startYear;
+	private Date			endYear;
+	private List<String>	photos;
 
 	//relaciones
-	private History		history;
+	private History			history;
 
 
 	//Getters y setters de los atributos propios
@@ -67,7 +67,7 @@ public class PeriodRecord extends DomainEntity {
 	//Getters y Setters
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@Past
 	public Date getStartYear() {
 		return this.startYear;
@@ -78,7 +78,7 @@ public class PeriodRecord extends DomainEntity {
 	}
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	public Date getEndYear() {
 		return this.endYear;
 	}
@@ -89,13 +89,12 @@ public class PeriodRecord extends DomainEntity {
 
 	@ElementCollection
 	@Valid
-	@NotNull
 	@NotEmpty
-	public List<Url> getPhotos() {
+	public List<String> getPhotos() {
 		return this.photos;
 	}
 
-	public void setPhotos(final List<Url> photos) {
+	public void setPhotos(final List<String> photos) {
 		this.photos = photos;
 	}
 

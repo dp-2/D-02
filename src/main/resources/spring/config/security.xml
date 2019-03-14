@@ -172,6 +172,10 @@
 			access="hasAnyRole('BROTHERHOOD','ADMIN')" />
 		<security:intercept-url pattern="/parade/brotherhood/**"
 			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/inceptionRecord/edit.do"
+			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/inceptionRecord/save.do"
+			access="hasRole('BROTHERHOOD')" />
 
 
 
@@ -191,23 +195,23 @@
 			access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/enroll/member/goOut.do"
 			access="hasRole('MEMBER')" />
-			
+
 		<security:intercept-url pattern="/parade/chapter/edit.do"
 			access="hasRole('CHAPTER')" />
 
-			<security:intercept-url pattern="/sponsorship/sponsor/MyList.do"
+		<security:intercept-url pattern="/sponsorship/sponsor/MyList.do"
 			access="hasRole('SPONSOR')" />
-			<security:intercept-url pattern="/sponsorship/sponsor/create.do"
+		<security:intercept-url pattern="/sponsorship/sponsor/create.do"
 			access="hasRole('SPONSOR')" />
-			<security:intercept-url pattern="/sponsorship/sponsor/save.do"
+		<security:intercept-url pattern="/sponsorship/sponsor/save.do"
 			access="hasRole('SPONSOR')" />
-			<security:intercept-url pattern="/sponsorship/sponsor/cancel.do"
+		<security:intercept-url pattern="/sponsorship/sponsor/cancel.do"
 			access="hasRole('SPONSOR')" />
-			<security:intercept-url pattern="/sponsorship/sponsor/edit.do"
+		<security:intercept-url pattern="/sponsorship/sponsor/edit.do"
 			access="hasRole('SPONSOR')" />
-			<security:intercept-url pattern="/sponsorship/sponsor/deActive.do"
+		<security:intercept-url pattern="/sponsorship/sponsor/deActive.do"
 			access="hasRole('SPONSOR')" />
-		
+
 		<security:intercept-url pattern="/dfloat/brotherhood/**"
 			access="hasRole('BROTHERHOOD')" />
 
@@ -225,6 +229,8 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/none/**"
 			access="!isAuthenticated()" />
+		<security:intercept-url pattern="/chapter/none/**"
+			access="!isAuthenticated()" />
 		<security:intercept-url pattern="/brotherhood/brotherhood-none/**"
 			access="!isAuthenticated() || hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/any/**"
@@ -233,8 +239,11 @@
 
 		<security:intercept-url pattern="/administrator/**"
 			access="hasRole('ADMIN')" />
-			
+
 		<security:intercept-url pattern="/periodRecord/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />
+
+		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/**"
 			access="hasRole('BROTHERHOOD')" />
 
 

@@ -15,29 +15,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.PeriodRecordRepository;
-import domain.PeriodRecord;
+import repositories.HistoryRepository;
+import domain.History;
 
 @Component
 @Transactional
-public class StringToPeriodRecordConverter implements Converter<String, PeriodRecord> {
+public class StringToHistoryConverter implements Converter<String, History> {
 
 	@Autowired
-	PeriodRecordRepository	periodRecordRepository;
+	HistoryRepository	historyRepository;
 
 
 	@Override
-	public PeriodRecord convert(final String text) {
-		PeriodRecord result;
+	public History convert(final String text) {
+		History result;
 		int id;
 
 		try {
-			if (text == "")
-				result = null;
-			else {
-				id = Integer.valueOf(text);
-				result = this.periodRecordRepository.findOne(id);
-			}
+			id = Integer.valueOf(text);
+			result = this.historyRepository.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}

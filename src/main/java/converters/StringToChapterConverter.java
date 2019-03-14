@@ -15,29 +15,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.PeriodRecordRepository;
-import domain.PeriodRecord;
+import repositories.ChapterRepository;
+import domain.Chapter;
 
 @Component
 @Transactional
-public class StringToPeriodRecordConverter implements Converter<String, PeriodRecord> {
+public class StringToChapterConverter implements Converter<String, Chapter> {
 
 	@Autowired
-	PeriodRecordRepository	periodRecordRepository;
+	ChapterRepository	chapterRepository;
 
 
 	@Override
-	public PeriodRecord convert(final String text) {
-		PeriodRecord result;
+	public Chapter convert(final String text) {
+		Chapter result;
 		int id;
 
 		try {
-			if (text == "")
-				result = null;
-			else {
-				id = Integer.valueOf(text);
-				result = this.periodRecordRepository.findOne(id);
-			}
+			id = Integer.valueOf(text);
+			result = this.chapterRepository.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}

@@ -19,49 +19,49 @@ import services.ActorService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
 import services.HistoryService;
+import services.MiscellaneousRecordService;
 import services.ParadeService;
-import services.PeriodRecordService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.History;
-import domain.PeriodRecord;
+import domain.MiscellaneousRecord;
 
 @Controller
-@RequestMapping("/periodRecord/brotherhood")
-public class PeriodRecordBrotherhoodController extends AbstractController {
+@RequestMapping("/miscellaneousRecord/brotherhood")
+public class MiscellaneousRecordBrotherhoodController extends AbstractController {
 
 	//-----------------Services-------------------------
 	@Autowired
-	PeriodRecordService		periodRecordService;
+	MiscellaneousRecordService	miscellaneousRecordService;
 
 	@Autowired
-	BrotherhoodService		brotherhoodService;
+	BrotherhoodService			brotherhoodService;
 
 	@Autowired
-	HistoryService			historyService;
+	HistoryService				historyService;
 	@Autowired
-	ActorService			actorService;
+	ActorService				actorService;
 
 	@Autowired
-	ParadeService			paradeService;
+	ParadeService				paradeService;
 
 	@Autowired
-	ConfigurationService	configurationService;
+	ConfigurationService		configurationService;
 
 
 	//-------------------------- List ----------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		final Collection<PeriodRecord> periodRecords;
+		final Collection<MiscellaneousRecord> miscellaneousRecords;
 		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId());
 		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
 
-		periodRecords = this.periodRecordService.findAllByHistoryId(history.getId());
+		miscellaneousRecords = this.miscellaneousRecordService.findAllByHistoryId(history.getId());
 
-		result = new ModelAndView("periodRecord/list");
-		result.addObject("periodRecords", periodRecords);
-		result.addObject("requestURI", "periodRecord/brotherhood/list.do");
+		result = new ModelAndView("miscellaneousRecord/list");
+		result.addObject("miscellaneousRecords", miscellaneousRecords);
+		result.addObject("requestURI", "miscellaneousRecord/brotherhood/list.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;
@@ -69,12 +69,12 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	//-----------------Display-------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int periodRecordId) {
+	public ModelAndView display(@RequestParam final int miscellaneousRecordId) {
 		ModelAndView result;
-		PeriodRecord periodRecord;
-		periodRecord = this.periodRecordService.findOne(periodRecordId);
-		result = new ModelAndView("periodRecord/display");
-		result.addObject("periodRecord", periodRecord);
+		MiscellaneousRecord miscellaneousRecord;
+		miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
+		result = new ModelAndView("miscellaneousRecord/display");
+		result.addObject("miscellaneousRecord", miscellaneousRecord);
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;
@@ -84,73 +84,73 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		PeriodRecord periodRecord;
-		periodRecord = this.periodRecordService.create();
-		result = this.createEditModelAndView(periodRecord);
+		MiscellaneousRecord miscellaneousRecord;
+		miscellaneousRecord = this.miscellaneousRecordService.create();
+		result = this.createEditModelAndView(miscellaneousRecord);
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int periodRecordId) {
+	public ModelAndView edit(@RequestParam final int miscellaneousRecordId) {
 		ModelAndView result;
-		final PeriodRecord periodRecord;
+		final MiscellaneousRecord miscellaneousRecord;
 
-		periodRecord = this.periodRecordService.findOne(periodRecordId);
-		Assert.notNull(periodRecord);
+		miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
+		Assert.notNull(miscellaneousRecord);
 
-		result = this.createEditModelAndView(periodRecord);
+		result = this.createEditModelAndView(miscellaneousRecord);
 
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final PeriodRecord periodRecord, final BindingResult binding) {
+	public ModelAndView save(@Valid final MiscellaneousRecord miscellaneousRecord, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(periodRecord);
+			result = this.createEditModelAndView(miscellaneousRecord);
 			System.out.println(binding.getAllErrors());
 		} else
 			try {
-				this.periodRecordService.save(periodRecord);
+				this.miscellaneousRecordService.save(miscellaneousRecord);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+				result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 			}
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final PeriodRecord periodRecord, final String message) {
+	protected ModelAndView createEditModelAndView(final MiscellaneousRecord miscellaneousRecord, final String message) {
 		final ModelAndView result;
 
-		result = new ModelAndView("periodRecord/edit");
+		result = new ModelAndView("miscellaneousRecord/edit");
 
-		result.addObject("periodRecord", periodRecord);
+		result.addObject("miscellaneousRecord", miscellaneousRecord);
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 		result.addObject("message", message);
-		result.addObject("requestURI", "periodRecord/brotherhood/edit.do");
+		result.addObject("requestURI", "miscellaneousRecord/brotherhood/edit.do");
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final PeriodRecord periodRecord) {
+	protected ModelAndView createEditModelAndView(final MiscellaneousRecord miscellaneousRecord) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(periodRecord, null);
+		result = this.createEditModelAndView(miscellaneousRecord, null);
 
 		return result;
 	}
 	//
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final PeriodRecord periodRecord, final BindingResult binding) {
+	public ModelAndView delete(final MiscellaneousRecord miscellaneousRecord, final BindingResult binding) {
 		ModelAndView result;
 		try {
-			this.periodRecordService.delete(periodRecord);
+			this.miscellaneousRecordService.delete(miscellaneousRecord);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+			result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 
 		}
 		return result;

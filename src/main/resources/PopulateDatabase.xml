@@ -185,7 +185,7 @@
 
 	<bean id="userAccount15" class="security.UserAccount">
 		<property name="username" value="chapter1" />
-		<property name="password" value="178494D73A41F7D68E80F685324D3662" />
+		<property name="password" value="178494d73a41f7d68e80f685324d3662" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -197,7 +197,7 @@
 
 	<bean id="userAccount16" class="security.UserAccount">
 		<property name="username" value="chapter2" />
-		<property name="password" value="07A29F2348D728FAD16C5260823F93EF" />
+		<property name="password" value="07a29f2348d728fad16c5260823f93ef" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -1924,10 +1924,7 @@
 		<property name="endYear" value="2018/03/14"></property>
 		<property name="photos">
 			<list>
-				<bean id="photo1PeriodRecord1" class="domain.Url">
-					<property name="url"
-						value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D" />
-				</bean>
+			<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D</value>
 			</list>
 		</property>
 	</bean>
@@ -2024,10 +2021,9 @@
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
 			<list>
-				<bean id="photo1PeriodRecord2" class="domain.Url">
-					<property name="url"
-						value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D" />
-				</bean>
+			<value>
+				https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -2124,10 +2120,7 @@
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
 			<list>
-				<bean id="photo1PeriodRecord3" class="domain.Url">
-					<property name="url"
-						value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D" />
-				</bean>
+			<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D</value>
 			</list>
 		</property>
 	</bean>

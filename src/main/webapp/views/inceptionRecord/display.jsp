@@ -36,13 +36,14 @@
 
 	</jstl:forEach>
 	
+	<jstl:if test='${brotherhood.userAccount.username == username}'>
+
+	<spring:message code="brotherhood.edit" var="edit"></spring:message>
+	<input type="button" name="edit" value="${edit}"
+		onclick="javascript:relativeRedir('inceptionRecord/edit.do?inceptionRecordId=${inceptionRecord.id}')" />
+</jstl:if>
+	
 	
 </fieldset>
 
-
-
-
-<jstl:if test="${isPrincipalAuthorizedEdit}">
-	<a href="inceptionRecord/edit.do?inceptionRecordId=${inceptionRecord.id}"><spring:message code="inceptionRecord.edit" /></a>
-</jstl:if>
 

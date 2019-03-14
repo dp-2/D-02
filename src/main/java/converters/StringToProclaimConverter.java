@@ -15,29 +15,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.PeriodRecordRepository;
-import domain.PeriodRecord;
+import repositories.ProclaimRepository;
+import domain.Proclaim;
 
 @Component
 @Transactional
-public class StringToPeriodRecordConverter implements Converter<String, PeriodRecord> {
+public class StringToProclaimConverter implements Converter<String, Proclaim> {
 
 	@Autowired
-	PeriodRecordRepository	periodRecordRepository;
+	ProclaimRepository	proclaimRepository;
 
 
 	@Override
-	public PeriodRecord convert(final String text) {
-		PeriodRecord result;
+	public Proclaim convert(final String text) {
+		Proclaim result;
 		int id;
 
 		try {
-			if (text == "")
-				result = null;
-			else {
-				id = Integer.valueOf(text);
-				result = this.periodRecordRepository.findOne(id);
-			}
+			id = Integer.valueOf(text);
+			result = this.proclaimRepository.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}
