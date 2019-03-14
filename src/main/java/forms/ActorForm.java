@@ -132,5 +132,9 @@ public class ActorForm extends DomainEntity {
 	public void setEmail(final String email) {
 		this.email = email;
 	}
+	public void setTitle(final String title) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

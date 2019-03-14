@@ -39,6 +39,7 @@
 		
 
 		<value>/views/periodRecord/tiles.xml</value>
+		<value>/views/miscellaneousRecord/tiles.xml</value>
 	
 	</util:list>
 

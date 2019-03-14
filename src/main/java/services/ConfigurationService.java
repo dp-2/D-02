@@ -104,6 +104,18 @@ public class ConfigurationService {
 		return res;
 	}
 
+	public String internacionalizcionSecurityMessage() {
+		String res = null;
+		final Configuration configuration = this.findOne();
+
+		if (LocaleContextHolder.getLocale().getLanguage().toLowerCase().equals("en"))
+			res = configuration.getSecurityMessageEN();
+		else if (LocaleContextHolder.getLocale().getLanguage().toLowerCase().equals("es"))
+			res = configuration.getSecurityMessageES();
+
+		return res;
+	}
+
 	public List<String> makeNameUpper(final Configuration configuration) {
 		final List<String> result = new ArrayList<>();
 		final List<String> makeNames = configuration.getMakeName();
@@ -116,6 +128,18 @@ public class ConfigurationService {
 		Double res = this.findOne().getFlatFare() + (this.findOne().getFlatFare() * this.findOne().getVat() / 100);
 		res = Math.floor(res * 1e2) / 1e2;
 		return res;
+	}
+
+	public void active() {
+		final Configuration configuration = this.findOne();
+		configuration.setFailSystem(true);
+		this.save(configuration);
+	}
+
+	public void desactive() {
+		final Configuration configuration = this.findOne();
+		configuration.setFailSystem(false);
+		this.save(configuration);
 	}
 
 }

@@ -18,6 +18,32 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<!-- Mensaje De Seguridad -->
+
+<security:authorize access="isAuthenticated()">
+	<security:authorize access="hasRole('ADMIN')">
+		<fieldset>
+			<legend>
+				<spring:message code="master.security.message" />
+			</legend>
+			<br />
+			<form:form>
+				<button style="background-color: red;" name="activate">
+					<spring:message code="master.security.activar" />
+				</button>
+				<br />
+				<br />
+				<button style="background-color: yellow;" name="desactivate">
+					<spring:message code="master.security.desactivar" />
+				</button>
+			</form:form>
+			<br />
+		</fieldset>
+
+	</security:authorize>
+	<p style="color: red; font-size: 38px;" align="center" >${securityMessage}</p>
+</security:authorize>
+
 <h3>${nameSys}</h3>
 <br />
 <p>${welcomeMessage}</p>

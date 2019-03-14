@@ -38,6 +38,9 @@ public class Configuration extends DomainEntity {
 	private List<String>	makeName;
 	private int				vat;
 	private Double			flatFare;
+	private String			securityMessageES;
+	private String			securityMessageEN;
+	private boolean			failSystem;
 
 
 	@NotBlank
@@ -184,6 +187,34 @@ public class Configuration extends DomainEntity {
 
 	public void setFlatFare(final Double flatFare) {
 		this.flatFare = flatFare;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getSecurityMessageES() {
+		return this.securityMessageES;
+	}
+
+	public void setSecurityMessageES(final String securityMessageES) {
+		this.securityMessageES = securityMessageES;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getSecurityMessageEN() {
+		return this.securityMessageEN;
+	}
+
+	public void setSecurityMessageEN(final String securityMessageEN) {
+		this.securityMessageEN = securityMessageEN;
+	}
+
+	public boolean isFailSystem() {
+		return this.failSystem;
+	}
+
+	public void setFailSystem(final boolean failSystem) {
+		this.failSystem = failSystem;
 	}
 
 }

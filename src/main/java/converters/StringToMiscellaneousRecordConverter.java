@@ -15,20 +15,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.PeriodRecordRepository;
-import domain.PeriodRecord;
+import repositories.MiscellaneousRecordRepository;
+import domain.MiscellaneousRecord;
 
 @Component
 @Transactional
-public class StringToPeriodRecordConverter implements Converter<String, PeriodRecord> {
+public class StringToMiscellaneousRecordConverter implements Converter<String, MiscellaneousRecord> {
 
 	@Autowired
-	PeriodRecordRepository	periodRecordRepository;
+	MiscellaneousRecordRepository	miscellaneousRecordRepository;
 
 
 	@Override
-	public PeriodRecord convert(final String text) {
-		PeriodRecord result;
+	public MiscellaneousRecord convert(final String text) {
+		MiscellaneousRecord result;
 		int id;
 
 		try {
@@ -36,7 +36,7 @@ public class StringToPeriodRecordConverter implements Converter<String, PeriodRe
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.periodRecordRepository.findOne(id);
+				result = this.miscellaneousRecordRepository.findOne(id);
 			}
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);

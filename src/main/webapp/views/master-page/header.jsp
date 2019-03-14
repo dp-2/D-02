@@ -17,6 +17,8 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
+
+
 <!--//BLOQUE COOKIES-->
 <div id="barraaceptacion">
 	<div class="inner">
@@ -104,7 +106,7 @@
 					<li class="arrow"></li>
 					<li><a href="administrator/scores.do"><spring:message
 								code="master.page.administrator.calculateScores" /></a></li>
-								
+
 					<li><a href="administrator/spammers.do"><spring:message
 								code="master.page.administrator.calculateSpammers" /></a></li>
 				</ul></li>
@@ -194,7 +196,7 @@
 					</ul>
 			</security:authorize>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('SPONSOR')">
 
 			<li><a class="fNiv" href="sponsorship/sponsor/MyList.do"><spring:message
@@ -209,11 +211,10 @@
 					<li class="arrow"></li>
 					<li><a href="register/actor.do?authority=MEMBER"><spring:message
 								code="master.page.register.member" /></a></li>
-
-
 					<li><a href="brotherhood/none/create.do"><spring:message
 								code="master.page.register.brotherhood" /></a></li>
-
+					<li><a href="chapter/none/create.do"><spring:message
+								code="master.page.register.chapter" /></a></li>
 
 				</ul></li>
 
@@ -241,7 +242,7 @@
 						<li><a href="actor/edit.do"><spring:message
 									code="master.page.profile.edit" /></a></li>
 					</security:authorize>
-					
+
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
