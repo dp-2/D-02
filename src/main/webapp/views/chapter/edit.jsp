@@ -20,8 +20,8 @@
 <spring:message code="confirm.phone" var="confirmPhoneMessage" />
 
 <jstl:if test="${isPrincipalAuthorizedEdit}">
-		<form:form action="brotherhood/brotherhood-none/edit.do" method="post" id="formEdit"
-			name="formEdit" modelAttribute="brotherhoodForm">
+		<form:form action="chapter/edit.do" method="post" id="formEdit"
+			name="formEdit" modelAttribute="chapterForm">
 			
 			<form:hidden path="id" />
 			<form:hidden path="version" />
@@ -30,25 +30,25 @@
 			<acme:password path="password" code="useraccount.password" />
 			<acme:password path="confirmPassword" code="useraccount.confirmPassword" />
 			
-			<acme:textbox path="name" code="brotherhood.name" />
-			<acme:textbox path="middleName" code="brotherhood.middlename" />
-			<acme:textbox path="surname" code="brotherhood.surname" />
-			<acme:textbox path="email" code="brotherhood.email" />
-			<acme:textbox path="phone" code="brotherhood.phone" id="phone" />
-			<acme:textbox path="address" code="brotherhood.address" />
-			<acme:textbox path="photo" code="brotherhood.photo" />
-			<acme:textbox path="title" code="brotherhood.title" />
+			<acme:textbox path="name" code="chapter.name" />
+			<acme:textbox path="middleName" code="chapter.middlename" />
+			<acme:textbox path="surname" code="chapter.surname" />
+			<acme:textbox path="email" code="chapter.email" />
+			<acme:textbox path="phone" code="chapter.phone" id="phone" />
+			<acme:textbox path="address" code="chapter.address" />
+			<acme:textbox path="photo" code="chapter.photo" />
+			<acme:textbox path="title" code="chapter.title" />
 				
 				
-			<acme:checkbox code="brotherhood.accept" path="accept" />
+			<acme:checkbox code="chapter.accept" path="accept" />
 				
 			<input type="submit" name="save"
-				value="<spring:message code="brotherhood.save"></spring:message>"
+				value="<spring:message code="chapter.save"></spring:message>"
 				onclick="return patternPhone(document.getElementById('phone').value, '${confirmPhoneMessage}');" />
-			<a href="law/terminosYCondiciones.do"><spring:message code="brotherhood.consultTermsAndConditions" /></a><br/><br/> 
+			<a href="law/terminosYCondiciones.do"><spring:message code="chapter.consultTermsAndConditions" /></a><br/><br/> 
 				
 		</form:form>
 		
-		<acme:cancel url="" code="brotherhood.cancel" />	
+		<acme:cancel url="" code="chapter.cancel" />	
 		
 </jstl:if>

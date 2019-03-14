@@ -38,9 +38,9 @@ public class ChapterController extends AbstractController {
 	}
 
 	private ModelAndView createEditModelAndView(final ChapterForm chapterForm, final String message) {
-		final ModelAndView res = new ModelAndView("brotherhood/edit");
+		final ModelAndView res = new ModelAndView("chapter/edit");
 		final Boolean isPrincipalAuthorizedEdit = this.isPrincipalAuthorizedEdit(chapterForm);
-		res.addObject("brotherhoodForm", chapterForm);
+		res.addObject("chapterForm", chapterForm);
 		res.addObject("message", message);
 		res.addObject("banner", this.configurationService.findOne().getBanner());
 		res.addObject("isPrincipalAuthorizedEdit", isPrincipalAuthorizedEdit);
