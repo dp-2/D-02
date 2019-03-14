@@ -1883,15 +1883,8 @@
 
 		<property name="photos">
 			<list>
-				<bean id="photo1inceptionRecord1" class="domain.Url">
-					<property name="url"
-						value="http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg" />
-				</bean>
-
-				<bean id="photo2inceptionRecord1" class="domain.Url">
-					<property name="url"
-						value="http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG" />
-				</bean>
+			<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg</value>
+			<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG</value>
 			</list>
 		</property>
 
@@ -1985,15 +1978,8 @@
 
 		<property name="photos">
 			<list>
-				<bean id="photo1inceptionRecord2" class="domain.Url">
-					<property name="url"
-						value="http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg" />
-				</bean>
-
-				<bean id="photo2inceptionRecord2" class="domain.Url">
-					<property name="url"
-						value="http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG" />
-				</bean>
+			<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg</value>
+			<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG</value>
 			</list>
 		</property>
 
@@ -2084,15 +2070,8 @@
 
 		<property name="photos">
 			<list>
-				<bean id="photo1inceptionRecord3" class="domain.Url">
-					<property name="url"
-						value="http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg" />
-				</bean>
-
-				<bean id="photo2inceptionRecord3" class="domain.Url">
-					<property name="url"
-						value="http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG" />
-				</bean>
+			<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg</value>
+			<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG</value>
 			</list>
 		</property>
 
