@@ -20,10 +20,8 @@ import org.springframework.validation.Validator;
 import repositories.ChapterRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Brotherhood;
 import domain.Chapter;
 import domain.Configuration;
-import forms.BrotherhoodForm;
 import forms.ChapterForm;
 
 @Service
@@ -138,43 +136,32 @@ public class ChapterService {
 		return res;
 	}
 
-	public BrotherhoodForm construct(final Brotherhood b) {
-		final BrotherhoodForm res = new BrotherhoodForm();
-		res.setEmail(b.getEmail());
-		res.setName(b.getName());
-		res.setPhone(b.getPhone());
-		res.setPhoto(b.getPhoto());
-		res.setPictures(b.getPictures());
-		res.setSurname(b.getSurname());
-		res.setTitle(b.getTitle());
-		res.setUsername(b.getUserAccount().getUsername());
-		res.setId(b.getId());
-		res.setVersion(b.getVersion());
-		res.setMiddleName(b.getMiddleName());
-		res.setAddress(b.getAddress());
+	public ChapterForm construct(final Chapter chapter) {
+		final ChapterForm res = new ChapterForm();
+		res.setEmail(chapter.getEmail());
+		res.setName(chapter.getName());
+		res.setPhone(chapter.getPhone());
+		res.setPhoto(chapter.getPhoto());
+		res.setSurname(chapter.getSurname());
+		res.setUsername(chapter.getUserAccount().getUsername());
+		res.setId(chapter.getId());
+		res.setVersion(chapter.getVersion());
+		res.setMiddleName(chapter.getMiddleName());
+		res.setAddress(chapter.getAddress());
 		return res;
 	}
 
 	public Chapter deconstruct(final ChapterForm form, final BindingResult binding) {
 		Chapter res = null;
 		if (form.getId() == 0 && !form.getAccept()) {
-			/*
-			 * binding.addError(new FieldError("brotherhoodForm", "accept", form.getAccept(), false, new String[] {
-			 * "brotherhoodForm.accept", "accept"
-			 * }, new Object[] {
-			 * new DefaultMessageSourceResolvable(new String[] {
-			 * "brotherhoodForm.accept", "accept"
-			 * }, new Object[] {}, "accept")
-			 * }, "brotherhood.mustaccept"));
-			 */
 			final Locale locale = LocaleContextHolder.getLocale();
-			final String errorMessage = this.messageSource.getMessage("brotherhood.mustaccept", null, locale);
-			binding.addError(new FieldError("brotherhoodForm", "accept", errorMessage));
+			final String errorMessage = this.messageSource.getMessage("chapter.mustaccept", null, locale);
+			binding.addError(new FieldError("chapterForm", "accept", errorMessage));
 		}
 		if (!form.getConfirmPassword().equals(form.getPassword())) {
 			final Locale locale = LocaleContextHolder.getLocale();
-			final String errorMessage = this.messageSource.getMessage("brotherhood.mustmatch", null, locale);
-			binding.addError(new FieldError("brotherhoodForm", "confirmPassword", errorMessage));
+			final String errorMessage = this.messageSource.getMessage("chapter.mustmatch", null, locale);
+			binding.addError(new FieldError("chapterForm", "confirmPassword", errorMessage));
 		}
 		if (form.getId() == 0)
 			res = this.create();

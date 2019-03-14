@@ -1,5 +1,5 @@
 
-package controllers.Brotherhood;
+package controllers.Chapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +27,7 @@ import forms.BrotherhoodForm;
 
 @Controller
 @RequestMapping("brotherhood")
-public class BrotherhoodController extends AbstractController {
+public class ChapterController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService		brotherhoodService;
