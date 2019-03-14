@@ -245,6 +245,9 @@
 
 		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/**"
 			access="hasRole('BROTHERHOOD')" />
+			
+		<security:intercept-url pattern="/linkRecord/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />
 
 
 

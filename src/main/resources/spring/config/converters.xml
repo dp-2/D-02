@@ -87,6 +87,9 @@
 		<bean class="converters.MiscellaneousRecordToStringConverter" />
 		<bean class="converters.StringToMiscellaneousRecordConverter" />
 		
+		<bean class="converters.LinkRecordToStringConverter" />
+		<bean class="converters.StringToLinkRecordConverter" />
+		
 		<bean class="converters.HistoryToStringConverter" />
 		<bean class="converters.StringToHistoryConverter" />
 
