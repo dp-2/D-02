@@ -41,7 +41,6 @@ import domain.Brotherhood;
 import domain.Enroll;
 import domain.Member;
 import domain.Parade;
-import domain.Sponsor;
 import domain.Warning;
 
 @Controller
@@ -246,8 +245,8 @@ public class AdministratorController extends AbstractController {
 			result.addObject("stddevc1", 0.0);
 
 		//QUERY C2
-		final Brotherhood queryC2 = this.brotherhoodService.brotherhoodLargestHistory();
-		result.addObject("queryC2", queryC2);
+		//final Brotherhood queryC2 = this.brotherhoodService.brotherhoodLargestHistory();
+		//result.addObject("queryC2", queryC2);
 
 		//QUERY C3
 		final List<Brotherhood> queryC3 = this.brotherhoodService.brotherhoodLargestHistoryThanAVG();
@@ -270,16 +269,18 @@ public class AdministratorController extends AbstractController {
 
 		//QUERY B5
 		final Double ratioParadeByStatusACCEPTED = this.paradeService.ratioParadeFinalByStatus().get(0);
-		final Double ratioParadeByStatusSUBMITTED = this.paradeService.ratioParadeFinalByStatus().get(2);
+		//final Double ratioParadeByStatusSUBMITTED = this.paradeService.ratioParadeFinalByStatus().get(2);
 		final Double ratioParadeByStatusREJECTED = this.paradeService.ratioParadeFinalByStatus().get(1);
 		if (ratioParadeByStatusACCEPTED != null)
 			result.addObject("ratioParadeByStatusACCEPTED", df.format(ratioParadeByStatusACCEPTED));
 		else
 			result.addObject("ratioParadeByStatusACCEPTED", 0.0);
-		if (ratioParadeByStatusSUBMITTED != null)
-			result.addObject("ratioParadeByStatusSUBMITTED", df.format(ratioParadeByStatusSUBMITTED));
-		else
-			result.addObject("ratioParadeByStatusSUBMITTED", 0.0);
+		/*
+		 * if (ratioParadeByStatusSUBMITTED != null)
+		 * result.addObject("ratioParadeByStatusSUBMITTED", df.format(ratioParadeByStatusSUBMITTED));
+		 * else
+		 * result.addObject("ratioParadeByStatusSUBMITTED", 0.0);
+		 */
 		if (ratioParadeByStatusREJECTED != null)
 			result.addObject("ratioParadeByStatusREJECTED", df.format(ratioParadeByStatusREJECTED));
 		else
@@ -319,17 +320,19 @@ public class AdministratorController extends AbstractController {
 			result.addObject("stddevA2", 0.0);
 
 		//Query A3
-		final Sponsor queryA3a = this.sponsorshipService.top5Sponsors().get(0);
-		final Sponsor queryA3b = this.sponsorshipService.top5Sponsors().get(1);
-		final Sponsor queryA3c = this.sponsorshipService.top5Sponsors().get(2);
-		final Sponsor queryA3d = this.sponsorshipService.top5Sponsors().get(3);
-		final Sponsor queryA3e = this.sponsorshipService.top5Sponsors().get(4);
-
-		result.addObject("queryA3a", queryA3a);
-		result.addObject("queryA3b", queryA3b);
-		result.addObject("queryA3c", queryA3c);
-		result.addObject("queryA3d", queryA3d);
-		result.addObject("queryA3e", queryA3e);
+		/*
+		 * final Sponsor queryA3a = this.sponsorshipService.top5Sponsors().get(0);
+		 * final Sponsor queryA3b = this.sponsorshipService.top5Sponsors().get(1);
+		 * final Sponsor queryA3c = this.sponsorshipService.top5Sponsors().get(2);
+		 * final Sponsor queryA3d = this.sponsorshipService.top5Sponsors().get(3);
+		 * final Sponsor queryA3e = this.sponsorshipService.top5Sponsors().get(4);
+		 * 
+		 * result.addObject("queryA3a", queryA3a);
+		 * result.addObject("queryA3b", queryA3b);
+		 * result.addObject("queryA3c", queryA3c);
+		 * result.addObject("queryA3d", queryA3d);
+		 * result.addObject("queryA3e", queryA3e);
+		 */
 
 		return result;
 	}
