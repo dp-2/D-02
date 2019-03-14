@@ -23,9 +23,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$(function() {
-		$("#datepicker1").datepicker({  yearRange: "1700:2018",    changeMonth: true,
+		$("#datepicker1").datepicker({  dateFormat: "yy/mm/dd", yearRange: "1700:2018",    changeMonth: true,
 		      changeYear: true});
-		$("#datepicker2").datepicker({  yearRange: "1700:2500",    changeMonth: true,
+		$("#datepicker2").datepicker({ dateFormat: "yy/mm/dd",yearRange: "1700:2500",    changeMonth: true,
 		      changeYear: true});
 	});
 </script>
@@ -45,7 +45,7 @@
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="history" />
-			<form:hidden path="photos" />
+			
 
 
 			<fieldset>
@@ -63,8 +63,8 @@
 				<form:errors cssClass="error" path="endYear" />
 				<br>
 				
-<%-- 				<acme:textbox code="periodRecord.photos" path="photos" readonly="false" />
- --%>				
+				<acme:textarea code="periodRecord.photos" path="photos" readonly="false" />
+ 				
 				
 
 			</fieldset>

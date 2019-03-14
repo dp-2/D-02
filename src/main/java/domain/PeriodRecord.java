@@ -67,7 +67,7 @@ public class PeriodRecord extends DomainEntity {
 	//Getters y Setters
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@Past
 	public Date getStartYear() {
 		return this.startYear;
@@ -78,7 +78,7 @@ public class PeriodRecord extends DomainEntity {
 	}
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	public Date getEndYear() {
 		return this.endYear;
 	}

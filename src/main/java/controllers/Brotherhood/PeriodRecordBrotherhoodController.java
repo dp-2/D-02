@@ -81,16 +81,16 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	}
 	//
 	//	//------------------------------------------
-	//	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	//	public ModelAndView create() {
-	//		ModelAndView result;
-	//		DFloat er;
-	//		er = this.dfloatService.create();
-	//		result = this.createEditModelAndView(er);
-	//		return result;
-	//
-	//	}
-	//
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		PeriodRecord periodRecord;
+		periodRecord = this.periodRecordService.create();
+		result = this.createEditModelAndView(periodRecord);
+		return result;
+
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int periodRecordId) {
 		ModelAndView result;
@@ -143,17 +143,17 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		return result;
 	}
 	//
-	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	//	public ModelAndView delete(final DFloat dfloat, final BindingResult binding) {
-	//		ModelAndView result;
-	//		try {
-	//			this.dfloatService.delete(dfloat);
-	//			result = new ModelAndView("redirect:list.do");
-	//		} catch (final Throwable oops) {
-	//			result = this.createEditModelAndView(dfloat, "dfloat.commit.error");
-	//
-	//		}
-	//		return result;
-	//	}
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final PeriodRecord periodRecord, final BindingResult binding) {
+		ModelAndView result;
+		try {
+			this.periodRecordService.delete(periodRecord);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+
+		}
+		return result;
+	}
 
 }
