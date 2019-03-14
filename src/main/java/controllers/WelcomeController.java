@@ -1,8 +1,8 @@
 /*
  * WelcomeController.java
- * 
+ *
  * Copyright (C) 2019 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -18,10 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ConfigurationService;
-import services.WarningService;
 import domain.Configuration;
 import domain.Warning;
+import services.ConfigurationService;
+import services.WarningService;
 
 @Controller
 @RequestMapping("/welcome")
@@ -66,6 +66,38 @@ public class WelcomeController extends AbstractController {
 		result.addObject("banner", banner);
 		result.addObject("warning", warning);
 		result.addObject("moment", moment);
+
+		if (configuration.isFailSystem() == true) {
+
+			final String securityMessage = this.configurationService.internacionalizcionSecurityMessage();
+			result.addObject("securityMessage", securityMessage);
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/index", params = "activate")
+	public ModelAndView activateSecurityMessage() {
+		final ModelAndView result = this.index();
+
+		try {
+			this.configurationService.active();
+		} catch (final Exception e) {
+			throw e;
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/index", params = "desactivate")
+	public ModelAndView desactivateSecurityMessage() {
+		final ModelAndView result = this.index();
+
+		try {
+			this.configurationService.desactive();
+		} catch (final Exception e) {
+			throw e;
+		}
 
 		return result;
 	}

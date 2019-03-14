@@ -1729,6 +1729,10 @@
 			value="Welcome to Acme Parade¡! The site to organise your parades." />
 		<property name="welcomeMessageES"
 			value="¡Bienvenidos a Acme Parade¡! Tu sitio para organizar desfiles." />
+		<property name="securityMessageEN"
+			value="A security fault has occurred! The system is in maintenance." />
+		<property name="securityMessageES"
+			value="¡Se ha producido un fallo de seguridad! El sistema se encuentra en mantenimiento." />
 		<property name="spamWordsEN">
 			<list>
 				<value>sex</value>
@@ -1801,6 +1805,7 @@
 				<value>FLY</value>
 			</list>
 		</property>
+		<property name="failSystem" value="false" />
 	</bean>
 
 	<!-- March -->
