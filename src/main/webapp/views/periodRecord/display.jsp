@@ -34,13 +34,13 @@
 <fieldset><legend><spring:message code="periodRecord.photos" /></legend>
 
 		<jstl:forEach items="${periodRecord.photos}" var="photo">
-	  <br />
-	      <div class="inline-block">
+	  
+	      <!-- <div class="inline-block"> -->
 
-  		<img src="${photo} "  style="width:400px;height:300px; display: inline-block;">
-  		    </div>
+  		<img src="${photo} "  style="width:15%;height:15%; display: inline-block;">
+  		   <!--  </div> -->
 
-  	   <br />
+  	   
 
 	</jstl:forEach>
 	
