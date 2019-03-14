@@ -1,7 +1,7 @@
 
 package domain;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -9,7 +9,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,7 +22,7 @@ public class InceptionRecord extends DomainEntity {
 	//Atributos
 	private String			title;
 	private String			text;
-	private Collection<Url>	photos;
+	private List<String>	photos;
 
 	//relaciones
 	private History			history;
@@ -61,17 +60,14 @@ public class InceptionRecord extends DomainEntity {
 		this.history = history;
 	}
 
-	//Getters y Setters
 	@ElementCollection
 	@Valid
-	@NotNull
 	@NotEmpty
-	public Collection<Url> getPhotos() {
+	public List<String> getPhotos() {
 		return this.photos;
 	}
-	//puede que el notEmpty de problemas a la hora de crearlo
 
-	public void setPhotos(final Collection<Url> photos) {
+	public void setPhotos(final List<String> photos) {
 		this.photos = photos;
 	}
 

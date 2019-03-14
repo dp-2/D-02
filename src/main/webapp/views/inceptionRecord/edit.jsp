@@ -34,13 +34,14 @@
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="history" />
+			
 
 
 			<fieldset>
 				<!-------------------Form ------------------------------------>
 				<acme:labelForm code="inceptionRecord.title" path="title" />
 				<acme:textarea code="inceptionRecord.text" path="text" />
-				<acme:labelForm code="inceptionRecord.photos" path="photos" />	
+				<acme:textarea code="periodRecord.photos" path="photos" readonly="false" />
 
 
 
@@ -55,15 +56,11 @@
 				value="<spring:message code="inceptionRecord.save"></spring:message>" />
 
 			<button type="button"
-				onclick="javascript: relativeRedir('inceptionRecord/display.do')">
+				onclick="javascript: relativeRedir('inceptionRecord/display.do?inceptionRecordId=${inceptionRecord.id}')">
 				<spring:message code="inceptionRecord.cancel" />
 			</button>
 
-			<jstl:if test="${inceptionRecord.id != 0}">
-				<input type="submit" name="delete"
-					value="<spring:message code="inceptionRecord.delete" />"
-					onclick="return confirm('<spring:message code="inceptionRecord.confirm.delete" />')" />&nbsp;
-	</jstl:if>
+
 
 
 

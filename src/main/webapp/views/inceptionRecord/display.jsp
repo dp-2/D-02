@@ -16,25 +16,24 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
 
-<p><spring:message code="inceptionRecord.title" /> : <jstl:out value="${inceptionRecord.title}" /></p>
-<p><spring:message code="inceptionRecord.text" /> : <jstl:out value="${inceptionRecord.text}" /></p>
+			<acme:out code="inceptionRecord.title" value="${inceptionRecord.title}"/>
+			<acme:out code="inceptionRecord.text" value="${inceptionRecord.text}"/>
 
 
 <fieldset><legend><spring:message code="inceptionRecord.photos" /></legend>
 
 		<jstl:forEach items="${inceptionRecord.photos}" var="photo">
-	  <br />
-	      <div class="inline-block">
 
-  		<img src="${photo.url} "  style="width:800px;height:600px; display: inline-block;">
-  		    </div>
+  		<img src="${photo} "  style="width:50%;height:50%; display: inline-block;">
 
-  	   <br />
 
 	</jstl:forEach>
+	<br>
+	<br>
 	
 	<jstl:if test='${brotherhood.userAccount.username == username}'>
 

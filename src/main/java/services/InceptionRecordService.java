@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.InceptionRecordRepository;
+import security.LoginService;
+import domain.Brotherhood;
 import domain.History;
 import domain.InceptionRecord;
 
@@ -26,6 +28,12 @@ public class InceptionRecordService {
 	@Autowired
 	private HistoryService				historyService;
 
+	@Autowired
+	private ServiceUtils				serviceUtils;
+
+	@Autowired
+	private BrotherhoodService			brotherhoodService;
+
 
 	public InceptionRecordService() {
 		super();
@@ -33,9 +41,13 @@ public class InceptionRecordService {
 	// Simple CRUD methods
 
 	public InceptionRecord create() {
-		InceptionRecord pr;
-		pr = new InceptionRecord();
-		return pr;
+		final InceptionRecord inceptionRecord = new InceptionRecord();
+		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId());
+
+		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
+
+		inceptionRecord.setHistory(history);
+		return inceptionRecord;
 	}
 
 	public Collection<InceptionRecord> findAll() {
@@ -51,11 +63,18 @@ public class InceptionRecordService {
 
 	}
 
-	public InceptionRecord save(final InceptionRecord p) {
-		Assert.notNull(p);
-		InceptionRecord res;
-		res = this.InceptionRecordRepository.save(p);
+	public InceptionRecord save(final InceptionRecord inceptionRecord) {
+		Assert.notNull(inceptionRecord);
+		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
+		this.serviceUtils.checkActor(inceptionRecord.getHistory().getBrotherhood());
+		this.serviceUtils.checkAuthority("BROTHERHOOD");
+
+		//comprobamos que el id del objeto no sea nulo o negativo por seguridad
+		this.serviceUtils.checkIdSave(inceptionRecord);
+
+		final InceptionRecord res = this.InceptionRecordRepository.save(inceptionRecord);
 		return res;
+
 	}
 
 	public void delete(final InceptionRecord p) {

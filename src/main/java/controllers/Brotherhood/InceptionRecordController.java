@@ -2,7 +2,7 @@
 package controllers.Brotherhood;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -20,7 +20,6 @@ import services.ConfigurationService;
 import services.InceptionRecordService;
 import controllers.AbstractController;
 import domain.InceptionRecord;
-import domain.Url;
 
 @Controller
 @RequestMapping("/inceptionRecord")
@@ -42,8 +41,8 @@ public class InceptionRecordController extends AbstractController {
 
 		final InceptionRecord inceptionRecord = this.inceptionService.findOne(inceptionRecordId);
 
-		Collection<Url> inceptionRecordPhotos = inceptionRecord.getPhotos();
-		inceptionRecordPhotos = new ArrayList<Url>();
+		List<String> inceptionRecordPhotos = inceptionRecord.getPhotos();
+		inceptionRecordPhotos = new ArrayList<String>();
 		res.addObject("inceptionRecord", inceptionRecord);
 		res.addObject("inceptionRecordPhotos", inceptionRecordPhotos);
 		res.addObject("banner", this.configurationService.findOne().getBanner());
@@ -53,21 +52,15 @@ public class InceptionRecordController extends AbstractController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int inceptionRecordId) {
-		final ModelAndView res;
-		InceptionRecord inceptionRecord;
+		ModelAndView result;
+		final InceptionRecord inceptionRecord;
+
 		inceptionRecord = this.inceptionService.findOne(inceptionRecordId);
-
-		Collection<Url> inceptionRecordPhotos = inceptionRecord.getPhotos();
-		inceptionRecordPhotos = new ArrayList<Url>();
-
 		Assert.notNull(inceptionRecord);
 
-		res = this.createEditModelAndView(inceptionRecord);
+		result = this.createEditModelAndView(inceptionRecord);
 
-		res.addObject("inceptionRecord", inceptionRecord);
-		res.addObject("inceptionRecordPhotos", inceptionRecordPhotos);
-
-		return res;
+		return result;
 
 	}
 
@@ -81,7 +74,7 @@ public class InceptionRecordController extends AbstractController {
 		} else
 			try {
 				this.inceptionService.save(inceptionRecord);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:display.do?inceptionRecordId=" + inceptionRecord.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(inceptionRecord, "inceptionRecord.commit.error");
 			}
@@ -93,7 +86,7 @@ public class InceptionRecordController extends AbstractController {
 
 		result = new ModelAndView("inceptionRecord/edit");
 
-		result.addObject("dfloat", inceptionRecord);
+		result.addObject("inceptionRecord", inceptionRecord);
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 		result.addObject("message", message);
 		result.addObject("requestURI", "inceptionRecord/edit.do");
@@ -101,24 +94,11 @@ public class InceptionRecordController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final InceptionRecord inceptionRecord) {
+	protected ModelAndView createEditModelAndView(final InceptionRecord periodRecord) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(inceptionRecord, null);
+		result = this.createEditModelAndView(periodRecord, null);
 
-		return result;
-	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final InceptionRecord inceptionRecord, final BindingResult binding) {
-		ModelAndView result;
-		try {
-			this.inceptionService.delete(inceptionRecord);
-			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(inceptionRecord, "inceptionRecord.commit.error");
-
-		}
 		return result;
 	}
 
