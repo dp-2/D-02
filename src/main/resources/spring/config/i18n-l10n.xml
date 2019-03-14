@@ -45,6 +45,7 @@
 		<value>/views/inceptionRecord/messages</value>
 
 		<value>/views/periodRecord/messages</value>
+		<value>/views/miscellaneousRecord/messages</value>
 
 
 	</util:list>

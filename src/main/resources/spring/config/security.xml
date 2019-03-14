@@ -240,6 +240,9 @@
 			
 		<security:intercept-url pattern="/periodRecord/brotherhood/**"
 			access="hasRole('BROTHERHOOD')" />
+			
+		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />
 
 
 
