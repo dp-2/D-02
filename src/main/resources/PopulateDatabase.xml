@@ -185,7 +185,7 @@
 
 	<bean id="userAccount15" class="security.UserAccount">
 		<property name="username" value="chapter1" />
-		<property name="password" value="178494D73A41F7D68E80F685324D3662" />
+		<property name="password" value="178494d73a41f7d68e80f685324d3662" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -197,7 +197,7 @@
 
 	<bean id="userAccount16" class="security.UserAccount">
 		<property name="username" value="chapter2" />
-		<property name="password" value="07A29F2348D728FAD16C5260823F93EF" />
+		<property name="password" value="07a29f2348d728fad16c5260823f93ef" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
