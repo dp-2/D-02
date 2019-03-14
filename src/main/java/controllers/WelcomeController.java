@@ -55,6 +55,7 @@ public class WelcomeController extends AbstractController {
 		final String banner = configuration.getBanner();
 
 		final String welcomeMessage = this.configurationService.internacionalizcionWelcome();
+		final boolean isFailSystem = configuration.isFailSystem();
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
@@ -66,6 +67,7 @@ public class WelcomeController extends AbstractController {
 		result.addObject("banner", banner);
 		result.addObject("warning", warning);
 		result.addObject("moment", moment);
+		result.addObject("isFailSystem", isFailSystem);
 
 		if (configuration.isFailSystem() == true) {
 
@@ -78,10 +80,11 @@ public class WelcomeController extends AbstractController {
 
 	@RequestMapping(value = "/index", params = "activate")
 	public ModelAndView activateSecurityMessage() {
-		final ModelAndView result = this.index();
+		ModelAndView result = null;
 
 		try {
 			this.configurationService.active();
+			result = new ModelAndView("redirect:/welcome/index.do");
 		} catch (final Exception e) {
 			throw e;
 		}
@@ -91,10 +94,11 @@ public class WelcomeController extends AbstractController {
 
 	@RequestMapping(value = "/index", params = "desactivate")
 	public ModelAndView desactivateSecurityMessage() {
-		final ModelAndView result = this.index();
+		ModelAndView result = null;
 
 		try {
 			this.configurationService.desactive();
+			result = new ModelAndView("redirect:/welcome/index.do");
 		} catch (final Exception e) {
 			throw e;
 		}
