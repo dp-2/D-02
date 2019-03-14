@@ -84,6 +84,9 @@
 		<bean class="converters.PeriodRecordToStringConverter" />
 		<bean class="converters.StringToPeriodRecordConverter" />
 		
+		<bean class="converters.MiscellaneousRecordToStringConverter" />
+		<bean class="converters.StringToMiscellaneousRecordConverter" />
+		
 		<bean class="converters.HistoryToStringConverter" />
 		<bean class="converters.StringToHistoryConverter" />
 
