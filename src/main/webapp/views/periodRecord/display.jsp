@@ -37,7 +37,7 @@
 	  <br />
 	      <div class="inline-block">
 
-  		<img src="${photo.url} "  style="width:400px;height:300px; display: inline-block;">
+  		<img src="${photo} "  style="width:400px;height:300px; display: inline-block;">
   		    </div>
 
   	   <br />

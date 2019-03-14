@@ -83,6 +83,9 @@
 
 		<bean class="converters.PeriodRecordToStringConverter" />
 		<bean class="converters.StringToPeriodRecordConverter" />
+		
+		<bean class="converters.HistoryToStringConverter" />
+		<bean class="converters.StringToHistoryConverter" />
 
 	</util:list>
 

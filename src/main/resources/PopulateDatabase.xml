@@ -1919,10 +1919,7 @@
 		<property name="endYear" value="2018/03/14"></property>
 		<property name="photos">
 			<list>
-				<bean id="photo1PeriodRecord1" class="domain.Url">
-					<property name="url"
-						value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D" />
-				</bean>
+			<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D</value>
 			</list>
 		</property>
 	</bean>
@@ -2019,10 +2016,9 @@
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
 			<list>
-				<bean id="photo1PeriodRecord2" class="domain.Url">
-					<property name="url"
-						value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D" />
-				</bean>
+			<value>
+				https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -2119,10 +2115,7 @@
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
 			<list>
-				<bean id="photo1PeriodRecord3" class="domain.Url">
-					<property name="url"
-						value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D" />
-				</bean>
+			<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D</value>
 			</list>
 		</property>
 	</bean>

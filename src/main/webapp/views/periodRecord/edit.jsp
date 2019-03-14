@@ -23,7 +23,10 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$(function() {
-		$("#datepicker1").datepicker();
+		$("#datepicker1").datepicker({  yearRange: "1700:2018",    changeMonth: true,
+		      changeYear: true});
+		$("#datepicker2").datepicker({  yearRange: "1700:2500",    changeMonth: true,
+		      changeYear: true});
 	});
 </script>
 
@@ -42,13 +45,13 @@
 			<form:hidden path="id" />
 			<form:hidden path="version" />
 			<form:hidden path="history" />
+			<form:hidden path="photos" />
 
 
 			<fieldset>
 				<!-------------------Form ------------------------------------>
 				<acme:labelForm code="periodRecord.title" path="title" />
 				<acme:labelForm code="periodRecord.text" path="text" />
-				<acme:labelForm code="periodRecord.title" path="title" />
 				
 				<form:label path="startYear"><spring:message code="periodRecord.startYear"></spring:message></form:label>
 				<form:input path="startYear" id="datepicker1" />
@@ -56,10 +59,12 @@
 				<br>
 				
 				<form:label path="endYear"><spring:message code="periodRecord.endYear"></spring:message></form:label>
-				<form:input path="endYear" id="datepicker1" />
+				<form:input path="endYear" id="datepicker2" />
 				<form:errors cssClass="error" path="endYear" />
 				<br>
 				
+<%-- 				<acme:textbox code="periodRecord.photos" path="photos" readonly="false" />
+ --%>				
 				
 
 			</fieldset>
@@ -98,9 +103,9 @@
 
 </jstl:if>
 <jstl:if
-	test='${periodRecord.history.brotherhood.userAccount.username != username && periodRecord.id != 0}'>
+	test='${periodRecord.history.brotherhood.userAccount.username != username}'>
 	<h1 style="color: red;">
-		<b><spring:message code="dfloat.permissions"></spring:message></b>
+		<b><spring:message code="periodRecord.permissions"></spring:message></b>
 	</h1>
 	
 	<img src="https://cdn.shopify.com/s/files/1/1061/1924/products/Very_Angry_Emoji_7f7bb8df-d9dc-4cda-b79f-5453e764d4ea_large.png?v=1480481058" alt="Cuestionario Picture"
@@ -110,7 +115,7 @@
 		<br />
 	
 	<button type="button"
-				onclick="javascript: relativeRedir('dfloat/brotherhood/list.do')">
-				<spring:message code="dfloat.cancel" />
+				onclick="javascript: relativeRedir('periodRecord/brotherhood/list.do')">
+				<spring:message code="periodRecord.cancel" />
 			</button>
 </jstl:if>
