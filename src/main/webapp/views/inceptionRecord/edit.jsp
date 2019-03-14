@@ -17,50 +17,83 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<spring:message code="confirm.phone" var="confirmPhoneMessage" />
 
-<jstl:if test="${isPrincipalAuthorizedEdit}">
-		<form:form action="brotherhood/brotherhood-none/edit.do" method="post" id="formEdit"
-			name="formEdit" modelAttribute="brotherhoodForm">
-			
+<security:authentication property="principal.username" var="username" />
+<jstl:if
+		test='${inceptionRecord.history.brotherhood.userAccount.username == username || inceptionRecord.id == 0}'>
+		
+
+<security:authorize access="hasRole('BROTHERHOOD')">
+	<div>
+
+		<form:form action="inceptionRecord/edit.do" method="post"
+			id="formCreate" name="formCreate" modelAttribute="inceptionRecord">
+
+			<!-- Atributos hidden-->
+
 			<form:hidden path="id" />
 			<form:hidden path="version" />
+			<form:hidden path="history" />
+
+
+			<fieldset>
+				<!-------------------Form ------------------------------------>
+				<acme:labelForm code="inceptionRecord.title" path="title" />
+				<acme:textarea code="inceptionRecord.text" path="text" />
+				<acme:labelForm code="inceptionRecord.photos" path="photos" />	
+
+
+
+			</fieldset>
+
 			
-			<acme:textbox path="username" code="useraccount.username" />
-			<acme:password path="password" code="useraccount.password" />
-			<acme:password path="confirmPassword" code="useraccount.confirmPassword" />
-			
-			<acme:textbox path="name" code="brotherhood.name" />
-			<acme:textbox path="middleName" code="brotherhood.middlename" />
-			<acme:textbox path="surname" code="brotherhood.surname" />
-			<acme:textbox path="email" code="brotherhood.email" />
-			<acme:textbox path="phone" code="brotherhood.phone" id="phone" />
-			<acme:textbox path="address" code="brotherhood.address" />
-			<acme:textbox path="photo" code="brotherhood.photo" />
-			<acme:textbox path="title" code="brotherhood.title" />
-				
-			<div>
-				<fieldset><legend><spring:message code="brotherhood.pictures" /></legend>
-					<jstl:forEach items="${brotherhoodForm.pictures}" var="iter" varStatus="iterStatus">
-						<acme:textbox path="pictures[${iterStatus.index}].url" code="brotherhood.picture" />
-						<br>
-					</jstl:forEach>
-					<acme:submit name="addPicture" code="brotherhood.addPicture"/>
-					<jstl:if test="${brotherhoodForm.pictures.size() > 0}" >
-						<acme:submit name="removePicture" code="brotherhood.removePicture"/>
-					</jstl:if>
-				</fieldset>
-			</div>
-				
-			<acme:checkbox code="brotherhood.accept" path="accept" />
-				
+
+
+			<!--  Los botones de crear y cancelar -->
+
 			<input type="submit" name="save"
-				value="<spring:message code="brotherhood.save"></spring:message>"
-				onclick="return patternPhone(document.getElementById('phone').value, '${confirmPhoneMessage}');" />
-			<a href="law/terminosYCondiciones.do"><spring:message code="brotherhood.consultTermsAndConditions" /></a><br/><br/> 
-				
+				value="<spring:message code="inceptionRecord.save"></spring:message>" />
+
+			<button type="button"
+				onclick="javascript: relativeRedir('inceptionRecord/display.do')">
+				<spring:message code="inceptionRecord.cancel" />
+			</button>
+
+			<jstl:if test="${inceptionRecord.id != 0}">
+				<input type="submit" name="delete"
+					value="<spring:message code="inceptionRecord.delete" />"
+					onclick="return confirm('<spring:message code="inceptionRecord.confirm.delete" />')" />&nbsp;
+	</jstl:if>
+
+
+
+
+
+
 		</form:form>
-		
-		<acme:cancel url="" code="brotherhood.cancel" />	
-		
+
+	</div>
+
+
+
+
+
+</security:authorize>
+</jstl:if>
+<jstl:if
+	test='${inceptionRecord.history.brotherhood.userAccount.username != username && inceptionRecord.id != 0}'>
+	<h1 style="color: red;">
+		<b><spring:message code="inceptionRecord.permissions"></spring:message></b>
+	</h1>
+	
+	<img src="https://cdn.shopify.com/s/files/1/1061/1924/products/Very_Angry_Emoji_7f7bb8df-d9dc-4cda-b79f-5453e764d4ea_large.png?v=1480481058" alt="Cuestionario Picture"
+			style="width: 10%; height: 10%;">
+
+		<br />
+		<br />
+	
+	<button type="button"
+				onclick="javascript: relativeRedir('welcome/index')">
+				<spring:message code="inceptionRecord.cancel" />
+			</button>
 </jstl:if>
