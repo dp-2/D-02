@@ -10,6 +10,7 @@
 
 package controllers;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
@@ -30,14 +31,17 @@ import services.EnrollService;
 import services.FinderService;
 import services.MarchService;
 import services.MemberService;
-import services.PositionService;
 import services.ParadeService;
+import services.PeriodRecordService;
+import services.PositionService;
+import services.SponsorshipService;
 import services.WarningService;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Enroll;
 import domain.Member;
 import domain.Parade;
+import domain.Sponsor;
 import domain.Warning;
 
 @Controller
@@ -48,7 +52,7 @@ public class AdministratorController extends AbstractController {
 	private PositionService			positionService;
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
 
 	@Autowired
 	private AdministratorService	administratorService;
@@ -79,6 +83,12 @@ public class AdministratorController extends AbstractController {
 
 	@Autowired
 	public WarningService			warningService;
+
+	@Autowired
+	public PeriodRecordService		periodRecordService;
+
+	@Autowired
+	public SponsorshipService		sponsorshipService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -114,6 +124,7 @@ public class AdministratorController extends AbstractController {
 	public ModelAndView action1() throws ParseException {
 		ModelAndView result;
 		result = new ModelAndView("administrator/dashboard");
+		final DecimalFormat df = new DecimalFormat("0.00");
 		Map<String, Double> statistics;
 
 		statistics = this.positionService.computeStatistics();
@@ -207,9 +218,121 @@ public class AdministratorController extends AbstractController {
 		result.addObject("stdResultsInFinder", stdResultsInFinder);
 		result.addObject("emptyVSNonEmptyFinder", emptyVSNonEmptyFinder);
 
+		//DASHBOARD ACME-PARADE
+		//QueryC1
+		final Double avgC1 = this.periodRecordService.avgQueryC1();
+		final Double maxC1 = this.periodRecordService.maxQueryC1();
+		final Double minC1 = this.periodRecordService.minQueryC1();
+		final Double stddevC1 = this.periodRecordService.stddevQueryC1();
+
+		if (avgC1 != null)
+			result.addObject("avgC1", df.format(avgC1));
+		else
+			result.addObject("avgc1", 0.0);
+
+		if (maxC1 != null)
+			result.addObject("maxC1", df.format(maxC1));
+		else
+			result.addObject("maxC1", 0.0);
+
+		if (minC1 != null)
+			result.addObject("minC1", df.format(minC1));
+		else
+			result.addObject("minC1", 0.0);
+
+		if (stddevC1 != null)
+			result.addObject("stddevC1", df.format(stddevC1));
+		else
+			result.addObject("stddevc1", 0.0);
+
+		//QUERY C2
+		final Brotherhood queryC2 = this.brotherhoodService.brotherhoodLargestHistory();
+		result.addObject("queryC2", queryC2);
+
+		//QUERY C3
+		final List<Brotherhood> queryC3 = this.brotherhoodService.brotherhoodLargestHistoryThanAVG();
+		if (!queryC3.isEmpty())
+			result.addObject("queryC3", queryC3);
+
+		//QUERY B1
+		final Double queryB1 = this.areaService.ratioAreasNoCoordinated();
+		if (queryB1 != null)
+			result.addObject("queryB1", df.format(queryB1));
+		else
+			result.addObject("queryB1", 0.0);
+
+		//QUERY B4
+		final Double queryB4 = this.paradeService.ratioParadesDraftVsParadesFinal();
+		if (queryB4 != null)
+			result.addObject("queryB4", df.format(queryB4));
+		else
+			result.addObject("queryB4", 0.0);
+
+		//QUERY B5
+		final Double ratioParadeByStatusACCEPTED = this.paradeService.ratioParadeFinalByStatus().get(0);
+		final Double ratioParadeByStatusSUBMITTED = this.paradeService.ratioParadeFinalByStatus().get(2);
+		final Double ratioParadeByStatusREJECTED = this.paradeService.ratioParadeFinalByStatus().get(1);
+		if (ratioParadeByStatusACCEPTED != null)
+			result.addObject("ratioParadeByStatusACCEPTED", df.format(ratioParadeByStatusACCEPTED));
+		else
+			result.addObject("ratioParadeByStatusACCEPTED", 0.0);
+		if (ratioParadeByStatusSUBMITTED != null)
+			result.addObject("ratioParadeByStatusSUBMITTED", df.format(ratioParadeByStatusSUBMITTED));
+		else
+			result.addObject("ratioParadeByStatusSUBMITTED", 0.0);
+		if (ratioParadeByStatusREJECTED != null)
+			result.addObject("ratioParadeByStatusREJECTED", df.format(ratioParadeByStatusREJECTED));
+		else
+			result.addObject("ratioParadeByStatusREJECTED", 0.0);
+
+		//QUERYA1
+		final Double queryA1 = this.sponsorshipService.ratioActiveSponsorship();
+		if (queryA1 != null)
+			result.addObject("queryA1", df.format(queryA1));
+		else
+			result.addObject("queryA1", 0.0);
+
+		//QUERY A2
+		final Double avgA2 = this.sponsorshipService.avgSponsorshipBySponsor();
+		final Double maxA2 = this.sponsorshipService.maxSponsorshipBySponsor();
+		final Double minA2 = this.sponsorshipService.minSponsorshipBySponsor();
+		final Double stddevA2 = this.sponsorshipService.stddevSponsorshipBySponsor();
+
+		if (avgA2 != null)
+			result.addObject("avgA2", df.format(avgA2));
+		else
+			result.addObject("avgA2", 0.0);
+
+		if (maxA2 != null)
+			result.addObject("maxA2", df.format(maxA2));
+		else
+			result.addObject("maxA2", 0.0);
+
+		if (minA2 != null)
+			result.addObject("minA2", df.format(minA2));
+		else
+			result.addObject("minA2", 0.0);
+
+		if (stddevA2 != null)
+			result.addObject("stddevA2", df.format(stddevA2));
+		else
+			result.addObject("stddevA2", 0.0);
+
+		//Query A3
+		final Sponsor queryA3a = this.sponsorshipService.top5Sponsors().get(0);
+		final Sponsor queryA3b = this.sponsorshipService.top5Sponsors().get(1);
+		final Sponsor queryA3c = this.sponsorshipService.top5Sponsors().get(2);
+		final Sponsor queryA3d = this.sponsorshipService.top5Sponsors().get(3);
+		final Sponsor queryA3e = this.sponsorshipService.top5Sponsors().get(4);
+
+		result.addObject("queryA3a", queryA3a);
+		result.addObject("queryA3b", queryA3b);
+		result.addObject("queryA3c", queryA3c);
+		result.addObject("queryA3d", queryA3d);
+		result.addObject("queryA3e", queryA3e);
+
 		return result;
 	}
-
 	@RequestMapping("/adviseTrue")
 	public ModelAndView adviseTrue() {
 		ModelAndView result;
