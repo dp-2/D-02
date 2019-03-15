@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,29 @@ public class ParadeController extends AbstractController {
 
 	//List of Parade all actors-----------------------------------------------
 
+	@RequestMapping(value = "/chapterList", method = RequestMethod.GET)
+	public ModelAndView chapterList(@RequestParam final int chapterId) {
+		ModelAndView result;
+		final List<Parade> parades;
+		final Collection<Brotherhood> brotherhoods;
+
+		parades = this.paradeService.findAll();
+		brotherhoods = this.areaService.findBrotherhoodByChapterId(chapterId);
+		final List<Parade> paradesFinales = new ArrayList<Parade>();
+		int i = 0;
+		while (i < parades.size()) {
+			final Brotherhood b = parades.get(i).getBrotherhood();
+			if (brotherhoods.contains(b) && (parades.get(i).getStatus().equals("ACCEPTED")))
+				paradesFinales.add(parades.get(i));
+			i++;
+		}
+		result = new ModelAndView("brotherhood/list");
+		result.addObject("parades", paradesFinales);
+		result.addObject("requestURI", "brotherhood/chapterList.do");
+		result.addObject("banner", this.configurationService.findOne().getBanner());
+
+		return result;
+	}
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView modelAndView = new ModelAndView("parade/list");

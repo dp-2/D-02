@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Area;
+import domain.Brotherhood;
+import domain.Parade;
 
 @Repository
 public interface AreaRepository extends JpaRepository<Area, Integer> {
@@ -40,10 +42,10 @@ public interface AreaRepository extends JpaRepository<Area, Integer> {
 	@Query("select a from Area a where a.chapter.id = ?1")
 	List<Area> findAreaByChapterId(int chapterId);
 
-	//	@Query("select c.area.brotherhood from Chapter c where c.id = ?1")
-	//	List<Brotherhood> findBrotherhoodByChapterId(int chapterId);
-	//
-	//	@Query("select c.area.brotherhood.parade from Chapter c where c.id = ?1")
-	//	List<Parade> findParadeByChapterId(int chapterId);
+	@Query("select a.brotherhood from Area a where a.chapter.id = ?1")
+	List<Brotherhood> findBrotherhoodByChapterId(int chapterId);
+
+	@Query("select a.brotherhood.parade from Area a where a.chapter.id = ?1")
+	List<Parade> findParadeByChapterId(int chapterId);
 
 }

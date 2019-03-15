@@ -25,28 +25,28 @@
 
 		<display:column>
 			<jstl:if test="${row.ffinal == false}">
-				<a href="parade/brotherhood/edit.do?paradeId=${row.id}">
-					<spring:message code="parade.edit" />
+				<a href="parade/brotherhood/edit.do?paradeId=${row.id}"> <spring:message
+						code="parade.edit" />
 				</a>
 				<br>
-				<a href="parade/brotherhood/addFloat.do?paradeId=${row.id}">
-					<spring:message code="parade.addFloat" />
+				<a href="parade/brotherhood/addFloat.do?paradeId=${row.id}"> <spring:message
+						code="parade.addFloat" />
 				</a>
 				<br>
 				<a href="parade/brotherhood/removeFloat.do?paradeId=${row.id}">
 					<spring:message code="parade.removeFloat" />
 				</a>
-				
+
 			</jstl:if>
 		</display:column>
 	</security:authorize>
-	
+
 	<security:authorize access="hasRole('CHAPTER')">
 
 		<display:column>
 			<jstl:if test="${row.ffinal == false}">
-				<a href="parade/chapter/edit.do?paradeId=${row.id}">
-					<spring:message code="parade.edit" />
+				<a href="parade/chapter/edit.do?paradeId=${row.id}"> <spring:message
+						code="parade.edit" />
 				</a>
 			</jstl:if>
 		</display:column>
@@ -58,7 +58,7 @@
 				value="${row.brotherhood.name}" />
 		</a>
 	</display:column>
-	
+
 	<display:column titleKey="parade.sponsorship">
 		<img src="${sponsorship}" height="100px" width="100px" />
 	</display:column>
@@ -75,7 +75,7 @@
 		</display:column>
 	</security:authorize>
 
-	
+
 
 	<display:column>
 
@@ -88,13 +88,14 @@
 
 
 	<security:authorize access="hasRole('MEMBER')">
-	
+
 		<display:column>
-		<jstl:if test="${marchService.findMatchByParadeidAndMemberid(row.id,memberId)==0}">
-			<a href="march/member/create.do?paradeId=${row.id}"> <spring:message
-					code="parade.createMarch" />
-			</a>
-		</jstl:if>
+			<jstl:if
+				test="${marchService.findMatchByParadeidAndMemberid(row.id,memberId)==0}">
+				<a href="march/member/create.do?paradeId=${row.id}"> <spring:message
+						code="parade.createMarch" />
+				</a>
+			</jstl:if>
 		</display:column>
 
 	</security:authorize>

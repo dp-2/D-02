@@ -40,7 +40,7 @@
 	</display:column>
 	
 	<display:column titleKey="chapter.brotherhood">
-		<a href="brotherhood/list.do?chapterId=${row.id}"><spring:message
+		<a href="brotherhood/chapterList.do?chapterId=${row.id}"><spring:message
 				code="chapter.mybrotherhood" /> </a>
 	</display:column>
 	
