@@ -216,4 +216,8 @@ public class ParadeService {
 		return this.paradeRepository.ratioParadesDraftVsParadesFinal();
 	}
 
+	public List<String> findSponsorshipByParadeId(final int paradeId) {
+		return this.paradeRepository.findSponsorshipByParadeId(paradeId);
+	}
+
 }
