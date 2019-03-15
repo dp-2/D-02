@@ -335,8 +335,8 @@
 		<property name="holderName" value="holderName1" />
 		<property name="makeName" value="VISA" />
 		<property name="number" value="4172711227177926" />
-		<property name="expirationMonth" value="9" />
-		<property name="expirationYear" value="2021" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2019" />
 		<property name="CVVCode" value="110" />
 	</bean>
 

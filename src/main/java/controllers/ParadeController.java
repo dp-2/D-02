@@ -30,7 +30,7 @@ public class ParadeController extends AbstractController {
 	//Services--------------------------------------------------------------------
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -68,12 +68,14 @@ public class ParadeController extends AbstractController {
 		}
 
 		final List<Parade> parades = this.paradeService.findParadesFinal();
-
-		modelAndView.addObject("parades", parades);
-		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
-		modelAndView.addObject("numResults", this.configurationService.findOne().getNumResults());
-		modelAndView.addObject("requestURI", "parade/list.do");
-
+		for (final Parade p : parades) {
+			final List<String> a = this.paradeService.findSponsorshipByParadeId(p.getId());
+			modelAndView.addObject("sponsorship", a.get(0));
+			modelAndView.addObject("parades", parades);
+			modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
+			modelAndView.addObject("numResults", this.configurationService.findOne().getNumResults());
+			modelAndView.addObject("requestURI", "parade/list.do");
+		}
 		return modelAndView;
 	}
 
