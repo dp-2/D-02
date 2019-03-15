@@ -134,7 +134,14 @@
 
 			</jstl:if>
 
+		</security:authorize>
 
+		<security:authorize access="hasRole('CHAPTER')">
+
+			<li><a class="fNiv" href="area/list.do"><spring:message
+						code="master.page.area" /></a></li>
+			<li><a class="fNiv" href="proclaim/list.do"><spring:message
+						code="master.page.proclaim" /></a></li>
 
 		</security:authorize>
 

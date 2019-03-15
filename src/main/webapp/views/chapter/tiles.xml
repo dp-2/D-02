@@ -16,24 +16,14 @@
        
 <tiles-definitions>
 
-	<definition name="brotherhood/list" extends="master.page">	
-		<put-attribute name="title" value="List brotherhoods" />
-		<put-attribute name="body" value="/views/brotherhood/list.jsp" />
+	<definition name="chapter/list" extends="master.page">	
+		<put-attribute name="title" value="List chapters" />
+		<put-attribute name="body" value="/views/chapter/list.jsp" />
 	</definition>
 	
-	<definition name="brotherhood/listMyBrotherhood" extends="master.page">	
-		<put-attribute name="title" value="List brotherhoods" />
-		<put-attribute name="body" value="/views/brotherhood/listMyBrotherhood.jsp" />
-	</definition>
-	
-	<definition name="brotherhood/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit brotherhood" />
-		<put-attribute name="body" value="/views/brotherhood/edit.jsp" />
-	</definition>
-	
-	<definition name="brotherhood/display" extends="master.page">	
-		<put-attribute name="title" value="Display brotherhood" />
-		<put-attribute name="body" value="/views/brotherhood/display.jsp" />
+	<definition name="chapter/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit chapter" />
+		<put-attribute name="body" value="/views/chapter/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

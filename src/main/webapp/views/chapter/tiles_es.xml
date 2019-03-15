@@ -16,24 +16,14 @@
       
 <tiles-definitions>
 
-	<definition name="brotherhood/list" extends="master.page">	
-		<put-attribute name="title" value="Listado de hermandades" />
-		<put-attribute name="body" value="/views/brotherhood/list.jsp" />
+	<definition name="chapter/list" extends="master.page">	
+		<put-attribute name="title" value="Listar cabildos" />
+		<put-attribute name="body" value="/views/chapter/list.jsp" />
 	</definition>
 	
-	<definition name="brotherhood/listMyBrotherhood" extends="master.page">	
-		<put-attribute name="title" value="Listado de hermandades" />
-		<put-attribute name="body" value="/views/brotherhood/listMyBrotherhood.jsp" />
-	</definition>
-	
-	<definition name="brotherhood/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar hermandad" />
-		<put-attribute name="body" value="/views/brotherhood/edit.jsp" />
-	</definition>
-	
-	<definition name="brotherhood/display" extends="master.page">	
-		<put-attribute name="title" value="Mostrar hermandad" />
-		<put-attribute name="body" value="/views/brotherhood/display.jsp" />
+	<definition name="chapter/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar cabildo" />
+		<put-attribute name="body" value="/views/chapter/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>
