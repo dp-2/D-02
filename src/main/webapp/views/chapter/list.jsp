@@ -22,18 +22,31 @@
 <display:table name="chapters" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<acme:column value="${row.title}" code="brotherhood.title"
-		sortable="true" />
-
-	<acme:column value="${row.establishedMoment}"
-		code="chapter.establishedMoment" />
+	<acme:column value="${row.title}" code="chapter.title" sortable="true" />
 
 	<acme:column value="${row.email}" code="chapter.email" />
 
-	<acme:column value="${row.photo}" image="true" alt="${row.photo}" />
+	<display:column titleKey="chapter.photo">
+		<img src="${row.photo}" height="100px" width="100px" />
+	</display:column>
 
 	<acme:column value="${row.phone}" code="chapter.phone" />
 
 	<acme:column value="${row.address}" code="chapter.address" />
+
+	<display:column titleKey="chapter.area">
+		<a href="area/list.do?chapterId=${row.id}"><spring:message
+				code="chapter.myarea" /> </a>
+	</display:column>
 	
+	<display:column titleKey="chapter.brotherhood">
+		<a href="brotherhood/list.do?chapterId=${row.id}"><spring:message
+				code="chapter.mybrotherhood" /> </a>
+	</display:column>
+	
+	<display:column titleKey="chapter.parade">
+		<a href="parade/list.do?chapterId=${row.id}"><spring:message
+				code="chapter.myparade" /> </a>
+	</display:column>
+
 </display:table>

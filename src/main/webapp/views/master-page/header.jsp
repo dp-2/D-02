@@ -181,6 +181,8 @@
 
 
 		<security:authorize access="permitAll">
+		<li><a href="chapter/list.do"><spring:message
+						code="master.page.chapter" /></a>
 			<li><a href="brotherhood/any/list.do"><spring:message
 						code="master.page.listbrotherhood" /></a>
 				<ul>
@@ -220,7 +222,7 @@
 								code="master.page.register.member" /></a></li>
 					<li><a href="brotherhood/none/create.do"><spring:message
 								code="master.page.register.brotherhood" /></a></li>
-					<li><a href="chapter/edit.do"><spring:message
+					<li><a href="register/actor.do?authority=CHAPTER"><spring:message
 								code="master.page.register.chapter" /></a></li>
 
 				</ul></li>

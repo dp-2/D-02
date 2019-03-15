@@ -1,6 +1,8 @@
 
 package controllers.Chapter;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,20 @@ public class ChapterController extends AbstractController {
 	@Autowired
 	private ActorService	actorService;
 
+
+	//-------------------------- List ----------------------------------
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<Chapter> chapters;
+
+		chapters = this.chapterService.findAll();
+		result = new ModelAndView("chapter/list");
+		result.addObject("chapters", chapters);
+		result.addObject("requestURI", "chapter/list.do");
+
+		return result;
+	}
 
 	// Creation
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
