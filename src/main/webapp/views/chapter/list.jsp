@@ -45,7 +45,7 @@
 	</display:column>
 	
 	<display:column titleKey="chapter.parade">
-		<a href="parade/list.do?chapterId=${row.id}"><spring:message
+		<a href="parade/chapterList.do?chapterId=${row.id}"><spring:message
 				code="chapter.myparade" /> </a>
 	</display:column>
 
