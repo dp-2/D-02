@@ -92,6 +92,12 @@
 		
 		<bean class="converters.HistoryToStringConverter" />
 		<bean class="converters.StringToHistoryConverter" />
+		
+		<bean class="converters.ChapterToStringConverter" />
+		<bean class="converters.StringToChapterConverter" />
+		
+		<bean class="converters.ProclaimToStringConverter" />
+		<bean class="converters.StringToProclaimConverter" />
 
 	</util:list>
 
