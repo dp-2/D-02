@@ -137,8 +137,4 @@ public class AreaService {
 	public List<Brotherhood> findBrotherhoodByChapterId(final int chapterId) {
 		return this.areaRepository.findBrotherhoodByChapterId(chapterId);
 	}
-	//
-	//	public List<Parade> findParadeByChapterId(final int chapterId) {
-	//		return this.chapterRepository.findParadeByChapterId(chapterId);
-	//	}
 }

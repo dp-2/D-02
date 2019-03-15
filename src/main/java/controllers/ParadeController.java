@@ -66,11 +66,13 @@ public class ParadeController extends AbstractController {
 			final Brotherhood b = parades.get(i).getBrotherhood();
 			if (brotherhoods.contains(b) && (parades.get(i).getStatus().equals("ACCEPTED")))
 				paradesFinales.add(parades.get(i));
+			//				System.out.println(paradesFinales);
 			i++;
 		}
-		result = new ModelAndView("brotherhood/list");
+		//		System.out.println(paradesFinales);
+		result = new ModelAndView("parade/list");
 		result.addObject("parades", paradesFinales);
-		result.addObject("requestURI", "brotherhood/chapterList.do");
+		result.addObject("requestURI", "parade/chapterList.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;

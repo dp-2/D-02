@@ -240,7 +240,7 @@
 			access="!isAuthenticated()" />
 		<security:intercept-url pattern="/brotherhood/chapterList.do"
 			access="!isAuthenticated()" />
-		<security:intercept-url pattern="/brotherhood/chapterList.do"
+		<security:intercept-url pattern="/parade/chapterList.do"
 			access="!isAuthenticated()" />
 		<security:intercept-url pattern="/brotherhood/brotherhood-none/**"
 			access="!isAuthenticated() || hasRole('BROTHERHOOD')" />
