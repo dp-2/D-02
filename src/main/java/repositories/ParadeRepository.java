@@ -44,4 +44,7 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 
 	@Query("select 1.0*count(p)/(select count(pp) from Parade pp) from Parade p where p.ffinal=true group by p.status")
 	List<Double> ratioParadeFinalByStatus();
+
+	@Query("select s.banner from Sponsorship s where (s.parade.id = ?1) order by rand()")
+	List<String> findSponsorshipByParadeId(final int paradeId);
 }
