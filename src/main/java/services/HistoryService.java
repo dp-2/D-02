@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,13 @@ public class HistoryService {
 
 	// Managed repository and services----------------------------------------------------------------
 	@Autowired
-	private HistoryRepository	historyRepository;
+	private HistoryRepository		historyRepository;
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
+	private InceptionRecordService	inceptionService;
 
 
 	//Services-----------------------------------------------------------------------------
@@ -32,6 +37,8 @@ public class HistoryService {
 		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(userAccount.getId());
 
 		history.setBrotherhood(brotherhood);
+		history.setTitle("Default title");
+		this.inceptionService.create();
 
 		return history;
 	}
@@ -42,6 +49,10 @@ public class HistoryService {
 
 	public History findOneByBrotherhoodId(final int brotherhoodId) {
 		return this.historyRepository.findHistoryByBrotherhoodId(brotherhoodId);
+	}
+
+	public List<History> findAll() {
+		return this.historyRepository.findAll();
 	}
 
 }

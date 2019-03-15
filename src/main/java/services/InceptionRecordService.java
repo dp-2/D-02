@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +48,14 @@ public class InceptionRecordService {
 
 		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
 
+		final String photo = "https://content.thriveglobal.com/wp-content/uploads/2017/10/change-pixabay.jpg";
+		final List<String> photos = new ArrayList<>();
+		photos.add(photo);
 		inceptionRecord.setHistory(history);
+		inceptionRecord.setTitle("Default Inception Record Title");
+		inceptionRecord.setText("Default text");
+		inceptionRecord.setPhotos(photos);
+
 		return inceptionRecord;
 	}
 

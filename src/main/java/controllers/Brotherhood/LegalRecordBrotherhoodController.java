@@ -19,20 +19,20 @@ import services.ActorService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
 import services.HistoryService;
+import services.LegalRecordService;
 import services.ParadeService;
-import services.PeriodRecordService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.History;
-import domain.PeriodRecord;
+import domain.LegalRecord;
 
 @Controller
-@RequestMapping("/periodRecord/brotherhood")
-public class PeriodRecordBrotherhoodController extends AbstractController {
+@RequestMapping("/legalRecord/brotherhood")
+public class LegalRecordBrotherhoodController extends AbstractController {
 
 	//-----------------Services-------------------------
 	@Autowired
-	PeriodRecordService		periodRecordService;
+	LegalRecordService		legalRecordService;
 
 	@Autowired
 	BrotherhoodService		brotherhoodService;
@@ -53,16 +53,15 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		final Collection<PeriodRecord> periodRecords;
+		final Collection<LegalRecord> legalRecords;
 		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId());
 		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
 
-		periodRecords = this.periodRecordService.findAllByHistoryId(history.getId());
+		legalRecords = this.legalRecordService.findAllByHistoryId(history.getId());
 
-		result = new ModelAndView("periodRecord/list");
-		result.addObject("periodRecords", periodRecords);
-		result.addObject("history", history);
-		result.addObject("requestURI", "periodRecord/brotherhood/list.do");
+		result = new ModelAndView("legalRecord/list");
+		result.addObject("legalRecords", legalRecords);
+		result.addObject("requestURI", "legalRecord/brotherhood/list.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;
@@ -70,12 +69,12 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	//-----------------Display-------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int periodRecordId) {
+	public ModelAndView display(@RequestParam final int legalRecordId) {
 		ModelAndView result;
-		PeriodRecord periodRecord;
-		periodRecord = this.periodRecordService.findOne(periodRecordId);
-		result = new ModelAndView("periodRecord/display");
-		result.addObject("periodRecord", periodRecord);
+		LegalRecord legalRecord;
+		legalRecord = this.legalRecordService.findOne(legalRecordId);
+		result = new ModelAndView("legalRecord/display");
+		result.addObject("legalRecord", legalRecord);
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;
@@ -85,73 +84,73 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		PeriodRecord periodRecord;
-		periodRecord = this.periodRecordService.create();
-		result = this.createEditModelAndView(periodRecord);
+		LegalRecord legalRecord;
+		legalRecord = this.legalRecordService.create();
+		result = this.createEditModelAndView(legalRecord);
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int periodRecordId) {
+	public ModelAndView edit(@RequestParam final int legalRecordId) {
 		ModelAndView result;
-		final PeriodRecord periodRecord;
+		final LegalRecord legalRecord;
 
-		periodRecord = this.periodRecordService.findOne(periodRecordId);
-		Assert.notNull(periodRecord);
+		legalRecord = this.legalRecordService.findOne(legalRecordId);
+		Assert.notNull(legalRecord);
 
-		result = this.createEditModelAndView(periodRecord);
+		result = this.createEditModelAndView(legalRecord);
 
 		return result;
 
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final PeriodRecord periodRecord, final BindingResult binding) {
+	public ModelAndView save(@Valid final LegalRecord legalRecord, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(periodRecord);
+			result = this.createEditModelAndView(legalRecord);
 			System.out.println(binding.getAllErrors());
 		} else
 			try {
-				this.periodRecordService.save(periodRecord);
+				this.legalRecordService.save(legalRecord);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+				result = this.createEditModelAndView(legalRecord, "legalRecord.commit.error");
 			}
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final PeriodRecord periodRecord, final String message) {
+	protected ModelAndView createEditModelAndView(final LegalRecord legalRecord, final String message) {
 		final ModelAndView result;
 
-		result = new ModelAndView("periodRecord/edit");
+		result = new ModelAndView("legalRecord/edit");
 
-		result.addObject("periodRecord", periodRecord);
+		result.addObject("legalRecord", legalRecord);
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 		result.addObject("message", message);
-		result.addObject("requestURI", "periodRecord/brotherhood/edit.do");
+		result.addObject("requestURI", "legalRecord/brotherhood/edit.do");
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final PeriodRecord periodRecord) {
+	protected ModelAndView createEditModelAndView(final LegalRecord legalRecord) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(periodRecord, null);
+		result = this.createEditModelAndView(legalRecord, null);
 
 		return result;
 	}
 	//
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final PeriodRecord periodRecord, final BindingResult binding) {
+	public ModelAndView delete(final LegalRecord legalRecord, final BindingResult binding) {
 		ModelAndView result;
 		try {
-			this.periodRecordService.delete(periodRecord);
+			this.legalRecordService.delete(legalRecord);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+			result = this.createEditModelAndView(legalRecord, "legalRecord.commit.error");
 
 		}
 		return result;
