@@ -35,7 +35,7 @@
 	<acme:column value="${row.address}" code="chapter.address" />
 
 	<display:column titleKey="chapter.area">
-		<a href="area/list.do?chapterId=${row.id}"><spring:message
+		<a href="area/chapterList.do?chapterId=${row.id}"><spring:message
 				code="chapter.myarea" /> </a>
 	</display:column>
 	

@@ -3,6 +3,7 @@ package services;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,4 +130,15 @@ public class AreaService {
 		return this.areaRepository.ratioAreasNoCoordinated();
 	}
 
+	public List<Area> findAreaByChapterId(final int chapterId) {
+		return this.areaRepository.findAreaByChapterId(chapterId);
+	}
+
+	//	public List<Brotherhood> findBrotherhoodByChapterId(final int chapterId) {
+	//		return this.chapterRepository.findBrotherhoodByChapterId(chapterId);
+	//	}
+	//
+	//	public List<Parade> findParadeByChapterId(final int chapterId) {
+	//		return this.chapterRepository.findParadeByChapterId(chapterId);
+	//	}
 }

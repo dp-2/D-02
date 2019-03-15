@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 
 import javax.transaction.Transactional;
@@ -21,11 +20,8 @@ import org.springframework.validation.Validator;
 import repositories.ChapterRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Area;
-import domain.Brotherhood;
 import domain.Chapter;
 import domain.Configuration;
-import domain.Parade;
 import forms.ChapterForm;
 
 @Service
@@ -193,18 +189,6 @@ public class ChapterService {
 		res.getUserAccount().setAuthorities(authorities);
 		this.validator.validate(form, binding);
 		return res;
-	}
-
-	public List<Area> findAreaByChapterId(final int chapterId) {
-		return this.chapterRepository.findAreaByChapterId(chapterId);
-	}
-
-	public List<Brotherhood> findBrotherhoodByChapterId(final int chapterId) {
-		return this.chapterRepository.findBrotherhoodByChapterId(chapterId);
-	}
-
-	public List<Parade> findParadeByChapterId(final int chapterId) {
-		return this.chapterRepository.findParadeByChapterId(chapterId);
 	}
 
 }
