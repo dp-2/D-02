@@ -1862,8 +1862,7 @@
 	<bean id="history1" class="domain.History">
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="title" value="History1"></property>
-		<property name="text"
-			value="Aqui adjunto mi historial con los records que proceden"></property>
+		
 
 
 	</bean>
@@ -1962,9 +1961,7 @@
 	<bean id="history2" class="domain.History">
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="title" value="History sobre los Gitanos"></property>
-		<property name="text"
-			value="Aqui adjunto mi historial con los records que proceden sobre la hermandad"></property>
-
+		
 
 	</bean>
 
@@ -2056,9 +2053,7 @@
 	<bean id="history3" class="domain.History">
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="title" value="History sobre los Gitanos Volumen 2"></property>
-		<property name="text"
-			value="Aqui adjunto mi historial con los records que proceden sobre la hermandad"></property>
-
+		
 
 	</bean>
 

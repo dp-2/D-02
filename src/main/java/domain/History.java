@@ -31,19 +31,6 @@ public class History extends DomainEntity {
 		this.title = title;
 	}
 
-
-	private String	text;
-
-
-	@NotBlank
-	public String getText() {
-		return this.text;
-	}
-
-	public void setText(final String text) {
-		this.text = text;
-	}
-
 	//Getters y setters de las relaciones
 	@Valid
 	@OneToOne(optional = false)

@@ -71,11 +71,11 @@
 </security:authorize>
 
 <%--  Boton de ATRAS --%>
-<security:authorize access="hasRole('BROTHERHOOD')">
+<%-- <security:authorize access="hasRole('BROTHERHOOD')">
 
 	<input type="button" name="back"
 		value="<spring:message code="periodRecord.back"></spring:message>"
 		onclick="javascript:relativeRedir('history/brotherhood/display.do')" />
-</security:authorize>
+</security:authorize> --%>
 
 
