@@ -44,7 +44,7 @@
 	<security:authorize access="hasRole('CHAPTER')">
 
 		<display:column>
-			<jstl:if test="${row.ffinal == false}">
+			<jstl:if test="${(row.ffinal == false) and paradesFinales.contains(row)}">
 				<a href="parade/chapter/edit.do?paradeId=${row.id}"> <spring:message
 						code="parade.edit" />
 				</a>

@@ -33,7 +33,7 @@
 		readonly="${isRead}" placeholder="yyyy/mm/dd" />
 
 
-
+	
 
 	<jstl:if test="${isRead == false}">
 		<acme:checkbox code="parade.final" path="ffinal" />
@@ -55,7 +55,22 @@
 		<acme:cancel url="parade/list.do" code="parade.back" />
 
 	</jstl:if>
+	
+	
+	<security:authorize access="hasRole('CHAPTER')">
+		<jstl:if test="${parade.status=='SUBMITTED'}">
+			<form:label path="status">
+				<spring:message code="parade.status"></spring:message>
+			</form:label>
+			<form:select id="status" path="status">
+				<option value="SUBMITTED">SUBMITTED</option>
+				<option value="ACCEPTED">ACCEPTED</option>
+				<option value="REJECTED">REJECTED</option>
 
+			</form:select>
+
+		</jstl:if>
+		</security:authorize>
 
 </form:form>
 

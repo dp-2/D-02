@@ -140,8 +140,8 @@
 
 			<li><a class="fNiv" href="area/list.do"><spring:message
 						code="master.page.area" /></a></li>
-			<li><a class="fNiv" href="proclaim/list.do"><spring:message
-						code="master.page.proclaim" /></a></li>
+			<li><a class="fNiv" href="parade/list.do"><spring:message
+						code="master.page.parade" /></a></li>
 
 		</security:authorize>
 
