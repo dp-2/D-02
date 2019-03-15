@@ -198,8 +198,11 @@
 		<security:intercept-url pattern="/enroll/member/goOut.do"
 			access="hasRole('MEMBER')" />
 
-		<security:intercept-url pattern="/parade/chapter/edit.do"
+		<security:intercept-url pattern="/area/coordinate.do"
 			access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/chapter/edit.do"
+			access="hasRole('CHAPTER')" />
+
 
 		<security:intercept-url pattern="/sponsorship/sponsor/MyList.do"
 			access="hasRole('SPONSOR')" />
@@ -231,7 +234,7 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/none/**"
 			access="!isAuthenticated()" />
-		<security:intercept-url pattern="/chapter/none/**"
+		<security:intercept-url pattern="/chapter/create"
 			access="!isAuthenticated()" />
 		<security:intercept-url pattern="/brotherhood/brotherhood-none/**"
 			access="!isAuthenticated() || hasRole('BROTHERHOOD')" />

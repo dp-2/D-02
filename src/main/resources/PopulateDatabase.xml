@@ -386,6 +386,7 @@
 
 	<bean id="chapter2" class="domain.Chapter">
 		<property name="title" value="Cabildo2" />
+		<property name="name" value="Antonio" />
 		<property name="surname" value="Montoro" />
 		<property name="photo"
 			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
