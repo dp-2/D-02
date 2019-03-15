@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -34,5 +36,14 @@ public interface AreaRepository extends JpaRepository<Area, Integer> {
 	//Ratios of areas not co-ordinated
 	@Query("select 1.0*count(a)/(select count(aa) from Area aa) from Area a where a.chapter=null")
 	Double ratioAreasNoCoordinated();
+
+	@Query("select a from Area a where a.chapter.id = ?1")
+	List<Area> findAreaByChapterId(int chapterId);
+
+	//	@Query("select c.area.brotherhood from Chapter c where c.id = ?1")
+	//	List<Brotherhood> findBrotherhoodByChapterId(int chapterId);
+	//
+	//	@Query("select c.area.brotherhood.parade from Chapter c where c.id = ?1")
+	//	List<Parade> findParadeByChapterId(int chapterId);
 
 }

@@ -25,6 +25,7 @@ import security.UserAccountRepository;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Member;
 import domain.Message;
 import forms.ActorForm;
@@ -57,7 +58,7 @@ public class ActorService {
 	private AdministratorService	administratorService;
 
 	@Autowired
-	private BoxService				boxService;
+	private ChapterService			chapterService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -113,6 +114,7 @@ public class ActorService {
 		actors.addAll(this.administratorService.findAll());
 		actors.addAll(this.memberService.findAll());
 		actors.addAll(this.brotherhoodService.findAll());
+		actors.addAll(this.chapterService.findAll());
 
 		return actors;
 	}
@@ -157,6 +159,8 @@ public class ActorService {
 		bro.setAuthority(Authority.BROTHERHOOD);
 		final Authority admin = new Authority();
 		admin.setAuthority(Authority.ADMIN);
+		final Authority cha = new Authority();
+		cha.setAuthority(Authority.CHAPTER);
 
 		if (authorities.contains(mem)) {
 			Member member = null;
@@ -223,6 +227,27 @@ public class ActorService {
 
 			final Actor actor1 = this.administratorService.save(administrator);
 			//this.boxService.createIsSystemBoxs(actor1);
+		} else if (authorities.contains(cha)) {
+			Chapter chapter = null;
+			if (actor.getId() != 0)
+
+				chapter = this.chapterService.findOne(actor.getId());
+			else {
+				chapter = this.chapterService.create();
+				chapter.setUserAccount(actor.getUserAccount());
+			}
+			chapter.setScore(actor.getScore());
+			chapter.setEmail(actor.getEmail());
+			chapter.setBanned(actor.getBanned());
+			chapter.setSpammer(actor.getSpammer());
+			chapter.setName(actor.getName());
+			chapter.setPhone(actor.getPhone());
+			chapter.setPhoto(actor.getPhoto());
+			chapter.setSurname(actor.getSurname());
+			chapter.setAddress(actor.getAddress());
+			chapter.setMiddleName(actor.getMiddleName());
+
+			final Actor actor1 = this.chapterService.save(chapter);
 		}
 
 	}

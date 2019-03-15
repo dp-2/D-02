@@ -234,7 +234,9 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/none/**"
 			access="!isAuthenticated()" />
-		<security:intercept-url pattern="/chapter/create"
+		<security:intercept-url pattern="/chapter/**"
+			access="!isAuthenticated()" />
+			<security:intercept-url pattern="/area/chapterList.do"
 			access="!isAuthenticated()" />
 		<security:intercept-url pattern="/brotherhood/brotherhood-none/**"
 			access="!isAuthenticated() || hasRole('BROTHERHOOD')" />

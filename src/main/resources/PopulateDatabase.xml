@@ -335,8 +335,8 @@
 		<property name="holderName" value="holderName1" />
 		<property name="makeName" value="VISA" />
 		<property name="number" value="4172711227177926" />
-		<property name="expirationMonth" value="9" />
-		<property name="expirationYear" value="2021" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2019" />
 		<property name="CVVCode" value="110" />
 	</bean>
 
@@ -492,6 +492,7 @@
 
 	<bean id="area3" class="domain.Area">
 		<property name="name" value="Capilla del pueblo" />
+		<property name="brotherhood" ref="brotherhood3" />
 		<property name="pictures"
 			value="https://www.verpueblos.com/fotos_originales/1/5/0/00294150.jpg,http://www.catedralalmeria.com/wp-content/uploads/2016/01/capilla_galeria.jpg" />
 		<property name="chapter" ref="chapter1" />
@@ -1886,8 +1887,10 @@
 
 		<property name="photos">
 			<list>
-			<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg</value>
-			<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG</value>
+				<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg
+				</value>
+				<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG
+				</value>
 			</list>
 		</property>
 
@@ -1915,7 +1918,8 @@
 		<property name="endYear" value="2018/03/14"></property>
 		<property name="photos">
 			<list>
-			<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D</value>
+				<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -1979,8 +1983,10 @@
 
 		<property name="photos">
 			<list>
-			<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg</value>
-			<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG</value>
+				<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg
+				</value>
+				<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG
+				</value>
 			</list>
 		</property>
 
@@ -2003,8 +2009,8 @@
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
 			<list>
-			<value>
-				https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
+				<value>
+					https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
 				</value>
 			</list>
 		</property>
@@ -2069,8 +2075,10 @@
 
 		<property name="photos">
 			<list>
-			<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg</value>
-			<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG</value>
+				<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg
+				</value>
+				<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG
+				</value>
 			</list>
 		</property>
 
@@ -2093,7 +2101,8 @@
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
 			<list>
-			<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D</value>
+				<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
+				</value>
 			</list>
 		</property>
 	</bean>

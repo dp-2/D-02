@@ -58,6 +58,10 @@
 				value="${row.brotherhood.name}" />
 		</a>
 	</display:column>
+	
+	<display:column titleKey="parade.sponsorship">
+		<img src="${sponsorship}" height="100px" width="100px" />
+	</display:column>
 
 	<display:column property="ticker" titleKey="parade.ticker" />
 	<security:authorize access="hasRole('BROTHERHOOD')">

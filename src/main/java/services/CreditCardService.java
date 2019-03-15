@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.CreditCard;
-import domain.Sponsor;
 import repositories.CreditCardRepository;
 import security.LoginService;
+import domain.CreditCard;
+import domain.Sponsor;
 
 @Service
 @Transactional
@@ -49,7 +49,7 @@ public class CreditCardService {
 	}
 
 	public CreditCard save(final CreditCard creditCard) {
-		Assert.isTrue(this.isGood(creditCard), "errorCredit");
+		//	Assert.isTrue(this.isGood(creditCard), "errorCredit");
 		Assert.notNull(creditCard);
 
 		final CreditCard saved = this.creditCardRepository.save(creditCard);
