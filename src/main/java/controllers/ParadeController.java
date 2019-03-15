@@ -123,6 +123,19 @@ public class ParadeController extends AbstractController {
 		return modelAndView;
 	}
 
+	// Edit
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int paradeId) {
+		ModelAndView result;
+		Parade parade;
+
+		parade = this.paradeService.findOne(paradeId);
+		Assert.notNull(parade);
+		result = this.createEditModelAndView(parade);
+
+		return result;
+	}
+
 	//List of Parade Navigation Brotherhood-----------------------------------------------
 	@RequestMapping(value = "/listBrotherhood", method = RequestMethod.GET)
 	public ModelAndView listBrotherhood(final int paradeId) {
@@ -150,6 +163,28 @@ public class ParadeController extends AbstractController {
 		modelAndView.addObject("parades", parades);
 
 		return modelAndView;
+	}
+
+	//Model and View-------------------------------------------------------------------
+
+	protected ModelAndView createEditModelAndView(final Parade parade) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(parade, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Parade parade, final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("parade/edit");
+		result.addObject("parade", parade);
+		result.addObject("message", message);
+		result.addObject("isRead", false);
+		result.addObject("requestURI", "parade/edit.do");
+
+		return result;
 	}
 
 }

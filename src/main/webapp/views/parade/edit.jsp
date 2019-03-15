@@ -19,8 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="parade/brotherhood/edit.do"
-	modelAttribute="parade">
+<form:form action="parade/edit.do" modelAttribute="parade">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="brotherhood" />
@@ -33,7 +32,20 @@
 		readonly="${isRead}" placeholder="yyyy/mm/dd" />
 
 
-	
+	<security:authorize access="hasRole('CHAPTER')">
+		<jstl:if test="${parade.status=='ACCEPTED'}">
+			<form:label path="status">
+				<spring:message code="parade.status"></spring:message>
+			</form:label>
+			<form:select id="status" path="status">
+				<option value="SUBMITTED">SUBMITTED</option>
+				<option value="ACCEPTED">ACCEPTED</option>
+				<option value="REJECTED">REJECTED</option>
+
+			</form:select>
+
+		</jstl:if>
+	</security:authorize>
 
 	<jstl:if test="${isRead == false}">
 		<acme:checkbox code="parade.final" path="ffinal" />
@@ -46,8 +58,7 @@
 				value="<spring:message code="parade.delete" />" />
 		</jstl:if>
 
-		<acme:cancel url="parade/brotherhood/myList.do"
-			code="parade.cancel" />
+		<acme:cancel url="parade/list.do" code="parade.cancel" />
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
@@ -55,22 +66,9 @@
 		<acme:cancel url="parade/list.do" code="parade.back" />
 
 	</jstl:if>
-	
-	
-	<security:authorize access="hasRole('CHAPTER')">
-		<jstl:if test="${parade.status=='SUBMITTED'}">
-			<form:label path="status">
-				<spring:message code="parade.status"></spring:message>
-			</form:label>
-			<form:select id="status" path="status">
-				<option value="SUBMITTED">SUBMITTED</option>
-				<option value="ACCEPTED">ACCEPTED</option>
-				<option value="REJECTED">REJECTED</option>
 
-			</form:select>
 
-		</jstl:if>
-		</security:authorize>
+
 
 </form:form>
 
