@@ -36,7 +36,11 @@
 				<a href="parade/brotherhood/removeFloat.do?paradeId=${row.id}">
 					<spring:message code="parade.removeFloat" />
 				</a>
-				
+				<jstl:if test="${not hasPath}">
+					<a href="path/brotherhood/create.do?paradeId=${row.id}">
+						<spring:message code="path.create" />
+					</a>
+				</jstl:if>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
