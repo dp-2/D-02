@@ -16,7 +16,7 @@ import services.ConfigurationService;
 import domain.Area;
 
 @Controller
-@RequestMapping("/area/chapter")
+@RequestMapping("/area/")
 public class AreaController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------

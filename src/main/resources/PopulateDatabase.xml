@@ -370,7 +370,7 @@
 	<!-- CHAPTER -->
 
 	<bean id="chapter1" class="domain.Chapter">
-		<property name="title" value="Reunión1" />
+		<property name="title" value="Cabildo1" />
 		<property name="name" value="Carlos" />
 		<property name="surname" value="Sánchez" />
 		<property name="photo"
@@ -385,9 +385,8 @@
 	</bean>
 
 	<bean id="chapter2" class="domain.Chapter">
-		<property name="title" value="Reunión2" />
-		<property name="name" value="Manuel" />
-		<property name="middleName" value="Jesús" />
+		<property name="title" value="Cabildo2" />
+		<property name="name" value="Antonio" />
 		<property name="surname" value="Montoro" />
 		<property name="photo"
 			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />

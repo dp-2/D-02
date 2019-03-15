@@ -1,14 +1,19 @@
 
 package controllers.Chapter;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.ChapterService;
-import services.ConfigurationService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Chapter;
@@ -19,30 +24,70 @@ import forms.ChapterForm;
 public class ChapterController extends AbstractController {
 
 	@Autowired
-	private ChapterService			chapterService;
+	private ChapterService	chapterService;
 	@Autowired
-	private ActorService			actorService;
-	@Autowired
-	private ConfigurationService	configurationService;
+	private ActorService	actorService;
 
 
-	@RequestMapping("none/create")
+	// Creation
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
-		final Chapter chapter = this.chapterService.create();
-		final ChapterForm chapterForm = this.chapterService.construct(chapter);
-		return this.createEditModelAndView(chapterForm);
+		ModelAndView result;
+		final Chapter chapter;
+
+		chapter = this.chapterService.create();
+
+		result = new ModelAndView("chapter/create");
+		result.addObject("chapter", chapter);
+		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final ChapterForm chapterForm) {
-		return this.createEditModelAndView(chapterForm, null);
+	//------------------Edit---------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int chapterId) {
+		ModelAndView result;
+		Chapter chapter;
+
+		chapter = this.chapterService.findOne(chapterId);
+		Assert.notNull(chapter);
+		result = this.createEditModelAndView(chapter);
+
+		return result;
+
 	}
 
-	private ModelAndView createEditModelAndView(final ChapterForm chapterForm, final String message) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Chapter chapter, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			System.out.println(binding.getAllErrors());
+			result = this.createEditModelAndView(chapter);
+			result.addObject("message", "chapter.commit.error");
+		} else
+
+			try {
+
+				this.chapterService.save(chapter);
+				result = new ModelAndView("redirect:welcome/index.do");
+
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(chapter, "chapter.commit.error");
+			}
+
+		return result;
+	}
+
+	private ModelAndView createEditModelAndView(final Chapter chapter) {
+		return this.createEditModelAndView(chapter, null);
+	}
+
+	private ModelAndView createEditModelAndView(final Chapter chapter, final String message) {
 		final ModelAndView res = new ModelAndView("chapter/edit");
-		final Boolean isPrincipalAuthorizedEdit = this.isPrincipalAuthorizedEdit(chapterForm);
-		res.addObject("chapterForm", chapterForm);
+		final Boolean isPrincipalAuthorizedEdit = this.isPrincipalAuthorizedEdit(chapter);
+		res.addObject("chapterForm", chapter);
 		res.addObject("message", message);
-		res.addObject("banner", this.configurationService.findOne().getBanner());
 		res.addObject("isPrincipalAuthorizedEdit", isPrincipalAuthorizedEdit);
 		return res;
 	}
