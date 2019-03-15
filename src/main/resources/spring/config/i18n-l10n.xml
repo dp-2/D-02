@@ -41,6 +41,18 @@
 		
 		<value>/views/area/messages</value>
 		<value>/views/sponsorship/messages</value>
+		
+		<value>/views/inceptionRecord/messages</value>
+
+		<value>/views/periodRecord/messages</value>
+		<value>/views/linkRecord/messages</value>
+		
+		<value>/views/miscellaneousRecord/messages</value>
+		<value>/views/legalRecord/messages</value>
+		<value>/views/history/messages</value>
+		
+		<value>/views/chapter/messages</value>
+		<value>/views/proclaim/messages</value>
 
 
 	</util:list>

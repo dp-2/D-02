@@ -16,6 +16,4 @@ public interface ChapterRepository extends JpaRepository<Chapter, Integer> {
 	@Query("select c from Chapter c where c.id = ?1")
 	Chapter findChapterByUserAcountId(int userAccountId);
 
-	//	@Query("select c from Chapter c where c.creditCard.id = ?1")
-	//	Chapter findChapterByCreditCardId(int creditCardId);
 }

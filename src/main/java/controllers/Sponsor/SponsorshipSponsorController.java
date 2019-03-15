@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.ActorService;
+import services.ConfigurationService;
 import services.ParadeService;
 import services.SponsorshipService;
 import controllers.AbstractController;
@@ -30,13 +32,16 @@ public class SponsorshipSponsorController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private SponsorshipService	sponsorshipService;
+	private SponsorshipService		sponsorshipService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	//Constructor---------------------------------------------------------
@@ -44,22 +49,34 @@ public class SponsorshipSponsorController extends AbstractController {
 	public SponsorshipSponsorController() {
 		super();
 	}
-	//List ---------------------------------------------------------------		
+	//List ---------------------------------------------------------------
 	@RequestMapping(value = "/MyList", method = RequestMethod.GET)
 	public ModelAndView list() {
-		ModelAndView result;
+		final ModelAndView result = new ModelAndView("sponsorship/list");
 		Collection<Sponsorship> sponsorships;
 
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final int sponsorId = a.getId();
 		sponsorships = this.sponsorshipService.findSponsorshipsBySponsorId(sponsorId);
+		for (final Sponsorship s : sponsorships) {
+			if (s.getCreditCard().getExpirationYear() < LocalDate.now().getYear()) {
+				s.setActive(false);
+				this.sponsorshipService.save(s);
+			} else if (s.getCreditCard().getExpirationYear() == LocalDate.now().getYear() && s.getCreditCard().getExpirationMonth() < LocalDate.now().getMonthOfYear()) {
+				s.setActive(false);
+				this.sponsorshipService.save(s);
 
-		result = new ModelAndView("sponsorship/list");
-		result.addObject("sponsorships", sponsorships);
-		result.addObject("sponsorId", sponsorId);
-		result.addObject("requestURI", "sponsorship/sponsor/MyList.do");
+			} else {
+				s.setActive(true);
+				this.sponsorshipService.save(s);
+			}
 
+			result.addObject("sponsorships", sponsorships);
+			result.addObject("sponsorId", sponsorId);
+			result.addObject("requestURI", "sponsorship/sponsor/MyList.do");
+		}
 		return result;
+
 	}
 	//Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -109,6 +126,20 @@ public class SponsorshipSponsorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/deActive", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int sponsorshipId) {
+
+		ModelAndView result;
+		final Sponsorship sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+		try {
+			this.sponsorshipService.deActive(sponsorship);
+			result = this.list();
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
+		}
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final Sponsorship sponsorship) {
 		ModelAndView result;
 
@@ -120,13 +151,16 @@ public class SponsorshipSponsorController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Sponsorship sponsorship, final String message) {
 		ModelAndView result;
 		final Collection<Parade> parades = this.paradeService.findParadesAccepted();
+		final Collection<String> makeName = this.configurationService.findOne().getMakeName();
+		final Double flatFare = this.configurationService.flatFareWithVAT();
 
 		result = new ModelAndView("sponsorship/edit");
 		result.addObject("sponsorship", sponsorship);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("parades", parades);
-
+		result.addObject("makeName", makeName);
+		result.addObject("flatFare", flatFare);
 		result.addObject("requestURI", "sponsorship/sponsor/edit.do");
 
 		return result;

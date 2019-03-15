@@ -26,6 +26,8 @@
 	<form:form action="${requestURI}" modelAttribute="sponsorship">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
+		<form:hidden path="creditCard.id" />
+		<form:hidden path="creditCard.version" />
 		<form:hidden path="sponsor" />
 
 		<acme:textbox code="sponsorship.banner" path="banner" />
@@ -39,19 +41,30 @@
 
 		<acme:select items="${parades}" itemLabel="title"
 			code="sponsorship.parades" path="parade" />
+		<br />
 
 		<fieldset>
+
 			<legend>
 				<spring:message code="sponsorship.creditcard" />
 			</legend>
 
+			<div style="text-decoration: underline;">
+				<spring:message code="sponsorship.flatFare" />
+				${flatFare} euros.
+			</div>
+			<br />
 			<acme:textbox code="creditCard.holderName"
 				path="creditCard.holderName" />
 			<br>
 
-			<acme:select items="${makeName}" itemLabel="makeName"
-				code="sponsorship.makeName" path="makeName" />
-			<br>
+
+			<form:label path="creditCard.makeName">
+				<spring:message code="creditCard.makeName"></spring:message>
+			</form:label>
+			<form:select path="creditCard.makeName" items="${makeName}" />
+			<form:errors cssClass="error" path="creditCard.makeName"></form:errors>
+			<br> <br>
 
 			<acme:textbox code="creditCard.number" path="creditCard.number" />
 			<br>
@@ -65,10 +78,10 @@
 			<br>
 
 			<acme:textbox code="creditCard.CVVCode" path="creditCard.CVVCode" />
-			<br>
+
 
 		</fieldset>
-
+		<br>
 
 
 		<jstl:if test="${isRead == false}">
@@ -87,9 +100,11 @@
 
 		</jstl:if>
 
-		<acme:cancel url="/sponsorship/list.do" code="sponsorship.cancel" />
+		<jstl:if test="${isRead == true}">
+			<acme:cancel url="/sponsorship/list.do" code="sponsorship.cancel" />
 
-		<br />
+			<br />
+		</jstl:if>
 
 	</form:form>
 </security:authorize>

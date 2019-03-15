@@ -18,11 +18,67 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
 <h3>${nameSys}</h3>
 <br />
 <p>${welcomeMessage}</p>
+<!-- Mensaje De Seguridad -->
+
+<security:authorize access="hasRole('ADMIN')">
+	<fieldset>
+		<legend>
+			<spring:message code="master.security.message1" />
+		</legend>
+
+		<jstl:if test="${isFailSystem==true}">
+			<p style="color: red">
+				<spring:message code="master.security.message.admin1" />
+			</p>
+		</jstl:if>
+		<jstl:if test="${isFailSystem==false}">
+			<p style="color: red">
+				<spring:message code="master.security.message.admin2" />
+			</p>
+		</jstl:if>
+		<br />
+		<form:form>
+			<button style="background-color: red;" name="activate">
+				<spring:message code="master.security.activar" />
+			</button>
+			<br />
+			<br />
+			<button style="background-color: yellow;" name="desactivate">
+				<spring:message code="master.security.desactivar" />
+			</button>
+		</form:form>
+		<br />
+	</fieldset>
+</security:authorize>
 
 <p>
 	<spring:message code="welcome.greeting.current.time" />
 	${moment}
 </p>
+
+<!-- Mensaje de Seguridad -->
+<security:authorize
+	access="hasAnyRole('SPONSOR','MEMBER','BROTHERHOOD','CHAPTER')">
+
+	<jstl:if test="${isFailSystem == true}">
+		<div class="modal-wrapper" id="popup">
+			<div class="popup-contenedor" align="center">
+				<h2>
+					<spring:message code="master.security.message1" />
+				</h2>
+				<p style="font-size: 15px;">${securityMessage}</p>
+
+				<p style="font-size: 15px;">
+					<spring:message code="master.security.message2" />
+				</p>
+
+				<a class="popup-cerrar"
+					href="https://localhost:8443/Acme-Parade/welcome/index.do">X</a>
+			</div>
+		</div>
+	</jstl:if>
+</security:authorize>

@@ -15,25 +15,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.MemberRepository;
-import domain.Member;
+import repositories.EnrollRepository;
+import domain.Enroll;
 
 @Component
 @Transactional
-public class StringToEnrollConverter implements Converter<String, Member> {
+public class StringToEnrollConverter implements Converter<String, Enroll> {
 
 	@Autowired
-	MemberRepository	memberRepository;
+	EnrollRepository	enrollRepository;
 
 
 	@Override
-	public Member convert(final String text) {
-		Member result;
+	public Enroll convert(final String text) {
+		Enroll result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.memberRepository.findOne(id);
+			result = this.enrollRepository.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}

@@ -15,6 +15,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -39,6 +41,8 @@
 <link rel="stylesheet" href="styles/cookies.css" type="text/css">
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
+
+<jstl:set var="secMes" value="${securityMessage}" />
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -82,7 +86,9 @@
 				<br />
 				<span class="message"><spring:message code="${message}" /></span>
 			</jstl:when>
+
 		</jstl:choose>
+
 	</div>
 	<div>
 		<tiles:insertAttribute name="footer" />

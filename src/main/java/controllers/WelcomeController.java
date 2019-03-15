@@ -1,8 +1,8 @@
 /*
  * WelcomeController.java
- * 
+ *
  * Copyright (C) 2019 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -18,10 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ConfigurationService;
-import services.WarningService;
 import domain.Configuration;
 import domain.Warning;
+import services.ConfigurationService;
+import services.WarningService;
 
 @Controller
 @RequestMapping("/welcome")
@@ -55,6 +55,7 @@ public class WelcomeController extends AbstractController {
 		final String banner = configuration.getBanner();
 
 		final String welcomeMessage = this.configurationService.internacionalizcionWelcome();
+		final boolean isFailSystem = configuration.isFailSystem();
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
@@ -66,6 +67,41 @@ public class WelcomeController extends AbstractController {
 		result.addObject("banner", banner);
 		result.addObject("warning", warning);
 		result.addObject("moment", moment);
+		result.addObject("isFailSystem", isFailSystem);
+
+		if (configuration.isFailSystem() == true) {
+
+			final String securityMessage = this.configurationService.internacionalizcionSecurityMessage();
+			result.addObject("securityMessage", securityMessage);
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/index", params = "activate")
+	public ModelAndView activateSecurityMessage() {
+		ModelAndView result = null;
+
+		try {
+			this.configurationService.active();
+			result = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final Exception e) {
+			throw e;
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/index", params = "desactivate")
+	public ModelAndView desactivateSecurityMessage() {
+		ModelAndView result = null;
+
+		try {
+			this.configurationService.desactive();
+			result = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final Exception e) {
+			throw e;
+		}
 
 		return result;
 	}

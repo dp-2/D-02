@@ -44,6 +44,8 @@
 		readonly="${isRead}" />
 	<acme:textbox code="conf.numResults" path="numResults"
 		readonly="${isRead}" />
+	<acme:textbox code="conf.vat" path="vat" readonly="${isRead}" />
+	<acme:textbox code="conf.flatFare" path="flatFare" readonly="${isRead}" />
 	<acme:textbox code="conf.welcomeMessageEN" path="welcomeMessageEN"
 		readonly="${isRead}" />
 	<acme:textbox code="conf.welcomeMessageES" path="welcomeMessageES"
@@ -61,6 +63,10 @@
 	<acme:textbox code="conf.positiveES" path="positiveWordsES"
 		readonly="${isRead}" />
 	<acme:textbox code="conf.makeName" path="makeName" readonly="${isRead}" />
+	<acme:textbox code="conf.securityMessageEN" path="securityMessageEN"
+		readonly="${isRead}" />
+		<acme:textbox code="conf.securityMessageES" path="securityMessageES"
+		readonly="${isRead}" />
 
 
 	<jstl:if test="${isRead == false}">

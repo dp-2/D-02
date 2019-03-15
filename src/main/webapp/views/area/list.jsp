@@ -56,6 +56,8 @@
 	</security:authorize>
 	
 	<security:authorize access="hasRole('CHAPTER')">
+	<acme:column code="area.title" value="${row.name}"></acme:column>
+	<acme:column code="area.chapter" value="${row.chapter.title}"></acme:column>
 	<display:column>
 			<jstl:if test="${row.chapter==null}">
 				<a href="area/coordinate.do?areaId=${row.id}"> <spring:message

@@ -22,6 +22,7 @@
 		<value>/views/march/tiles.xml</value>
 		<value>/views/law/tiles.xml</value>
 		<value>/views/configuration/tiles.xml</value>
+		<value>/views/chapter/tiles.xml</value>
 		<value>/views/actor/tiles.xml</value>
 		<value>/views/parade/tiles.xml</value>
 		<value>/views/member/tiles.xml</value>
@@ -35,6 +36,13 @@
 		<value>/views/brotherhood/tiles.xml</value>
 		<value>/views/area/tiles.xml</value>
 		<value>/views/sponsorship/tiles.xml</value>
+		<value>/views/inceptionRecord/tiles.xml</value>
+		
+		<value>/views/history/tiles.xml</value>
+		<value>/views/periodRecord/tiles.xml</value>
+		<value>/views/linkRecord/tiles.xml</value>
+		<value>/views/legalRecord/tiles.xml</value>
+		<value>/views/miscellaneousRecord/tiles.xml</value>
 	
 	</util:list>
 

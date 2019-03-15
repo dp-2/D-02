@@ -12,11 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.AreaService;
+import services.ChapterService;
 import services.ConfigurationService;
 import domain.Area;
 
 @Controller
-@RequestMapping("/area/chapter")
+@RequestMapping("/area/")
 public class AreaController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
@@ -35,6 +36,9 @@ public class AreaController extends AbstractController {
 	ActorService					actorService;
 
 	@Autowired
+	ChapterService					chapterService;
+
+	@Autowired
 	private ConfigurationService	configurationService;
 
 
@@ -48,6 +52,20 @@ public class AreaController extends AbstractController {
 		result = new ModelAndView("area/list");
 		result.addObject("areas", areas);
 		result.addObject("requestURI", "area/list.do");
+		result.addObject("banner", this.configurationService.findOne().getBanner());
+
+		return result;
+	}
+
+	@RequestMapping(value = "/chapterList", method = RequestMethod.GET)
+	public ModelAndView chapterList(@RequestParam final int chapterId) {
+		ModelAndView result;
+		Collection<Area> areas;
+
+		areas = this.areaService.findAreaByChapterId(chapterId);
+		result = new ModelAndView("area/list");
+		result.addObject("areas", areas);
+		result.addObject("requestURI", "area/chapterList.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;

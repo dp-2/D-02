@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ public class ParadeController extends AbstractController {
 	//Services--------------------------------------------------------------------
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -50,6 +52,31 @@ public class ParadeController extends AbstractController {
 
 	//List of Parade all actors-----------------------------------------------
 
+	@RequestMapping(value = "/chapterList", method = RequestMethod.GET)
+	public ModelAndView chapterList(@RequestParam final int chapterId) {
+		ModelAndView result;
+		final List<Parade> parades;
+		final Collection<Brotherhood> brotherhoods;
+
+		parades = this.paradeService.findAll();
+		brotherhoods = this.areaService.findBrotherhoodByChapterId(chapterId);
+		final List<Parade> paradesFinales = new ArrayList<Parade>();
+		int i = 0;
+		while (i < parades.size()) {
+			final Brotherhood b = parades.get(i).getBrotherhood();
+			if (brotherhoods.contains(b) && (parades.get(i).getStatus().equals("ACCEPTED")))
+				paradesFinales.add(parades.get(i));
+			//				System.out.println(paradesFinales);
+			i++;
+		}
+		//		System.out.println(paradesFinales);
+		result = new ModelAndView("parade/list");
+		result.addObject("parades", paradesFinales);
+		result.addObject("requestURI", "parade/chapterList.do");
+		result.addObject("banner", this.configurationService.findOne().getBanner());
+
+		return result;
+	}
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView modelAndView = new ModelAndView("parade/list");
@@ -68,12 +95,14 @@ public class ParadeController extends AbstractController {
 		}
 
 		final List<Parade> parades = this.paradeService.findParadesFinal();
-
-		modelAndView.addObject("parades", parades);
-		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
-		modelAndView.addObject("numResults", this.configurationService.findOne().getNumResults());
-		modelAndView.addObject("requestURI", "parade/list.do");
-
+		for (final Parade p : parades) {
+			final List<String> a = this.paradeService.findSponsorshipByParadeId(p.getId());
+			modelAndView.addObject("sponsorship", a.get(0));
+			modelAndView.addObject("parades", parades);
+			modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
+			modelAndView.addObject("numResults", this.configurationService.findOne().getNumResults());
+			modelAndView.addObject("requestURI", "parade/list.do");
+		}
 		return modelAndView;
 	}
 

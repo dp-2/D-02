@@ -18,4 +18,16 @@ public interface BrotherhoodRepository extends JpaRepository<Brotherhood, Intege
 	@Query("select e.brotherhood from Enroll e where e.status='APPROVED' group by e.brotherhood order by 1 asc")
 	List<Brotherhood> listBrotherhoodByMembers();
 
+	//Queries Dashboard PARADE--------------------------------------------------------
+
+	//C2
+
+	@Query("select h.brotherhood.name from History h where (select count(p.history) from PeriodRecord p where p.history.id= h.id) = (select max(1.0*(select count(p.history) from PeriodRecord p where p.history.id= h.id) ) from History h) ")
+	Brotherhood brotherhoodLargestHistory();
+
+	//C3
+
+	@Query("select h.brotherhood.name from History h where (select count(p.history) from PeriodRecord p where p.history.id= h.id) > (select avg(1.0*(select count(p.history) from PeriodRecord p where p.history.id= h.id) ) from History h) ")
+	List<Brotherhood> brotherhoodLargestHistoryThanAVG();
+
 }

@@ -1,8 +1,8 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,13 +24,35 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class PeriodRecord extends DomainEntity {
 
 	//Atributos
+	private String			title;
+	private String			text;
 	private Date			startYear;
 	private Date			endYear;
-	private Collection<Url>	photos;
+	private List<String>	photos;
 
 	//relaciones
 	private History			history;
 
+
+	//Getters y setters de los atributos propios
+
+	@NotBlank
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(final String title) {
+		this.title = title;
+	}
+
+	@NotBlank
+	public String getText() {
+		return this.text;
+	}
+
+	public void setText(final String text) {
+		this.text = text;
+	}
 
 	@Valid
 	@ManyToOne(optional = false)
@@ -44,7 +67,7 @@ public class PeriodRecord extends DomainEntity {
 	//Getters y Setters
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@Past
 	public Date getStartYear() {
 		return this.startYear;
@@ -55,7 +78,7 @@ public class PeriodRecord extends DomainEntity {
 	}
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	public Date getEndYear() {
 		return this.endYear;
 	}
@@ -66,13 +89,12 @@ public class PeriodRecord extends DomainEntity {
 
 	@ElementCollection
 	@Valid
-	@NotNull
 	@NotEmpty
-	public Collection<Url> getPhotos() {
+	public List<String> getPhotos() {
 		return this.photos;
 	}
 
-	public void setPhotos(final Collection<Url> photos) {
+	public void setPhotos(final List<String> photos) {
 		this.photos = photos;
 	}
 

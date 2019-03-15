@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -35,6 +36,11 @@ public class Configuration extends DomainEntity {
 	private int				cacheFinder;
 	private int				countryCode;
 	private List<String>	makeName;
+	private int				vat;
+	private Double			flatFare;
+	private String			securityMessageES;
+	private String			securityMessageEN;
+	private boolean			failSystem;
 
 
 	@NotBlank
@@ -163,6 +169,52 @@ public class Configuration extends DomainEntity {
 
 	public void setMakeName(final List<String> makeName) {
 		this.makeName = makeName;
+	}
+
+	@Range(min = 1, max = 100)
+	public int getVat() {
+		return this.vat;
+	}
+
+	public void setVat(final int vat) {
+		this.vat = vat;
+	}
+
+	@NotNull
+	public Double getFlatFare() {
+		return this.flatFare;
+	}
+
+	public void setFlatFare(final Double flatFare) {
+		this.flatFare = flatFare;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getSecurityMessageES() {
+		return this.securityMessageES;
+	}
+
+	public void setSecurityMessageES(final String securityMessageES) {
+		this.securityMessageES = securityMessageES;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getSecurityMessageEN() {
+		return this.securityMessageEN;
+	}
+
+	public void setSecurityMessageEN(final String securityMessageEN) {
+		this.securityMessageEN = securityMessageEN;
+	}
+
+	public boolean isFailSystem() {
+		return this.failSystem;
+	}
+
+	public void setFailSystem(final boolean failSystem) {
+		this.failSystem = failSystem;
 	}
 
 }
