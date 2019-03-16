@@ -172,6 +172,8 @@
 						code="master.page.enroll" /></a></li>
 			<li><a class="fNiv" href="dfloat/brotherhood/list.do"><spring:message
 						code="master.page.dfloat" /></a></li>
+			<li><a class="fNiv" href="history/brotherhood/myDisplay.do"><spring:message
+						code="master.page.history" /></a></li>
 
 
 
