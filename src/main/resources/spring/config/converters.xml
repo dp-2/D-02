@@ -101,6 +101,12 @@
 		
 		<bean class="converters.ProclaimToStringConverter" />
 		<bean class="converters.StringToProclaimConverter" />
+		
+		<bean class="converters.PathToStringConverter" />
+		<bean class="converters.StringToPathConverter" />
+		
+		<bean class="converters.SegmentToStringConverter" />
+		<bean class="converters.StringToSegmentConverter" />
 
 	</util:list>
 

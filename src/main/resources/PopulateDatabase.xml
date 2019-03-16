@@ -2141,11 +2141,69 @@
 	</bean>
 
 
+<!-- Paths and segments -->
 
+	<bean id="path1" class="domain.Path">
+		<property name="segments">
+			<list>
+				<ref bean="segment1Path1" />
+				<ref bean="segment2Path1" />
+				<ref bean="segment3Path1" />
+			</list>
+		</property>
+		<property name="parade" ref="parade1" />
+	</bean>
+	
+	<bean id="path2" class="domain.Path">
+		<property name="segments">
+			<list>
+				<ref bean="segment1Path2" />
+			</list>
+		</property>
+		<property name="parade" ref="parade2" />
+	</bean>
 
-
-
-
+	<bean id="segment1Path1" class="domain.Segment">
+		<property name="latitudeOrigin" value="-45.7" />
+		<property name="latitudeDestination" value="-56.8" />
+		<property name="longitudeOrigin" value="-123" />
+		<property name="longitudeDestination" value="145.7" />
+		<property name="timeOrigin" value="June 29, 2020 15:00" />
+		<property name="timeDestination" value="June 29, 2020 16:00" />
+		<property name="path" ref="path1" />
+	</bean>
+	
+	<bean id="segment2Path1" class="domain.Segment">
+		<property name="latitudeOrigin" value="-56.8" />
+		<property name="latitudeDestination" value="0.0" />
+		<property name="longitudeOrigin" value="145.7" />
+		<property name="longitudeDestination" value="0.0" />
+		<property name="timeOrigin" value="June 29, 2020 16:00" />
+		<property name="timeDestination" value="June 29, 2020 17:30" />
+		<property name="previousSegment" ref="segment1Path1" />
+		<property name="path" ref="path1" />
+	</bean>
+	
+	<bean id="segment3Path1" class="domain.Segment">
+		<property name="latitudeOrigin" value="0.0" />
+		<property name="latitudeDestination" value="0.1" />
+		<property name="longitudeOrigin" value="0.0" />
+		<property name="longitudeDestination" value="0.01" />
+		<property name="timeOrigin" value="June 29, 2020 17:30" />
+		<property name="timeDestination" value="June 29, 2020 18:15" />
+		<property name="previousSegment" ref="segment2Path1" />
+		<property name="path" ref="path1" />
+	</bean>
+	
+	<bean id="segment1Path2" class="domain.Segment">
+		<property name="latitudeOrigin" value="56" />
+		<property name="latitudeDestination" value="-23" />
+		<property name="longitudeOrigin" value="123" />
+		<property name="longitudeDestination" value="125" />
+		<property name="timeOrigin" value="April 12, 2018 17:30" />
+		<property name="timeDestination" value="April 12, 2018 18:15" />
+		<property name="path" ref="path2" />
+	</bean>
 
 
 </beans>

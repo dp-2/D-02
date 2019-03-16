@@ -18,6 +18,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<%@page import="java.util.Collection" %>
+
 <display:table name="parades" id="row" requestURI="${requestURI}"
 	pagesize="${numResults}" class="displaytag">
 
@@ -35,8 +37,10 @@
 				<br>
 				<a href="parade/brotherhood/removeFloat.do?paradeId=${row.id}">
 					<spring:message code="parade.removeFloat" />
+				</a> 
+				<a href="path/brotherhood/display.do?paradeId=${row.id}">
+					<spring:message code="path.display" />
 				</a>
-
 			</jstl:if>
 		</display:column>
 	</security:authorize>
