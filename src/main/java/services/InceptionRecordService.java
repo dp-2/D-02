@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.InceptionRecordRepository;
-import security.LoginService;
-import domain.Brotherhood;
 import domain.History;
 import domain.InceptionRecord;
 
@@ -42,11 +40,9 @@ public class InceptionRecordService {
 	}
 	// Simple CRUD methods
 
-	public InceptionRecord create() {
+	public InceptionRecord create(final History history) {
+		Assert.notNull(history);
 		final InceptionRecord inceptionRecord = new InceptionRecord();
-		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId());
-
-		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
 
 		final String photo = "https://content.thriveglobal.com/wp-content/uploads/2017/10/change-pixabay.jpg";
 		final List<String> photos = new ArrayList<>();

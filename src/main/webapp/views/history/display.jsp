@@ -25,6 +25,11 @@
 
 <security:authorize access="hasRole('BROTHERHOOD')">
 
+<a
+				href="history/brotherhood/edit.do?historyId=${history.id}"><spring:message
+					code="history.edit"></spring:message></a>
+
+
 	<security:authentication property="principal.username" var="username" />
 
 	<jstl:if test='${history.brotherhood.userAccount.username == username}'>
