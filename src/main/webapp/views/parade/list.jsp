@@ -44,15 +44,13 @@
 			</jstl:if>
 		</display:column>
 	</security:authorize>
-
+	
 	<security:authorize access="hasRole('CHAPTER')">
 
 		<display:column>
-			<jstl:if test="${row.ffinal == false}">
-				<a href="parade/chapter/edit.do?paradeId=${row.id}"> <spring:message
+			<a href="parade/edit.do?paradeId=${row.id}"> <spring:message
 						code="parade.edit" />
-				</a>
-			</jstl:if>
+			</a>
 		</display:column>
 	</security:authorize>
 
@@ -66,6 +64,22 @@
 	<display:column titleKey="parade.sponsorship">
 		<img src="${sponsorship}" height="100px" width="100px" />
 	</display:column>
+	
+		<jstl:if test="${row.status=='SUBMITTED'}">
+		<display:column property="status" titleKey="parade.status"
+			style="background-color:Yellow" sortable="true" />
+	</jstl:if>
+
+	<jstl:if test="${row.status=='ACCEPTED' }">
+		<display:column property="status" titleKey="parade.status"
+			style="background-color:Blue" sortable="true " />
+	</jstl:if>
+
+	<jstl:if test="${row.status=='REJECTED'}">
+		<display:column property="status" titleKey="parade.status"
+			style="background-color:Red" sortable="true" />
+	</jstl:if>
+	
 
 	<display:column property="ticker" titleKey="parade.ticker" />
 	<security:authorize access="hasRole('BROTHERHOOD')">

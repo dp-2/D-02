@@ -45,11 +45,13 @@ public class ParadeService {
 
 	@Autowired
 	private ActorService			actorService;
+
 	@Autowired
 	private FinderService			finderService;
 
 	@Autowired
 	private DFloatService			dFloatService;
+
 	@Autowired
 	private ServiceUtils			serviceUtils;
 
