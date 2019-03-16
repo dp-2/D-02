@@ -43,6 +43,7 @@
 		<value>/views/linkRecord/tiles.xml</value>
 		<value>/views/legalRecord/tiles.xml</value>
 		<value>/views/miscellaneousRecord/tiles.xml</value>
+		<value>/views/path_and_segments/tiles.xml</value>
 	
 	</util:list>
 

@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.Brotherhood;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,13 +11,14 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.ParadeService;
 import services.PathService;
+import controllers.AbstractController;
 import domain.Actor;
 import domain.Parade;
 import domain.Path;
 
 @Controller
 @RequestMapping("path/brotherhood")
-public class PathController extends AbstractController {
+public class PathBrotherhoodController extends AbstractController {
 
 	@Autowired
 	private PathService		pathService;
@@ -26,16 +27,6 @@ public class PathController extends AbstractController {
 	@Autowired
 	private ParadeService	paradeService;
 
-
-	@RequestMapping("display")
-	public ModelAndView display(@RequestParam(required = true) final Integer pathId) {
-		final Path path = this.pathService.findOne(pathId);
-		Assert.notNull(path);
-		final ModelAndView res = new ModelAndView("path_and_segments/display");
-		res.addObject("path", path);
-		res.addObject("isPrincipalAuthotizedEdit", this.isPrincipalAuthorizedEdit(path));
-		return res;
-	}
 
 	@RequestMapping("create")
 	public ModelAndView create(@RequestParam(required = true) final Integer paradeId) {

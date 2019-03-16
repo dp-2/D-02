@@ -36,7 +36,7 @@ public class ParadeBrotherhoodController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
 
 	@Autowired
 	private BrotherhoodService		brotherhoodService;

@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.PathRepository;
 import domain.Parade;
@@ -65,6 +66,12 @@ public class PathService {
 		final Path path = (Path) this.serviceUtils.checkObjectSave(p);
 		this.serviceUtils.checkActor(path.getParade().getBrotherhood());
 		this.delete(path);
+	}
+
+	public Path findByParadeId(final Integer paradeId) {
+		Assert.notNull(paradeId);
+		Assert.isTrue(paradeId > 0);
+		return this.repository.findByParadeId(paradeId);
 	}
 
 }

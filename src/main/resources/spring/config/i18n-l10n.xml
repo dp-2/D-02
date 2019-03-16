@@ -53,7 +53,7 @@
 		
 		<value>/views/chapter/messages</value>
 		<value>/views/proclaim/messages</value>
-
+		<value>/views/path_and_segments/messages</value>
 
 	</util:list>
 

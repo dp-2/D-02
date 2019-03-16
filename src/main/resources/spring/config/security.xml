@@ -289,6 +289,16 @@
 		<security:intercept-url pattern="/socialProfile/cancel.do"
 			access="isAuthenticated()" />
 
+		<security:intercept-url pattern="/path/any/**"
+			access="permitAll()" />
+		<security:intercept-url pattern="/path/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />
+			
+		<security:intercept-url pattern="/segment/any/**"
+			access="permitAll()" />
+		<security:intercept-url pattern="/segment/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />
+
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />
 
