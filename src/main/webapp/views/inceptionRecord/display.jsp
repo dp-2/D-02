@@ -39,7 +39,7 @@
 
 	<spring:message code="brotherhood.edit" var="edit"></spring:message>
 	<input type="button" name="edit" value="${edit}"
-		onclick="javascript:relativeRedir('inceptionRecord/edit.do?inceptionRecordId=${inceptionRecord.id}')" />
+		onclick="javascript:relativeRedir('inceptionRecord/brotherhood/edit.do?inceptionRecordId=${inceptionRecord.id}')" />
 </jstl:if>
 	
 	
