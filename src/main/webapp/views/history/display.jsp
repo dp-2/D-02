@@ -27,14 +27,15 @@
 
 <a
 				href="history/brotherhood/edit.do?historyId=${history.id}"><spring:message
-					code="history.edit"></spring:message></a>
+					code="history.editName"></spring:message></a>
+					<br>
 
 
 	<security:authentication property="principal.username" var="username" />
 
 	<jstl:if test='${history.brotherhood.userAccount.username == username}'>
 
-
+	<br>
 		<fieldset>
 			<legend>
 				<b><spring:message code="history.inceptionRecord"></spring:message></b>
@@ -81,36 +82,88 @@
 					value="${seePeriodRecords}"
 					onclick="javascript:relativeRedir('periodRecord/brotherhood/list.do')" />
 
-			</fieldset>
-
-			<%-- <fieldset>
+	
+				</fieldset>
+				
+				
+	
+			<fieldset>
 				<legend>
-					<b><spring:message code="history.professionalRecords"></spring:message></b>
+					<b><spring:message code="history.legalRecords"></spring:message></b>
 				</legend>
-				<display:table name="professionalRecords" id="professionalRecord"
+				<display:table name="legalRecords" id="legalRecord"
 					pagesize="5" class="displaytag">
 
-					<spring:message code="history.professionalRecord.company"
-						var="company"></spring:message>
-					<display:column property="company" title="${company}"
-						sortable="true" />
-
-					<spring:message code="history.professionalRecord.role" var="role"></spring:message>
-					<display:column property="role" title="${role}" sortable="true" />
-
+					<acme:column code="legalRecord.title" value="${legalRecord.title}"></acme:column>
+					<acme:column code="legalRecord.text" value="${legalRecord.text}"></acme:column>
+					<acme:column code="legalRecord.legalName" value="${legalRecord.legalName}"></acme:column>
+					<acme:column code="legalRecord.VATNumber" value="${legalRecord.VATNumber}"></acme:column>
+					
+					
+					
+					
 				</display:table>
 
-				<spring:message code="history.seeProfessionalRecords"
-					var="seeProfessionalRecords"></spring:message>
-				<input type="button" name="seeProfessionalRecords"
-					value="${seeProfessionalRecords}"
-					onclick="javascript:relativeRedir('professionalRecord/brotherhood/list.do')" />
+				<spring:message code="history.seeLegalRecords"
+					var="seeLegalRecords"></spring:message>
+				<input type="button" name="seeLegalRecords"
+					value="${seeLegalRecords}"
+					onclick="javascript:relativeRedir('legalRecord/brotherhood/list.do')" />
 
+			</fieldset>
+			
+			
+			<fieldset>
+				<legend>
+					<b><spring:message code="history.linkRecords"></spring:message></b>
+				</legend>
+				<display:table name="linkRecords" id="linkRecord"
+					pagesize="5" class="displaytag">
 
+					<acme:column code="linkRecord.title" value="${linkRecord.title}"></acme:column>
+					<acme:column code="linkRecord.text" value="${linkRecord.text}"></acme:column>
+					<acme:column code="linkRecord.linkBrotherhood" value="${linkRecord.linkBrotherhood}"></acme:column>
+					
+					
+					
+					
+				</display:table>
+
+				<spring:message code="history.seeLinkRecords"
+					var="seeLinkRecords"></spring:message>
+				<input type="button" name="seeLinkRecords"
+					value="${seeLinkRecords}"
+					onclick="javascript:relativeRedir('linkRecord/brotherhood/list.do')" />
+
+			</fieldset>
+			
+			
+			
+						
+			<fieldset>
+				<legend>
+					<b><spring:message code="history.miscellaneousRecords"></spring:message></b>
+				</legend>
+				<display:table name="miscellaneousRecords" id="miscellaneousRecord"
+					pagesize="5" class="displaytag">
+
+					<acme:column code="miscellaneousRecord.title" value="${miscellaneousRecord.title}"></acme:column>
+					<acme:column code="miscellaneousRecord.text" value="${miscellaneousRecord.text}"></acme:column>
+					
+					
+					
+					
+				</display:table>
+
+				<spring:message code="history.seeMiscellaneousRecords"
+					var="seeMiscellaneousRecords"></spring:message>
+				<input type="button" name="seeMiscellaneousRecords"
+					value="${seeMiscellaneousRecords}"
+					onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/list.do')" />
 
 			</fieldset>
 
-
+<%-- 
 
 			<fieldset>
 				<legend>
