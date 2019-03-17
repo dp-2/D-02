@@ -21,7 +21,15 @@
 <acme:out code="miscellaneousRecord.title" value="${miscellaneousRecord.title}"/>
 <acme:out code="miscellaneousRecord.text" value="${miscellaneousRecord.text}"/>
 
-<input type="button" name="edit" value="<spring:message code="miscellaneousRecord.edit"></spring:message>" onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}')"/>	
+<security:authorize access="hasRole('BROTHERHOOD')">
+
+<security:authentication property="principal.username" var="username" />
+
+	<jstl:if test='${history.brotherhood.userAccount.username == username}'> 
+
+<input type="button" name="edit" value="<spring:message code="miscellaneousRecord.edit"></spring:message>" onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}')"/>
+</jstl:if>
+</security:authorize>	
 <input type="button" name="cancel" value="<spring:message code="miscellaneousRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/list.do?historyId=${miscellaneousRecord.history.id}')" />	
 
 

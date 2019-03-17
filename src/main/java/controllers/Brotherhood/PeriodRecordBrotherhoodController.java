@@ -113,7 +113,7 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		} else
 			try {
 				this.periodRecordService.save(periodRecord);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?historyId=" + periodRecord.getHistory().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
 			}
@@ -146,7 +146,7 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.periodRecordService.delete(periodRecord);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do?historyId=" + periodRecord.getHistory().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
 

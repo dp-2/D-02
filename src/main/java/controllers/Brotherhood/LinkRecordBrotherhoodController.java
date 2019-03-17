@@ -58,6 +58,7 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 
 		result = new ModelAndView("linkRecord/list");
 		result.addObject("linkRecords", records);
+		result.addObject("history", history);
 		result.addObject("requestURI", "linkRecord/brotherhood/list.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
@@ -115,7 +116,7 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		} else
 			try {
 				this.linkRecordService.save(record);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?historyId=" + record.getHistory().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(record, "linkRecord.commit.error");
 			}
@@ -148,7 +149,7 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.linkRecordService.delete(record);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do" + record.getHistory().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(record, "linkRecord.commit.error");
 

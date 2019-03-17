@@ -29,8 +29,15 @@
 
 	<br>
 		<br>
+<security:authorize access="hasRole('BROTHERHOOD')">
 
-<input type="button" name="edit" value="<spring:message code="linkRecord.edit"></spring:message>" onclick="javascript:relativeRedir('linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}')"/>	
+<security:authentication property="principal.username" var="username" />
+
+	<jstl:if test='${history.brotherhood.userAccount.username == username}'> 
+
+<input type="button" name="edit" value="<spring:message code="linkRecord.edit"></spring:message>" onclick="javascript:relativeRedir('linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}')"/>
+</jstl:if>
+</security:authorize>	
 <input type="button" name="cancel" value="<spring:message code="linkRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('linkRecord/brotherhood/list.do?historyId=${linkRecord.history.id}')" />	
 
 

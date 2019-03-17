@@ -27,7 +27,9 @@
 
 	<%--  Primero compruebo que es un brotherhood --%>
 	<security:authorize access="hasRole('BROTHERHOOD')">
+<security:authentication property="principal.username" var="username" />
 
+	<jstl:if test='${history.brotherhood.userAccount.username == username}'> 
 
 		<%--  La columna que va a la vista edit de las linkRecord --%>
 		<display:column>
@@ -35,6 +37,9 @@
 				href="linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}"><spring:message
 					code="linkRecord.edit"></spring:message></a>
 		</display:column>
+		
+	</jstl:if>
+	</security:authorize>
 
 
 		<%--  La columna que va a la vista display de las linkRecord --%>
@@ -43,7 +48,7 @@
 				href="linkRecord/brotherhood/display.do?linkRecordId=${linkRecord.id}"><spring:message
 					code="linkRecord.display"></spring:message></a>
 		</display:column>
-	</security:authorize>
+	
 	
 	
 	<acme:column code="linkRecord.title" value="${linkRecord.title}"></acme:column>

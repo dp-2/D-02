@@ -27,6 +27,9 @@
 
 	<%--  Primero compruebo que es un brotherhood --%>
 	<security:authorize access="hasRole('BROTHERHOOD')">
+<security:authentication property="principal.username" var="username" />
+
+	<jstl:if test='${history.brotherhood.userAccount.username == username}'> 
 
 
 		<%--  La columna que va a la vista edit de las miscellaneousRecord --%>
@@ -35,7 +38,9 @@
 				href="miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}"><spring:message
 					code="miscellaneousRecord.edit"></spring:message></a>
 		</display:column>
-
+		</jstl:if>
+		
+</security:authorize>
 
 		<%--  La columna que va a la vista display de las miscellaneousRecord --%>
 		<display:column>
@@ -43,7 +48,7 @@
 				href="miscellaneousRecord/brotherhood/display.do?miscellaneousRecordId=${miscellaneousRecord.id}"><spring:message
 					code="miscellaneousRecord.display"></spring:message></a>
 		</display:column>
-	</security:authorize>
+	
 	
 	
 	<acme:column code="miscellaneousRecord.title" value="${miscellaneousRecord.title}"></acme:column>

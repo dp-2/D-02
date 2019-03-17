@@ -26,16 +26,20 @@
 	class="displaytag">
 
 	<%--  Primero compruebo que es un brotherhood --%>
-	<security:authorize access="hasRole('BROTHERHOOD')">
+<security:authorize access="hasRole('BROTHERHOOD')">
 
+<security:authentication property="principal.username" var="username" />
 
+	<jstl:if test='${history.brotherhood.userAccount.username == username}'> 
 		<%--  La columna que va a la vista edit de las periodRecord --%>
 		<display:column>
 			<a
 				href="periodRecord/brotherhood/edit.do?periodRecordId=${periodRecord.id}"><spring:message
 					code="periodRecord.edit"></spring:message></a>
 		</display:column>
+	</jstl:if>
 
+</security:authorize>
 
 		<%--  La columna que va a la vista display de las periodRecord --%>
 		<display:column>
@@ -43,7 +47,7 @@
 				href="periodRecord/brotherhood/display.do?periodRecordId=${periodRecord.id}"><spring:message
 					code="periodRecord.display"></spring:message></a>
 		</display:column>
-	</security:authorize>
+	
 	
 	
 	<acme:column code="periodRecord.title" value="${periodRecord.title}"></acme:column>

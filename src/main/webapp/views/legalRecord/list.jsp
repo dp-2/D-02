@@ -27,33 +27,42 @@
 
 	<%--  Primero compruebo que es un brotherhood --%>
 	<security:authorize access="hasRole('BROTHERHOOD')">
+		<security:authentication property="principal.username" var="username" />
+
+		<jstl:if
+			test='${history.brotherhood.userAccount.username == username}'>
 
 
-		<%--  La columna que va a la vista edit de las legalRecord --%>
-		<display:column>
-			<a
-				href="legalRecord/brotherhood/edit.do?legalRecordId=${legalRecord.id}"><spring:message
-					code="legalRecord.edit"></spring:message></a>
-		</display:column>
-
-
-		<%--  La columna que va a la vista display de las legalRecord --%>
-		<display:column>
-			<a
-				href="legalRecord/brotherhood/display.do?legalRecordId=${legalRecord.id}"><spring:message
-					code="legalRecord.display"></spring:message></a>
-		</display:column>
+			<%--  La columna que va a la vista edit de las legalRecord --%>
+			<display:column>
+				<a
+					href="legalRecord/brotherhood/edit.do?legalRecordId=${legalRecord.id}"><spring:message
+						code="legalRecord.edit"></spring:message></a>
+			</display:column>
+		</jstl:if>
 	</security:authorize>
-	
-	
+
+
+	<%--  La columna que va a la vista display de las legalRecord --%>
+	<display:column>
+		<a
+			href="legalRecord/brotherhood/display.do?legalRecordId=${legalRecord.id}"><spring:message
+				code="legalRecord.display"></spring:message></a>
+	</display:column>
+
+
+
 	<acme:column code="legalRecord.title" value="${legalRecord.title}"></acme:column>
 	<acme:column code="legalRecord.text" value="${legalRecord.text}"></acme:column>
-	<acme:column code="legalRecord.legalName" value="${legalRecord.legalName}"></acme:column>
-	<acme:column code="legalRecord.VATNumber" value="${legalRecord.VATNumber}"></acme:column>
+	<acme:column code="legalRecord.legalName"
+		value="${legalRecord.legalName}"></acme:column>
+	<acme:column code="legalRecord.VATNumber"
+		value="${legalRecord.VATNumber}"></acme:column>
 	<acme:column code="legalRecord.laws" value="${legalRecord.laws}"></acme:column>
-	<acme:column code="legalRecord.history" value="${legalRecord.history.title}"></acme:column>
+	<acme:column code="legalRecord.history"
+		value="${legalRecord.history.title}"></acme:column>
 
-	
+
 
 
 </display:table>
