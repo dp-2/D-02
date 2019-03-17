@@ -17,6 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import repositories.ActorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import security.UserAccountRepository;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
@@ -25,11 +30,6 @@ import domain.Member;
 import domain.Message;
 import domain.Sponsor;
 import forms.ActorForm;
-import repositories.ActorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
-import security.UserAccountRepository;
 
 @Service
 @Transactional

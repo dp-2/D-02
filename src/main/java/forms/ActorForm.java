@@ -9,8 +9,8 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
-import security.Authority;
 import domain.DomainEntity;
+import security.Authority;
 
 public class ActorForm extends DomainEntity {
 
@@ -114,7 +114,7 @@ public class ActorForm extends DomainEntity {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "^" + Authority.ADMIN + "|" + Authority.BANNED + "|" + Authority.BROTHERHOOD + "|" + Authority.MEMBER + "$")
+	@Pattern(regexp = "^" + Authority.ADMIN + "|" + Authority.BANNED + "|" + Authority.BROTHERHOOD + "|" + Authority.MEMBER + "|" + Authority.SPONSOR + "|" + Authority.CHAPTER + "$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAuthority() {
 		return this.authority;
