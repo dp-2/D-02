@@ -67,7 +67,7 @@ public class SponsorshipSponsorController extends AbstractController {
 				this.sponsorshipService.save(s);
 
 			} else {
-				s.setActive(true);
+				s.setActive(s.getActive());
 				this.sponsorshipService.save(s);
 			}
 
