@@ -149,7 +149,7 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.linkRecordService.delete(record);
-			result = new ModelAndView("redirect:list.do" + record.getHistory().getId());
+			result = new ModelAndView("redirect:list.do?historyId=" + record.getHistory().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(record, "linkRecord.commit.error");
 

@@ -113,7 +113,7 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 		} else
 			try {
 				this.miscellaneousRecordService.save(miscellaneousRecord);
-				result = new ModelAndView("redirect:list.do" + miscellaneousRecord.getHistory().getId());
+				result = new ModelAndView("redirect:list.do?historyId=" + miscellaneousRecord.getHistory().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 			}
@@ -146,7 +146,7 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 		ModelAndView result;
 		try {
 			this.miscellaneousRecordService.delete(miscellaneousRecord);
-			result = new ModelAndView("redirect:list.do" + miscellaneousRecord.getHistory().getId());
+			result = new ModelAndView("redirect:list.do?historyId=" + miscellaneousRecord.getHistory().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 

@@ -113,7 +113,7 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 		} else
 			try {
 				this.legalRecordService.save(legalRecord);
-				result = new ModelAndView("redirect:list.do" + legalRecord.getHistory().getId());
+				result = new ModelAndView("redirect:list.do?historyId=" + legalRecord.getHistory().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(legalRecord, "legalRecord.commit.error");
 			}
@@ -146,7 +146,7 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.legalRecordService.delete(legalRecord);
-			result = new ModelAndView("redirect:list.do" + legalRecord.getHistory().getId());
+			result = new ModelAndView("redirect:list.do?historyId=" + legalRecord.getHistory().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(legalRecord, "legalRecord.commit.error");
 
