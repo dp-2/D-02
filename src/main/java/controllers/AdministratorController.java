@@ -1,8 +1,8 @@
 /*
  * AdministratorController.java
- * 
+ *
  * Copyright (C) 2019 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Brotherhood;
+import domain.Enroll;
+import domain.Member;
+import domain.Parade;
+import domain.Warning;
 import services.ActorService;
 import services.AdministratorService;
 import services.AreaService;
@@ -36,12 +42,6 @@ import services.PeriodRecordService;
 import services.PositionService;
 import services.SponsorshipService;
 import services.WarningService;
-import domain.Actor;
-import domain.Brotherhood;
-import domain.Enroll;
-import domain.Member;
-import domain.Parade;
-import domain.Warning;
 
 @Controller
 @RequestMapping("/administrator")
@@ -245,11 +245,11 @@ public class AdministratorController extends AbstractController {
 			result.addObject("stddevc1", 0.0);
 
 		//QUERY C2
-		//final Brotherhood queryC2 = this.brotherhoodService.brotherhoodLargestHistory();
-		//result.addObject("queryC2", queryC2);
+		final String queryC2 = this.brotherhoodService.brotherhoodLargestHistory().get(0);
+		result.addObject("queryC2", queryC2);
 
 		//QUERY C3
-		final List<Brotherhood> queryC3 = this.brotherhoodService.brotherhoodLargestHistoryThanAVG();
+		final List<String> queryC3 = this.brotherhoodService.brotherhoodLargestHistoryThanAVG();
 		if (!queryC3.isEmpty())
 			result.addObject("queryC3", queryC3);
 
@@ -320,19 +320,9 @@ public class AdministratorController extends AbstractController {
 			result.addObject("stddevA2", 0.0);
 
 		//Query A3
-		/*
-		 * final Sponsor queryA3a = this.sponsorshipService.top5Sponsors().get(0);
-		 * final Sponsor queryA3b = this.sponsorshipService.top5Sponsors().get(1);
-		 * final Sponsor queryA3c = this.sponsorshipService.top5Sponsors().get(2);
-		 * final Sponsor queryA3d = this.sponsorshipService.top5Sponsors().get(3);
-		 * final Sponsor queryA3e = this.sponsorshipService.top5Sponsors().get(4);
-		 * 
-		 * result.addObject("queryA3a", queryA3a);
-		 * result.addObject("queryA3b", queryA3b);
-		 * result.addObject("queryA3c", queryA3c);
-		 * result.addObject("queryA3d", queryA3d);
-		 * result.addObject("queryA3e", queryA3e);
-		 */
+
+		final List<String> queryA3 = this.sponsorshipService.top5Sponsors();
+		result.addObject("queryA3", queryA3);
 
 		return result;
 	}

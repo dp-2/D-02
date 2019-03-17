@@ -17,14 +17,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import domain.Configuration;
+import domain.Sponsor;
+import forms.SponsorForm;
 import repositories.SponsorRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Brotherhood;
-import domain.Configuration;
-import domain.Sponsor;
-import forms.BrotherhoodForm;
-import forms.SponsorForm;
 
 @Service
 @Transactional
@@ -138,35 +136,24 @@ public class SponsorService {
 		return res;
 	}
 
-	public BrotherhoodForm construct(final Brotherhood b) {
-		final BrotherhoodForm res = new BrotherhoodForm();
-		res.setEmail(b.getEmail());
-		res.setName(b.getName());
-		res.setPhone(b.getPhone());
-		res.setPhoto(b.getPhoto());
-		res.setPictures(b.getPictures());
-		res.setSurname(b.getSurname());
-		res.setTitle(b.getTitle());
-		res.setUsername(b.getUserAccount().getUsername());
-		res.setId(b.getId());
-		res.setVersion(b.getVersion());
-		res.setMiddleName(b.getMiddleName());
-		res.setAddress(b.getAddress());
+	public SponsorForm construct(final Sponsor s) {
+		final SponsorForm res = new SponsorForm();
+		res.setEmail(s.getEmail());
+		res.setName(s.getName());
+		res.setPhone(s.getPhone());
+		res.setPhoto(s.getPhoto());
+		res.setSurname(s.getSurname());
+		res.setUsername(s.getUserAccount().getUsername());
+		res.setId(s.getId());
+		res.setVersion(s.getVersion());
+		res.setMiddleName(s.getMiddleName());
+		res.setAddress(s.getAddress());
 		return res;
 	}
 
 	public Sponsor deconstruct(final SponsorForm form, final BindingResult binding) {
 		Sponsor res = null;
 		if (form.getId() == 0 && !form.getAccept()) {
-			/*
-			 * binding.addError(new FieldError("brotherhoodForm", "accept", form.getAccept(), false, new String[] {
-			 * "brotherhoodForm.accept", "accept"
-			 * }, new Object[] {
-			 * new DefaultMessageSourceResolvable(new String[] {
-			 * "brotherhoodForm.accept", "accept"
-			 * }, new Object[] {}, "accept")
-			 * }, "brotherhood.mustaccept"));
-			 */
 			final Locale locale = LocaleContextHolder.getLocale();
 			final String errorMessage = this.messageSource.getMessage("brotherhood.mustaccept", null, locale);
 			binding.addError(new FieldError("brotherhoodForm", "accept", errorMessage));
@@ -193,7 +180,7 @@ public class SponsorService {
 		res.getUserAccount().setPassword(form.getPassword());
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final Authority auth = new Authority();
-		auth.setAuthority(Authority.BROTHERHOOD);
+		auth.setAuthority(Authority.SPONSOR);
 		authorities.add(auth);
 		res.getUserAccount().setAuthorities(authorities);
 		this.validator.validate(form, binding);

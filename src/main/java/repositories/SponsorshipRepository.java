@@ -1,14 +1,12 @@
 
 package repositories;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import domain.Sponsor;
 import domain.Sponsorship;
 
 @Repository
@@ -33,7 +31,7 @@ public interface SponsorshipRepository extends JpaRepository<Sponsorship, Intege
 
 	//query a.3
 	@Query("select s.sponsor.userAccount.username from Sponsorship s where s.active = true group by s.sponsor.id order by count(s) desc")
-	public ArrayList<Sponsor> top5Sponsors();
+	public List<String> top5Sponsors();
 
 	//Other queries-----------------------------------------------------------------
 

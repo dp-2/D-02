@@ -218,6 +218,8 @@
 					<li class="arrow"></li>
 					<li><a href="register/actor.do?authority=MEMBER"><spring:message
 								code="master.page.register.member" /></a></li>
+					<li><a href="register/actor.do?authority=SPONSOR"><spring:message
+								code="master.page.register.sponsor" /></a></li>
 					<li><a href="brotherhood/none/create.do"><spring:message
 								code="master.page.register.brotherhood" /></a></li>
 					<li><a href="chapter/edit.do"><spring:message

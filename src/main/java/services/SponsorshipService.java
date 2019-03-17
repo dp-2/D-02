@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.SponsorshipRepository;
-import security.LoginService;
 import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
+import repositories.SponsorshipRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -121,7 +120,7 @@ public class SponsorshipService {
 	public Double stddevSponsorshipBySponsor() {
 		return this.sponsorshipRepository.ratioActiveSponsorship();
 	}
-	public ArrayList<Sponsor> top5Sponsors() {
+	public List<String> top5Sponsors() {
 		return this.sponsorshipRepository.top5Sponsors();
 	}
 }

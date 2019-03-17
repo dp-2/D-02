@@ -17,17 +17,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
-import repositories.ActorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
-import security.UserAccountRepository;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Message;
+import domain.Sponsor;
 import forms.ActorForm;
+import repositories.ActorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -70,6 +71,9 @@ public class ActorService {
 
 	@Autowired
 	private ServiceUtils			serviceUtils;
+
+	@Autowired
+	private SponsorService			sponsorService;
 
 
 	public Actor create(final String authority) {
@@ -157,6 +161,8 @@ public class ActorService {
 		bro.setAuthority(Authority.BROTHERHOOD);
 		final Authority admin = new Authority();
 		admin.setAuthority(Authority.ADMIN);
+		final Authority spon = new Authority();
+		spon.setAuthority(Authority.SPONSOR);
 
 		if (authorities.contains(mem)) {
 			Member member = null;
@@ -223,6 +229,26 @@ public class ActorService {
 
 			final Actor actor1 = this.administratorService.save(administrator);
 			//this.boxService.createIsSystemBoxs(actor1);
+		} else if (authorities.contains(spon)) {
+			Sponsor sponsor = null;
+			if (actor.getId() != 0)
+				sponsor = this.sponsorService.findOne(actor.getId());
+			else
+				sponsor = this.sponsorService.create();
+			sponsor.setUserAccount(actor.getUserAccount());
+
+			sponsor.setEmail(actor.getEmail());
+			sponsor.setBanned(actor.getBanned());
+			sponsor.setSpammer(actor.getSpammer());
+			sponsor.setName(actor.getName());
+			sponsor.setPhone(actor.getPhone());
+			sponsor.setPhoto(actor.getPhoto());
+			sponsor.setSurname(actor.getSurname());
+			sponsor.setScore(actor.getScore());
+			sponsor.setAddress(actor.getAddress());
+			sponsor.setMiddleName(actor.getMiddleName());
+
+			this.sponsorService.save(sponsor);
 		}
 
 	}

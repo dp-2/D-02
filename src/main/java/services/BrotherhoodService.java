@@ -237,11 +237,11 @@ public class BrotherhoodService {
 		return bh;
 	}
 
-	public Brotherhood brotherhoodLargestHistory() {
+	public List<String> brotherhoodLargestHistory() {
 		return this.repository.brotherhoodLargestHistory();
 	}
 
-	public List<Brotherhood> brotherhoodLargestHistoryThanAVG() {
+	public List<String> brotherhoodLargestHistoryThanAVG() {
 		return this.repository.brotherhoodLargestHistoryThanAVG();
 	}
 
