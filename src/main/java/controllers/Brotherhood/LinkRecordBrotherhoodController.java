@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
 import services.ActorService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
@@ -22,7 +21,6 @@ import services.HistoryService;
 import services.LinkRecordService;
 import services.ParadeService;
 import controllers.AbstractController;
-import domain.Brotherhood;
 import domain.History;
 import domain.LinkRecord;
 
@@ -51,11 +49,10 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 
 	//-------------------------- List ----------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam final int historyId) {
 		ModelAndView result;
 		final Collection<LinkRecord> records;
-		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId());
-		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
+		final History history = this.historyService.findOne(historyId);
 
 		records = this.linkRecordService.findAllByHistoryId(history.getId());
 

@@ -25,7 +25,7 @@
 <acme:out code="legalRecord.laws" value="${legalRecord.laws}"/>
 
 <input type="button" name="edit" value="<spring:message code="legalRecord.edit"></spring:message>" onclick="javascript:relativeRedir('legalRecord/brotherhood/edit.do?legalRecordId=${legalRecord.id}')"/>	
-<input type="button" name="cancel" value="<spring:message code="legalRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('legalRecord/brotherhood/list.do')" />	
+<input type="button" name="cancel" value="<spring:message code="legalRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('legalRecord/brotherhood/list.do?historyId=${legalRecord.history.id}')" />	
 
 
 

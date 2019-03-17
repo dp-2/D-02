@@ -67,12 +67,6 @@
 		onclick="javascript:relativeRedir('legalRecord/brotherhood/create.do')" />
 </security:authorize>
 
-<%--  Boton de ATRAS --%>
-<security:authorize access="hasRole('BROTHERHOOD')">
 
-	<input type="button" name="back"
-		value="<spring:message code="legalRecord.back"></spring:message>"
-		onclick="javascript:relativeRedir('history/brotherhood/display.do')" />
-</security:authorize>
 
 

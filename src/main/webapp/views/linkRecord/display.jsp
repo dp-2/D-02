@@ -31,7 +31,7 @@
 		<br>
 
 <input type="button" name="edit" value="<spring:message code="linkRecord.edit"></spring:message>" onclick="javascript:relativeRedir('linkRecord/brotherhood/edit.do?linkRecordId=${linkRecord.id}')"/>	
-<input type="button" name="cancel" value="<spring:message code="linkRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('linkRecord/brotherhood/list.do')" />	
+<input type="button" name="cancel" value="<spring:message code="linkRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('linkRecord/brotherhood/list.do?historyId=${linkRecord.history.id}')" />	
 
 
 

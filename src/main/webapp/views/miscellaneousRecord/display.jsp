@@ -22,7 +22,7 @@
 <acme:out code="miscellaneousRecord.text" value="${miscellaneousRecord.text}"/>
 
 <input type="button" name="edit" value="<spring:message code="miscellaneousRecord.edit"></spring:message>" onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}')"/>	
-<input type="button" name="cancel" value="<spring:message code="miscellaneousRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/list.do')" />	
+<input type="button" name="cancel" value="<spring:message code="miscellaneousRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/list.do?historyId=${miscellaneousRecord.history.id}')" />	
 
 
 

@@ -64,7 +64,14 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/inceptionRecord/display.do"
 			access="permitAll" />
-
+		
+		<security:intercept-url pattern="/history/list.do"
+			access="permitAll" />
+		
+		<security:intercept-url pattern="/history/display.do"
+			access="permitAll" />
+		
+		
 		<security:intercept-url pattern="/register/administrator/newActor.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator/list.do"
