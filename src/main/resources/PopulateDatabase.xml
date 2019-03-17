@@ -335,8 +335,8 @@
 		<property name="holderName" value="holderName1" />
 		<property name="makeName" value="VISA" />
 		<property name="number" value="4172711227177926" />
-		<property name="expirationMonth" value="9" />
-		<property name="expirationYear" value="2021" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2019" />
 		<property name="CVVCode" value="110" />
 	</bean>
 
@@ -471,11 +471,7 @@
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
-
-
-
-
-
+		<property name="chapter" ref="chapter1" />
 	</bean>
 
 	<bean id="area2" class="domain.Area">
@@ -483,15 +479,11 @@
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
-
-
-
-
-
 	</bean>
 
 	<bean id="area3" class="domain.Area">
 		<property name="name" value="Capilla del pueblo" />
+		<property name="brotherhood" ref="brotherhood3" />
 		<property name="pictures"
 			value="https://www.verpueblos.com/fotos_originales/1/5/0/00294150.jpg,http://www.catedralalmeria.com/wp-content/uploads/2016/01/capilla_galeria.jpg" />
 		<property name="chapter" ref="chapter1" />
@@ -1870,8 +1862,7 @@
 	<bean id="history1" class="domain.History">
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="title" value="History1"></property>
-		<property name="text"
-			value="Aqui adjunto mi historial con los records que proceden"></property>
+		
 
 
 	</bean>
@@ -1887,8 +1878,10 @@
 
 		<property name="photos">
 			<list>
-			<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg</value>
-			<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG</value>
+				<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg
+				</value>
+				<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG
+				</value>
 			</list>
 		</property>
 
@@ -1916,7 +1909,8 @@
 		<property name="endYear" value="2018/03/14"></property>
 		<property name="photos">
 			<list>
-			<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D</value>
+				<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -1967,9 +1961,7 @@
 	<bean id="history2" class="domain.History">
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="title" value="History sobre los Gitanos"></property>
-		<property name="text"
-			value="Aqui adjunto mi historial con los records que proceden sobre la hermandad"></property>
-
+		
 
 	</bean>
 
@@ -1982,8 +1974,10 @@
 
 		<property name="photos">
 			<list>
-			<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg</value>
-			<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG</value>
+				<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg
+				</value>
+				<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG
+				</value>
 			</list>
 		</property>
 
@@ -2006,8 +2000,8 @@
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
 			<list>
-			<value>
-				https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
+				<value>
+					https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
 				</value>
 			</list>
 		</property>
@@ -2059,9 +2053,7 @@
 	<bean id="history3" class="domain.History">
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="title" value="History sobre los Gitanos Volumen 2"></property>
-		<property name="text"
-			value="Aqui adjunto mi historial con los records que proceden sobre la hermandad"></property>
-
+		
 
 	</bean>
 
@@ -2074,8 +2066,10 @@
 
 		<property name="photos">
 			<list>
-			<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg</value>
-			<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG</value>
+				<value>http://www.gentedecadiz.com/wp-content/uploads/2010/03/borriquita1.jpg
+				</value>
+				<value>http://4.bp.blogspot.com/_yel7y5ZEsT0/TAN8JF06-rI/AAAAAAAAAUc/mN2sPC6UvqA/s1600/CorpusCristi.JPG
+				</value>
 			</list>
 		</property>
 
@@ -2098,7 +2092,8 @@
 		<property name="endYear" value="2018/05/14"></property>
 		<property name="photos">
 			<list>
-			<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D</value>
+				<value>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMU29IdoFHILH_NGgV5um9C22yuv52wFETmew--_meYPlatM3D
+				</value>
 			</list>
 		</property>
 	</bean>
@@ -2146,11 +2141,69 @@
 	</bean>
 
 
+<!-- Paths and segments -->
 
+	<bean id="path1" class="domain.Path">
+		<property name="segments">
+			<list>
+				<ref bean="segment1Path1" />
+				<ref bean="segment2Path1" />
+				<ref bean="segment3Path1" />
+			</list>
+		</property>
+		<property name="parade" ref="parade1" />
+	</bean>
+	
+	<bean id="path2" class="domain.Path">
+		<property name="segments">
+			<list>
+				<ref bean="segment1Path2" />
+			</list>
+		</property>
+		<property name="parade" ref="parade2" />
+	</bean>
 
-
-
-
+	<bean id="segment1Path1" class="domain.Segment">
+		<property name="latitudeOrigin" value="-45.7" />
+		<property name="latitudeDestination" value="-56.8" />
+		<property name="longitudeOrigin" value="-123" />
+		<property name="longitudeDestination" value="145.7" />
+		<property name="timeOrigin" value="June 29, 2020 15:00" />
+		<property name="timeDestination" value="June 29, 2020 16:00" />
+		<property name="path" ref="path1" />
+	</bean>
+	
+	<bean id="segment2Path1" class="domain.Segment">
+		<property name="latitudeOrigin" value="-56.8" />
+		<property name="latitudeDestination" value="0.0" />
+		<property name="longitudeOrigin" value="145.7" />
+		<property name="longitudeDestination" value="0.0" />
+		<property name="timeOrigin" value="June 29, 2020 16:00" />
+		<property name="timeDestination" value="June 29, 2020 17:30" />
+		<property name="previousSegment" ref="segment1Path1" />
+		<property name="path" ref="path1" />
+	</bean>
+	
+	<bean id="segment3Path1" class="domain.Segment">
+		<property name="latitudeOrigin" value="0.0" />
+		<property name="latitudeDestination" value="0.1" />
+		<property name="longitudeOrigin" value="0.0" />
+		<property name="longitudeDestination" value="0.01" />
+		<property name="timeOrigin" value="June 29, 2020 17:30" />
+		<property name="timeDestination" value="June 29, 2020 18:15" />
+		<property name="previousSegment" ref="segment2Path1" />
+		<property name="path" ref="path1" />
+	</bean>
+	
+	<bean id="segment1Path2" class="domain.Segment">
+		<property name="latitudeOrigin" value="56" />
+		<property name="latitudeDestination" value="-23" />
+		<property name="longitudeOrigin" value="123" />
+		<property name="longitudeDestination" value="125" />
+		<property name="timeOrigin" value="April 12, 2018 17:30" />
+		<property name="timeDestination" value="April 12, 2018 18:15" />
+		<property name="path" ref="path2" />
+	</bean>
 
 
 </beans>

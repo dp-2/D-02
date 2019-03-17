@@ -17,18 +17,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
-import domain.Actor;
-import domain.Administrator;
-import domain.Brotherhood;
-import domain.Member;
-import domain.Message;
-import domain.Sponsor;
-import forms.ActorForm;
 import repositories.ActorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountRepository;
+import domain.Actor;
+import domain.Administrator;
+import domain.Brotherhood;
+import domain.Chapter;
+import domain.Member;
+import domain.Message;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -163,6 +163,8 @@ public class ActorService {
 		admin.setAuthority(Authority.ADMIN);
 		final Authority spon = new Authority();
 		spon.setAuthority(Authority.SPONSOR);
+		final Authority cha = new Authority();
+		cha.setAuthority(Authority.CHAPTER);
 
 		if (authorities.contains(mem)) {
 			Member member = null;
@@ -249,6 +251,27 @@ public class ActorService {
 			sponsor.setMiddleName(actor.getMiddleName());
 
 			this.sponsorService.save(sponsor);
+		} else if (authorities.contains(cha)) {
+			Chapter chapter = null;
+			if (actor.getId() != 0)
+
+				chapter = this.chapterService.findOne(actor.getId());
+			else {
+				chapter = this.chapterService.create();
+				chapter.setUserAccount(actor.getUserAccount());
+			}
+			chapter.setScore(actor.getScore());
+			chapter.setEmail(actor.getEmail());
+			chapter.setBanned(actor.getBanned());
+			chapter.setSpammer(actor.getSpammer());
+			chapter.setName(actor.getName());
+			chapter.setPhone(actor.getPhone());
+			chapter.setPhoto(actor.getPhoto());
+			chapter.setSurname(actor.getSurname());
+			chapter.setAddress(actor.getAddress());
+			chapter.setMiddleName(actor.getMiddleName());
+
+			final Actor actor1 = this.chapterService.save(chapter);
 		}
 
 	}

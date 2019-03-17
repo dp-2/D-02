@@ -200,8 +200,8 @@
 
 		<security:intercept-url pattern="/area/coordinate.do"
 			access="hasRole('CHAPTER')" />
-		<security:intercept-url pattern="/chapter/edit.do"
-			access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/parade/edit.do"
+			access="hasAnyRole('BROTHERHOOD','CHAPTER')" />
 
 
 		<security:intercept-url pattern="/sponsorship/sponsor/MyList.do"
@@ -234,8 +234,14 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/none/**"
 			access="!isAuthenticated()" />
-		<security:intercept-url pattern="/chapter/create"
-			access="!isAuthenticated()" />
+		<security:intercept-url pattern="/chapter/list"
+			access="permitAll()" />
+		<security:intercept-url pattern="/area/chapterList.do"
+			access="permitAll()" />
+		<security:intercept-url pattern="/brotherhood/chapterList.do"
+			access="permitAll()" />
+		<security:intercept-url pattern="/parade/chapterList.do"
+			access="permitAll()" />
 		<security:intercept-url pattern="/brotherhood/brotherhood-none/**"
 			access="!isAuthenticated() || hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/any/**"
@@ -250,9 +256,16 @@
 
 		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/**"
 			access="hasRole('BROTHERHOOD')" />
+			
+		<security:intercept-url pattern="/legalRecord/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />
 
 		<security:intercept-url pattern="/linkRecord/brotherhood/**"
 			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/inceptionRecord/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />			
 
 
 
@@ -275,6 +288,16 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/socialProfile/cancel.do"
 			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/path/any/**"
+			access="permitAll()" />
+		<security:intercept-url pattern="/path/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />
+			
+		<security:intercept-url pattern="/segment/any/**"
+			access="permitAll()" />
+		<security:intercept-url pattern="/segment/brotherhood/**"
+			access="hasRole('BROTHERHOOD')" />
 
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

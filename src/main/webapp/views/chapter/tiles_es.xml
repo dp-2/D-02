@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!-- 
- * tiles_es.xml
- *
- * Copyright (C) 2019 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * tiles_es.xml * * Copyright (C) 2019 Universidad de Sevilla * * The 
+	use of this project is hereby constrained to the conditions of the * TDG 
+	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-      
+
 <tiles-definitions>
 
-	<definition name="chapter/list" extends="master.page">	
+	<definition name="chapter/list" extends="master.page">
 		<put-attribute name="title" value="Listar cabildos" />
 		<put-attribute name="body" value="/views/chapter/list.jsp" />
 	</definition>
-	
-	<definition name="chapter/edit" extends="master.page">	
+
+	<definition name="chapter/edit" extends="master.page">
 		<put-attribute name="title" value="Editar cabildo" />
 		<put-attribute name="body" value="/views/chapter/edit.jsp" />
+	</definition>
+
+	<definition name="area/chapterList" extends="master.page">
+		<put-attribute name="title" value="Listar areas de un cabildo" />
+		<put-attribute name="body" value="/views/chapter/list.jsp" />
+	</definition>
+	
+	<definition name="brotherhood/chapterList" extends="master.page">
+		<put-attribute name="title" value="Listar hermandades de un cabildo" />
+		<put-attribute name="body" value="/views/chapter/list.jsp" />
+	</definition>
+	
+	<definition name="chapter/chapterList" extends="master.page">
+		<put-attribute name="title" value="Listar procesiones de un cabildo" />
+		<put-attribute name="body" value="/views/chapter/list.jsp" />
 	</definition>
 	
 </tiles-definitions>

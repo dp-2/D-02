@@ -45,11 +45,13 @@ public class ParadeService {
 
 	@Autowired
 	private ActorService			actorService;
+
 	@Autowired
 	private FinderService			finderService;
 
 	@Autowired
 	private DFloatService			dFloatService;
+
 	@Autowired
 	private ServiceUtils			serviceUtils;
 
@@ -214,6 +216,10 @@ public class ParadeService {
 
 	public Double ratioParadesDraftVsParadesFinal() {
 		return this.paradeRepository.ratioParadesDraftVsParadesFinal();
+	}
+
+	public List<String> findSponsorshipByParadeId(final int paradeId) {
+		return this.paradeRepository.findSponsorshipByParadeId(paradeId);
 	}
 
 }

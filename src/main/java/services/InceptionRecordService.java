@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.InceptionRecordRepository;
-import security.LoginService;
-import domain.Brotherhood;
 import domain.History;
 import domain.InceptionRecord;
 
@@ -40,13 +40,18 @@ public class InceptionRecordService {
 	}
 	// Simple CRUD methods
 
-	public InceptionRecord create() {
+	public InceptionRecord create(final History history) {
+		Assert.notNull(history);
 		final InceptionRecord inceptionRecord = new InceptionRecord();
-		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId());
 
-		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
-
+		final String photo = "https://content.thriveglobal.com/wp-content/uploads/2017/10/change-pixabay.jpg";
+		final List<String> photos = new ArrayList<>();
+		photos.add(photo);
 		inceptionRecord.setHistory(history);
+		inceptionRecord.setTitle("Default Inception Record Title");
+		inceptionRecord.setText("Default text");
+		inceptionRecord.setPhotos(photos);
+
 		return inceptionRecord;
 	}
 

@@ -26,7 +26,7 @@
 <security:authorize access="hasRole('BROTHERHOOD')">
 	<div>
 
-		<form:form action="inceptionRecord/edit.do" method="post"
+		<form:form action="inceptionRecord/brotherhood/edit.do" method="post"
 			id="formCreate" name="formCreate" modelAttribute="inceptionRecord">
 
 			<!-- Atributos hidden-->
@@ -56,7 +56,7 @@
 				value="<spring:message code="inceptionRecord.save"></spring:message>" />
 
 			<button type="button"
-				onclick="javascript: relativeRedir('inceptionRecord/display.do?inceptionRecordId=${inceptionRecord.id}')">
+				onclick="javascript: relativeRedir('inceptionRecord/brotherhood/display.do?inceptionRecordId=${inceptionRecord.id}')">
 				<spring:message code="inceptionRecord.cancel" />
 			</button>
 

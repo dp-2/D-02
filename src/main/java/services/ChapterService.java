@@ -72,6 +72,10 @@ public class ChapterService {
 		return this.chapterRepository.findChapterByUserAcountId(userAccountId);
 	}
 
+	public Collection<Chapter> findAll() {
+		return this.chapterRepository.findAll();
+	}
+
 	public Chapter findOne(final Integer id) {
 		return this.chapterRepository.findOne(id);
 	}

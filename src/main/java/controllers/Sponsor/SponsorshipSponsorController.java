@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.validation.Valid;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -14,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-import domain.Actor;
-import domain.Parade;
-import domain.Sponsorship;
 import security.LoginService;
 import services.ActorService;
 import services.ConfigurationService;
 import services.ParadeService;
 import services.SponsorshipService;
+import controllers.AbstractController;
+import domain.Actor;
+import domain.Parade;
+import domain.Sponsorship;
 
 @Controller
 @RequestMapping("/sponsorship/sponsor")
@@ -51,19 +52,31 @@ public class SponsorshipSponsorController extends AbstractController {
 	//List ---------------------------------------------------------------
 	@RequestMapping(value = "/MyList", method = RequestMethod.GET)
 	public ModelAndView list() {
-		ModelAndView result;
+		final ModelAndView result = new ModelAndView("sponsorship/list");
 		Collection<Sponsorship> sponsorships;
 
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final int sponsorId = a.getId();
 		sponsorships = this.sponsorshipService.findSponsorshipsBySponsorId(sponsorId);
+		for (final Sponsorship s : sponsorships) {
+			if (s.getCreditCard().getExpirationYear() < LocalDate.now().getYear()) {
+				s.setActive(false);
+				this.sponsorshipService.save(s);
+			} else if (s.getCreditCard().getExpirationYear() == LocalDate.now().getYear() && s.getCreditCard().getExpirationMonth() < LocalDate.now().getMonthOfYear()) {
+				s.setActive(false);
+				this.sponsorshipService.save(s);
 
-		result = new ModelAndView("sponsorship/list");
-		result.addObject("sponsorships", sponsorships);
-		result.addObject("sponsorId", sponsorId);
-		result.addObject("requestURI", "sponsorship/sponsor/MyList.do");
+			} else {
+				s.setActive(true);
+				this.sponsorshipService.save(s);
+			}
 
+			result.addObject("sponsorships", sponsorships);
+			result.addObject("sponsorId", sponsorId);
+			result.addObject("requestURI", "sponsorship/sponsor/MyList.do");
+		}
 		return result;
+
 	}
 	//Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

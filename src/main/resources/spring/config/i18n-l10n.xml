@@ -48,10 +48,12 @@
 		<value>/views/linkRecord/messages</value>
 		
 		<value>/views/miscellaneousRecord/messages</value>
+		<value>/views/legalRecord/messages</value>
+		<value>/views/history/messages</value>
 		
 		<value>/views/chapter/messages</value>
 		<value>/views/proclaim/messages</value>
-
+		<value>/views/path_and_segments/messages</value>
 
 	</util:list>
 

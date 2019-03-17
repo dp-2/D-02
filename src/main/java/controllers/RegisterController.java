@@ -30,7 +30,7 @@ public class RegisterController extends AbstractController {
 	private ConfigurationService	configurationService;
 
 
-	// Register handyWorker
+	// Register
 	@RequestMapping(value = "/actor", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam(required = false, defaultValue = "default") final String authority) {
 		ModelAndView modelAndView;
@@ -42,6 +42,8 @@ public class RegisterController extends AbstractController {
 				actor = this.actorService.create("SPONSOR");
 			case "MEMBER":
 				actor = this.actorService.create("MEMBER");
+			case "CHAPTER":
+				actor = this.actorService.create("CHAPTER");
 				break;
 			default:
 				throw new NullPointerException();

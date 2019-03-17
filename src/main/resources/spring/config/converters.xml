@@ -87,6 +87,9 @@
 		<bean class="converters.MiscellaneousRecordToStringConverter" />
 		<bean class="converters.StringToMiscellaneousRecordConverter" />
 		
+		<bean class="converters.LegalRecordToStringConverter" />
+		<bean class="converters.StringToLegalRecordConverter" />
+		
 		<bean class="converters.LinkRecordToStringConverter" />
 		<bean class="converters.StringToLinkRecordConverter" />
 		
@@ -98,6 +101,12 @@
 		
 		<bean class="converters.ProclaimToStringConverter" />
 		<bean class="converters.StringToProclaimConverter" />
+		
+		<bean class="converters.PathToStringConverter" />
+		<bean class="converters.StringToPathConverter" />
+		
+		<bean class="converters.SegmentToStringConverter" />
+		<bean class="converters.StringToSegmentConverter" />
 
 	</util:list>
 

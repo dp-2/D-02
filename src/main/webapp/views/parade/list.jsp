@@ -18,6 +18,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<%@page import="java.util.Collection" %>
+
 <display:table name="parades" id="row" requestURI="${requestURI}"
 	pagesize="${numResults}" class="displaytag">
 
@@ -25,18 +27,20 @@
 
 		<display:column>
 			<jstl:if test="${row.ffinal == false}">
-				<a href="parade/brotherhood/edit.do?paradeId=${row.id}">
-					<spring:message code="parade.edit" />
+				<a href="parade/brotherhood/edit.do?paradeId=${row.id}"> <spring:message
+						code="parade.edit" />
 				</a>
 				<br>
-				<a href="parade/brotherhood/addFloat.do?paradeId=${row.id}">
-					<spring:message code="parade.addFloat" />
+				<a href="parade/brotherhood/addFloat.do?paradeId=${row.id}"> <spring:message
+						code="parade.addFloat" />
 				</a>
 				<br>
 				<a href="parade/brotherhood/removeFloat.do?paradeId=${row.id}">
 					<spring:message code="parade.removeFloat" />
+				</a> 
+				<a href="path/brotherhood/display.do?paradeId=${row.id}">
+					<spring:message code="path.display" />
 				</a>
-				
 			</jstl:if>
 		</display:column>
 	</security:authorize>
@@ -44,11 +48,9 @@
 	<security:authorize access="hasRole('CHAPTER')">
 
 		<display:column>
-			<jstl:if test="${row.ffinal == false}">
-				<a href="parade/chapter/edit.do?paradeId=${row.id}">
-					<spring:message code="parade.edit" />
-				</a>
-			</jstl:if>
+			<a href="parade/edit.do?paradeId=${row.id}"> <spring:message
+						code="parade.edit" />
+			</a>
 		</display:column>
 	</security:authorize>
 
@@ -58,6 +60,26 @@
 				value="${row.brotherhood.name}" />
 		</a>
 	</display:column>
+
+	<display:column titleKey="parade.sponsorship">
+		<img src="${sponsorship}" height="100px" width="100px" />
+	</display:column>
+	
+		<jstl:if test="${row.status=='SUBMITTED'}">
+		<display:column property="status" titleKey="parade.status"
+			style="background-color:Yellow" sortable="true" />
+	</jstl:if>
+
+	<jstl:if test="${row.status=='ACCEPTED' }">
+		<display:column property="status" titleKey="parade.status"
+			style="background-color:Blue" sortable="true " />
+	</jstl:if>
+
+	<jstl:if test="${row.status=='REJECTED'}">
+		<display:column property="status" titleKey="parade.status"
+			style="background-color:Red" sortable="true" />
+	</jstl:if>
+	
 
 	<display:column property="ticker" titleKey="parade.ticker" />
 	<security:authorize access="hasRole('BROTHERHOOD')">
@@ -71,7 +93,7 @@
 		</display:column>
 	</security:authorize>
 
-	
+
 
 	<display:column>
 
@@ -84,13 +106,14 @@
 
 
 	<security:authorize access="hasRole('MEMBER')">
-	
+
 		<display:column>
-		<jstl:if test="${marchService.findMatchByParadeidAndMemberid(row.id,memberId)==0}">
-			<a href="march/member/create.do?paradeId=${row.id}"> <spring:message
-					code="parade.createMarch" />
-			</a>
-		</jstl:if>
+			<jstl:if
+				test="${marchService.findMatchByParadeidAndMemberid(row.id,memberId)==0}">
+				<a href="march/member/create.do?paradeId=${row.id}"> <spring:message
+						code="parade.createMarch" />
+				</a>
+			</jstl:if>
 		</display:column>
 
 	</security:authorize>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AreaService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
 import controllers.AbstractController;
@@ -35,7 +36,23 @@ public class BrotherhoodController extends AbstractController {
 	private ActorService			actorService;
 	@Autowired
 	private ConfigurationService	configurationService;
+	@Autowired
+	private AreaService				areaService;
 
+
+	@RequestMapping(value = "/chapterList", method = RequestMethod.GET)
+	public ModelAndView chapterList(@RequestParam final int chapterId) {
+		ModelAndView result;
+		final Collection<Brotherhood> brotherhoods;
+
+		brotherhoods = this.areaService.findBrotherhoodByChapterId(chapterId);
+		result = new ModelAndView("brotherhood/list");
+		result.addObject("brotherhoods", brotherhoods);
+		result.addObject("requestURI", "brotherhood/chapterList.do");
+		result.addObject("banner", this.configurationService.findOne().getBanner());
+
+		return result;
+	}
 
 	@RequestMapping("any/list")
 	public ModelAndView list() {

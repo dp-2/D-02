@@ -61,6 +61,7 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 
 		result = new ModelAndView("periodRecord/list");
 		result.addObject("periodRecords", periodRecords);
+		result.addObject("history", history);
 		result.addObject("requestURI", "periodRecord/brotherhood/list.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
