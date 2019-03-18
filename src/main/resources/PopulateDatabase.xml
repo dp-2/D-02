@@ -471,7 +471,6 @@
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="pictures"
 			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
-		<property name="chapter" ref="chapter1" />
 	</bean>
 
 	<bean id="area2" class="domain.Area">
