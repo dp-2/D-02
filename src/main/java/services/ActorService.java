@@ -190,7 +190,7 @@ public class ActorService {
 			member.setMiddleName(actor.getMiddleName());
 
 			final Actor actor1 = this.memberService.save(member);
-			//this.boxService.createIsSystemBoxs(actor1);
+			this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(bro)) {
 			Brotherhood brotherhood = null;
 			if (actor.getId() != 0)
@@ -212,7 +212,7 @@ public class ActorService {
 			brotherhood.setMiddleName(actor.getMiddleName());
 
 			final Actor actor1 = this.brotherhoodService.save(brotherhood);
-			//this.boxService.createIsSystemBoxs(actor1);
+			this.boxService.addSystemBox(actor1);
 
 		} else if (authorities.contains(admin)) {
 			Administrator administrator = null;
@@ -234,7 +234,7 @@ public class ActorService {
 			administrator.setAddress(actor.getAddress());
 
 			final Actor actor1 = this.administratorService.save(administrator);
-			this.boxService.createIsSystemBoxs(actor1);
+			this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(spon)) {
 			Sponsor sponsor = null;
 			if (actor.getId() != 0)
@@ -277,6 +277,7 @@ public class ActorService {
 			chapter.setMiddleName(actor.getMiddleName());
 
 			final Actor actor1 = this.chapterService.save(chapter);
+			this.boxService.addSystemBox(actor1);
 		}
 
 	}
