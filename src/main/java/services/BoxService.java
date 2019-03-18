@@ -107,7 +107,7 @@ public class BoxService {
 	}
 
 	public List<Box> createIsSystemBoxs(final Actor actor) {
-		final List<Box> resBoxs = new ArrayList<Box>();
+
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getId() >= 0);
 		if (actor.getId() > 0)
@@ -115,15 +115,25 @@ public class BoxService {
 		final String[] names = new String[] {
 			"inBox", "outBox", "spamBox", "trashBox", "notificationBox"
 		};
+		final List<Box> resBoxs = new ArrayList<Box>();
 		for (final String name : names) {
-			final Box newBox = this.create(actor);
+
+			final Box newBox = new Box();
 			newBox.setName(name);
 			newBox.setIsSystem(true);
 			newBox.setRootBox(newBox);
-			final Box newBoxSaved = this.save(newBox);
-			resBoxs.add(newBoxSaved);
+			newBox.setActor(actor);
+			resBoxs.add(newBox);
 		}
 		return resBoxs;
+	}
+	public void addSystemBox(final Actor actor) {
+		// Se inician las boxes
+		final Collection<Box> systemBoxes = this.createIsSystemBoxs(actor);
+
+		// Se guarda en la base de datos, despues de guardar el actor
+		this.repository.save(systemBoxes);
+
 	}
 	public Collection<Box> findByRoot(final Box parent) {
 		Assert.notNull(parent);

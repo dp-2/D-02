@@ -7,7 +7,6 @@ import java.util.Locale;
 
 import javax.transaction.Transactional;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -17,12 +16,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
-import domain.Configuration;
-import domain.Sponsor;
-import forms.SponsorForm;
 import repositories.SponsorRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Sponsor;
+import forms.SponsorForm;
 
 @Service
 @Transactional
@@ -84,56 +82,64 @@ public class SponsorService {
 		this.sponsorRepository.flush();
 	}
 
+	/*
+	 * public Sponsor save(final Sponsor sponsor) {
+	 * //comprobamos que el customer que nos pasan no sea nulo
+	 * Assert.notNull(sponsor);
+	 * Boolean isCreating = null;
+	 * 
+	 * Assert.isTrue(!(sponsor.getEmail().endsWith("@") || sponsor.getEmail().endsWith("@>")));
+	 * 
+	 * if (sponsor.getId() == 0) {
+	 * isCreating = true;
+	 * sponsor.setSpammer(false);
+	 * 
+	 * //comprobamos que ningún actor resté autenticado (ya que ningun actor puede crear los customers)
+	 * //this.serviceUtils.checkNoActor();
+	 * 
+	 * } else {
+	 * isCreating = false;
+	 * //comprobamos que su id no sea negativa por motivos de seguridad
+	 * this.serviceUtils.checkIdSave(sponsor);
+	 * 
+	 * //este customer será el que está en la base de datos para usarlo si estamos ante un customer que ya existe
+	 * Sponsor sponsorDB;
+	 * Assert.isTrue(sponsor.getId() > 0);
+	 * 
+	 * //cogemos el customer de la base de datos
+	 * sponsorDB = this.sponsorRepository.findOne(sponsor.getId());
+	 * 
+	 * sponsor.setSpammer(sponsorDB.getSpammer());
+	 * sponsor.setUserAccount(sponsorDB.getUserAccount());
+	 * 
+	 * //Comprobamos que el actor sea un Sponsor
+	 * final String[] auths = new String[] {
+	 * "SPONSOR", "ADMIN"
+	 * };
+	 * this.serviceUtils.checkAnyAuthority(auths);
+	 * //esto es para ver si el actor que está logueado es el mismo que se está editando
+	 * Assert.isTrue(this.serviceUtils.checkActorBoolean(sponsor) || this.serviceUtils.checkAuthorityBoolean("ADMIN"));
+	 * 
+	 * }
+	 * 
+	 * if ((!sponsor.getPhone().startsWith("+")) && StringUtils.isNumeric(sponsor.getPhone()) && sponsor.getPhone().length() > 3) {
+	 * final Configuration confs = this.configurationService.findOne();
+	 * sponsor.setPhone(confs.getCountryCode() + sponsor.getPhone());
+	 * }
+	 * Sponsor res;
+	 * //le meto al resultado final el customer que he ido modificando anteriormente
+	 * res = this.sponsorRepository.save(sponsor);
+	 * this.flush();
+	 * if (isCreating)
+	 * this.boxService.createIsSystemBoxs(res);
+	 * return res;
+	 * }
+	 */
 	public Sponsor save(final Sponsor sponsor) {
-		//comprobamos que el customer que nos pasan no sea nulo
 		Assert.notNull(sponsor);
-		Boolean isCreating = null;
+		final Sponsor saved = this.sponsorRepository.save(sponsor);
 
-		Assert.isTrue(!(sponsor.getEmail().endsWith("@") || sponsor.getEmail().endsWith("@>")));
-
-		if (sponsor.getId() == 0) {
-			isCreating = true;
-			sponsor.setSpammer(false);
-
-			//comprobamos que ningún actor resté autenticado (ya que ningun actor puede crear los customers)
-			//this.serviceUtils.checkNoActor();
-
-		} else {
-			isCreating = false;
-			//comprobamos que su id no sea negativa por motivos de seguridad
-			this.serviceUtils.checkIdSave(sponsor);
-
-			//este customer será el que está en la base de datos para usarlo si estamos ante un customer que ya existe
-			Sponsor sponsorDB;
-			Assert.isTrue(sponsor.getId() > 0);
-
-			//cogemos el customer de la base de datos
-			sponsorDB = this.sponsorRepository.findOne(sponsor.getId());
-
-			sponsor.setSpammer(sponsorDB.getSpammer());
-			sponsor.setUserAccount(sponsorDB.getUserAccount());
-
-			//Comprobamos que el actor sea un Sponsor
-			final String[] auths = new String[] {
-				"SPONSOR", "ADMIN"
-			};
-			this.serviceUtils.checkAnyAuthority(auths);
-			//esto es para ver si el actor que está logueado es el mismo que se está editando
-			Assert.isTrue(this.serviceUtils.checkActorBoolean(sponsor) || this.serviceUtils.checkAuthorityBoolean("ADMIN"));
-
-		}
-
-		if ((!sponsor.getPhone().startsWith("+")) && StringUtils.isNumeric(sponsor.getPhone()) && sponsor.getPhone().length() > 3) {
-			final Configuration confs = this.configurationService.findOne();
-			sponsor.setPhone(confs.getCountryCode() + sponsor.getPhone());
-		}
-		Sponsor res;
-		//le meto al resultado final el customer que he ido modificando anteriormente
-		res = this.sponsorRepository.save(sponsor);
-		this.flush();
-		if (isCreating)
-			this.boxService.createIsSystemBoxs(res);
-		return res;
+		return saved;
 	}
 
 	public SponsorForm construct(final Sponsor s) {

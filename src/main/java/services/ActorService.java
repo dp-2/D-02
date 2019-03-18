@@ -234,7 +234,7 @@ public class ActorService {
 			administrator.setAddress(actor.getAddress());
 
 			final Actor actor1 = this.administratorService.save(administrator);
-			//this.boxService.createIsSystemBoxs(actor1);
+			this.boxService.createIsSystemBoxs(actor1);
 		} else if (authorities.contains(spon)) {
 			Sponsor sponsor = null;
 			if (actor.getId() != 0)
@@ -254,7 +254,8 @@ public class ActorService {
 			sponsor.setAddress(actor.getAddress());
 			sponsor.setMiddleName(actor.getMiddleName());
 
-			this.sponsorService.save(sponsor);
+			final Actor actor1 = this.sponsorService.save(sponsor);
+			this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(cha)) {
 			Chapter chapter = null;
 			if (actor.getId() != 0)
