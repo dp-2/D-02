@@ -32,13 +32,16 @@
 			</a>
 		</display:column>
 
-		<acme:column code="area.title" value="${row.name}"></acme:column>
-		<acme:column code="area.brotherhood" value="${row.brotherhood.title}"></acme:column>
-	</security:authorize>
 
+	</security:authorize>
+	
+	
+	<acme:column code="area.title" value="${row.name}"></acme:column>
+	<acme:column code="area.brotherhood" value="${row.brotherhood.title}"></acme:column>
+	<acme:column code="area.chapter" value="${row.chapter.title}"></acme:column>
+	
 	<security:authorize access="hasRole('BROTHERHOOD')">
-		<acme:column code="area.title" value="${row.name}"></acme:column>
-		<acme:column code="area.brotherhood" value="${row.brotherhood.title}"></acme:column>
+		
 		<display:column>
 			<jstl:if test="${row.brotherhood==null}">
 				<a href="area/assign.do?areaId=${row.id}"> <spring:message
@@ -49,8 +52,8 @@
 	</security:authorize>
 
 	<security:authorize access="hasRole('CHAPTER')">
-		<acme:column code="area.title" value="${row.name}"></acme:column>
-		<acme:column code="area.chapter" value="${row.chapter.title}"></acme:column>
+		
+		
 		<display:column>
 			<jstl:if test="${row.chapter==null}">
 				<a href="area/coordinate.do?areaId=${row.id}"> <spring:message
