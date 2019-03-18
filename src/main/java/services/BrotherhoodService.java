@@ -68,7 +68,7 @@ public class BrotherhoodService {
 		return this.repository.findAll(ids);
 	}
 
-	public Collection<Brotherhood> findAll() {
+	public List<Brotherhood> findAll() {
 		return this.repository.findAll();
 	}
 

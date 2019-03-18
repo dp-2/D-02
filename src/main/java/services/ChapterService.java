@@ -3,6 +3,8 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 import javax.transaction.Transactional;
@@ -17,12 +19,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import domain.Area;
+import domain.Brotherhood;
+import domain.Chapter;
+import domain.Configuration;
+import domain.Parade;
+import forms.ChapterForm;
 import repositories.ChapterRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Chapter;
-import domain.Configuration;
-import forms.ChapterForm;
 
 @Service
 @Transactional
@@ -50,6 +55,15 @@ public class ChapterService {
 	@Autowired
 	private MessageSource			messageSource;
 
+	@Autowired
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
+	private ParadeService			paradeService;
+
+	@Autowired
+	private AreaService				areaService;
+
 
 	//Methods----------------------------------------------------------------------
 
@@ -72,7 +86,7 @@ public class ChapterService {
 		return this.chapterRepository.findChapterByUserAcountId(userAccountId);
 	}
 
-	public Collection<Chapter> findAll() {
+	public List<Chapter> findAll() {
 		return this.chapterRepository.findAll();
 	}
 
@@ -191,4 +205,153 @@ public class ChapterService {
 		return res;
 	}
 
+	Double queryB2AVG() {
+		Double res = 0.0;
+		final List<Integer> results = new ArrayList<>();
+		final List<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+		final List<Chapter> chapters = this.findAll();
+
+		for (final Chapter chapter : chapters) {
+			final List<Area> areasByChapter = this.areaService.findAreaByChapterId(chapter.getId());
+			for (final Brotherhood brotherhood : brotherhoods) {
+				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
+				for (final Area area : areasByChapter)
+					if (areaByBrotherhood.getId() == area.getId()) {
+						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+						results.add(paradesByBrotherhood.size());
+					}
+			}
+
+		}
+
+		Integer sum = 0;
+		for (final Integer integer : results)
+			sum += integer;
+
+		res = new Double(sum / chapters.size());
+
+		return res;
+	}
+
+	Double queryB2MAX() {
+		Double res = 0.0;
+		final List<Integer> results = new ArrayList<>();
+		final List<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+		final List<Chapter> chapters = this.findAll();
+
+		for (final Chapter chapter : chapters) {
+			final List<Area> areasByChapter = this.areaService.findAreaByChapterId(chapter.getId());
+			for (final Brotherhood brotherhood : brotherhoods) {
+				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
+				for (final Area area : areasByChapter)
+					if (areaByBrotherhood.getId() == area.getId()) {
+						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+						results.add(paradesByBrotherhood.size());
+					}
+			}
+
+		}
+
+		final Integer sum = Collections.max(results);
+
+		res = new Double(sum);
+
+		return res;
+	}
+
+	Double queryB2MIN() {
+		Double res = 0.0;
+		final List<Integer> results = new ArrayList<>();
+		final List<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+		final List<Chapter> chapters = this.findAll();
+
+		for (final Chapter chapter : chapters) {
+			final List<Area> areasByChapter = this.areaService.findAreaByChapterId(chapter.getId());
+			for (final Brotherhood brotherhood : brotherhoods) {
+				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
+				for (final Area area : areasByChapter)
+					if (areaByBrotherhood.getId() == area.getId()) {
+						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+						results.add(paradesByBrotherhood.size());
+					}
+			}
+
+		}
+
+		final Integer sum = Collections.min(results);
+
+		res = new Double(sum);
+
+		return res;
+	}
+
+	Double queryB2STDDEV() {
+		final List<Integer> results = new ArrayList<>();
+		final List<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+		final List<Chapter> chapters = this.findAll();
+
+		for (final Chapter chapter : chapters) {
+			final List<Area> areasByChapter = this.areaService.findAreaByChapterId(chapter.getId());
+			for (final Brotherhood brotherhood : brotherhoods) {
+				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
+				for (final Area area : areasByChapter)
+					if (areaByBrotherhood.getId() == area.getId()) {
+						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+						results.add(paradesByBrotherhood.size());
+					}
+			}
+
+		}
+
+		return this.calculateSD(results);
+	}
+
+	private Double calculateSD(final List<Integer> numArray) {
+		double sum = 0.0, standardDeviation = 0.0;
+		final Integer length = numArray.size();
+
+		for (final Integer num : numArray)
+			sum += num;
+
+		final Double mean = sum / length;
+
+		for (final Integer num : numArray)
+			standardDeviation += Math.pow(num - mean, 2);
+
+		return Math.sqrt(standardDeviation / length);
+	}
+
+	public List<Chapter> chapters10MoreThanAverage() {
+		final List<Chapter> chaptersRes = new ArrayList<>();
+		Double res = 0.0;
+		Double resMore = 0.0;
+		final List<Integer> results = new ArrayList<>();
+		final List<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+		final List<Chapter> chapters = this.findAll();
+
+		for (final Chapter chapter : chapters) {
+			final List<Area> areasByChapter = this.areaService.findAreaByChapterId(chapter.getId());
+			for (final Brotherhood brotherhood : brotherhoods) {
+				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
+				for (final Area area : areasByChapter)
+					if (areaByBrotherhood.getId() == area.getId()) {
+						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+						results.add(paradesByBrotherhood.size());
+					}
+			}
+
+			Integer sum = 0;
+			for (final Integer integer : results)
+				sum += integer;
+
+			res = new Double(sum / chapters.size());
+			resMore = res + res * 0.1;
+			if (res < resMore)
+				chaptersRes.add(chapter);
+
+		}
+
+		return chaptersRes;
+
+	}
 }

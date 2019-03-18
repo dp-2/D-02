@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.AreaRepository;
-import security.LoginService;
 import domain.Actor;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
+import repositories.AreaRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -44,7 +43,7 @@ public class AreaService {
 		area = new Area();
 		return area;
 	}
-	public Collection<Area> findAll() {
+	public List<Area> findAll() {
 		return this.areaRepository.findAll();
 	}
 
