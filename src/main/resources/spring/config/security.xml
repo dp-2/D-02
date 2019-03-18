@@ -48,6 +48,7 @@
 
 		<security:intercept-url pattern="/member/list.do"
 			access="permitAll" />
+			
 		<security:intercept-url pattern="/actor/register.do"
 			access="permitAll" />
 
@@ -241,7 +242,7 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/none/**"
 			access="!isAuthenticated()" />
-		<security:intercept-url pattern="/chapter/list"
+		<security:intercept-url pattern="/chapter/list.do"
 			access="permitAll()" />
 		<security:intercept-url pattern="/area/chapterList.do"
 			access="permitAll()" />

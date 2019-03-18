@@ -27,6 +27,7 @@
 	<acme:column value="${row.email}" code="chapter.email" />
 
 	<display:column titleKey="chapter.photo">
+	
 		<img src="${row.photo}" height="100px" width="100px" />
 	</display:column>
 
