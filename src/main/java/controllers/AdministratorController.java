@@ -32,6 +32,7 @@ import services.ActorService;
 import services.AdministratorService;
 import services.AreaService;
 import services.BrotherhoodService;
+import services.ChapterService;
 import services.ConfigurationService;
 import services.EnrollService;
 import services.FinderService;
@@ -88,6 +89,9 @@ public class AdministratorController extends AbstractController {
 
 	@Autowired
 	public SponsorshipService		sponsorshipService;
+
+	@Autowired
+	private ChapterService			chapterService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -259,6 +263,36 @@ public class AdministratorController extends AbstractController {
 			result.addObject("queryB1", df.format(queryB1));
 		else
 			result.addObject("queryB1", 0.0);
+
+		//QUERY B2
+		final Double avgB2 = this.chapterService.queryB2AVG();
+		final Double maxB2 = this.chapterService.queryB2MAX();
+		final Double minB2 = this.chapterService.queryB2MIN();
+		final Double stddevB2 = this.chapterService.queryB2STDDEV();
+
+		if (avgC1 != null)
+			result.addObject("avgB2", df.format(avgB2));
+		else
+			result.addObject("avgB2", 0.0);
+
+		if (maxC1 != null)
+			result.addObject("maxB2", df.format(maxB2));
+		else
+			result.addObject("maxB2", 0.0);
+
+		if (minC1 != null)
+			result.addObject("minB2", df.format(minB2));
+		else
+			result.addObject("minB2", 0.0);
+
+		if (stddevC1 != null)
+			result.addObject("stddevB2", df.format(stddevB2));
+		else
+			result.addObject("stddevB2", 0.0);
+
+		//QUERY B3
+		final List<String> queryB3 = this.chapterService.chapters10MoreThanAverage();
+		result.addObject("queryB3", queryB3);
 
 		//QUERY B4
 		final Double queryB4 = this.paradeService.ratioParadesDraftVsParadesFinal();

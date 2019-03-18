@@ -285,6 +285,28 @@
 
 	<fieldset>
 		<legend>
+			<spring:message code="dashboard.queryB2">
+			</spring:message>
+		</legend>
+		<acme:out code="dashboard.avg" value="${avgB2}" />
+		<acme:out code="dashboard.max" value="${maxB2}" />
+		<acme:out code="dashboard.min" value="${minB2}" />
+		<acme:out code="dashboard.stddev" value="${stddevB2}" />
+	</fieldset>
+
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.queryB3">
+			</spring:message>
+		</legend>
+		<display:table name="queryB3" id="row" requestURI="${requestURI}"
+			pagesize="5" class="displaytag">
+			<acme:column code="dashboard.queryB3" value="${row}" />
+		</display:table>
+	</fieldset>
+
+	<fieldset>
+		<legend>
 			<spring:message code="dashboard.queryB4">
 			</spring:message>
 		</legend>

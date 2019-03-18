@@ -205,7 +205,7 @@ public class ChapterService {
 		return res;
 	}
 
-	Double queryB2AVG() {
+	public Double queryB2AVG() {
 		Double res = 0.0;
 		final List<Integer> results = new ArrayList<>();
 		final List<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
@@ -216,10 +216,11 @@ public class ChapterService {
 			for (final Brotherhood brotherhood : brotherhoods) {
 				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
 				for (final Area area : areasByChapter)
-					if (areaByBrotherhood.getId() == area.getId()) {
-						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
-						results.add(paradesByBrotherhood.size());
-					}
+					if (area.getBrotherhood() != null && areaByBrotherhood != null)
+						if (areaByBrotherhood.getId() == area.getId()) {
+							final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+							results.add(paradesByBrotherhood.size());
+						}
 			}
 
 		}
@@ -228,12 +229,12 @@ public class ChapterService {
 		for (final Integer integer : results)
 			sum += integer;
 
-		res = new Double(sum / chapters.size());
+		res = 1.0 * sum / chapters.size();
 
 		return res;
 	}
 
-	Double queryB2MAX() {
+	public Double queryB2MAX() {
 		Double res = 0.0;
 		final List<Integer> results = new ArrayList<>();
 		final List<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
@@ -244,22 +245,23 @@ public class ChapterService {
 			for (final Brotherhood brotherhood : brotherhoods) {
 				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
 				for (final Area area : areasByChapter)
-					if (areaByBrotherhood.getId() == area.getId()) {
-						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
-						results.add(paradesByBrotherhood.size());
-					}
+					if (area.getBrotherhood() != null && areaByBrotherhood != null)
+						if (areaByBrotherhood.getId() == area.getId()) {
+							final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+							results.add(paradesByBrotherhood.size());
+						}
 			}
 
 		}
 
 		final Integer sum = Collections.max(results);
 
-		res = new Double(sum);
+		res = sum * 1.0;
 
 		return res;
 	}
 
-	Double queryB2MIN() {
+	public Double queryB2MIN() {
 		Double res = 0.0;
 		final List<Integer> results = new ArrayList<>();
 		final List<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
@@ -270,22 +272,23 @@ public class ChapterService {
 			for (final Brotherhood brotherhood : brotherhoods) {
 				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
 				for (final Area area : areasByChapter)
-					if (areaByBrotherhood.getId() == area.getId()) {
-						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
-						results.add(paradesByBrotherhood.size());
-					}
+					if (area.getBrotherhood() != null && areaByBrotherhood != null)
+						if (areaByBrotherhood.getId() == area.getId()) {
+							final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+							results.add(paradesByBrotherhood.size());
+						}
 			}
 
 		}
 
 		final Integer sum = Collections.min(results);
 
-		res = new Double(sum);
+		res = sum * 1.0;
 
 		return res;
 	}
 
-	Double queryB2STDDEV() {
+	public Double queryB2STDDEV() {
 		final List<Integer> results = new ArrayList<>();
 		final List<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
 		final List<Chapter> chapters = this.findAll();
@@ -295,14 +298,14 @@ public class ChapterService {
 			for (final Brotherhood brotherhood : brotherhoods) {
 				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
 				for (final Area area : areasByChapter)
-					if (areaByBrotherhood.getId() == area.getId()) {
-						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
-						results.add(paradesByBrotherhood.size());
-					}
+					if (area.getBrotherhood() != null && areaByBrotherhood != null)
+						if (areaByBrotherhood.getId() == area.getId()) {
+							final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+							results.add(paradesByBrotherhood.size());
+						}
 			}
 
 		}
-
 		return this.calculateSD(results);
 	}
 
@@ -321,8 +324,8 @@ public class ChapterService {
 		return Math.sqrt(standardDeviation / length);
 	}
 
-	public List<Chapter> chapters10MoreThanAverage() {
-		final List<Chapter> chaptersRes = new ArrayList<>();
+	public List<String> chapters10MoreThanAverage() {
+		final List<String> chaptersRes = new ArrayList<>();
 		Double res = 0.0;
 		Double resMore = 0.0;
 		final List<Integer> results = new ArrayList<>();
@@ -334,20 +337,21 @@ public class ChapterService {
 			for (final Brotherhood brotherhood : brotherhoods) {
 				final Area areaByBrotherhood = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
 				for (final Area area : areasByChapter)
-					if (areaByBrotherhood.getId() == area.getId()) {
-						final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
-						results.add(paradesByBrotherhood.size());
-					}
+					if (area.getBrotherhood() != null && areaByBrotherhood != null)
+						if (areaByBrotherhood.getId() == area.getId()) {
+							final List<Parade> paradesByBrotherhood = this.paradeService.findParadesByBrotherhoodId(area.getBrotherhood().getId());
+							results.add(paradesByBrotherhood.size());
+						}
 			}
 
 			Integer sum = 0;
 			for (final Integer integer : results)
 				sum += integer;
 
-			res = new Double(sum / chapters.size());
+			res = 1.0 * sum / chapters.size();
 			resMore = res + res * 0.1;
 			if (res < resMore)
-				chaptersRes.add(chapter);
+				chaptersRes.add(chapter.getUserAccount().getUsername());
 
 		}
 
