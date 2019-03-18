@@ -24,13 +24,13 @@
 	<form:hidden path="version" />
 	<form:hidden path="brotherhood" />
 	<form:hidden path="ticker" />
-
-	<acme:textbox code="parade.title" path="title" readonly="${isRead}" />
-	<acme:textbox code="parade.description" path="description"
-		readonly="${isRead}" />
-	<acme:textbox code="parade.moment" path="momentOrganised"
-		readonly="${isRead}" placeholder="yyyy/mm/dd" />
-
+	<security:authorize access="hasRole('BROTHERHOOD')">
+		<acme:textbox code="parade.title" path="title" readonly="${isRead}" />
+		<acme:textbox code="parade.description" path="description"
+			readonly="${isRead}" />
+		<acme:textbox code="parade.moment" path="momentOrganised"
+			readonly="${isRead}" placeholder="yyyy/mm/dd" />
+	</security:authorize>
 
 	<security:authorize access="hasRole('CHAPTER')">
 		<jstl:if test="${parade.status=='ACCEPTED'}">
@@ -46,7 +46,6 @@
 
 		</jstl:if>
 	</security:authorize>
-
 	<jstl:if test="${isRead == false}">
 		<acme:checkbox code="parade.final" path="ffinal" />
 
@@ -66,10 +65,6 @@
 		<acme:cancel url="parade/list.do" code="parade.back" />
 
 	</jstl:if>
-
-
-
-
 </form:form>
 
 
