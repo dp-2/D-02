@@ -123,19 +123,6 @@ public class ParadeController extends AbstractController {
 		return modelAndView;
 	}
 
-	// Edit
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int paradeId) {
-		ModelAndView result;
-		Parade parade;
-
-		parade = this.paradeService.findOne(paradeId);
-		Assert.notNull(parade);
-		result = this.createEditModelAndView(parade);
-
-		return result;
-	}
-
 	//List of Parade Navigation Brotherhood-----------------------------------------------
 	@RequestMapping(value = "/listBrotherhood", method = RequestMethod.GET)
 	public ModelAndView listBrotherhood(final int paradeId) {

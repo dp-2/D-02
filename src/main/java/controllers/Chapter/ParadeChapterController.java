@@ -63,7 +63,7 @@ public class ParadeChapterController extends AbstractController {
 
 		modelAndView = this.createEditModelAndView(parade);
 		modelAndView.addObject("requestURI", "parade/chapter/edit.do");
-
+		modelAndView.addObject("isRead", false);
 		return modelAndView;
 
 	}
@@ -72,11 +72,9 @@ public class ParadeChapterController extends AbstractController {
 	public ModelAndView save(@Valid final Parade parade, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors()) {
-			System.out.println(binding.getAllErrors());
+		if (binding.hasErrors())
 			result = this.createEditModelAndView(parade);
-			result.addObject("message", "parade.commit.error");
-		} else
+		else
 
 			try {
 

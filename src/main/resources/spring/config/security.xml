@@ -51,6 +51,8 @@
 			
 		<security:intercept-url pattern="/actor/register.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/chapter/create"
+			access="permitAll" />
 
 		<security:intercept-url pattern="/register/actor.do"
 			access="permitAll" />
@@ -208,8 +210,8 @@
 
 		<security:intercept-url pattern="/area/coordinate.do"
 			access="hasRole('CHAPTER')" />
-		<security:intercept-url pattern="/parade/edit.do"
-			access="hasAnyRole('BROTHERHOOD','CHAPTER')" />
+		<security:intercept-url pattern="/parade/chapter/edit.do"
+			access="hasRole('CHAPTER')" />
 
 
 		<security:intercept-url pattern="/sponsorship/sponsor/MyList.do"

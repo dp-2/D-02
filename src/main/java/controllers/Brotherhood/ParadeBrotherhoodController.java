@@ -70,6 +70,7 @@ public class ParadeBrotherhoodController extends AbstractController {
 		final List<Parade> parades = this.paradeService.findParadesByBrotherhoodId(brotherhoodId);
 
 		modelAndView.addObject("parades", parades);
+		modelAndView.addObject("paradeService", this.paradeService);
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
 		modelAndView.addObject("requestURI", "parade/brotherhood/myList.do");
 		modelAndView.addObject("numResults", this.configurationService.findOne().getNumResults());

@@ -48,7 +48,7 @@
 	<security:authorize access="hasRole('CHAPTER')">
 
 		<display:column>
-			<a href="parade/edit.do?paradeId=${row.id}"> <spring:message
+			<a href="parade/chapter/edit.do?paradeId=${row.id}"> <spring:message
 						code="parade.edit" />
 			</a>
 		</display:column>

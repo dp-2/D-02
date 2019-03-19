@@ -78,7 +78,7 @@ public class ChapterController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			System.out.println(binding.getAllErrors());
+
 			result = this.createEditModelAndView(chapter);
 			result.addObject("message", "chapter.commit.error");
 		} else

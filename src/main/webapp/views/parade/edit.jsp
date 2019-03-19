@@ -19,36 +19,53 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="parade/edit.do" modelAttribute="parade">
+<form:form action="${requestURI}" modelAttribute="parade">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="brotherhood" />
 	<form:hidden path="ticker" />
+
 	<security:authorize access="hasRole('BROTHERHOOD')">
+		<form:hidden path="status" />
 		<acme:textbox code="parade.title" path="title" readonly="${isRead}" />
 		<acme:textbox code="parade.description" path="description"
 			readonly="${isRead}" />
 		<acme:textbox code="parade.moment" path="momentOrganised"
 			readonly="${isRead}" placeholder="yyyy/mm/dd" />
-	</security:authorize>
-
-	<security:authorize access="hasRole('CHAPTER')">
-		<jstl:if test="${parade.status=='ACCEPTED'}">
-			<form:label path="status">
-				<spring:message code="parade.status"></spring:message>
-			</form:label>
-			<form:select id="status" path="status">
-				<option value="SUBMITTED">SUBMITTED</option>
-				<option value="ACCEPTED">ACCEPTED</option>
-				<option value="REJECTED">REJECTED</option>
-
-			</form:select>
-
+		<jstl:if test="${isRead == false}">
+			<acme:checkbox code="parade.final" path="ffinal" />
 		</jstl:if>
 	</security:authorize>
-	<jstl:if test="${isRead == false}">
-		<acme:checkbox code="parade.final" path="ffinal" />
 
+
+	<security:authorize access="hasRole('CHAPTER')">
+		<jstl:if test="${isRead == false}">
+			<form:hidden path="title" />
+			<form:hidden path="description" />
+			<form:hidden path="momentOrganised" />
+			<form:hidden path="ffinal" />
+			<jstl:if test="${parade.status=='SUBMITTED'}">
+				<form:label path="status">
+					<spring:message code="parade.status"></spring:message>
+				</form:label>
+				<form:select id="status" path="status">
+					<option value="SUBMITTED">SUBMITTED</option>
+					<option value="ACCEPTED">ACCEPTED</option>
+					<option value="REJECTED">REJECTED</option>
+
+				</form:select>
+
+			</jstl:if>
+			<jstl:if test="${parade.status=='REJECTED'}">
+				<acme:textbox code="parade.reason" path="reason"
+					readonly="${isRead}" />
+			</jstl:if>
+		</jstl:if>
+		<br />
+		<br />
+	</security:authorize>
+
+	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="parade.save" />" />
 
@@ -58,8 +75,8 @@
 		</jstl:if>
 
 		<acme:cancel url="parade/list.do" code="parade.cancel" />
-	</jstl:if>
 
+	</jstl:if>
 	<jstl:if test="${isRead == true}">
 
 		<acme:cancel url="parade/list.do" code="parade.back" />
