@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import domain.Chapter;
 import domain.Parade;
 
 @Repository
@@ -48,4 +49,6 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select s.banner from Sponsorship s where (s.parade.id = ?1 and s.active=1) order by rand()")
 	List<String> findSponsorshipByParadeId(final int paradeId);
 
+	@Query("select a.chapter from Area a where a.brotherhood = (select p.brotherhood.id from Parade p where p.id = ?1)")
+	Chapter findChapterByParadeId(final int paradeId);
 }
