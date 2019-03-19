@@ -55,13 +55,13 @@
 	</security:authorize>
 
 
-	<display:column titleKey="parade.hood">
+	<display:column titleKey="parade.hood" sortable="true">
 		<a href="parade/listBrotherhood.do?paradeId=${row.id}"> <jstl:out
 				value="${row.brotherhood.name}" />
 		</a>
 	</display:column>
 
-	<display:column titleKey="parade.sponsorship">
+	<display:column titleKey="parade.sponsorship" sortable="true">
 		<jstl:if
 			test="${paradeService.findSponsorshipByParadeId(row.id).size()!=0}">
 			<img src="${paradeService.findSponsorshipByParadeId(row.id).get(0)}"
@@ -76,7 +76,7 @@
 
 	<jstl:if test="${row.status=='ACCEPTED' }">
 		<display:column property="status" titleKey="parade.status"
-			style="background-color:Blue" sortable="true " />
+			style="background-color:Blue" sortable="true" />
 	</jstl:if>
 
 	<jstl:if test="${row.status=='REJECTED'}">
@@ -86,16 +86,16 @@
 			style="background-color:Red" sortable="true" />
 	</jstl:if>
 	
-		<display:column property="reason" titleKey="parade.reason" />
+		<display:column property="reason" titleKey="parade.reason" sortable="true"/>
 	
 
 
 
 
-	<display:column property="ticker" titleKey="parade.ticker" />
+	<display:column property="ticker" titleKey="parade.ticker" sortable="true"/>
 	<security:authorize access="hasRole('BROTHERHOOD')">
 
-		<display:column titleKey="parade.member">
+		<display:column titleKey="parade.member" sortable="true">
 
 			<a href="march/brotherhood/list.do?paradeId=${row.id}"> <spring:message
 					code="parade.list" />
