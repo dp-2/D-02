@@ -1444,7 +1444,7 @@
 			value="La pasion de Cristo es una desfile normal como cualquier otra con una descripcion normal como cualquier otra no tiene nada mas que palabras" />
 		<property name="momentOrganised" value="2019/09/02" />
 		<property name="ffinal" value="true" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="SUBMITTED" />
 		<property name="reason" value="null"/>
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
