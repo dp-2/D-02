@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
-import services.ActorService;
-import services.ConfigurationService;
 import domain.Actor;
 import domain.Administrator;
 import forms.ActorForm;
+import security.Authority;
+import services.ActorService;
+import services.ConfigurationService;
 
 @Controller
 @RequestMapping("/register")
@@ -40,8 +40,10 @@ public class RegisterController extends AbstractController {
 			switch (authority) {
 			case "SPONSOR":
 				actor = this.actorService.create("SPONSOR");
+				break;
 			case "MEMBER":
 				actor = this.actorService.create("MEMBER");
+				break;
 			case "CHAPTER":
 				actor = this.actorService.create("CHAPTER");
 				break;

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
 import services.ActorService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
@@ -22,7 +21,6 @@ import services.HistoryService;
 import services.MiscellaneousRecordService;
 import services.ParadeService;
 import controllers.AbstractController;
-import domain.Brotherhood;
 import domain.History;
 import domain.MiscellaneousRecord;
 
@@ -51,16 +49,16 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 
 	//-------------------------- List ----------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam final int historyId) {
 		ModelAndView result;
 		final Collection<MiscellaneousRecord> miscellaneousRecords;
-		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId());
-		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
+		final History history = this.historyService.findOne(historyId);
 
 		miscellaneousRecords = this.miscellaneousRecordService.findAllByHistoryId(history.getId());
 
 		result = new ModelAndView("miscellaneousRecord/list");
 		result.addObject("miscellaneousRecords", miscellaneousRecords);
+		result.addObject("history", history);
 		result.addObject("requestURI", "miscellaneousRecord/brotherhood/list.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
@@ -115,7 +113,7 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 		} else
 			try {
 				this.miscellaneousRecordService.save(miscellaneousRecord);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?historyId=" + miscellaneousRecord.getHistory().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 			}
@@ -148,7 +146,7 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 		ModelAndView result;
 		try {
 			this.miscellaneousRecordService.delete(miscellaneousRecord);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do?historyId=" + miscellaneousRecord.getHistory().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 

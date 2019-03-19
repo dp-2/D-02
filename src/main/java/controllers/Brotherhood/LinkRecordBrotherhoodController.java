@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
 import services.ActorService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
@@ -22,7 +21,6 @@ import services.HistoryService;
 import services.LinkRecordService;
 import services.ParadeService;
 import controllers.AbstractController;
-import domain.Brotherhood;
 import domain.History;
 import domain.LinkRecord;
 
@@ -51,16 +49,16 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 
 	//-------------------------- List ----------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam final int historyId) {
 		ModelAndView result;
 		final Collection<LinkRecord> records;
-		final Brotherhood brotherhood = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId());
-		final History history = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
+		final History history = this.historyService.findOne(historyId);
 
 		records = this.linkRecordService.findAllByHistoryId(history.getId());
 
 		result = new ModelAndView("linkRecord/list");
 		result.addObject("linkRecords", records);
+		result.addObject("history", history);
 		result.addObject("requestURI", "linkRecord/brotherhood/list.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
@@ -118,7 +116,7 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		} else
 			try {
 				this.linkRecordService.save(record);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do?historyId=" + record.getHistory().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(record, "linkRecord.commit.error");
 			}
@@ -151,7 +149,7 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.linkRecordService.delete(record);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do?historyId=" + record.getHistory().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(record, "linkRecord.commit.error");
 

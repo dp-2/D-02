@@ -48,7 +48,10 @@
 
 		<security:intercept-url pattern="/member/list.do"
 			access="permitAll" />
+			
 		<security:intercept-url pattern="/actor/register.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/chapter/create"
 			access="permitAll" />
 
 		<security:intercept-url pattern="/register/actor.do"
@@ -64,7 +67,14 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/inceptionRecord/display.do"
 			access="permitAll" />
-
+		
+		<security:intercept-url pattern="/history/list.do"
+			access="permitAll" />
+		
+		<security:intercept-url pattern="/history/display.do"
+			access="permitAll" />
+		
+		
 		<security:intercept-url pattern="/register/administrator/newActor.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator/list.do"
@@ -200,8 +210,8 @@
 
 		<security:intercept-url pattern="/area/coordinate.do"
 			access="hasRole('CHAPTER')" />
-		<security:intercept-url pattern="/parade/edit.do"
-			access="hasAnyRole('BROTHERHOOD','CHAPTER')" />
+		<security:intercept-url pattern="/parade/chapter/edit.do"
+			access="hasRole('CHAPTER')" />
 
 
 		<security:intercept-url pattern="/sponsorship/sponsor/MyList.do"
@@ -234,7 +244,7 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/none/**"
 			access="!isAuthenticated()" />
-		<security:intercept-url pattern="/chapter/list"
+		<security:intercept-url pattern="/chapter/list.do"
 			access="permitAll()" />
 		<security:intercept-url pattern="/area/chapterList.do"
 			access="permitAll()" />
@@ -251,21 +261,57 @@
 		<security:intercept-url pattern="/administrator/**"
 			access="hasRole('ADMIN')" />
 
-		<security:intercept-url pattern="/periodRecord/brotherhood/**"
-			access="hasRole('BROTHERHOOD')" />
-
-		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/**"
+			
+		<security:intercept-url pattern="/history/brotherhood/myDisplay.do"
 			access="hasRole('BROTHERHOOD')" />
 			
-		<security:intercept-url pattern="/legalRecord/brotherhood/**"
+		
+					
+		<!-- InceptionRecord-->
+			
+		<security:intercept-url pattern="/inceptionRecord/brotherhood/display.do"
+			access="permitAll()" />	
+		<security:intercept-url pattern="/inceptionRecord/brotherhood/edit.do"
 			access="hasRole('BROTHERHOOD')" />
-
-		<security:intercept-url pattern="/linkRecord/brotherhood/**"
-			access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/history/brotherhood/**"
-			access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/inceptionRecord/brotherhood/**"
+			
+			
+		<!-- PeriodRecord -->
+					
+		<security:intercept-url pattern="/periodRecord/brotherhood/display.do"
+			access="permitAll()" />			
+		<security:intercept-url pattern="/periodRecord/brotherhood/list.do"
+			access="permitAll()" />	
+		<security:intercept-url pattern="/periodRecord/brotherhood/edit.do"
 			access="hasRole('BROTHERHOOD')" />			
+		
+		<!-- linkRecord -->
+					
+		<security:intercept-url pattern="/linkRecord/brotherhood/display.do"
+			access="permitAll()" />			
+		<security:intercept-url pattern="/linkRecord/brotherhood/list.do"
+			access="permitAll()" />	
+		<security:intercept-url pattern="/linkRecord/brotherhood/edit.do"
+			access="hasRole('BROTHERHOOD')" />		
+			
+			
+		<!-- miscellaneousRecord -->
+					
+		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/display.do"
+			access="permitAll()" />			
+		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/list.do"
+			access="permitAll()" />	
+		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/edit.do"
+			access="hasRole('BROTHERHOOD')" />	
+		
+		
+		<!-- legalRecord -->
+					
+		<security:intercept-url pattern="/legalRecord/brotherhood/display.do"
+			access="permitAll()" />			
+		<security:intercept-url pattern="/legalRecord/brotherhood/list.do"
+			access="permitAll()" />	
+		<security:intercept-url pattern="/legalRecord/brotherhood/edit.do"
+			access="hasRole('BROTHERHOOD')" />	
 
 
 

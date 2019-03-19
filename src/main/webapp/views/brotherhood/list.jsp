@@ -50,4 +50,8 @@
 	<spring:message code='brotherhood.listfloats' var="titleListFloats" />
 	<acme:column value="dfloat/list.do?brotherhoodId=${row.id}" url="true"
 		alt="${titleListFloats}" />
+		
+	<spring:message code='brotherhood.seeHistory' var="seeHistory" />
+	<acme:column value="history/display.do?brotherhoodId=${row.id}" url="true"
+		alt="${seeHistory}" />
 </display:table>

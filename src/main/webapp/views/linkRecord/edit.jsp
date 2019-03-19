@@ -57,10 +57,10 @@
 			<input type="submit" name="save"
 				value="<spring:message code="linkRecord.save"></spring:message>" />
 
-			<button type="button"
+			<%-- <button type="button"
 				onclick="javascript: relativeRedir('linkRecord/brotherhood/list.do')">
 				<spring:message code="linkRecord.cancel" />
-			</button>
+			</button> --%>
 
 			<jstl:if test="${linkRecord.id != 0}">
 				<input type="submit" name="delete"

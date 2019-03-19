@@ -26,26 +26,22 @@
 
 	<%--  Primero compruebo que es un brotherhood --%>
 	<security:authorize access="hasRole('ADMIN')">
-
-
-
-
 		<display:column>
 			<a href="area/administrator/edit.do?areaId=${row.id}"> <spring:message
 					code="area.edit" />
 			</a>
 		</display:column>
 
-		<acme:column code="area.title" value="${row.name}"></acme:column>
-		<acme:column code="area.brotherhood" value="${row.brotherhood.title}"></acme:column>
-
-
-
 
 	</security:authorize>
+	
+	
+	<acme:column code="area.title" value="${row.name}"></acme:column>
+	<acme:column code="area.brotherhood" value="${row.brotherhood.title}"></acme:column>
+	<acme:column code="area.chapter" value="${row.chapter.title}"></acme:column>
+	
 	<security:authorize access="hasRole('BROTHERHOOD')">
-		<acme:column code="area.title" value="${row.name}"></acme:column>
-		<acme:column code="area.brotherhood" value="${row.brotherhood.title}"></acme:column>
+		
 		<display:column>
 			<jstl:if test="${row.brotherhood==null}">
 				<a href="area/assign.do?areaId=${row.id}"> <spring:message
@@ -54,18 +50,18 @@
 			</jstl:if>
 		</display:column>
 	</security:authorize>
-	
+
 	<security:authorize access="hasRole('CHAPTER')">
-	<acme:column code="area.title" value="${row.name}"></acme:column>
-	<acme:column code="area.chapter" value="${row.chapter.title}"></acme:column>
-	<display:column>
+		
+		
+		<display:column>
 			<jstl:if test="${row.chapter==null}">
 				<a href="area/coordinate.do?areaId=${row.id}"> <spring:message
 						code="area.coordinate" />
 				</a>
 			</jstl:if>
 		</display:column>
-		</security:authorize>
+	</security:authorize>
 </display:table>
 
 

@@ -46,10 +46,16 @@
 	
 	
 </fieldset>
+<security:authorize access="hasRole('BROTHERHOOD')">
 
+<security:authentication property="principal.username" var="username" />
 
-<input type="button" name="edit" value="<spring:message code="periodRecord.edit"></spring:message>" onclick="javascript:relativeRedir('periodRecord/brotherhood/edit.do?periodRecordId=${periodRecord.id}')"/>	
-<input type="button" name="cancel" value="<spring:message code="periodRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('periodRecord/brotherhood/list.do')" />	
+	<jstl:if test='${history.brotherhood.userAccount.username == username}'> 
+
+<input type="button" name="edit" value="<spring:message code="periodRecord.edit"></spring:message>" onclick="javascript:relativeRedir('periodRecord/brotherhood/edit.do?periodRecordId=${periodRecord.id}')"/>
+</jstl:if>
+</security:authorize>	
+<input type="button" name="cancel" value="<spring:message code="periodRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('periodRecord/brotherhood/list.do?historyId=${periodRecord.history.id}')" />	
 
 
 

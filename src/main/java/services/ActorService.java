@@ -28,6 +28,7 @@ import domain.Brotherhood;
 import domain.Chapter;
 import domain.Member;
 import domain.Message;
+import domain.Sponsor;
 import forms.ActorForm;
 
 @Service
@@ -58,7 +59,7 @@ public class ActorService {
 	private AdministratorService	administratorService;
 
 	@Autowired
-	private ChapterService			chapterService;
+	private BoxService				boxService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -71,6 +72,12 @@ public class ActorService {
 
 	@Autowired
 	private ServiceUtils			serviceUtils;
+
+	@Autowired
+	private SponsorService			sponsorService;
+
+	@Autowired
+	private ChapterService			chapterService;
 
 
 	public Actor create(final String authority) {
@@ -114,7 +121,6 @@ public class ActorService {
 		actors.addAll(this.administratorService.findAll());
 		actors.addAll(this.memberService.findAll());
 		actors.addAll(this.brotherhoodService.findAll());
-		actors.addAll(this.chapterService.findAll());
 
 		return actors;
 	}
@@ -159,6 +165,8 @@ public class ActorService {
 		bro.setAuthority(Authority.BROTHERHOOD);
 		final Authority admin = new Authority();
 		admin.setAuthority(Authority.ADMIN);
+		final Authority spon = new Authority();
+		spon.setAuthority(Authority.SPONSOR);
 		final Authority cha = new Authority();
 		cha.setAuthority(Authority.CHAPTER);
 
@@ -182,7 +190,7 @@ public class ActorService {
 			member.setMiddleName(actor.getMiddleName());
 
 			final Actor actor1 = this.memberService.save(member);
-			//this.boxService.createIsSystemBoxs(actor1);
+			this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(bro)) {
 			Brotherhood brotherhood = null;
 			if (actor.getId() != 0)
@@ -204,7 +212,7 @@ public class ActorService {
 			brotherhood.setMiddleName(actor.getMiddleName());
 
 			final Actor actor1 = this.brotherhoodService.save(brotherhood);
-			//this.boxService.createIsSystemBoxs(actor1);
+			this.boxService.addSystemBox(actor1);
 
 		} else if (authorities.contains(admin)) {
 			Administrator administrator = null;
@@ -226,7 +234,28 @@ public class ActorService {
 			administrator.setAddress(actor.getAddress());
 
 			final Actor actor1 = this.administratorService.save(administrator);
-			//this.boxService.createIsSystemBoxs(actor1);
+			this.boxService.addSystemBox(actor1);
+		} else if (authorities.contains(spon)) {
+			Sponsor sponsor = null;
+			if (actor.getId() != 0)
+				sponsor = this.sponsorService.findOne(actor.getId());
+			else
+				sponsor = this.sponsorService.create();
+			sponsor.setUserAccount(actor.getUserAccount());
+
+			sponsor.setEmail(actor.getEmail());
+			sponsor.setBanned(actor.getBanned());
+			sponsor.setSpammer(actor.getSpammer());
+			sponsor.setName(actor.getName());
+			sponsor.setPhone(actor.getPhone());
+			sponsor.setPhoto(actor.getPhoto());
+			sponsor.setSurname(actor.getSurname());
+			sponsor.setScore(actor.getScore());
+			sponsor.setAddress(actor.getAddress());
+			sponsor.setMiddleName(actor.getMiddleName());
+
+			final Actor actor1 = this.sponsorService.save(sponsor);
+			this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(cha)) {
 			Chapter chapter = null;
 			if (actor.getId() != 0)
@@ -248,6 +277,7 @@ public class ActorService {
 			chapter.setMiddleName(actor.getMiddleName());
 
 			final Actor actor1 = this.chapterService.save(chapter);
+			this.boxService.addSystemBox(actor1);
 		}
 
 	}

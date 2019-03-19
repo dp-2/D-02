@@ -73,6 +73,11 @@ public class ParadeService {
 		parade.setFfinal(false);
 		parade.setTicker(ticker);
 
+		parade.setStatus("SUBMITTED");
+
+		parade.setReason(null);
+
+
 		return parade;
 
 	}
@@ -90,8 +95,8 @@ public class ParadeService {
 		this.checkMoment(parade);
 
 		if (parade.getId() != 0) {
-			this.checkPrincipal(parade);
-			this.checkNoFinalMode(parade);
+			//this.checkPrincipal(parade);
+			//this.checkNoFinalMode(parade);
 		} else
 			parade.setTicker(this.configurationService.isUniqueTicker(parade));
 

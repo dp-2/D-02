@@ -24,8 +24,17 @@
 <acme:out code="legalRecord.VATNumber" value="${legalRecord.VATNumber}"/>
 <acme:out code="legalRecord.laws" value="${legalRecord.laws}"/>
 
-<input type="button" name="edit" value="<spring:message code="legalRecord.edit"></spring:message>" onclick="javascript:relativeRedir('legalRecord/brotherhood/edit.do?legalRecordId=${legalRecord.id}')"/>	
-<input type="button" name="cancel" value="<spring:message code="legalRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('legalRecord/brotherhood/list.do')" />	
+
+<security:authorize access="hasRole('BROTHERHOOD')">
+
+<security:authentication property="principal.username" var="username" />
+
+	<jstl:if test='${history.brotherhood.userAccount.username == username}'> 
+
+<input type="button" name="edit" value="<spring:message code="legalRecord.edit"></spring:message>" onclick="javascript:relativeRedir('legalRecord/brotherhood/edit.do?legalRecordId=${legalRecord.id}')"/>
+</jstl:if>
+</security:authorize>	
+<input type="button" name="cancel" value="<spring:message code="legalRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('legalRecord/brotherhood/list.do?historyId=${legalRecord.history.id}')" />	
 
 
 

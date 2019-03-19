@@ -254,15 +254,25 @@
 	</fieldset>
 
 	<fieldset>
-	<legend>
-		<spring:message code="dashboard.queryC3">
-		</spring:message>
+		<legend>
+			<spring:message code="dashboard.queryC2">
+			</spring:message>
+		</legend>
+		<jstl:out value="${queryC2}" />
+		<br />
+
+	</fieldset>
+
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.queryC3">
+			</spring:message>
 		</legend>
 		<display:table name="queryC3" id="row">
 			<acme:column code="dashboard.queryC3" value="${row.name}"></acme:column>
 		</display:table>
 		<br />
-	
+
 	</fieldset>
 	<fieldset>
 		<legend>
@@ -270,18 +280,40 @@
 			</spring:message>
 		</legend>
 		<acme:out code="dashboard.queryB1" value="${queryB1}" />
-		
+
 	</fieldset>
-	
+
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.queryB2">
+			</spring:message>
+		</legend>
+		<acme:out code="dashboard.avg" value="${avgB2}" />
+		<acme:out code="dashboard.max" value="${maxB2}" />
+		<acme:out code="dashboard.min" value="${minB2}" />
+		<acme:out code="dashboard.stddev" value="${stddevB2}" />
+	</fieldset>
+
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.queryB3">
+			</spring:message>
+		</legend>
+		<display:table name="queryB3" id="row" requestURI="${requestURI}"
+			pagesize="5" class="displaytag">
+			<acme:column code="dashboard.queryB3" value="${row}" />
+		</display:table>
+	</fieldset>
+
 	<fieldset>
 		<legend>
 			<spring:message code="dashboard.queryB4">
 			</spring:message>
 		</legend>
 		<acme:out code="dashboard.queryB4" value="${queryB4}" />
-		
+
 	</fieldset>
-	
+
 	<fieldset>
 		<legend>
 			<spring:message code="dashboard.queryB5">
@@ -298,16 +330,16 @@
 			value="${ratioParadeByStatusREJECTED}" />
 
 	</fieldset>
-	
+
 	<fieldset>
 		<legend>
 			<spring:message code="dashboard.queryA1">
 			</spring:message>
 		</legend>
 		<acme:out code="dashboard.queryA1" value="${queryA1}" />
-		
+
 	</fieldset>
-	
+
 	<fieldset>
 		<legend>
 			<spring:message code="dashboard.queryA2">
@@ -318,16 +350,15 @@
 		<acme:out code="dashboard.minA2" value="${minA2}" />
 		<acme:out code="dashboard.stddevA2" value="${stddevA2}" />
 	</fieldset>
-	
+
 	<fieldset>
 		<legend>
 			<spring:message code="dashboard.queryA3">
 			</spring:message>
 		</legend>
-		<acme:out code="dashboard.queryA3a" value="${queryA3a}" />
-		<acme:out code="dashboard.queryA3a" value="${queryA3b}" />
-		<acme:out code="dashboard.queryA3a" value="${queryA3c}" />
-		<acme:out code="dashboard.queryA3a" value="${queryA3d}" />
-		<acme:out code="dashboard.queryA3a" value="${queryA3e}" />
+		<display:table name="queryA3" id="row" requestURI="${requestURI}"
+			pagesize="5" class="displaytag">
+			<acme:column code="dashboard.queryA3" value="${row}" />
+		</display:table>
 	</fieldset>
 </security:authorize>

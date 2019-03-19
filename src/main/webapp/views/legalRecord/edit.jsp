@@ -56,10 +56,7 @@
 			<input type="submit" name="save"
 				value="<spring:message code="legalRecord.save"></spring:message>" />
 
-			<button type="button"
-				onclick="javascript: relativeRedir('legalRecord/brotherhood/list.do')">
-				<spring:message code="legalRecord.cancel" />
-			</button>
+			
 
 			<jstl:if test="${legalRecord.id != 0}">
 				<input type="submit" name="delete"

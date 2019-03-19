@@ -75,10 +75,10 @@
 			<input type="submit" name="save"
 				value="<spring:message code="periodRecord.save"></spring:message>" />
 
-			<button type="button"
+			<%-- <button type="button"
 				onclick="javascript: relativeRedir('periodRecord/brotherhood/list.do')">
 				<spring:message code="periodRecord.cancel" />
-			</button>
+			</button> --%>
 
 			<jstl:if test="${periodRecord.id != 0}">
 				<input type="submit" name="delete"

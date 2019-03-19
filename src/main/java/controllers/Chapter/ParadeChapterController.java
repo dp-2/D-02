@@ -1,9 +1,12 @@
 
 package controllers.Chapter;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,9 +63,29 @@ public class ParadeChapterController extends AbstractController {
 
 		modelAndView = this.createEditModelAndView(parade);
 		modelAndView.addObject("requestURI", "parade/chapter/edit.do");
-
+		modelAndView.addObject("isRead", false);
 		return modelAndView;
 
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Parade parade, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(parade);
+		else
+
+			try {
+
+				this.paradeService.save(parade);
+				result = new ModelAndView("redirect:/parade/list.do");
+
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(parade, "parade.commit.error");
+			}
+
+		return result;
 	}
 
 	//ModelAndView-----------------------------------------------------------------
@@ -83,7 +106,7 @@ public class ParadeChapterController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 
-		result.addObject("requestURI", "parade/brotherhood/edit.do");
+		result.addObject("requestURI", "parade/edit.do");
 
 		return result;
 	}

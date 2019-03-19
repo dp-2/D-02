@@ -24,16 +24,17 @@
 
 
 <security:authorize access="hasRole('BROTHERHOOD')">
+<security:authentication property="principal.username" var="username" />
 
+	<jstl:if test='${history.brotherhood.userAccount.username == username}'>
 <a
 				href="history/brotherhood/edit.do?historyId=${history.id}"><spring:message
 					code="history.editName"></spring:message></a>
 					<br>
+					
+	</jstl:if>
 
-
-	<security:authentication property="principal.username" var="username" />
-
-	<jstl:if test='${history.brotherhood.userAccount.username == username}'>
+</security:authorize>
 
 	<br>
 		<fieldset>
@@ -80,7 +81,7 @@
 					var="seePeriodRecords"></spring:message>
 				<input type="button" name="seePeriodRecords"
 					value="${seePeriodRecords}"
-					onclick="javascript:relativeRedir('periodRecord/brotherhood/list.do')" />
+					onclick="javascript:relativeRedir('periodRecord/brotherhood/list.do?historyId=${history.id}')" />
 
 	
 				</fieldset>
@@ -108,7 +109,7 @@
 					var="seeLegalRecords"></spring:message>
 				<input type="button" name="seeLegalRecords"
 					value="${seeLegalRecords}"
-					onclick="javascript:relativeRedir('legalRecord/brotherhood/list.do')" />
+					onclick="javascript:relativeRedir('legalRecord/brotherhood/list.do?historyId=${history.id}')" />
 
 			</fieldset>
 			
@@ -133,7 +134,7 @@
 					var="seeLinkRecords"></spring:message>
 				<input type="button" name="seeLinkRecords"
 					value="${seeLinkRecords}"
-					onclick="javascript:relativeRedir('linkRecord/brotherhood/list.do')" />
+					onclick="javascript:relativeRedir('linkRecord/brotherhood/list.do?historyId=${history.id}')" />
 
 			</fieldset>
 			
@@ -159,74 +160,12 @@
 					var="seeMiscellaneousRecords"></spring:message>
 				<input type="button" name="seeMiscellaneousRecords"
 					value="${seeMiscellaneousRecords}"
-					onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/list.do')" />
+					onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/list.do?historyId=${history.id}')" />
 
 			</fieldset>
 
-<%-- 
-
-			<fieldset>
-				<legend>
-					<b><spring:message code="history.endorserRecords"></spring:message></b>
-				</legend>
-				<display:table name="endorserRecords" id="endorserRecord"
-					pagesize="5" class="displaytag">
-
-					<spring:message code="history.endorserRecord.fullName"
-						var="fullName"></spring:message>
-					<display:column property="fullName" title="${fullName}"
-						sortable="true" />
-
-					<spring:message code="history.endorserRecord.linkedinProfile"
-						var="linkedinProfile"></spring:message>
-					<display:column property="linkedinProfile"
-						title="${linkedinProfile}" sortable="true" />
-
-				</display:table>
-
-				<spring:message code="history.seeEndorserRecords"
-					var="seeEndorserRecords"></spring:message>
-				<input type="button" name="seeEndorserRecords"
-					value="${seeEndorserRecords}"
-					onclick="javascript:relativeRedir('endorserRecord/brotherhood/list.do')" />
-
-
-
-			</fieldset>
-
-			<fieldset>
-				<legend>
-					<b><spring:message code="history.miscellaneousRecords"></spring:message></b>
-				</legend>
-				<display:table name="miscellaneousRecords" id="miscellaneousRecord"
-					pagesize="5" class="displaytag">
-
-					<spring:message code="history.miscellaneousRecord.title"
-						var="title"></spring:message>
-					<display:column property="title" title="${title}" sortable="true" />
-
-
-
-				</display:table>
-
-				<spring:message code="history.seeMiscellaneousRecords"
-					var="seeMiscellaneousRecords"></spring:message>
-				<input type="button" name="seeMiscellaneousRecords"
-					value="${seeMiscellaneousRecords}"
-					onclick="javascript:relativeRedir('miscellaneousRecord/brotherhood/list.do')" />
-
-
-
-			</fieldset>
-
-
-
-
- --%>
 
 
 		
 
-	</jstl:if>
 
-</security:authorize>

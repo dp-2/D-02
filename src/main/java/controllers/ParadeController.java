@@ -6,21 +6,14 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
+import services.ActorService;
 import services.AreaService;
-import services.BrotherhoodService;
 import services.ConfigurationService;
 import services.ParadeService;
 import domain.Brotherhood;
@@ -42,7 +35,7 @@ public class ParadeController extends AbstractController {
 	private AreaService				areaService;
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private ActorService			actorService;
 
 
 	//Constructor-----------------------------------------------------------------
@@ -70,71 +63,85 @@ public class ParadeController extends AbstractController {
 			i++;
 		}
 		result = new ModelAndView("parade/list");
+		result.addObject("paradeService", this.paradeService);
 		result.addObject("parades", paradesFinales);
 		result.addObject("requestURI", "parade/chapterList.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;
 	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		final ModelAndView modelAndView = new ModelAndView("parade/list");
-
-		final SecurityContext context = SecurityContextHolder.getContext();
-		Assert.notNull(context);
-		final Authentication authentication = context.getAuthentication();
-		UserAccount chapter;
-		int chapterId;
-		final List<Parade> parades = this.paradeService.findParadesFinal();
-		final List<Parade> parades2;
-		final Collection<Brotherhood> brotherhoods;
-		final List<Parade> paradesFinales = new ArrayList<Parade>();
-
-		if (LoginService.getPrincipal().getAuthorities().contains("CHAPTER")) {
-			chapter = LoginService.getPrincipal();
-			chapterId = chapter.getId();
-			parades2 = this.paradeService.findAll();
-			brotherhoods = this.areaService.findBrotherhoodByChapterId(chapterId);
-			int i = 0;
-			while (i < parades2.size()) {
-				final Brotherhood b = parades2.get(i).getBrotherhood();
-				if (brotherhoods.contains(b) && (parades2.get(i).getStatus().equals("ACCEPTED")))
-					paradesFinales.add(parades2.get(i));
-				i++;
-			}
-		}
-		if (authentication.getPrincipal().equals("anonymousUser")) {
-			final Authority authority = new Authority();
-			authority.setAuthority("BROTHERHOOD");
-			if (LoginService.getPrincipal().getAuthorities().contains(authority)) {
-				final int brotherhoodId = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId()).getId();
-				modelAndView.addObject("hasArea", this.areaService.findAreaByBrotherhoodId(brotherhoodId));
-			}
-		}
-
-		final List<String> a = this.paradeService.findSponsorshipByParadeId(parades.get(0).getId());
-		modelAndView.addObject("sponsorship", a.get(0));
-		modelAndView.addObject("parades", parades);
-		modelAndView.addObject("paradesFinales", paradesFinales);
-		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
-		modelAndView.addObject("numResults", this.configurationService.findOne().getNumResults());
-		modelAndView.addObject("requestURI", "parade/list.do");
-
-		return modelAndView;
-	}
-
-	// Edit
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int paradeId) {
 		ModelAndView result;
-		Parade parade;
+		final List<Parade> parades;
+		final Collection<Brotherhood> brotherhoods;
+		final int chapterId;
 
-		parade = this.paradeService.findOne(paradeId);
-		Assert.notNull(parade);
-		result = this.createEditModelAndView(parade);
+		chapterId = this.actorService.findPrincipal().getId();
+		parades = this.paradeService.findAll();
+		brotherhoods = this.areaService.findBrotherhoodByChapterId(chapterId);
+		final List<Parade> paradesFinales = new ArrayList<Parade>();
+		//		int i = 0;
+		for (final Parade p : parades) {
+			final Brotherhood b = p.getBrotherhood();
+			if (brotherhoods.contains(b))
+				paradesFinales.add(p);
+		}
+		result = new ModelAndView("parade/list");
+		result.addObject("paradeService", this.paradeService);
+		result.addObject("parades", paradesFinales);
+		result.addObject("requestURI", "parade/list.do");
+		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;
 	}
+
+	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	//	public ModelAndView list() {
+	//		final ModelAndView modelAndView = new ModelAndView("parade/list");
+	//
+	//		final SecurityContext context = SecurityContextHolder.getContext();
+	//		Assert.notNull(context);
+	//		final Authentication authentication = context.getAuthentication();
+	//		UserAccount chapter;
+	//		int chapterId;
+	//		final List<Parade> parades = this.paradeService.findParadesFinal();
+	//		final List<Parade> parades2;
+	//		final Collection<Brotherhood> brotherhoods;
+	//		final List<Parade> paradesFinales = new ArrayList<Parade>();
+	//
+	//		if (LoginService.getPrincipal().getAuthorities().contains("CHAPTER")) {
+	//			chapter = LoginService.getPrincipal();
+	//			chapterId = chapter.getId();
+	//			parades2 = this.paradeService.findAll();
+	//			brotherhoods = this.areaService.findBrotherhoodByChapterId(chapterId);
+	//			int i = 0;
+	//			while (i < parades2.size()) {
+	//				final Brotherhood b = parades2.get(i).getBrotherhood();
+	//				if (brotherhoods.contains(b))
+	//					paradesFinales.add(parades2.get(i));
+	//				i++;
+	//			}
+	//		}
+	//		if (authentication.getPrincipal().equals("anonymousUser")) {
+	//			final Authority authority = new Authority();
+	//			authority.setAuthority("BROTHERHOOD");
+	//			if (LoginService.getPrincipal().getAuthorities().contains(authority)) {
+	//				final int brotherhoodId = this.brotherhoodService.findBrotherhoodByUserAcountId(LoginService.getPrincipal().getId()).getId();
+	//				modelAndView.addObject("hasArea", this.areaService.findAreaByBrotherhoodId(brotherhoodId));
+	//			}
+	//		}
+	//
+	//		modelAndView.addObject("paradeService", this.paradeService);
+	//		modelAndView.addObject("parades", paradesFinales);
+	//		modelAndView.addObject("paradesFinales", paradesFinales);
+	//		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
+	//		modelAndView.addObject("numResults", this.configurationService.findOne().getNumResults());
+	//		modelAndView.addObject("requestURI", "parade/list.do");
+	//
+	//		return modelAndView;
+	//	}
 
 	//List of Parade Navigation Brotherhood-----------------------------------------------
 	@RequestMapping(value = "/listBrotherhood", method = RequestMethod.GET)
@@ -145,6 +152,7 @@ public class ParadeController extends AbstractController {
 		final List<Parade> parades = this.paradeService.findParadesFinalByBrotherhoodId(brotherhood.getId());
 
 		modelAndView.addObject("parades", parades);
+		modelAndView.addObject("paradeService", this.paradeService);
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
 		//modelAndView.addObject("requestURI", "parade/listBrotherhood.do");
 
@@ -158,6 +166,7 @@ public class ParadeController extends AbstractController {
 		final List<Parade> parades = this.paradeService.findParadesFinalByBrotherhoodId(brotherhoodId);
 
 		modelAndView = new ModelAndView("parade/list");
+		modelAndView.addObject("paradeService", this.paradeService);
 		modelAndView.addObject("requestURI", "parade/listBrotherhoodAllUsers.do");
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
 		modelAndView.addObject("parades", parades);

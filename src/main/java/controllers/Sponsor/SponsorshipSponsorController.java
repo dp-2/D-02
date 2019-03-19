@@ -61,14 +61,14 @@ public class SponsorshipSponsorController extends AbstractController {
 		for (final Sponsorship s : sponsorships) {
 			if (s.getCreditCard().getExpirationYear() < LocalDate.now().getYear()) {
 				s.setActive(false);
-				this.sponsorshipService.save(s);
+				this.sponsorshipService.save1(s);
 			} else if (s.getCreditCard().getExpirationYear() == LocalDate.now().getYear() && s.getCreditCard().getExpirationMonth() < LocalDate.now().getMonthOfYear()) {
 				s.setActive(false);
-				this.sponsorshipService.save(s);
+				this.sponsorshipService.save1(s);
 
 			} else {
-				s.setActive(true);
-				this.sponsorshipService.save(s);
+				s.setActive(s.getActive());
+				this.sponsorshipService.save1(s);
 			}
 
 			result.addObject("sponsorships", sponsorships);

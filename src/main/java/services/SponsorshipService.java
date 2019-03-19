@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -81,13 +80,27 @@ public class SponsorshipService {
 		return result;
 	}
 
+	public Sponsorship save1(final Sponsorship sponsorship) {
+		Assert.notNull(sponsorship);
+		this.checkPrincipal(sponsorship);
+		Sponsorship result = sponsorship;
+
+		result.setCreditCard(sponsorship.getCreditCard());
+		result.setSponsor(sponsorship.getSponsor());
+		result = this.sponsorshipRepository.save(sponsorship);
+
+		return result;
+	}
+
 	public void deActive(final Sponsorship sponsorship) {
+
 		Assert.notNull(sponsorship);
 		this.checkPrincipal(sponsorship);
 
 		final Sponsorship s = this.sponsorshipRepository.findOne(sponsorship.getId());
 		s.setActive(false);
 		this.sponsorshipRepository.save(s);
+
 	}
 
 	// Other bussines methods ------------------------------ (Otras reglas de negocio, como por ejemplo findRegisteredUser())
@@ -121,7 +134,7 @@ public class SponsorshipService {
 	public Double stddevSponsorshipBySponsor() {
 		return this.sponsorshipRepository.ratioActiveSponsorship();
 	}
-	public ArrayList<Sponsor> top5Sponsors() {
+	public List<String> top5Sponsors() {
 		return this.sponsorshipRepository.top5Sponsors();
 	}
 }
