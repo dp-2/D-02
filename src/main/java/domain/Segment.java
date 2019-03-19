@@ -7,7 +7,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -79,7 +78,6 @@ public class Segment extends DomainEntity {
 	// Relationships
 
 	private Path	path;
-	private Segment	previousSegment;
 
 
 	@Valid
@@ -90,15 +88,6 @@ public class Segment extends DomainEntity {
 	}
 	public void setPath(final Path path) {
 		this.path = path;
-	}
-
-	@Valid
-	@OneToOne(optional = true)
-	public Segment getPreviousSegment() {
-		return this.previousSegment;
-	}
-	public void setPreviousSegment(final Segment previousSegment) {
-		this.previousSegment = previousSegment;
 	}
 
 }

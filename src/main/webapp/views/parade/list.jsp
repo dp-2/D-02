@@ -38,9 +38,7 @@
 				<a href="parade/brotherhood/removeFloat.do?paradeId=${row.id}">
 					<spring:message code="parade.removeFloat" />
 				</a> 
-				<a href="path/brotherhood/display.do?paradeId=${row.id}">
-					<spring:message code="path.display" />
-				</a>
+				<br>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
@@ -92,6 +90,12 @@
 
 		</display:column>
 	</security:authorize>
+	
+	<display:column>
+		<a href="path/any/display.do?paradeId=${row.id}">
+			<spring:message code="path.display" />
+		</a>
+	</display:column>
 
 
 
@@ -120,7 +124,7 @@
 
 </display:table>
 
-<br />
+<br>
 <security:authorize access="hasRole('BROTHERHOOD')">
 	<jstl:if test="${hasArea != null}">
 		<a href="parade/brotherhood/create.do"> <spring:message
@@ -133,6 +137,7 @@
 			<spring:message code="parade.area.null" />
 		</p>
 	</jstl:if>
+	
 </security:authorize>
 
 

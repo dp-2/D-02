@@ -2180,7 +2180,6 @@
 		<property name="longitudeDestination" value="0.0" />
 		<property name="timeOrigin" value="June 29, 2020 16:00" />
 		<property name="timeDestination" value="June 29, 2020 17:30" />
-		<property name="previousSegment" ref="segment1Path1" />
 		<property name="path" ref="path1" />
 	</bean>
 	
@@ -2191,7 +2190,6 @@
 		<property name="longitudeDestination" value="0.01" />
 		<property name="timeOrigin" value="June 29, 2020 17:30" />
 		<property name="timeDestination" value="June 29, 2020 18:15" />
-		<property name="previousSegment" ref="segment2Path1" />
 		<property name="path" ref="path1" />
 	</bean>
 	

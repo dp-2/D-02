@@ -9,20 +9,21 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-	<p><spring:message code="path.pathof" /> <jstl:out value="${path.brotherhood.title}" /></p>
+	<h2><spring:message code="path.pathof" /> <jstl:out value="${path.parade.brotherhood.title}" /></h2>
+	<br>
 	
 	<fieldset><legend><spring:message code="path.segments" /></legend>
-		<jstl:forEach items="${path.segments}" var="segment">
-			<fieldset>
+		<jstl:forEach items="${segments}" var="segment">
+			<fieldset><legend><spring:message code="segment" /> ${segment.numberOrder}</legend>
 				<fieldset><legend><spring:message code="segment.origin" /></legend>
-					<p><spring:message code="segment.latitude" /><jstl:out value="${segment.latitudeOrigin}" /></p>
-					<p><spring:message code="segment.longitude" /><jstl:out value="${segment.longitudeOrigin}" /></p>
-					<p><spring:message code="segment.time" /><jstl:out value="${segment.timeOrigin}" /></p>
+					<p><spring:message code="segment.latitude" /> : <jstl:out value="${segment.latitudeOrigin}" /></p>
+					<p><spring:message code="segment.longitude" /> : <jstl:out value="${segment.longitudeOrigin}" /></p>
+					<p><spring:message code="segment.time" /> : <jstl:out value="${segment.timeOrigin}" /></p>
 				</fieldset>
 				<fieldset><legend><spring:message code="segment.destination" /></legend>
-					<p><spring:message code="segment.latitude" /><jstl:out value="${segment.latitudeDestination}" /></p>
-					<p><spring:message code="segment.longitude" /><jstl:out value="${segment.longitudeDestination}" /></p>
-					<p><spring:message code="segment.time" /><jstl:out value="${segment.timeDestination}" /></p>
+					<p><spring:message code="segment.latitude" /> : <jstl:out value="${segment.latitudeDestination}" /></p>
+					<p><spring:message code="segment.longitude" /> : <jstl:out value="${segment.longitudeDestination}" /></p>
+					<p><spring:message code="segment.time" /> : <jstl:out value="${segment.timeDestination}" /></p>
 				</fieldset>
 				<jstl:if test="${isPrincipalAuthorizedEdit}">
 					<acme:link url="segment/brotherhood/edit.do?segmentId=${segment.id}" code="segment.edit" />
@@ -30,7 +31,7 @@
 			</fieldset>
 		</jstl:forEach>
 		<jstl:if test="${isPrincipalAuthorizedEdit}">
-			<acme:link url="segment/brotherhood/create.do" code="segment.create" />
+			<acme:link url="segment/brotherhood/create.do?pathId=${path.id}" code="segment.create" />
 			<acme:link url="path/brotherhood/delete.do?pathId=${path.id}" code="path.delete" />
 		</jstl:if>
 	</fieldset>

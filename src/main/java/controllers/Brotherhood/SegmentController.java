@@ -1,7 +1,11 @@
 
-package controllers;
+package controllers.Brotherhood;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.PathService;
 import services.SegmentService;
+import controllers.AbstractController;
 import domain.Actor;
 import domain.Path;
 import domain.Segment;
 
 @RequestMapping("segment/brotherhood")
+@Controller
 public class SegmentController extends AbstractController {
 
 	@Autowired
@@ -91,8 +97,11 @@ public class SegmentController extends AbstractController {
 		final ModelAndView res = new ModelAndView("path_and_segments/edit");
 		res.addObject("segment", segment);
 		res.addObject("isPrincipalAuthorizedEdit", this.isPrincipalAuthorizedEdit(segment.getPath()));
+		final Collection<Segment> segments = new ArrayList<Segment>();
+		segments.addAll(segment.getPath().getSegments());
+		segments.remove(segment);
+		res.addObject("segments", segments);
 		res.addObject("message", message);
 		return res;
 	}
-
 }

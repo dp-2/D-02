@@ -41,10 +41,19 @@
 		<acme:textbox code="segment.longitude" path="longitudeDestination" />
 		<acme:textbox code="segment.time" path="timeDestination" />
 	</fieldset>
-	<acme:select code="segment.previousSegment" itemLabel="" items="${segments}" path="previousSegment">
 	
-	</acme:select>
-	
+	<div>
+		<form:label path="previousSegment">
+			<spring:message code="segment.previousSegment" />
+		</form:label>
+		<form:select path="previousSegment" >
+			<form:option value="0" label="-----" />
+			<jstl:forEach items="${segments}" var="segment">
+				<form:option value="${segment.id}" label="${segment.numberOrder}" />
+			</jstl:forEach>
+		</form:select>
+	</div>
+		
 	<acme:submit name="save" code="segment.save" />
 	<jstl:if test="${segment.id == 0}">
 		<acme:submit name="delete" code="segment.delete" />

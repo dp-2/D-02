@@ -43,7 +43,7 @@ public class PathService {
 	}
 
 	public Collection<Path> findAll() {
-		return this.findAll();
+		return this.repository.findAll();
 	}
 
 	public Path create(final Parade p) {
@@ -58,14 +58,14 @@ public class PathService {
 		this.serviceUtils.checkActor(path.getParade().getBrotherhood());
 		p.setParade(path.getParade());
 		p.setSegments(path.getSegments());
-		final Path res = this.save(p);
+		final Path res = this.repository.save(p);
 		return res;
 	}
 
 	public void delete(final Path p) {
 		final Path path = (Path) this.serviceUtils.checkObjectSave(p);
 		this.serviceUtils.checkActor(path.getParade().getBrotherhood());
-		this.delete(path);
+		this.repository.delete(path);
 	}
 
 	public Path findByParadeId(final Integer paradeId) {
