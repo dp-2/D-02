@@ -70,6 +70,7 @@ public class ParadeController extends AbstractController {
 			i++;
 		}
 		result = new ModelAndView("parade/list");
+		result.addObject("paradeService", this.paradeService);
 		result.addObject("parades", paradesFinales);
 		result.addObject("requestURI", "parade/chapterList.do");
 		result.addObject("banner", this.configurationService.findOne().getBanner());
@@ -112,8 +113,7 @@ public class ParadeController extends AbstractController {
 			}
 		}
 
-		final List<String> a = this.paradeService.findSponsorshipByParadeId(parades.get(0).getId());
-		modelAndView.addObject("sponsorship", a.get(0));
+		modelAndView.addObject("paradeService", this.paradeService);
 		modelAndView.addObject("parades", parades);
 		modelAndView.addObject("paradesFinales", paradesFinales);
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
@@ -145,6 +145,7 @@ public class ParadeController extends AbstractController {
 		final List<Parade> parades = this.paradeService.findParadesFinalByBrotherhoodId(brotherhood.getId());
 
 		modelAndView.addObject("parades", parades);
+		modelAndView.addObject("paradeService", this.paradeService);
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
 		//modelAndView.addObject("requestURI", "parade/listBrotherhood.do");
 
@@ -158,6 +159,7 @@ public class ParadeController extends AbstractController {
 		final List<Parade> parades = this.paradeService.findParadesFinalByBrotherhoodId(brotherhoodId);
 
 		modelAndView = new ModelAndView("parade/list");
+		modelAndView.addObject("paradeService", this.paradeService);
 		modelAndView.addObject("requestURI", "parade/listBrotherhoodAllUsers.do");
 		modelAndView.addObject("banner", this.configurationService.findOne().getBanner());
 		modelAndView.addObject("parades", parades);

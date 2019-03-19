@@ -62,7 +62,9 @@
 	</display:column>
 
 	<display:column titleKey="parade.sponsorship">
-		<img src="${sponsorship}" height="100px" width="100px" />
+		<jstl:if test="${paradeService.findSponsorshipByParadeId(row.id).size()!=0}">
+		<img src="${paradeService.findSponsorshipByParadeId(row.id).get(0)}" height="100px" width="100px" />
+		</jstl:if>
 	</display:column>
 	
 		<jstl:if test="${row.status=='SUBMITTED'}">
