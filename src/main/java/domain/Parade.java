@@ -30,6 +30,7 @@ public class Parade extends DomainEntity {
 	private Date	momentOrganised;
 	private boolean	ffinal;
 	private String	status;
+	private String	reason;
 
 
 	@NotBlank
@@ -83,6 +84,13 @@ public class Parade extends DomainEntity {
 	}
 	public void setFfinal(final boolean ffinal) {
 		this.ffinal = ffinal;
+	}
+
+	public String getReason() {
+		return this.reason;
+	}
+	public void setReason(final String reason) {
+		this.reason = reason;
 	}
 
 

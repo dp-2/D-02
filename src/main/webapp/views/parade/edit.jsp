@@ -61,8 +61,15 @@
 					readonly="${isRead}" />
 			</jstl:if>
 		</jstl:if>
+
 		<br />
 		<br />
+
+		
+		<jstl:if test="${parade.status=='REJECTED'}">
+			<acme:textbox code="parade.reason" path="reason" />
+		</jstl:if>
+
 	</security:authorize>
 
 	<jstl:if test="${isRead == false}">

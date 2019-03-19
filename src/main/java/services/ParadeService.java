@@ -72,7 +72,11 @@ public class ParadeService {
 		parade.setBrotherhood(brotherhood);
 		parade.setFfinal(false);
 		parade.setTicker(ticker);
+
 		parade.setStatus("SUBMITTED");
+
+		parade.setReason(null);
+
 
 		return parade;
 

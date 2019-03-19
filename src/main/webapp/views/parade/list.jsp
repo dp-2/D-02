@@ -18,7 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<%@page import="java.util.Collection" %>
+<%@page import="java.util.Collection"%>
 
 <display:table name="parades" id="row" requestURI="${requestURI}"
 	pagesize="${numResults}" class="displaytag">
@@ -37,56 +37,70 @@
 				<br>
 				<a href="parade/brotherhood/removeFloat.do?paradeId=${row.id}">
 					<spring:message code="parade.removeFloat" />
-				</a> 
-				<a href="path/brotherhood/display.do?paradeId=${row.id}">
-					<spring:message code="path.display" />
+				</a>
+				<a href="path/brotherhood/display.do?paradeId=${row.id}"> <spring:message
+						code="path.display" />
 				</a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
-	
+
 	<security:authorize access="hasRole('CHAPTER')">
 
 		<display:column>
+
 			<a href="parade/chapter/edit.do?paradeId=${row.id}"> <spring:message
 						code="parade.edit" />
+
+			<a href="parade/edit.do?paradeId=${row.id}"> <spring:message
+					code="parade.edit" />
+
 			</a>
 		</display:column>
 	</security:authorize>
 
 
-	<display:column titleKey="parade.hood">
+	<display:column titleKey="parade.hood" sortable="true">
 		<a href="parade/listBrotherhood.do?paradeId=${row.id}"> <jstl:out
 				value="${row.brotherhood.name}" />
 		</a>
 	</display:column>
 
-	<display:column titleKey="parade.sponsorship">
-		<jstl:if test="${paradeService.findSponsorshipByParadeId(row.id).size()!=0}">
-		<img src="${paradeService.findSponsorshipByParadeId(row.id).get(0)}" height="100px" width="100px" />
+	<display:column titleKey="parade.sponsorship" sortable="true">
+		<jstl:if
+			test="${paradeService.findSponsorshipByParadeId(row.id).size()!=0}">
+			<img src="${paradeService.findSponsorshipByParadeId(row.id).get(0)}"
+				height="100px" width="100px" />
 		</jstl:if>
 	</display:column>
-	
-		<jstl:if test="${row.status=='SUBMITTED'}">
+
+	<jstl:if test="${row.status=='SUBMITTED'}">
 		<display:column property="status" titleKey="parade.status"
 			style="background-color:Yellow" sortable="true" />
 	</jstl:if>
 
 	<jstl:if test="${row.status=='ACCEPTED' }">
 		<display:column property="status" titleKey="parade.status"
-			style="background-color:Blue" sortable="true " />
+			style="background-color:Blue" sortable="true" />
 	</jstl:if>
 
 	<jstl:if test="${row.status=='REJECTED'}">
+
+
 		<display:column property="status" titleKey="parade.status"
 			style="background-color:Red" sortable="true" />
 	</jstl:if>
 	
+		<display:column property="reason" titleKey="parade.reason" sortable="true"/>
+	
 
-	<display:column property="ticker" titleKey="parade.ticker" />
+
+
+
+	<display:column property="ticker" titleKey="parade.ticker" sortable="true"/>
 	<security:authorize access="hasRole('BROTHERHOOD')">
 
-		<display:column titleKey="parade.member">
+		<display:column titleKey="parade.member" sortable="true">
 
 			<a href="march/brotherhood/list.do?paradeId=${row.id}"> <spring:message
 					code="parade.list" />
