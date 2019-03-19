@@ -48,14 +48,12 @@
 	<security:authorize access="hasRole('CHAPTER')">
 
 		<display:column>
-
+			<jstl:if test="${row.status=='SUBMITTED'|| row.status=='REJECTED'}">
 			<a href="parade/chapter/edit.do?paradeId=${row.id}"> <spring:message
 						code="parade.edit" />
 
-			<a href="parade/edit.do?paradeId=${row.id}"> <spring:message
-					code="parade.edit" />
-
 			</a>
+			</jstl:if>
 		</display:column>
 	</security:authorize>
 
@@ -76,12 +74,12 @@
 
 	<jstl:if test="${row.status=='SUBMITTED'}">
 		<display:column property="status" titleKey="parade.status"
-			style="background-color:Yellow" sortable="true" />
+			style="background-color:Grey" sortable="true" />
 	</jstl:if>
 
 	<jstl:if test="${row.status=='ACCEPTED' }">
 		<display:column property="status" titleKey="parade.status"
-			style="background-color:Blue" sortable="true" />
+			style="background-color:Green" sortable="true" />
 	</jstl:if>
 
 	<jstl:if test="${row.status=='REJECTED'}">

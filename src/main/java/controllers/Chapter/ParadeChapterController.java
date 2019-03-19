@@ -79,8 +79,7 @@ public class ParadeChapterController extends AbstractController {
 			try {
 
 				this.paradeService.save(parade);
-				result = this.createEditModelAndView(parade);
-				result.addObject("requestURI", "parade/list.do");
+				result = new ModelAndView("redirect:/parade/list.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(parade, "parade.commit.error");

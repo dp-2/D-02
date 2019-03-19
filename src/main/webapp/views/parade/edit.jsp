@@ -27,6 +27,7 @@
 
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<form:hidden path="status" />
+		<form:hidden path="reason" />
 		<acme:textbox code="parade.title" path="title" readonly="${isRead}" />
 		<acme:textbox code="parade.description" path="description"
 			readonly="${isRead}" />
@@ -45,6 +46,7 @@
 			<form:hidden path="momentOrganised" />
 			<form:hidden path="ffinal" />
 			<jstl:if test="${parade.status=='SUBMITTED'}">
+				<form:hidden path="reason" />
 				<form:label path="status">
 					<spring:message code="parade.status"></spring:message>
 				</form:label>
@@ -57,6 +59,7 @@
 
 			</jstl:if>
 			<jstl:if test="${parade.status=='REJECTED'}">
+				<form:hidden path="status" />
 				<acme:textbox code="parade.reason" path="reason"
 					readonly="${isRead}" />
 			</jstl:if>
@@ -65,22 +68,18 @@
 		<br />
 		<br />
 
-		
-		<jstl:if test="${parade.status=='REJECTED'}">
-			<acme:textbox code="parade.reason" path="reason" />
-		</jstl:if>
 
 	</security:authorize>
 
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="parade.save" />" />
-
-		<jstl:if test="${parade.id != 0}">
-			<input type="submit" name="delete"
-				value="<spring:message code="parade.delete" />" />
-		</jstl:if>
-
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<jstl:if test="${parade.id != 0}">
+				<input type="submit" name="delete"
+					value="<spring:message code="parade.delete" />" />
+			</jstl:if>
+		</security:authorize>
 		<acme:cancel url="parade/list.do" code="parade.cancel" />
 
 	</jstl:if>
