@@ -47,6 +47,7 @@ public class PathService {
 	}
 
 	public Path create(final Parade p) {
+		this.serviceUtils.checkActor(p.getBrotherhood());
 		final Path res = new Path();
 		res.setSegments(new ArrayList<Segment>());
 		final Parade parade = (Parade) this.serviceUtils.checkObject(p);
