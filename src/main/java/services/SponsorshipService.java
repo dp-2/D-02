@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.SponsorshipRepository;
+import security.LoginService;
 import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
-import repositories.SponsorshipRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -80,13 +80,27 @@ public class SponsorshipService {
 		return result;
 	}
 
+	public Sponsorship save1(final Sponsorship sponsorship) {
+		Assert.notNull(sponsorship);
+		this.checkPrincipal(sponsorship);
+		Sponsorship result = sponsorship;
+
+		result.setCreditCard(sponsorship.getCreditCard());
+		result.setSponsor(sponsorship.getSponsor());
+		result = this.sponsorshipRepository.save(sponsorship);
+
+		return result;
+	}
+
 	public void deActive(final Sponsorship sponsorship) {
+
 		Assert.notNull(sponsorship);
 		this.checkPrincipal(sponsorship);
 
 		final Sponsorship s = this.sponsorshipRepository.findOne(sponsorship.getId());
 		s.setActive(false);
 		this.sponsorshipRepository.save(s);
+
 	}
 
 	// Other bussines methods ------------------------------ (Otras reglas de negocio, como por ejemplo findRegisteredUser())

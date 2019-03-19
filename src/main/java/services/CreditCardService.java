@@ -49,13 +49,13 @@ public class CreditCardService {
 	}
 
 	public CreditCard save(final CreditCard creditCard) {
-		//	Assert.isTrue(this.isGood(creditCard), "errorCredit");
+
+		Assert.isTrue(this.isGood(creditCard), "errorCredit");
 		Assert.notNull(creditCard);
 
 		final CreditCard saved = this.creditCardRepository.save(creditCard);
 		return saved;
 	}
-
 	public void delete(final CreditCard creditCard) {
 		this.creditCardRepository.delete(creditCard);
 
