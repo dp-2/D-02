@@ -45,6 +45,10 @@
 			</form:select>
 
 		</jstl:if>
+		
+		<jstl:if test="${parade.status=='REJECTED'}">
+			<acme:textbox code="parade.reason" path="reason" />
+		</jstl:if>
 	</security:authorize>
 	<jstl:if test="${isRead == false}">
 		<acme:checkbox code="parade.final" path="ffinal" />

@@ -18,7 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<%@page import="java.util.Collection" %>
+<%@page import="java.util.Collection"%>
 
 <display:table name="parades" id="row" requestURI="${requestURI}"
 	pagesize="${numResults}" class="displaytag">
@@ -37,19 +37,19 @@
 				<br>
 				<a href="parade/brotherhood/removeFloat.do?paradeId=${row.id}">
 					<spring:message code="parade.removeFloat" />
-				</a> 
-				<a href="path/brotherhood/display.do?paradeId=${row.id}">
-					<spring:message code="path.display" />
+				</a>
+				<a href="path/brotherhood/display.do?paradeId=${row.id}"> <spring:message
+						code="path.display" />
 				</a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
-	
+
 	<security:authorize access="hasRole('CHAPTER')">
 
 		<display:column>
 			<a href="parade/edit.do?paradeId=${row.id}"> <spring:message
-						code="parade.edit" />
+					code="parade.edit" />
 			</a>
 		</display:column>
 	</security:authorize>
@@ -62,12 +62,14 @@
 	</display:column>
 
 	<display:column titleKey="parade.sponsorship">
-		<jstl:if test="${paradeService.findSponsorshipByParadeId(row.id).size()!=0}">
-		<img src="${paradeService.findSponsorshipByParadeId(row.id).get(0)}" height="100px" width="100px" />
+		<jstl:if
+			test="${paradeService.findSponsorshipByParadeId(row.id).size()!=0}">
+			<img src="${paradeService.findSponsorshipByParadeId(row.id).get(0)}"
+				height="100px" width="100px" />
 		</jstl:if>
 	</display:column>
-	
-		<jstl:if test="${row.status=='SUBMITTED'}">
+
+	<jstl:if test="${row.status=='SUBMITTED'}">
 		<display:column property="status" titleKey="parade.status"
 			style="background-color:Yellow" sortable="true" />
 	</jstl:if>
@@ -78,10 +80,17 @@
 	</jstl:if>
 
 	<jstl:if test="${row.status=='REJECTED'}">
+
+
 		<display:column property="status" titleKey="parade.status"
 			style="background-color:Red" sortable="true" />
 	</jstl:if>
 	
+		<display:column property="reason" titleKey="parade.reason" />
+	
+
+
+
 
 	<display:column property="ticker" titleKey="parade.ticker" />
 	<security:authorize access="hasRole('BROTHERHOOD')">

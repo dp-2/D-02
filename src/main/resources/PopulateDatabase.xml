@@ -1433,6 +1433,7 @@
 		<property name="momentOrganised" value="2019/03/14" />
 		<property name="ffinal" value="false" />
 		<property name="status" value="SUBMITTED" />
+		<property name="reason" value="null"/>
 		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
@@ -1444,6 +1445,7 @@
 		<property name="momentOrganised" value="2019/09/02" />
 		<property name="ffinal" value="true" />
 		<property name="status" value="ACCEPTED" />
+		<property name="reason" value="null"/>
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
@@ -1467,6 +1469,7 @@
 		<property name="momentOrganised" value="2020/09/02" />
 		<property name="ffinal" value="true" />
 		<property name="status" value="ACCEPTED" />
+		<property name="reason" value="null"/>
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
