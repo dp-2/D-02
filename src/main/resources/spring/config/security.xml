@@ -265,6 +265,9 @@
 		<security:intercept-url pattern="/history/brotherhood/myDisplay.do"
 			access="hasRole('BROTHERHOOD')" />
 			
+		<security:intercept-url pattern="/history/brotherhood/edit.do"
+			access="hasRole('BROTHERHOOD')" />
+			
 		
 					
 		<!-- InceptionRecord-->
@@ -282,16 +285,20 @@
 		<security:intercept-url pattern="/periodRecord/brotherhood/list.do"
 			access="permitAll()" />	
 		<security:intercept-url pattern="/periodRecord/brotherhood/edit.do"
-			access="hasRole('BROTHERHOOD')" />			
+			access="hasRole('BROTHERHOOD')" />				
+		<security:intercept-url pattern="/periodRecord/brotherhood/create.do"
+			access="hasRole('BROTHERHOOD')" />	
 		
 		<!-- linkRecord -->
 					
-		<security:intercept-url pattern="/linkRecord/brotherhood/display.do"
+		<security:intercept-url pattern="/linkRecord/brotherhood/display.do/**"
 			access="permitAll()" />			
 		<security:intercept-url pattern="/linkRecord/brotherhood/list.do"
 			access="permitAll()" />	
 		<security:intercept-url pattern="/linkRecord/brotherhood/edit.do"
-			access="hasRole('BROTHERHOOD')" />		
+			access="hasRole('BROTHERHOOD')" />	
+		<security:intercept-url pattern="/linkRecord/brotherhood/create.do"
+			access="hasRole('BROTHERHOOD')" />	
 			
 			
 		<!-- miscellaneousRecord -->
@@ -301,7 +308,9 @@
 		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/list.do"
 			access="permitAll()" />	
 		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/edit.do"
-			access="hasRole('BROTHERHOOD')" />	
+			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/miscellaneousRecord/brotherhood/create.do"
+			access="hasRole('BROTHERHOOD')" />
 		
 		
 		<!-- legalRecord -->
@@ -311,6 +320,8 @@
 		<security:intercept-url pattern="/legalRecord/brotherhood/list.do"
 			access="permitAll()" />	
 		<security:intercept-url pattern="/legalRecord/brotherhood/edit.do"
+			access="hasRole('BROTHERHOOD')" />	
+		<security:intercept-url pattern="/legalRecord/brotherhood/create.do"
 			access="hasRole('BROTHERHOOD')" />	
 
 

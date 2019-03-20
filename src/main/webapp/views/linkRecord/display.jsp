@@ -21,7 +21,7 @@
 <acme:out code="linkRecord.title" value="${linkRecord.title}" />
 <acme:out code="linkRecord.text" value="${linkRecord.text}"/>
 
-<a href="brotherhood/display.do?brotherhoodId=${linkRecord.linkBrotherhood}"><spring:message
+<a href="${linkRecord.linkBrotherhood}"><spring:message
 				code="linkRecord.brotherhoodRelated"></spring:message></a>
 
 
