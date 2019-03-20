@@ -13,9 +13,9 @@
 	<br>
 	
 	<fieldset><legend><spring:message code="path.segments" /></legend>
-		<jstl:forEach items="${segments}" var="segment">
-			<fieldset><legend><spring:message code="segment" /> ${segment.numberOrder}</legend>
-				<fieldset><legend><spring:message code="segment.origin" /></legend>
+		<jstl:forEach items="${segments}" var="segment" varStatus="status" >
+			<fieldset><legend><spring:message code="segment" /> </legend>
+				<fieldset><legend><spring:message code="segment.origin" />${status.index + 1}</legend>
 					<p><spring:message code="segment.latitude" /> : <jstl:out value="${segment.latitudeOrigin}" /></p>
 					<p><spring:message code="segment.longitude" /> : <jstl:out value="${segment.longitudeOrigin}" /></p>
 					<p><spring:message code="segment.time" /> : <jstl:out value="${segment.timeOrigin}" /></p>

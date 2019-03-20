@@ -68,6 +68,7 @@ public class SegmentService {
 		final Segment segment = (Segment) this.serviceUtils.checkObjectSave(s);
 		System.out.println("checkActor");
 		this.serviceUtils.checkActor(segment.getPath().getParade().getBrotherhood());
+		this.findAll();
 		// El tiempo de origen es anterior al de destino
 		System.out.println("time");
 		Assert.isTrue(s.getTimeOrigin().before(s.getTimeDestination()));

@@ -34,7 +34,7 @@ public class PathAnyController extends AbstractController {
 		Path path = null;
 		if (pathId != null)
 			path = this.pathService.findOne(pathId);
-		else if (paradeId != null)
+		else if (paradeId != null && pathId == null)
 			path = this.pathService.findByParadeId(paradeId);
 		Assert.notNull(path);
 		final ModelAndView res = new ModelAndView("path_and_segments/display");
@@ -42,9 +42,9 @@ public class PathAnyController extends AbstractController {
 
 			@Override
 			public int compare(final Segment o1, final Segment o2) {
-				if (o1.getNumberOrder() > o2.getNumberOrder())
+				if (o1.getTimeOrigin().after(o2.getTimeOrigin()))
 					return 1;
-				else if (o1.getNumberOrder() < o2.getNumberOrder())
+				else if (o1.getTimeOrigin().before(o2.getTimeOrigin()))
 					return -1;
 				else
 					return 0;

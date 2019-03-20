@@ -55,7 +55,7 @@ public class SegmentController extends AbstractController {
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(decSegment);
 		try {
-			this.segmentService.save(decSegment);
+			this.segmentService.save(decSegment, true);
 			res = new ModelAndView("redirect:/path/brotherhood/display.do?pathId=" + new Integer(decSegment.getPath().getId()).toString());
 		} catch (final Throwable oops) {
 			res = this.createEditModelAndView(decSegment, "cannot.commit.error");
