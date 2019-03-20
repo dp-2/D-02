@@ -558,4 +558,9 @@ public class ActorService {
 		iTextImage.scaleToFit(100f, 200f);
 		return iTextImage;
 	}
+
+	public void delete(final Actor a) {
+		final Actor actor = (Actor) this.serviceUtils.checkObject(a);
+	}
+
 }
