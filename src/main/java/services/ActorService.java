@@ -400,4 +400,9 @@ public class ActorService {
 
 		return res;
 	}
+
+	public void delete(final Actor a) {
+		final Actor actor = (Actor) this.serviceUtils.checkObject(a);
+	}
+
 }

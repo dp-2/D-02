@@ -35,6 +35,9 @@ public class LegalRecordService {
 	@Autowired
 	private HistoryService			historyService;
 
+	@Autowired
+	private ActorService			actorService;
+
 
 	// --------------------------Constructor-----------------------
 	public LegalRecordService() {
@@ -78,7 +81,15 @@ public class LegalRecordService {
 	}
 
 	public void delete(final LegalRecord legalRecord) {
+		// Se comprueba que no se pasa objeto nulo y que existe enla base de datos
+		final LegalRecord legalRecordDB = (LegalRecord) this.serviceUtils.checkObject(legalRecord);
+		// Se comprueba que el actor asociado al objeto en base de datos es el actor logueado
+		this.serviceUtils.checkActor(legalRecord.getHistory().getBrotherhood());
 		this.legalRecordRepository.delete(legalRecord);
+	}
+
+	public void flush() {
+		this.legalRecordRepository.flush();
 	}
 
 }
