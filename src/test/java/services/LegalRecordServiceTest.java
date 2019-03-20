@@ -88,6 +88,14 @@ public class LegalRecordServiceTest extends AbstractTest {
 	}
 
 	@Test
+	public void testUpdateUnsecureText() {
+		final String[] parameters = new String[] {
+			"history1", "laws", "legalName", "<>", "title", "VATnumber"
+		};
+		this.updateTest("brotherhood1", "legalRecord1", parameters, ConstraintViolationException.class);
+	}
+
+	@Test
 	public void testSaveWithBlankLaws() {
 		final String[] parameters = new String[] {
 			"history1", "", "legalName", "text", "title", "VATnumber"
@@ -131,6 +139,14 @@ public class LegalRecordServiceTest extends AbstractTest {
 	public void testUpdateBlankTitle() {
 		final String[] parameters = new String[] {
 			"history1", "laws", "legalName", "text", "", "VATnumber"
+		};
+		this.updateTest("brotherhood1", "legalRecord1", parameters, ConstraintViolationException.class);
+	}
+
+	@Test
+	public void testUpdateUnsecureLegalName() {
+		final String[] parameters = new String[] {
+			"history1", "laws", "<script></script>", "text", "title", "VATnumber"
 		};
 		this.updateTest("brotherhood1", "legalRecord1", parameters, ConstraintViolationException.class);
 	}
