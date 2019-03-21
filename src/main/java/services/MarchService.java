@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.MarchRepository;
+import security.Authority;
 import security.LoginService;
 import domain.Actor;
 import domain.Brotherhood;
@@ -28,6 +29,9 @@ public class MarchService {
 	private MarchRepository	marchRepository;
 
 	//Servicios externos(cambiar los repositorios por servicios cuando se creen)
+
+	@Autowired
+	private ServiceUtils	serviceUtils;
 
 	@Autowired
 	private ParadeService	paradeService;
@@ -54,10 +58,11 @@ public class MarchService {
 	// Simple CRUD methods ------------------------------ (Operaciones básicas, pueden tener restricciones según los requisitos)
 	public March create(final int paradeId, final int MemberId) {
 		March march;
-
+		this.serviceUtils.checkAuthority(Authority.MEMBER);
 		march = new March();
 		march.setMember(this.memberService.findOne(MemberId));
 		march.setParade(this.paradeService.findOne(paradeId));
+		this.serviceUtils.checkActor(this.memberService.findOne(MemberId));
 		march.setStatus("PENDING");
 		final List<Integer> a = new ArrayList<>();
 		march.setLocation(a);
@@ -88,6 +93,7 @@ public class MarchService {
 		if (march.getId() > 0) {
 			final March oldMarch = this.marchRepository.findOne(march.getId());
 			if (!march.getStatus().equals(oldMarch.getStatus())) {
+				this.serviceUtils.checkActor(oldMarch.getParade().getBrotherhood());
 				final Actor system = this.actorService.findActorByUsername("system");
 				final Message message = this.messageService.create(this.boxService.findBoxByActorAndName(system, "outBox"));
 				message.setBody("Status changed");
@@ -104,7 +110,8 @@ public class MarchService {
 				message1.setTags("");
 				this.messageService.save(message1, true);
 			}
-		}
+		} else if (march.getId() == 0)
+			this.serviceUtils.checkAuthority(Authority.MEMBER);
 		final March result;
 		final List<Integer> a = new ArrayList<>();
 		//	final Collection<March> marchs = this.marchRepository.findAll();

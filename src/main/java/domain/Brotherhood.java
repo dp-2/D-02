@@ -25,7 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 @Table(uniqueConstraints = {
 	@UniqueConstraint(columnNames = {
-		"userAccount", "status"
+		"user_account"
 	})
 })
 public class Brotherhood extends Actor {

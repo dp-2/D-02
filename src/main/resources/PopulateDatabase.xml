@@ -1822,13 +1822,13 @@
 			</list>
 		</property>
 		<property name="member" ref="member2" />
-		<property name="parade" ref="parade1" />
+		<property name="parade" ref="parade3" />
 	</bean>
 
 	<bean id="march4" class="domain.March">
 		<property name="status" value="PENDING"></property>
 		<property name="reason" value=""></property>
-		<property name="member" ref="member1" />
+		<property name="member" ref="member4" />
 		<property name="parade" ref="parade1" />
 	</bean>
 
