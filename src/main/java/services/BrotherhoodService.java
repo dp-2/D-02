@@ -23,9 +23,22 @@ import repositories.BrotherhoodRepository;
 import security.Authority;
 import security.UserAccount;
 import security.UserAccountRepository;
+import domain.Actor;
+import domain.Area;
 import domain.Brotherhood;
+import domain.DFloat;
 import domain.Enroll;
+import domain.History;
+import domain.InceptionRecord;
+import domain.LegalRecord;
+import domain.LinkRecord;
+import domain.March;
 import domain.Member;
+import domain.MiscellaneousRecord;
+import domain.Parade;
+import domain.Path;
+import domain.PeriodRecord;
+import domain.SocialProfile;
 import domain.Url;
 import forms.BrotherhoodForm;
 
@@ -36,26 +49,68 @@ public class BrotherhoodService {
 	// Repository
 
 	@Autowired
-	private BrotherhoodRepository	repository;
+	private BrotherhoodRepository		repository;
 
 	// Services
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService				actorService;
 	@Autowired
-	private BoxService				boxService;
+	private BoxService					boxService;
 	@Autowired
-	private UserAccountRepository	userAccountRepository;
+	private UserAccountRepository		userAccountRepository;
 	@Autowired
-	private EnrollService			enrollService;
+	private EnrollService				enrollService;
 
 	@Autowired
-	private ServiceUtils			serviceUtils;
+	private ParadeService				paradeService;
+
+	@Autowired
+	private MarchService				marchService;
+
+	@Autowired
+	private SocialProfileService		socialProfileService;
+
+	@Autowired
+	private CreditCardService			cardService;
+
+	@Autowired
+	private DFloatService				dFloatService;
+
+	@Autowired
+	private AreaService					areaService;
+
+	@Autowired
+	private HistoryService				historyService;
+
+	@Autowired
+	private LegalRecordService			legalRecordService;
+
+	@Autowired
+	private InceptionRecordService		inceptionRecordService;
+
+	@Autowired
+	private LinkRecordService			linkRecordService;
+
+	@Autowired
+	private PathService					pathService;
+
+	@Autowired
+	private MiscellaneousRecordService	miscellaneousRecordService;
+
+	@Autowired
+	private PeriodRecordService			periodRecordService;
+
+	@Autowired
+	private SponsorshipService			sponsorshipService;
+
+	@Autowired
+	private ServiceUtils				serviceUtils;
 
 	@Autowired(required = false)
-	private Validator				validator;
+	private Validator					validator;
 	@Autowired
-	private MessageSource			messageSource;
+	private MessageSource				messageSource;
 
 
 	public Brotherhood findOne(final Integer id) {
@@ -245,4 +300,94 @@ public class BrotherhoodService {
 		return this.repository.brotherhoodLargestHistoryThanAVG();
 	}
 
+	public void deleteBrotherhood(final Brotherhood brotherhood) {
+		Assert.notNull(brotherhood);
+		final Collection<Enroll> enrolls = this.enrollService.findEnrollByBrotherhood(brotherhood.getId());
+		final Collection<DFloat> floats = this.dFloatService.findAllDFloatsByBrotherhood(brotherhood);
+		final Collection<Parade> parades = this.paradeService.findParadesByBrotherhoodId(brotherhood.getId());
+		final Area area = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
+		final History h = this.historyService.findOneByBrotherhoodId(brotherhood.getId());
+		final Collection<LegalRecord> legalRecords = this.legalRecordService.findAllByHistoryId(h.getId());
+		final Collection<MiscellaneousRecord> miscellaneousRecords = this.miscellaneousRecordService.findAllByHistoryId(h.getId());
+		final Collection<PeriodRecord> periodRecords = this.periodRecordService.findAllByHistoryId(h.getId());
+		final Collection<LinkRecord> linkRecords = this.linkRecordService.findAllByHistoryId(h.getId());
+		final InceptionRecord inceptionRecord = this.inceptionRecordService.getInceptionRecordByBrotherhood(h.getId());
+		for (final LegalRecord l : legalRecords) {
+			Assert.isTrue(l.getHistory().getId() == h.getId());
+			this.legalRecordService.delete1(l);
+		}
+		for (final MiscellaneousRecord m : miscellaneousRecords) {
+			Assert.isTrue(m.getHistory().getId() == h.getId());
+			this.miscellaneousRecordService.delete(m);
+		}
+		for (final PeriodRecord p : periodRecords) {
+			Assert.isTrue(p.getHistory().getId() == h.getId());
+			this.periodRecordService.delete(p);
+		}
+		for (final LinkRecord l : linkRecords) {
+			Assert.isTrue(l.getHistory().getId() == h.getId());
+			this.linkRecordService.delete(l);
+		}
+		this.historyService.delete(h);
+		this.inceptionRecordService.delete(inceptionRecord);
+		for (final Enroll e : enrolls) {
+			Assert.isTrue(e.getBrotherhood().getId() == brotherhood.getId());
+			this.enrollService.delete1(e);
+			final Collection<Enroll> enrolls1 = this.enrollService.findAll();
+			Assert.isTrue(!(enrolls1.contains(e)));
+		}
+		//final Collection<Box> boxes = this.actorService.findBoxByActorId(member.getId());
+		//		for (final Box b : boxes) {
+		//			
+		//			Assert.isTrue(b.getActor().getId() == member.getId());
+		//			this.boxService.delete1(b);
+		//			final Collection<Box> boxes1 = this.boxService.findAll();
+		//			Assert.isTrue(!(boxes1.contains(b)));
+		//		}
+		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfileByActorId(brotherhood.getId());
+		for (final SocialProfile s : socialProfiles) {
+			Assert.isTrue(s.getActor().getId() == brotherhood.getId());
+			this.socialProfileService.delete(s);
+		}
+		for (final DFloat f : floats) {
+			Assert.isTrue(f.getBrotherhood().getId() == brotherhood.getId());
+			this.dFloatService.delete(f);
+			final Collection<DFloat> dFloats1 = this.dFloatService.findAll();
+			Assert.isTrue(!(dFloats1.contains(f)));
+		}
+		for (final Parade p : parades) {
+			Assert.isTrue(p.getBrotherhood().getId() == brotherhood.getId());
+			final Collection<March> marchs = this.marchService.findMarchsByParade(p.getId());
+			final Path path = this.pathService.findByParadeId(p.getId());
+			for (final March m : marchs) {
+				Assert.isTrue(m.getParade().getId() == p.getId());
+				this.marchService.delete1(m);
+			}
+			if (path != null)
+				this.pathService.delete1(path);
+
+			//			this.paradeService.delete1(p);
+			//			final Collection<Parade> parades2 = this.paradeService.findAll();
+			//			Assert.isTrue(!(parades2.contains(p)));
+		}
+		area.setBrotherhood(null);
+		//		for (final Parade p : parades) {
+		//			Assert.isTrue(p.getBrotherhood().getId() == brotherhood.getId());
+		//
+		//			final List<Sponsorship> sponsorships = this.paradeService.findSponsorshipsByParadeId(p.getId());
+		//			if (sponsorships != null)
+		//				for (int i = 0; i < sponsorships.size(); i++) {
+		//					if (sponsorships.get(i) != null)
+		//						this.sponsorshipService.delete(sponsorships.get(i));
+		//					this.cardService.delete(sponsorships.get(i).getCreditCard());
+		//
+		//				}
+		//			this.paradeService.delete1(p);
+		//		}
+
+		this.repository.delete(brotherhood.getId());
+
+		final Collection<Actor> actors = this.actorService.findAll();
+		Assert.isTrue(!(actors.contains(brotherhood)));
+	}
 }

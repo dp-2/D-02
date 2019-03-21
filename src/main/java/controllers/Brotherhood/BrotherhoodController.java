@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-import domain.Actor;
-import domain.Brotherhood;
-import domain.Url;
-import forms.BrotherhoodForm;
 import services.ActorService;
 import services.AreaService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
 import services.HistoryService;
+import controllers.AbstractController;
+import domain.Actor;
+import domain.Brotherhood;
+import domain.Url;
+import forms.BrotherhoodForm;
 
 @Controller
 @RequestMapping("brotherhood")
@@ -185,5 +185,21 @@ public class BrotherhoodController extends AbstractController {
 		else if (brotherhood.getId() == 0)
 			res = principal == null;
 		return res;
+	}
+
+	@RequestMapping(value = "/deleteBrotherhood", method = RequestMethod.GET)
+	public ModelAndView deleteAllData() {
+
+		ModelAndView result;
+		final Actor s = this.actorService.findPrincipal();
+		try {
+			this.brotherhoodService.deleteBrotherhood((Brotherhood) s);
+			result = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+
+			System.out.println("NO SE HA PODIDO BORRAR EL USUARIO");
+		}
+		return result;
 	}
 }

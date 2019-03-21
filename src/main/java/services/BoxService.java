@@ -85,6 +85,9 @@ public class BoxService {
 		return this.repository.save(box);
 	}
 
+	public void delete1(final Box box) {
+		this.repository.delete(box);
+	}
 	public void delete(final Box object) {
 		final Box box = (Box) this.serviceUtils.checkObject(object);
 		this.serviceUtils.checkActor(box.getActor());

@@ -299,6 +299,8 @@
 			access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/linkRecord/brotherhood/create.do"
 			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/brotherhood/deleteBrotherhood.do"
+			access="hasRole('BROTHERHOOD')" />
 
 
 		<!-- miscellaneousRecord -->

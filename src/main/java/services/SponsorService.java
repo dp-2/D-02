@@ -21,7 +21,6 @@ import repositories.SponsorRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Actor;
-import domain.Box;
 import domain.SocialProfile;
 import domain.Sponsor;
 import domain.Sponsorship;
@@ -221,13 +220,13 @@ public class SponsorService {
 			Assert.isTrue(!(sponsorships1.contains(s)));
 
 		}
-		final Collection<Box> boxes = this.actorService.findBoxByActorId(sponsor.getId());
-		for (final Box b : boxes) {
-			Assert.isTrue(b.getActor().getId() == sponsor.getId());
-			this.boxService.delete(b);
-			final Collection<Box> boxes1 = this.boxService.findAll();
-			Assert.isTrue(!(boxes1.contains(b)));
-		}
+		//		final Collection<Box> boxes = this.actorService.findBoxByActorId(sponsor.getId());
+		//		for (final Box b : boxes) {
+		//			Assert.isTrue(b.getActor().getId() == sponsor.getId());
+		//			this.boxService.delete(b);
+		//			final Collection<Box> boxes1 = this.boxService.findAll();
+		//			Assert.isTrue(!(boxes1.contains(b)));
+		//		}
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfileByActorId(sponsor.getId());
 		for (final SocialProfile s : socialProfiles) {
 			Assert.isTrue(s.getActor().getId() == sponsor.getId());
