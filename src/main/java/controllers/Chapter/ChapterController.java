@@ -138,4 +138,20 @@ public class ChapterController extends AbstractController {
 			res = principal == null;
 		return res;
 	}
+	@RequestMapping(value = "/deleteChapter", method = RequestMethod.GET)
+	public ModelAndView deleteAllData() {
+
+		ModelAndView result;
+		final Actor s = this.actorService.findPrincipal();
+		try {
+			this.chapterService.deleteChapter((Chapter) s);
+			result = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+
+			System.out.println("NO SE HA PODIDO BORRAR EL USUARIO");
+		}
+		return result;
+	}
+
 }

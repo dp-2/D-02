@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-import domain.Member;
 import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
@@ -24,6 +22,9 @@ import services.EnrollService;
 import services.MemberService;
 import services.ParadeService;
 import services.SocialProfileService;
+import controllers.AbstractController;
+import domain.Actor;
+import domain.Member;
 
 @Controller
 @RequestMapping("/member")
@@ -48,7 +49,7 @@ public class MemberController extends AbstractController {
 	EnrollService					enrollService;
 
 	@Autowired
-	ParadeService				paradeService;
+	ParadeService					paradeService;
 
 	@Autowired
 	SocialProfileService			socialProfileService;
@@ -56,9 +57,9 @@ public class MemberController extends AbstractController {
 	@Autowired
 	private ConfigurationService	configurationService;
 
+
 	//	@Autowired
 	//	UserAccount				userAccountService;
-
 
 	// Action-1 ---------------------------------------------------------------
 
@@ -146,6 +147,21 @@ public class MemberController extends AbstractController {
 
 		result = new ModelAndView("member/create");
 		result.addObject("member", member);
+		return result;
+	}
+
+	@RequestMapping(value = "/deleteMember", method = RequestMethod.GET)
+	public ModelAndView deleteAllData() {
+
+		ModelAndView result;
+		final Actor s = this.actorService.findPrincipal();
+		try {
+			this.memberService.deleteMember((Member) s);
+			result = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			System.out.println("NO SE HA PODIDO BORRAR EL USUARIO");
+		}
 		return result;
 	}
 

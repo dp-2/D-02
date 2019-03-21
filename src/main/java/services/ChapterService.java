@@ -19,15 +19,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import repositories.ChapterRepository;
+import security.Authority;
+import security.UserAccount;
+import domain.Actor;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.Configuration;
 import domain.Parade;
+import domain.Proclaim;
 import forms.ChapterForm;
-import repositories.ChapterRepository;
-import security.Authority;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -63,6 +65,12 @@ public class ChapterService {
 
 	@Autowired
 	private AreaService				areaService;
+
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private ProclaimService			proclaimService;
 
 
 	//Methods----------------------------------------------------------------------
@@ -357,5 +365,24 @@ public class ChapterService {
 
 		return chaptersRes;
 
+	}
+
+	public void deleteChapter(final Chapter chapter) {
+		Assert.notNull(chapter);
+		final List<Area> areas = this.areaService.findAreaByChapterId(chapter.getId());
+		final Collection<Proclaim> proclaims = this.proclaimService.findProclaimByChapter(chapter.getId());
+		for (final Area a : areas) {
+			Assert.isTrue(a.getChapter().getId() == chapter.getId());
+			a.setChapter(null);
+		}
+		for (final Proclaim p : proclaims) {
+			Assert.isTrue(p.getChapter().getId() == chapter.getId());
+			this.proclaimService.delete(p);
+			final Collection<Proclaim> proclaims1 = this.proclaimService.findAll();
+			Assert.isTrue(!(proclaims1.contains(p)));
+		}
+		this.chapterRepository.delete(chapter.getId());
+		final Collection<Actor> actors = this.actorService.findAll();
+		Assert.isTrue(!(actors.contains(chapter)));
 	}
 }
