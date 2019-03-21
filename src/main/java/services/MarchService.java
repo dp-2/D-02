@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.MarchRepository;
-import security.LoginService;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.March;
 import domain.Member;
 import domain.Message;
+import repositories.MarchRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -25,7 +25,7 @@ public class MarchService {
 
 	// Managed repository ------------------------------
 	@Autowired
-	private MarchRepository		marchRepository;
+	private MarchRepository	marchRepository;
 
 	//Servicios externos(cambiar los repositorios por servicios cuando se creen)
 
@@ -33,16 +33,16 @@ public class MarchService {
 	private ParadeService	paradeService;
 
 	@Autowired
-	private MemberService		memberService;
+	private MemberService	memberService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService	actorService;
 
 	@Autowired
-	private MessageService		messageService;
+	private MessageService	messageService;
 
 	@Autowired
-	private BoxService			boxService;
+	private BoxService		boxService;
 
 
 	//Constructor----------------------------------------------------------------------------
@@ -194,6 +194,10 @@ public class MarchService {
 		List<Member> members10RequestAccepted = new ArrayList<>();
 		members10RequestAccepted = this.marchRepository.members10PerMarchAccepted();
 		return members10RequestAccepted;
+	}
+
+	public Collection<March> findMarchsByMemberAPPROVED(final int memberId) {
+		return this.marchRepository.findMarchsByMemberAPPROVED(memberId);
 	}
 
 }

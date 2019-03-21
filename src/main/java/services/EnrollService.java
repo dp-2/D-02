@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.EnrollRepository;
-import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Enroll;
 import domain.Member;
 import domain.Position;
+import repositories.EnrollRepository;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -137,4 +137,9 @@ public class EnrollService {
 		enroll = this.enrollRepository.save(enroll);
 		return enroll;
 	}
+
+	public Collection<Brotherhood> findBrotherhoodsByMemberId(final int memberId) {
+		return this.enrollRepository.findBrotherhoodsByMemberId(memberId);
+	}
+
 }

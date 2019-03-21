@@ -1456,7 +1456,7 @@
 		<property name="ffinal" value="true" />
 		<property name="status" value="REJECTED" />
 		<property name="reason" value="Esto no puede hacerse." />
-		<property name="brotherhood" ref="brotherhood2" />
+		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
 	<bean id="parade4" class="domain.Parade">
@@ -1862,7 +1862,7 @@
 	<bean id="history1" class="domain.History">
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="title" value="History1"></property>
-		
+
 
 
 	</bean>
@@ -1961,7 +1961,7 @@
 	<bean id="history2" class="domain.History">
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="title" value="History sobre los Gitanos"></property>
-		
+
 
 	</bean>
 
@@ -2053,7 +2053,7 @@
 	<bean id="history3" class="domain.History">
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="title" value="History sobre los Gitanos Volumen 2"></property>
-		
+
 
 	</bean>
 
@@ -2141,7 +2141,7 @@
 	</bean>
 
 
-<!-- Paths and segments -->
+	<!-- Paths and segments -->
 
 	<bean id="path1" class="domain.Path">
 		<property name="segments">
@@ -2153,7 +2153,7 @@
 		</property>
 		<property name="parade" ref="parade1" />
 	</bean>
-	
+
 	<bean id="path2" class="domain.Path">
 		<property name="segments">
 			<list>
@@ -2172,7 +2172,7 @@
 		<property name="timeDestination" value="June 29, 2020 16:00" />
 		<property name="path" ref="path1" />
 	</bean>
-	
+
 	<bean id="segment2Path1" class="domain.Segment">
 		<property name="latitudeOrigin" value="-56.8" />
 		<property name="latitudeDestination" value="0.0" />
@@ -2182,7 +2182,7 @@
 		<property name="timeDestination" value="June 29, 2020 17:30" />
 		<property name="path" ref="path1" />
 	</bean>
-	
+
 	<bean id="segment3Path1" class="domain.Segment">
 		<property name="latitudeOrigin" value="0.0" />
 		<property name="latitudeDestination" value="0.1" />
@@ -2192,7 +2192,7 @@
 		<property name="timeDestination" value="June 29, 2020 18:15" />
 		<property name="path" ref="path1" />
 	</bean>
-	
+
 	<bean id="segment1Path2" class="domain.Segment">
 		<property name="latitudeOrigin" value="56" />
 		<property name="latitudeDestination" value="-23" />
