@@ -30,6 +30,9 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select p from Parade p where p.ffinal = true and p.momentOrganised > CURRENT_DATE and p.brotherhood.id = ( select e.brotherhood.id from Enroll e where e.member.id = ?1 ))")
 	List<Parade> findParadeOfMember(int memberId);
 
+	@Query("select p from Parade p where p.ffinal = true and p.momentOrganised > CURRENT_DATE and p.brotherhood.id = ( select e.brotherhood.id from Enroll e where e.member.id = ?1 and e.status='APPROVED' ))")
+	List<Parade> findParadeOfMemberAPPROVED(int memberId);
+
 	//The parades that are going to be organised in 30 days or less.
 	@Query("select p from Parade p where p.momentOrganised BETWEEN CURRENT_DATE and :currentDayPlus30Days")
 	List<Parade> findParadesIn30Days(@Param("currentDayPlus30Days") Date date);

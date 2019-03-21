@@ -37,10 +37,14 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import domain.Actor;
 import domain.Administrator;
+import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
+import domain.DFloat;
+import domain.March;
 import domain.Member;
 import domain.Message;
+import domain.Parade;
 import domain.Sponsor;
 import forms.ActorForm;
 import repositories.ActorRepository;
@@ -96,6 +100,21 @@ public class ActorService {
 
 	@Autowired
 	private ChapterService			chapterService;
+
+	@Autowired
+	private EnrollService			enrollService;
+
+	@Autowired
+	private ParadeService			paradeService;
+
+	@Autowired
+	private MarchService			marchService;
+
+	@Autowired
+	private AreaService				areaService;
+
+	@Autowired
+	private DFloatService			dFloatService;
 
 
 	public Actor create(final String authority) {
@@ -444,10 +463,10 @@ public class ActorService {
 
 			try {
 
-				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\" + member.getUserAccount().getUsername() + "_Data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
-
+				document = this.docMember(document, member);
 				document.close();
 
 				pdfWriter.close();
@@ -463,9 +482,10 @@ public class ActorService {
 			final Brotherhood brotherhood = this.brotherhoodService.findOne(actor.getId());
 
 			try {
-				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\" + brotherhood.getUserAccount().getUsername() + "_Data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
+				document = this.docBrotherhood(document, brotherhood);
 				document.close();
 				pdfWriter.close();
 			} catch (final IOException e) {
@@ -530,11 +550,12 @@ public class ActorService {
 			document.open();
 
 			document.add(new Paragraph("USER DATA.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			document.add(new Paragraph("\n"));
 			if (!actor.getPhoto().isEmpty()) {
 				final URL url = new URL(actor.getPhoto());
 				document.add(this.urlToImage(url));
 			}
-
+			document.add(new Paragraph("\n"));
 			document.add(new Paragraph("Name: " + actor.getName()));
 			if (!actor.getMiddleName().isEmpty())
 				document.add(new Paragraph("Middle Name: " + actor.getMiddleName()));
@@ -567,4 +588,96 @@ public class ActorService {
 		final Actor actor = (Actor) this.serviceUtils.checkObject(a);
 	}
 
+	public Document docMember(final Document document, final Member member) throws DocumentException, MalformedURLException, IOException {
+
+		final List<Brotherhood> brotherhoods = new ArrayList<>(this.enrollService.findBrotherhoodsByMemberId(member.getId()));
+		if (!brotherhoods.isEmpty()) {
+			document.add(new Paragraph("BROTHERHOODS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			document.add(new Paragraph("\n"));
+			for (final Brotherhood brotherhood : brotherhoods) {
+				if (!brotherhood.getPhoto().isEmpty())
+					document.add(this.urlToImage(new URL(brotherhood.getPhoto())));
+				document.add(new Paragraph("\n"));
+				document.add(new Paragraph(brotherhood.getTitle()));
+				document.add(new Paragraph("\n"));
+			}
+		}
+
+		final List<Parade> parades = this.paradeService.findParadeOfMemberAPPROVED(member.getId());
+		final List<March> marchs = new ArrayList<>(this.marchService.findMarchsByMemberAPPROVED(member.getId()));
+		if (!parades.isEmpty()) {
+			document.add(new Paragraph("PARADES.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			document.add(new Paragraph("\n"));
+			for (final Parade parade : parades) {
+				document.add(new Paragraph(parade.getTitle() + " --> " + parade.getBrotherhood().getTitle()));
+				document.add(new Paragraph("\n"));
+				if (!marchs.isEmpty())
+					for (final March march : marchs)
+						if (march.getParade().getId() == parade.getId())
+							document.add(new Paragraph("Location: Row (" + march.getLocation().get(0) + ") and Column (" + march.getLocation().get(1) + ")"));
+
+			}
+		}
+		return document;
+	}
+
+	public Document docBrotherhood(final Document document, final Brotherhood brotherhood) throws DocumentException, MalformedURLException, IOException {
+
+		final List<Parade> parades = new ArrayList<>(this.paradeService.findParadesByBrotherhoodId(brotherhood.getId()));
+		if (!parades.isEmpty()) {
+			document.add(new Paragraph("PARADES.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			document.add(new Paragraph("\n"));
+			for (final Parade parade : parades) {
+				document.add(new Paragraph("\n"));
+				document.add(new Paragraph(parade.getTitle() + " --> " + parade.getMomentOrganised()));
+				document.add(new Paragraph("\n"));
+			}
+		}
+
+		final List<Member> members = this.memberService.listMembersByBrotherhood(brotherhood.getId());
+		if (!parades.isEmpty()) {
+			document.add(new Paragraph("MEMBERS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			document.add(new Paragraph("\n"));
+			for (final Member member : members) {
+				document.add(new Paragraph("\n"));
+				document.add(new Paragraph(member.getUserAccount().getUsername() + ": " + member.getName() + " " + member.getSurname()));
+				document.add(new Paragraph("\n"));
+			}
+		}
+
+		final List<DFloat> dFloats = new ArrayList<>(this.dFloatService.SearchDFloatsByBrotherhood(brotherhood.getId()));
+		if (!parades.isEmpty()) {
+			document.add(new Paragraph("FLOATS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			document.add(new Paragraph("\n"));
+			for (final DFloat dFloat : dFloats) {
+				document.add(new Paragraph("-----------------------"));
+				document.add(new Paragraph("\n"));
+				document.add(new Paragraph(dFloat.getTitle()));
+				document.add(new Paragraph("\n"));
+				if (!dFloat.getPictures().isEmpty()) {
+					final String[] strings = dFloat.getPictures().split(",");
+					for (final String string : strings) {
+						document.add(this.urlToImage(new URL(string)));
+						document.add(new Paragraph("\n"));
+					}
+				}
+			}
+		}
+
+		final Area area = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
+		if (area != null) {
+			document.add(new Paragraph("AREA.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			document.add(new Paragraph("\n"));
+			document.add(new Paragraph(area.getName()));
+			if (!area.getPictures().isEmpty()) {
+				final String[] strings = area.getPictures().split(",");
+				for (final String string : strings) {
+					document.add(this.urlToImage(new URL(string)));
+					document.add(new Paragraph("\n"));
+				}
+			}
+		}
+
+		return document;
+	}
 }

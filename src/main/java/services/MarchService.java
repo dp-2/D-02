@@ -203,6 +203,10 @@ public class MarchService {
 		return members10RequestAccepted;
 	}
 
+	public Collection<March> findMarchsByMemberAPPROVED(final int memberId) {
+		return this.marchRepository.findMarchsByMemberAPPROVED(memberId);
+	}
+
 	public void delete1(final March march) {
 
 		this.marchRepository.delete(march);
