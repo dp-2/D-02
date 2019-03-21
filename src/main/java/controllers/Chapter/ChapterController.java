@@ -6,12 +6,11 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -19,7 +18,7 @@ import services.ChapterService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Chapter;
-import forms.ChapterForm;
+import forms.ActorForm;
 
 @Controller
 @RequestMapping("chapter")
@@ -46,69 +45,71 @@ public class ChapterController extends AbstractController {
 	}
 
 	// Creation
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ModelAndView create() {
 		ModelAndView result;
 		final Chapter chapter;
 
 		chapter = this.chapterService.create();
 
-		result = new ModelAndView("chapter/create");
+		result = new ModelAndView("actor/edit");
 		result.addObject("chapter", chapter);
 		return result;
 	}
 
 	//------------------Edit---------------------------------------------
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int chapterId) {
-		ModelAndView result;
-		Chapter chapter;
-
-		chapter = this.chapterService.findOne(chapterId);
-		Assert.notNull(chapter);
-		result = this.createEditModelAndView(chapter);
-
-		return result;
-
-	}
+	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	//	public ModelAndView edit(@RequestParam final int chapterId) {
+	//		ModelAndView result;
+	//		Chapter chapter;
+	//
+	//		chapter = this.chapterService.findOne(chapterId);
+	//		Assert.notNull(chapter);
+	//		result = this.createEditModelAndView(chapter);
+	//
+	//		return result;
+	//
+	//	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Chapter chapter, final BindingResult binding) {
+	public ModelAndView save(@Valid final ActorForm actorForm, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-
-			result = this.createEditModelAndView(chapter);
-			result.addObject("message", "chapter.commit.error");
+			System.out.println(binding.getAllErrors());
+			result = this.createEditModelAndView(actorForm);
 		} else
 
 			try {
-
-				this.chapterService.save(chapter);
+				final Actor actor = this.actorService.deconstruct(actorForm, binding);
+				final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+				actor.getUserAccount().setPassword(encoder.encodePassword(actor.getUserAccount().getPassword(), null));
+				actor.getUserAccount().setEnabled(true);
+				this.actorService.update(actor);
 				result = new ModelAndView("redirect:welcome/index.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(chapter, "chapter.commit.error");
+				result = this.createEditModelAndView(actorForm, "chapter.commit.error");
 			}
 
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final Chapter chapter) {
-		return this.createEditModelAndView(chapter, null);
+	private ModelAndView createEditModelAndView(final ActorForm actorForm) {
+		return this.createEditModelAndView(actorForm, null);
 	}
 
-	private ModelAndView createEditModelAndView(final Chapter chapter, final String message) {
+	private ModelAndView createEditModelAndView(final ActorForm actorForm, final String message) {
 		final ModelAndView res = new ModelAndView("chapter/edit");
-		final Boolean isPrincipalAuthorizedEdit = this.isPrincipalAuthorizedEdit(chapter);
-		res.addObject("chapterForm", chapter);
+		final Boolean isPrincipalAuthorizedEdit = this.isPrincipalAuthorizedEdit(actorForm);
+		res.addObject("chapterForm", actorForm);
 		res.addObject("message", message);
 		res.addObject("isPrincipalAuthorizedEdit", isPrincipalAuthorizedEdit);
 		return res;
 	}
 
-	private Boolean isPrincipalAuthorizedEdit(final ChapterForm chapterForm) {
+	private Boolean isPrincipalAuthorizedEdit(final ActorForm actorForm) {
 		Boolean res = false;
 		Actor principal = null;
 		try {
@@ -116,9 +117,9 @@ public class ChapterController extends AbstractController {
 		} catch (final IllegalArgumentException e) {
 			principal = null;
 		}
-		if (chapterForm.getId() > 0)
-			res = principal.getId() == chapterForm.getId();
-		else if (chapterForm.getId() == 0)
+		if (actorForm.getId() > 0)
+			res = principal.getId() == actorForm.getId();
+		else if (actorForm.getId() == 0)
 			res = principal == null;
 		return res;
 	}
@@ -137,4 +138,20 @@ public class ChapterController extends AbstractController {
 			res = principal == null;
 		return res;
 	}
+	@RequestMapping(value = "/deleteChapter", method = RequestMethod.GET)
+	public ModelAndView deleteAllData() {
+
+		ModelAndView result;
+		final Actor s = this.actorService.findPrincipal();
+		try {
+			this.chapterService.deleteChapter((Chapter) s);
+			result = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+
+			System.out.println("NO SE HA PODIDO BORRAR EL USUARIO");
+		}
+		return result;
+	}
+
 }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Actor;
+import domain.Box;
 
 @Repository
 public interface ActorRepository extends JpaRepository<Actor, Integer> {
@@ -27,5 +28,8 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 
 	//@Query("select min(count(f)),max(count(f)),avg(count(f)),sqrt(sum(count(f) * count(f)) /count(f1) - (avg(count(f)) *avg(count(f)))) from FixupTask f, FixupTask f1 group by f.customer")
 	//Double[] fixupTasksStats();
+
+	@Query("select b from Box b where b.actor.id = ?1")
+	Collection<Box> findBoxByActorId(int actorId);
 
 }

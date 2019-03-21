@@ -216,7 +216,7 @@
 								code="master.page.register.sponsor" /></a></li>
 					<li><a href="brotherhood/none/create.do"><spring:message
 								code="master.page.register.brotherhood" /></a></li>
-					<li><a href="chapter/create.do"><spring:message
+					<li><a href="chapter/edit.do"><spring:message
 								code="master.page.register.chapter" /></a></li>
 
 				</ul></li>
@@ -245,7 +245,18 @@
 						<li><a href="actor/edit.do"><spring:message
 									code="master.page.profile.edit" /></a></li>
 					</security:authorize>
-
+					<security:authorize access="hasRole('SPONSOR')">
+					<li><a href="sponsor/deleteSponsor.do"> <spring:message
+								code="master.page.profile.deleteActor" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('CHAPTER')">
+					<li><a href="chapter/deleteChapter.do"><spring:message
+								code="master.page.profile.deleteActor" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('MEMBER')">
+					<li><a href="member/deleteMember.do"><spring:message
+								code="master.page.profile.deleteActor" /></a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>

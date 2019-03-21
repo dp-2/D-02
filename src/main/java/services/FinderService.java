@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Finder;
-import domain.Member;
-import domain.Parade;
 import repositories.FinderRepository;
 import security.Authority;
 import security.LoginService;
+import domain.Finder;
+import domain.Member;
+import domain.Parade;
 
 @Service
 @Transactional
@@ -36,7 +36,7 @@ public class FinderService {
 	private ConfigurationService	configurationService;
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
 
 	@Autowired
 	private ServiceUtils			serviceUtils;
@@ -96,8 +96,7 @@ public class FinderService {
 
 		final List<Parade> parades = this.paradeService.findParadesFinal();
 		for (final Parade parade : parades)
-			if ((parade.getTitle().toLowerCase().contains(keyword.toLowerCase()) || parade.getDescription().toLowerCase().contains(keyword.toLowerCase())) && parade.getMomentOrganised().after(dateMin)
-				&& parade.getMomentOrganised().before(dateMax))
+			if ((parade.getTitle().toLowerCase().contains(keyword.toLowerCase()) || parade.getDescription().toLowerCase().contains(keyword.toLowerCase())) && parade.getMomentOrganised().after(dateMin) && parade.getMomentOrganised().before(dateMax))
 				res.add(parade);
 		return res;
 	}
@@ -122,6 +121,11 @@ public class FinderService {
 
 		return parades;
 
+	}
+
+	public void delete(final Finder finder) {
+
+		this.finderRepository.delete(finder);
 	}
 
 	public List<Parade> findParadeByFinder(final Finder f) {

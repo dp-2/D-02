@@ -56,6 +56,7 @@ public class LegalRecordService {
 	}
 	public LegalRecord save(final LegalRecord legalRecord) {
 		Assert.notNull(legalRecord);
+		final LegalRecord legalRecordDB = (LegalRecord) this.serviceUtils.checkObjectSave(legalRecord);
 		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
 		this.serviceUtils.checkActor(legalRecord.getHistory().getBrotherhood());
 		this.serviceUtils.checkAuthority("BROTHERHOOD");
@@ -82,9 +83,12 @@ public class LegalRecordService {
 
 	public void delete(final LegalRecord legalRecord) {
 		// Se comprueba que no se pasa objeto nulo y que existe enla base de datos
+		System.out.println("checkObj");
 		final LegalRecord legalRecordDB = (LegalRecord) this.serviceUtils.checkObject(legalRecord);
 		// Se comprueba que el actor asociado al objeto en base de datos es el actor logueado
+		System.out.println("checkActor");
 		this.serviceUtils.checkActor(legalRecord.getHistory().getBrotherhood());
+		System.out.println("delete");
 		this.legalRecordRepository.delete(legalRecord);
 	}
 

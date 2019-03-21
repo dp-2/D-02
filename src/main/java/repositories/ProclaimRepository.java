@@ -20,9 +20,6 @@ public interface ProclaimRepository extends JpaRepository<Proclaim, Integer> {
 	@Query("select a.brotherhood from Area a where a.chapter.id = ?1")
 	Collection<Brotherhood> findBrotherhoodByChapter(int chapterId);
 
-	//	@Query("select a.brotherhood.parade from Area a where a.chapter.id = ?1")
-	//	Collection<Parade> findParadeByChapter(int chapterId);
-
 	@Query("select p from Proclaim p where p.chapter.id = ?1")
 	Collection<Proclaim> findProclaimByChapter(int chapterId);
 }

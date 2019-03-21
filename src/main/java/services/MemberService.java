@@ -23,8 +23,12 @@ import org.springframework.validation.Validator;
 import repositories.MemberRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Actor;
 import domain.Brotherhood;
 import domain.Configuration;
+import domain.Enroll;
+import domain.Finder;
+import domain.March;
 import domain.Member;
 import forms.BrotherhoodForm;
 import forms.MemberForm;
@@ -54,6 +58,18 @@ public class MemberService {
 
 	@Autowired
 	private MessageSource			messageSource;
+
+	@Autowired
+	private EnrollService			enrollService;
+
+	@Autowired
+	private MarchService			marchService;
+
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private FinderService			finderService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -263,4 +279,27 @@ public class MemberService {
 		return res;
 	}
 
+	public void deleteMember(final Member member) {
+		Assert.notNull(member);
+		final Collection<Enroll> enrolls = this.enrollService.findEnrollByMember(member.getId());
+		final Collection<March> marchs = this.marchService.findMarchsByMember(member.getId());
+		final Finder finder = this.finderService.findFinderByMemberId(member.getId());
+		for (final Enroll e : enrolls) {
+			Assert.isTrue(e.getMember().getId() == member.getId());
+			this.enrollService.delete(e);
+			final Collection<Enroll> enrolls1 = this.enrollService.findAll();
+			Assert.isTrue(!(enrolls1.contains(e)));
+		}
+		for (final March m : marchs) {
+			Assert.isTrue(m.getMember().getId() == member.getId());
+			this.marchService.delete1(m);
+			final Collection<March> marchs1 = this.marchService.findAll();
+			Assert.isTrue(!(marchs1.contains(m)));
+		}
+		Assert.isTrue(finder.getMember().getId() == member.getId());
+		this.finderService.delete(finder);
+		this.memberRepository.delete(member.getId());
+		final Collection<Actor> actors = this.actorService.findAll();
+		Assert.isTrue(!(actors.contains(member)));
+	}
 }

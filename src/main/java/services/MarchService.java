@@ -11,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.MarchRepository;
+import security.LoginService;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.March;
 import domain.Member;
 import domain.Message;
-import repositories.MarchRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -198,6 +198,11 @@ public class MarchService {
 
 	public Collection<March> findMarchsByMemberAPPROVED(final int memberId) {
 		return this.marchRepository.findMarchsByMemberAPPROVED(memberId);
+	}
+
+	public void delete1(final March march) {
+
+		this.marchRepository.delete(march);
 	}
 
 }
