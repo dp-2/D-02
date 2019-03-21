@@ -345,7 +345,14 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/socialProfile/cancel.do"
 			access="isAuthenticated()" />
-
+		<security:intercept-url pattern="/sponsor/deleteSponsor.do"
+			access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/chapter/deleteChapter.do"
+			access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/member/deleteMember.do"
+			access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/actor/delete.do"
+			access="hasRole('SPONSOR')" />
 		<security:intercept-url pattern="/path/any/**"
 			access="permitAll()" />
 		<security:intercept-url pattern="/path/brotherhood/**"

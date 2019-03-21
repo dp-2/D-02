@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import javax.transaction.Transactional;
@@ -19,7 +20,9 @@ import org.springframework.validation.Validator;
 import repositories.SponsorRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Actor;
 import domain.Sponsor;
+import domain.Sponsorship;
 import forms.SponsorForm;
 
 @Service
@@ -47,6 +50,15 @@ public class SponsorService {
 
 	@Autowired
 	private MessageSource			messageSource;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
+
+	@Autowired
+	private CreditCardService		creditCardService;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	//Methods----------------------------------------------------------------------
@@ -191,6 +203,22 @@ public class SponsorService {
 		res.getUserAccount().setAuthorities(authorities);
 		this.validator.validate(form, binding);
 		return res;
+	}
+
+	public void deleteSponsor(final Sponsor sponsor) {
+		Assert.notNull(sponsor);
+		final List<Sponsorship> sponsorships = this.sponsorshipService.findSponsorshipsBySponsorId(sponsor.getId());
+		for (final Sponsorship s : sponsorships) {
+			Assert.isTrue(s.getSponsor().getId() == sponsor.getId());
+			this.sponsorshipService.delete(s);
+			this.creditCardService.delete(s.getCreditCard());
+			final Collection<Sponsorship> sponsorships1 = this.sponsorshipService.findAll();
+			Assert.isTrue(!(sponsorships1.contains(s)));
+
+		}
+		this.sponsorRepository.delete(sponsor.getId());
+		final Collection<Actor> actors = this.actorService.findAll();
+		Assert.isTrue(!(actors.contains(sponsor)));
 	}
 
 }

@@ -103,6 +103,11 @@ public class SponsorshipService {
 
 	}
 
+	public void delete(final Sponsorship sponsorship) {
+
+		this.sponsorshipRepository.delete(sponsorship);
+	}
+
 	// Other bussines methods ------------------------------ (Otras reglas de negocio, como por ejemplo findRegisteredUser())
 	public Boolean checkPrincipal(final Sponsorship sponsorship) {
 		final Sponsor sponsor = sponsorship.getSponsor();
