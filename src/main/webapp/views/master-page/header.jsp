@@ -216,7 +216,7 @@
 								code="master.page.register.sponsor" /></a></li>
 					<li><a href="brotherhood/none/create.do"><spring:message
 								code="master.page.register.brotherhood" /></a></li>
-					<li><a href="chapter/create.do"><spring:message
+					<li><a href="chapter/edit.do"><spring:message
 								code="master.page.register.chapter" /></a></li>
 
 				</ul></li>

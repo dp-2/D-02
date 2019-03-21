@@ -275,6 +275,7 @@ public class ActorService {
 			chapter.setSurname(actor.getSurname());
 			chapter.setAddress(actor.getAddress());
 			chapter.setMiddleName(actor.getMiddleName());
+			chapter.setTitle(chapter.getTitle());
 
 			final Actor actor1 = this.chapterService.save(chapter);
 			this.boxService.addSystemBox(actor1);
@@ -311,10 +312,13 @@ public class ActorService {
 		res.setMiddleName(b.getMiddleName());
 		res.setAddress(b.getAddress());
 		final Authority auth = ((List<Authority>) b.getUserAccount().getAuthorities()).get(0);
+		if (res.getAuthority().contains("CHAPTER")) {
+			final Chapter c = this.chapterService.findOne(b.getId());
+			res.setTitle(c.getTitle());
+		}
 		res.setAuthority(auth.getAuthority());
 		return res;
 	}
-
 	public void validateForm(final ActorForm form, final BindingResult binding) {
 		if (form.getId() == 0 && !form.getAccept()) {
 			/*
