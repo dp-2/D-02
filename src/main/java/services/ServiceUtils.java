@@ -165,12 +165,14 @@ public class ServiceUtils {
 	public DomainEntity checkObjectSave(final DomainEntity object) {
 		this.checkIdSave(object);
 		final DomainEntity res = this.checkObjectExists(object);
+		Assert.notNull(res);
 		return res;
 	}
 
 	public DomainEntity checkObject(final DomainEntity object) {
 		this.checkId(object);
 		final DomainEntity res = this.checkObjectExists(object);
+		Assert.notNull(res);
 		return res;
 	}
 
@@ -185,9 +187,10 @@ public class ServiceUtils {
 	}
 
 	public DomainEntity checkObjectExists(final DomainEntity object) {
+		this.domainEntityRepository.findAll();
 		DomainEntity res = object;
 		if (object.getId() != 0)
-			res = this.domainEntityRepository.findOne(object.getId());
+			res = this.domainEntityRepository.findById(object.getId());
 		return res;
 	}
 
