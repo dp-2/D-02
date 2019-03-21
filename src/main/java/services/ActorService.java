@@ -26,6 +26,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import repositories.ActorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import security.UserAccountRepository;
+
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -37,17 +43,13 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import domain.Actor;
 import domain.Administrator;
+import domain.Box;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.Member;
 import domain.Message;
 import domain.Sponsor;
 import forms.ActorForm;
-import repositories.ActorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
-import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -565,6 +567,10 @@ public class ActorService {
 
 	public void delete(final Actor a) {
 		final Actor actor = (Actor) this.serviceUtils.checkObject(a);
+	}
+
+	public Collection<Box> findBoxByActorId(final int actorId) {
+		return this.actorRepository.findBoxByActorId(actorId);
 	}
 
 }

@@ -24,12 +24,14 @@ import repositories.MemberRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Actor;
+import domain.Box;
 import domain.Brotherhood;
 import domain.Configuration;
 import domain.Enroll;
 import domain.Finder;
 import domain.March;
 import domain.Member;
+import domain.SocialProfile;
 import forms.BrotherhoodForm;
 import forms.MemberForm;
 
@@ -70,6 +72,12 @@ public class MemberService {
 
 	@Autowired
 	private FinderService			finderService;
+
+	@Autowired
+	private MessageService			messageService;
+
+	@Autowired
+	private SocialProfileService	socialProfileService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -296,9 +304,20 @@ public class MemberService {
 			final Collection<March> marchs1 = this.marchService.findAll();
 			Assert.isTrue(!(marchs1.contains(m)));
 		}
-		Assert.isTrue(finder.getMember().getId() == member.getId());
-		this.finderService.delete(finder);
+		final Collection<Box> boxes = this.actorService.findBoxByActorId(member.getId());
+		for (final Box b : boxes) {
+			Assert.isTrue(b.getActor().getId() == member.getId());
+			this.boxService.delete(b);
+			final Collection<Box> boxes1 = this.boxService.findAll();
+			Assert.isTrue(!(boxes1.contains(b)));
+		}
+		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfileByActorId(member.getId());
+		for (final SocialProfile s : socialProfiles) {
+			Assert.isTrue(s.getActor().getId() == member.getId());
+			this.socialProfileService.delete(s);
+		}
 		this.memberRepository.delete(member.getId());
+		this.finderService.delete(finder);
 		final Collection<Actor> actors = this.actorService.findAll();
 		Assert.isTrue(!(actors.contains(member)));
 	}
