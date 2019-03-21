@@ -61,6 +61,12 @@
 				
 		</form:form>
 		
-		<acme:cancel url="" code="brotherhood.cancel" />	
+		<acme:cancel url="" code="brotherhood.cancel" />
 		
+		<br/>
+		<br/>
+
+	<acme:cancel url="/actor/export.do?actorId=${actorId}"
+		code="actor.export" />
+
 </jstl:if>

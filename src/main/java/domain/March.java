@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 @Access(AccessType.PROPERTY)
 @Table(uniqueConstraints = {
 	@UniqueConstraint(columnNames = {
-		"id"
+		"parade", "member"
 	})
 })
 public class March extends DomainEntity {
@@ -64,7 +64,7 @@ public class March extends DomainEntity {
 
 	// Relationships
 
-	private Member		member;
+	private Member	member;
 	private Parade	parade;
 
 
