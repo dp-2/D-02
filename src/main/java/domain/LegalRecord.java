@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -27,6 +29,7 @@ public class LegalRecord extends DomainEntity {
 	//Getters y setters de los atributos propios
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTitle() {
 		return this.title;
 	}
@@ -36,6 +39,7 @@ public class LegalRecord extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getText() {
 		return this.text;
 	}
@@ -56,6 +60,7 @@ public class LegalRecord extends DomainEntity {
 
 	//Getters and Setters
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getLegalName() {
 		return this.legalName;
 	}
@@ -65,6 +70,7 @@ public class LegalRecord extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getVATNumber() {
 		return this.VATNumber;
 	}
@@ -74,6 +80,7 @@ public class LegalRecord extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getLaws() {
 		return this.laws;
 	}

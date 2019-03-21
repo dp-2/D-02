@@ -19,15 +19,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import repositories.BrotherhoodRepository;
+import security.Authority;
+import security.UserAccount;
+import security.UserAccountRepository;
 import domain.Brotherhood;
 import domain.Enroll;
 import domain.Member;
 import domain.Url;
 import forms.BrotherhoodForm;
-import repositories.BrotherhoodRepository;
-import security.Authority;
-import security.UserAccount;
-import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -124,7 +124,7 @@ public class BrotherhoodService {
 		brotherhood.setUserAccount(userAccount);
 		final Brotherhood res = this.repository.save(b);
 		if (b.getId() == 0)
-			this.boxService.createIsSystemBoxs(res);
+			this.boxService.addSystemBox(res);
 		return res;
 	}
 
