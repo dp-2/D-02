@@ -1,10 +1,6 @@
 
 package forms;
 
-import java.util.List;
-
-import javax.persistence.ElementCollection;
-import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -14,23 +10,21 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
 import domain.DomainEntity;
-import domain.Url;
 
 public class ChapterForm extends DomainEntity {
 
-	private String		name;
-	private String		middleName;
-	private String		surname;
-	private String		photo;
-	private String		phone;
-	private String		address;
-	private String		username;
-	private String		password;
-	private String		confirmPassword;
-	private boolean		accept;
-	private String		email;
-	private String		title;
-	private List<Url>	pictures;
+	private String	name;
+	private String	middleName;
+	private String	surname;
+	private String	photo;
+	private String	phone;
+	private String	address;
+	private String	username;
+	private String	password;
+	private String	confirmPassword;
+	private boolean	accept;
+	private String	email;
+	private String	title;
 
 
 	@NotBlank
@@ -49,15 +43,6 @@ public class ChapterForm extends DomainEntity {
 	}
 	public void setTitle(final String title) {
 		this.title = title;
-	}
-
-	@ElementCollection
-	@Valid
-	public List<Url> getPictures() {
-		return this.pictures;
-	}
-	public void setPictures(final List<Url> pictures) {
-		this.pictures = pictures;
 	}
 
 	@NotBlank

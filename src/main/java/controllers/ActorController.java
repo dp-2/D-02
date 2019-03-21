@@ -1,8 +1,8 @@
 /*
  * ProfileController.java
- * 
+ *
  * Copyright (C) 2018 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -19,13 +19,14 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import forms.ActorForm;
 import security.LoginService;
 import services.ActorService;
 import services.ConfigurationService;
-import domain.Actor;
-import forms.ActorForm;
 
 @Controller
 @RequestMapping("/actor")
@@ -75,6 +76,22 @@ public class ActorController extends AbstractController {
 			}
 		return result;
 	}
+
+	//PDF Exort------------------------------------------------------------------------
+
+	@RequestMapping(value = "export", method = RequestMethod.GET)
+	public ModelAndView exportData(@RequestParam final int actorId) {
+		final ModelAndView modelAndView = this.edit();
+
+		try {
+			this.actorService.exportPDF(actorId);
+		} catch (final Exception e) {
+			throw e;
+		}
+
+		return modelAndView;
+	}
+
 	// CreateModelAndView
 
 	protected ModelAndView createEditModelAndView(final ActorForm actorForm) {
@@ -93,6 +110,7 @@ public class ActorController extends AbstractController {
 		result.addObject("actorForm", actorForm);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
+		result.addObject("actorId", this.actorService.findPrincipal().getId());
 		result.addObject("requestURI", "actor/edit.do");
 		result.addObject("isPrincipalAuthorizedEdit", this.isPrincipalAuthorizedEdit(actorForm));
 		result.addObject("banner", this.configurationService.findOne().getBanner());

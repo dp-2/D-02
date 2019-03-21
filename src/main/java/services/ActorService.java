@@ -1,11 +1,20 @@
 
 package services;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +26,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
-import repositories.ActorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
-import security.UserAccountRepository;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
@@ -30,6 +43,11 @@ import domain.Member;
 import domain.Message;
 import domain.Sponsor;
 import forms.ActorForm;
+import repositories.ActorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -275,6 +293,7 @@ public class ActorService {
 			chapter.setSurname(actor.getSurname());
 			chapter.setAddress(actor.getAddress());
 			chapter.setMiddleName(actor.getMiddleName());
+			chapter.setTitle(chapter.getTitle());
 
 			final Actor actor1 = this.chapterService.save(chapter);
 			this.boxService.addSystemBox(actor1);
@@ -311,10 +330,13 @@ public class ActorService {
 		res.setMiddleName(b.getMiddleName());
 		res.setAddress(b.getAddress());
 		final Authority auth = ((List<Authority>) b.getUserAccount().getAuthorities()).get(0);
+		if (res.getAuthority().contains("CHAPTER")) {
+			final Chapter c = this.chapterService.findOne(b.getId());
+			res.setTitle(c.getTitle());
+		}
 		res.setAuthority(auth.getAuthority());
 		return res;
 	}
-
 	public void validateForm(final ActorForm form, final BindingResult binding) {
 		if (form.getId() == 0 && !form.getAccept()) {
 			/*
@@ -400,4 +422,149 @@ public class ActorService {
 
 		return res;
 	}
+
+	public void exportPDF(final int actorId) {
+		final Actor actor = this.findOne(actorId);
+		Document document = new Document();
+
+		final Collection<Authority> authorities = actor.getUserAccount().getAuthorities();
+		final Authority mem = new Authority();
+		mem.setAuthority(Authority.MEMBER);
+		final Authority bro = new Authority();
+		bro.setAuthority(Authority.BROTHERHOOD);
+		final Authority admin = new Authority();
+		admin.setAuthority(Authority.ADMIN);
+		final Authority spon = new Authority();
+		spon.setAuthority(Authority.SPONSOR);
+		final Authority cha = new Authority();
+		cha.setAuthority(Authority.CHAPTER);
+
+		if (authorities.contains(mem)) {
+			final Member member = this.memberService.findOne(actorId);
+
+			try {
+
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
+				document = this.initDoc(actor, document);
+
+				document.close();
+
+				pdfWriter.close();
+
+			} catch (final IOException e) {
+				e.printStackTrace();
+			} catch (final DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (authorities.contains(bro)) {
+			final Brotherhood brotherhood = this.brotherhoodService.findOne(actor.getId());
+
+			try {
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
+				document = this.initDoc(actor, document);
+				document.close();
+				pdfWriter.close();
+			} catch (final IOException e) {
+				e.printStackTrace();
+			} catch (final DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (authorities.contains(admin)) {
+			final Administrator administrator = this.administratorService.findOne(actor.getId());
+
+			try {
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
+				document = this.initDoc(actor, document);
+				document.close();
+				pdfWriter.close();
+			} catch (final IOException e) {
+				e.printStackTrace();
+			} catch (final DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (authorities.contains(spon)) {
+			final Sponsor sponsor = this.sponsorService.findOne(actor.getId());
+
+			try {
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
+				document = this.initDoc(actor, document);
+				document.close();
+				pdfWriter.close();
+			} catch (final IOException e) {
+				e.printStackTrace();
+			} catch (final DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (authorities.contains(cha)) {
+			final Chapter chapter = this.chapterService.findOne(actor.getId());
+
+			try {
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
+				document = this.initDoc(actor, document);
+				document.close();
+				pdfWriter.close();
+			} catch (final IOException e) {
+				e.printStackTrace();
+			} catch (final DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	public Document initDoc(final Actor actor, final Document document) throws MalformedURLException, IOException {
+
+		try {
+			document.open();
+
+			document.add(new Paragraph("USER DATA.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			if (!actor.getPhoto().isEmpty()) {
+				final URL url = new URL(actor.getPhoto());
+				document.add(this.urlToImage(url));
+			}
+
+			document.add(new Paragraph("Name: " + actor.getName()));
+			if (!actor.getMiddleName().isEmpty())
+				document.add(new Paragraph("Middle Name: " + actor.getMiddleName()));
+			document.add(new Paragraph("Surname: " + actor.getSurname()));
+			if (!actor.getAddress().isEmpty())
+				document.add(new Paragraph("Address: " + actor.getAddress()));
+			document.add(new Paragraph("Email: " + actor.getEmail()));
+			if (!actor.getPhone().isEmpty())
+				document.add(new Paragraph("Phone: " + actor.getPhone()));
+
+		} catch (final DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return document;
+	}
+
+	public Image urlToImage(final URL url) throws IOException, BadElementException {
+		final HttpURLConnection httpURLCon = (HttpURLConnection) url.openConnection();
+		httpURLCon.addRequestProperty("User-Agent", "Mozilla/4.76");
+		final BufferedImage c = ImageIO.read(httpURLCon.getInputStream());
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(c, "png", baos);
+		final Image iTextImage = Image.getInstance(baos.toByteArray());
+		iTextImage.scaleToFit(100f, 200f);
+		return iTextImage;
+	}
+
+	public void delete(final Actor a) {
+		final Actor actor = (Actor) this.serviceUtils.checkObject(a);
+	}
+
 }
