@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
-import services.AreaService;
-import services.BrotherhoodService;
-import services.ConfigurationService;
-import services.HistoryService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Url;
 import forms.BrotherhoodForm;
+import services.ActorService;
+import services.AreaService;
+import services.BrotherhoodService;
+import services.ConfigurationService;
+import services.HistoryService;
 
 @Controller
 @RequestMapping("brotherhood")
@@ -194,7 +194,7 @@ public class BrotherhoodController extends AbstractController {
 		final Actor s = this.actorService.findPrincipal();
 		try {
 			this.brotherhoodService.deleteBrotherhood((Brotherhood) s);
-			result = new ModelAndView("redirect:/welcome/index.do");
+			result = new ModelAndView("redirect:/j_spring_security_logout");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/welcome/index.do");
 

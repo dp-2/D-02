@@ -87,6 +87,7 @@ public class Sponsorship extends DomainEntity {
 	}
 
 	@Valid
+	@NotNull
 	@ManyToOne(optional = false)
 	public Parade getParade() {
 		return this.parade;
