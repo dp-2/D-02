@@ -1,8 +1,8 @@
 /*
  * AdministratorController.java
- *
+ * 
  * Copyright (C) 2019 Universidad de Sevilla
- *
+ * 
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -22,12 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Actor;
-import domain.Brotherhood;
-import domain.Enroll;
-import domain.Member;
-import domain.Parade;
-import domain.Warning;
 import services.ActorService;
 import services.AdministratorService;
 import services.AreaService;
@@ -43,6 +37,13 @@ import services.PeriodRecordService;
 import services.PositionService;
 import services.SponsorshipService;
 import services.WarningService;
+import domain.Actor;
+import domain.Administrator;
+import domain.Brotherhood;
+import domain.Enroll;
+import domain.Member;
+import domain.Parade;
+import domain.Warning;
 
 @Controller
 @RequestMapping("/administrator")
@@ -397,6 +398,21 @@ public class AdministratorController extends AbstractController {
 		result.addObject("warning", warning);
 		result.addObject("message", messageCode);
 
+		return result;
+	}
+
+	@RequestMapping(value = "/deleteAdmin", method = RequestMethod.GET)
+	public ModelAndView deleteAllData() {
+
+		ModelAndView result;
+		final Actor s = this.actorService.findPrincipal();
+		try {
+			this.administratorService.deleteAdmin((Administrator) s);
+			result = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+			System.out.println("NO SE HA PODIDO BORRAR EL USUARIO");
+		}
 		return result;
 	}
 

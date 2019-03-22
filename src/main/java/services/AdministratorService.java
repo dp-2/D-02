@@ -24,6 +24,7 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Configuration;
 import domain.Message;
+import domain.SocialProfile;
 import forms.AdministratorForm;
 
 @Service
@@ -57,6 +58,9 @@ public class AdministratorService {
 
 	@Autowired
 	private MessageSource			messageSource;
+
+	@Autowired
+	private SocialProfileService	socialProfileService;
 
 
 	// --------------------------Constructor-----------------------
@@ -311,6 +315,18 @@ public class AdministratorService {
 		res.getUserAccount().setAuthorities(authorities);
 		this.validator.validate(form, binding);
 		return res;
+	}
+
+	public void deleteAdmin(final Administrator admin) {
+		Assert.notNull(admin);
+		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfileByActorId(admin.getId());
+		for (final SocialProfile s : socialProfiles) {
+			Assert.isTrue(s.getActor().getId() == admin.getId());
+			this.socialProfileService.delete(s);
+		}
+		this.administratorRepository.delete(admin.getId());
+		final Collection<Actor> actors = this.actorService.findAll();
+		Assert.isTrue(!(actors.contains(admin)));
 	}
 
 }

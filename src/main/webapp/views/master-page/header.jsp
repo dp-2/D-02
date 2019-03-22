@@ -261,6 +261,10 @@
 					<li><a href="brotherhood/deleteBrotherhood.do"><spring:message
 								code="master.page.profile.deleteActor" /></a></li>
 					</security:authorize>
+					<security:authorize access="hasRole('ADMIN')">
+					<li><a href="administrator/deleteAdmin.do"><spring:message
+								code="master.page.profile.deleteActor" /></a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
