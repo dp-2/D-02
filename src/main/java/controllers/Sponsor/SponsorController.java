@@ -39,7 +39,7 @@ public class SponsorController extends AbstractController {
 		final Actor s = this.actorService.findPrincipal();
 		try {
 			this.sponsorService.deleteSponsor((Sponsor) s);
-			result = new ModelAndView("redirect:/welcome/index.do");
+			result = new ModelAndView("redirect:/j_spring_security_logout");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/welcome/index.do");
 			System.out.println("NO SE HA PODIDO BORRAR EL USUARIO");

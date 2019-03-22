@@ -214,6 +214,7 @@ public class SponsorService {
 		final List<Sponsorship> sponsorships = this.sponsorshipService.findSponsorshipsBySponsorId(sponsor.getId());
 		for (final Sponsorship s : sponsorships) {
 			Assert.isTrue(s.getSponsor().getId() == sponsor.getId());
+
 			this.sponsorshipService.delete(s);
 			this.creditCardService.delete(s.getCreditCard());
 			final Collection<Sponsorship> sponsorships1 = this.sponsorshipService.findAll();
