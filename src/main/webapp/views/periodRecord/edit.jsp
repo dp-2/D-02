@@ -115,7 +115,7 @@
 		<br />
 	
 	<button type="button"
-				onclick="javascript: relativeRedir('periodRecord/brotherhood/list.do')">
+				onclick="javascript: relativeRedir('periodRecord/brotherhood/list.do?historyId=${periodRecord.history.id}')">
 				<spring:message code="periodRecord.cancel" />
 			</button>
 </jstl:if>
