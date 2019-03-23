@@ -4,13 +4,13 @@ package services;
 import java.util.ArrayList;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.History;
@@ -88,17 +88,9 @@ public class LegalRecordServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testUpdateUnsecureText() {
+	public void testSaveWithNullLaws() {
 		final String[] parameters = new String[] {
-			"history1", "laws", "legalName", "<>", "title", "VATnumber"
-		};
-		this.updateTest("brotherhood1", "legalRecord1", parameters, ConstraintViolationException.class);
-	}
-
-	@Test
-	public void testSaveWithBlankLaws() {
-		final String[] parameters = new String[] {
-			"history1", "", "legalName", "text", "title", "VATnumber"
+			"history1", null, "legalName", "text", "title", "VATnumber"
 		};
 		this.saveTest("brotherhood2", parameters, IllegalArgumentException.class);
 	}
@@ -133,22 +125,6 @@ public class LegalRecordServiceTest extends AbstractTest {
 			null, "laws", "legalName", "text", "title", "VATnumber"
 		};
 		this.updateTest("brotherhood1", "legalRecord1", parameters, AssertionError.class);
-	}
-
-	@Test
-	public void testUpdateBlankTitle() {
-		final String[] parameters = new String[] {
-			"history1", "laws", "legalName", "text", "", "VATnumber"
-		};
-		this.updateTest("brotherhood1", "legalRecord1", parameters, ConstraintViolationException.class);
-	}
-
-	@Test
-	public void testUpdateUnsecureLegalName() {
-		final String[] parameters = new String[] {
-			"history1", "laws", "<script></script>", "text", "title", "VATnumber"
-		};
-		this.updateTest("brotherhood1", "legalRecord1", parameters, ConstraintViolationException.class);
 	}
 
 	@Test
@@ -205,8 +181,9 @@ public class LegalRecordServiceTest extends AbstractTest {
 			super.authenticate(username);
 			final LegalRecord legalRecord = this.legalRecordService.create();
 			this.legalRecordAssignParameters(legalRecord, parameters);
-			this.legalRecordService.save(legalRecord);
+			final LegalRecord res = this.legalRecordService.save(legalRecord);
 			this.legalRecordService.flush();
+			Assert.notNull(this.legalRecordService.findOne(res.getId()));
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -219,9 +196,12 @@ public class LegalRecordServiceTest extends AbstractTest {
 		try {
 			super.authenticate(username);
 			LegalRecord legalRecord = this.legalRecordService.findOne(super.getEntityId(legalRecordBeanName));
+			final int legalRecordId = legalRecord.getId();
+			final int legalRecordVersion = legalRecord.getVersion();
 			legalRecord = this.legalRecordAssignParameters(legalRecord, parameters);
-			this.legalRecordService.save(legalRecord);
+			final LegalRecord res = this.legalRecordService.save(legalRecord);
 			this.legalRecordService.flush();
+			Assert.isTrue(res.getId() == legalRecordId && res.getVersion() == legalRecordVersion + 1);
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -234,6 +214,8 @@ public class LegalRecordServiceTest extends AbstractTest {
 			super.authenticate(username);
 			final LegalRecord legalRecord = this.legalRecordService.findOne(super.getEntityId(legalRecordBeanName));
 			this.legalRecordService.delete(legalRecord);
+			this.legalRecordService.flush();
+			Assert.isNull(this.legalRecordService.findOne(legalRecord.getId()));
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();

@@ -81,16 +81,6 @@ public class InceptionRecordServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testSaveNullText() {
-		final List<String> photos = new ArrayList<String>();
-		photos.add("http://photo1");
-		photos.add("http://photo2");
-		this.saveTest("brotherhood1", new String[] {
-			"history1", null, "title"
-		}, photos, IllegalArgumentException.class);
-	}
-
-	@Test
 	public void testUpdate() {
 		final List<String> photos = new ArrayList<String>();
 		photos.add("http://photo1");
@@ -106,15 +96,6 @@ public class InceptionRecordServiceTest extends AbstractTest {
 		photos.add("http://photo2");
 		this.updateTest("brotherhood2", "inceptionRecord1", new String[] {
 			"history1", "text", "title"
-		}, photos, IllegalArgumentException.class);
-	}
-	@Test
-	public void testUpdateNullTitle() {
-		final List<String> photos = new ArrayList<String>();
-		photos.add("http://photo1");
-		photos.add("http://photo2");
-		this.updateTest("brotherhood1", "inceptionRecord1", new String[] {
-			"history1", "text", null
 		}, photos, IllegalArgumentException.class);
 	}
 

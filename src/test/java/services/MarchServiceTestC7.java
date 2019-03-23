@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.March;
@@ -34,25 +35,6 @@ public class MarchServiceTestC7 extends AbstractTest {
 	@Autowired
 	private ParadeService	paradeService;
 
-
-	// Tests
-
-	@Test
-	public void testFindOne() {
-		final Integer id = new ArrayList<March>(this.marchService.findAll()).get(0).getId();
-		this.findOneTest(null, id, null);
-	}
-
-	@Test
-	public void testFindOneIdNegative() {
-		final Integer id = -1;
-		this.findOneTest(null, id, IllegalArgumentException.class);
-	}
-
-	@Test
-	public void testFindAll() {
-		this.findAllTest(null, null);
-	}
 
 	// Un member crea una march request
 	@Test
@@ -172,30 +154,6 @@ public class MarchServiceTestC7 extends AbstractTest {
 
 	// Methods
 
-	private void findOneTest(final String username, final Integer id, final Class<?> expected) {
-		Class<?> caught = null;
-		try {
-			this.marchService.findOne(id);
-		} catch (final Throwable t) {
-			super.authenticate(username);
-			caught = t.getClass();
-			super.authenticate(null);
-		}
-		super.checkExceptions(expected, caught);
-	}
-
-	private void findAllTest(final String username, final Class<?> expected) {
-		Class<?> caught = null;
-		try {
-			super.authenticate(username);
-			this.marchService.findAll();
-			super.authenticate(null);
-		} catch (final Throwable t) {
-			caught = t.getClass();
-		}
-		super.checkExceptions(expected, caught);
-	}
-
 	private void createTest(final String username, final String[] parameters, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
@@ -216,8 +174,9 @@ public class MarchServiceTestC7 extends AbstractTest {
 			final Integer memberId = super.getEntityId(parameters[1]);
 			March march = this.marchService.create(paradeId, memberId);
 			march = this.marchAssignParameters(march, parameters, locations);
-			this.marchService.save(march);
+			final March res = this.marchService.save(march);
 			this.marchService.flush();
+			Assert.notNull(this.marchService.findOne(res.getId()));
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -230,21 +189,25 @@ public class MarchServiceTestC7 extends AbstractTest {
 		try {
 			super.authenticate(username);
 			March march = this.marchService.findOne(super.getEntityId(marchBeanName));
+			final int marchId = march.getId();
+			final int marchVersion = march.getVersion();
 			march = this.marchAssignParameters(march, parameters, locations);
-			this.marchService.save(march);
+			final March res = this.marchService.save(march);
+			Assert.isTrue(res.getId() == marchId && res.getVersion() == marchVersion + 1);
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
 		}
 		super.checkExceptions(expected, caught);
 	}
-
 	public void deleteTest(final String username, final String marchBeanName, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			super.authenticate(username);
 			final March march = this.marchService.findOne(super.getEntityId(marchBeanName));
 			this.marchService.delete(march);
+			this.marchService.flush();
+			Assert.isNull(this.marchService.findOne(march.getId()));
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();

@@ -86,7 +86,6 @@ public class MarchService {
 	public March findOne(final int MarchId) {
 		March march;
 		march = this.marchRepository.findOne(MarchId);
-		Assert.notNull(march);
 
 		return march;
 	}

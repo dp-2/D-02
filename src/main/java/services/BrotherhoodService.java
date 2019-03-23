@@ -19,6 +19,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import repositories.BrotherhoodRepository;
+import security.Authority;
+import security.UserAccount;
+import security.UserAccountRepository;
 import domain.Actor;
 import domain.Area;
 import domain.Brotherhood;
@@ -39,10 +43,6 @@ import domain.SocialProfile;
 import domain.Sponsorship;
 import domain.Url;
 import forms.BrotherhoodForm;
-import repositories.BrotherhoodRepository;
-import security.Authority;
-import security.UserAccount;
-import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -406,4 +406,9 @@ public class BrotherhoodService {
 		final Collection<Actor> actors = this.actorService.findAll();
 		Assert.isTrue(!(actors.contains(brotherhood)));
 	}
+
+	public void flush() {
+		this.repository.flush();
+	}
+
 }
