@@ -83,12 +83,17 @@ public class LegalRecordService {
 
 	public void delete(final LegalRecord legalRecord) {
 		// Se comprueba que no se pasa objeto nulo y que existe enla base de datos
-		System.out.println("checkObj");
+		//System.out.println("checkObj");
 		final LegalRecord legalRecordDB = (LegalRecord) this.serviceUtils.checkObject(legalRecord);
 		// Se comprueba que el actor asociado al objeto en base de datos es el actor logueado
-		System.out.println("checkActor");
+		//System.out.println("checkActor");
 		this.serviceUtils.checkActor(legalRecord.getHistory().getBrotherhood());
-		System.out.println("delete");
+		//System.out.println("delete");
+		this.legalRecordRepository.delete(legalRecord);
+	}
+
+	public void delete1(final LegalRecord legalRecord) {
+
 		this.legalRecordRepository.delete(legalRecord);
 	}
 

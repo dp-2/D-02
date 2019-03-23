@@ -26,6 +26,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import repositories.ActorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import security.UserAccountRepository;
+
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -37,7 +43,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import domain.Actor;
 import domain.Administrator;
+
+import domain.Box;
+
 import domain.Area;
+
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.DFloat;
@@ -47,11 +57,6 @@ import domain.Message;
 import domain.Parade;
 import domain.Sponsor;
 import forms.ActorForm;
-import repositories.ActorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
-import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -588,6 +593,12 @@ public class ActorService {
 		final Actor actor = (Actor) this.serviceUtils.checkObject(a);
 	}
 
+
+	public Collection<Box> findBoxByActorId(final int actorId) {
+		return this.actorRepository.findBoxByActorId(actorId);
+	}
+
+
 	public Document docMember(final Document document, final Member member) throws DocumentException, MalformedURLException, IOException {
 
 		final List<Brotherhood> brotherhoods = new ArrayList<>(this.enrollService.findBrotherhoodsByMemberId(member.getId()));
@@ -680,4 +691,5 @@ public class ActorService {
 
 		return document;
 	}
+
 }

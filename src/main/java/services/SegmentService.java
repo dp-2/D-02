@@ -16,9 +16,9 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.SegmentRepository;
 import domain.Path;
 import domain.Segment;
+import repositories.SegmentRepository;
 
 @Service
 @Transactional
@@ -142,6 +142,10 @@ public class SegmentService {
 				this.save(nextSeg, false);
 			} catch (final IndexOutOfBoundsException e) {
 			}
+	}
+
+	public void delete1(final Segment segment) {
+		this.repository.delete(segment);
 	}
 
 	public Segment deconstruct(final Segment segment, final BindingResult binding) {

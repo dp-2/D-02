@@ -101,7 +101,7 @@ public class Parade extends DomainEntity {
 
 	//Relationships
 
-	private Brotherhood	brotherhood;
+	private Brotherhood brotherhood;
 
 
 	@Valid

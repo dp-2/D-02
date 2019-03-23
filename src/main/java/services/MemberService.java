@@ -30,6 +30,7 @@ import domain.Enroll;
 import domain.Finder;
 import domain.March;
 import domain.Member;
+import domain.SocialProfile;
 import forms.BrotherhoodForm;
 import forms.MemberForm;
 
@@ -70,6 +71,12 @@ public class MemberService {
 
 	@Autowired
 	private FinderService			finderService;
+
+	@Autowired
+	private MessageService			messageService;
+
+	@Autowired
+	private SocialProfileService	socialProfileService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -284,21 +291,35 @@ public class MemberService {
 		final Collection<Enroll> enrolls = this.enrollService.findEnrollByMember(member.getId());
 		final Collection<March> marchs = this.marchService.findMarchsByMember(member.getId());
 		final Finder finder = this.finderService.findFinderByMemberId(member.getId());
-		for (final Enroll e : enrolls) {
-			Assert.isTrue(e.getMember().getId() == member.getId());
-			this.enrollService.delete(e);
-			final Collection<Enroll> enrolls1 = this.enrollService.findAll();
-			Assert.isTrue(!(enrolls1.contains(e)));
-		}
+
 		for (final March m : marchs) {
 			Assert.isTrue(m.getMember().getId() == member.getId());
 			this.marchService.delete1(m);
 			final Collection<March> marchs1 = this.marchService.findAll();
 			Assert.isTrue(!(marchs1.contains(m)));
 		}
-		Assert.isTrue(finder.getMember().getId() == member.getId());
-		this.finderService.delete(finder);
+		//final Collection<Box> boxes = this.actorService.findBoxByActorId(member.getId());
+		//		for (final Box b : boxes) {
+		//			
+		//			Assert.isTrue(b.getActor().getId() == member.getId());
+		//			this.boxService.delete1(b);
+		//			final Collection<Box> boxes1 = this.boxService.findAll();
+		//			Assert.isTrue(!(boxes1.contains(b)));
+		//		}
+		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfileByActorId(member.getId());
+		for (final SocialProfile s : socialProfiles) {
+			Assert.isTrue(s.getActor().getId() == member.getId());
+			this.socialProfileService.delete(s);
+		}
+		for (final Enroll e : enrolls) {
+			Assert.isTrue(e.getMember().getId() == member.getId());
+			this.enrollService.delete1(e);
+			final Collection<Enroll> enrolls1 = this.enrollService.findAll();
+			Assert.isTrue(!(enrolls1.contains(e)));
+		}
 		this.memberRepository.delete(member.getId());
+		this.finderService.delete(finder);
+
 		final Collection<Actor> actors = this.actorService.findAll();
 		Assert.isTrue(!(actors.contains(member)));
 	}

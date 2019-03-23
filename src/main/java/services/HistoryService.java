@@ -69,5 +69,8 @@ public class HistoryService {
 		return res;
 
 	}
+	public void delete(final History history) {
+		this.historyRepository.delete(history);
+	}
 
 }

@@ -29,6 +29,7 @@ import domain.Chapter;
 import domain.Configuration;
 import domain.Parade;
 import domain.Proclaim;
+import domain.SocialProfile;
 import forms.ChapterForm;
 
 @Service
@@ -71,6 +72,9 @@ public class ChapterService {
 
 	@Autowired
 	private ProclaimService			proclaimService;
+
+	@Autowired
+	private SocialProfileService	socialProfileService;
 
 
 	//Methods----------------------------------------------------------------------
@@ -381,6 +385,22 @@ public class ChapterService {
 			final Collection<Proclaim> proclaims1 = this.proclaimService.findAll();
 			Assert.isTrue(!(proclaims1.contains(p)));
 		}
+		//		final Collection<Box> boxes = this.actorService.findBoxByActorId(chapter.getId());
+		//		if (boxes != null)
+		//			for (final Box b : boxes) {
+		//
+		//				Assert.isTrue(b.getActor().getId() == chapter.getId());
+		//
+		//				this.boxService.delete1(b);
+		//
+		//			}
+		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfileByActorId(chapter.getId());
+		if (socialProfiles != null)
+			for (final SocialProfile s : socialProfiles) {
+				Assert.isTrue(s.getActor().getId() == chapter.getId());
+				this.socialProfileService.delete(s);
+
+			}
 		this.chapterRepository.delete(chapter.getId());
 		final Collection<Actor> actors = this.actorService.findAll();
 		Assert.isTrue(!(actors.contains(chapter)));

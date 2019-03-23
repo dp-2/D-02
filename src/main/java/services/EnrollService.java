@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.EnrollRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Enroll;
 import domain.Member;
 import domain.Position;
-import repositories.EnrollRepository;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -95,6 +95,10 @@ public class EnrollService {
 
 		enroll.setEndMoment(new Date(System.currentTimeMillis() - 1000));
 		result = this.enrollRepository.save(enroll);
+	}
+
+	public void delete1(final Enroll enroll) {
+		this.enrollRepository.delete(enroll);
 	}
 	//Other Methods-----------------------------------------------------------------
 	public Boolean checkPrincipal(final Enroll enroll) {

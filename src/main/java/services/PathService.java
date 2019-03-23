@@ -69,6 +69,11 @@ public class PathService {
 		this.repository.delete(path);
 	}
 
+	public void delete1(final Path p) {
+
+		this.repository.delete(p);
+	}
+
 	public Path findByParadeId(final Integer paradeId) {
 		Assert.notNull(paradeId);
 		Assert.isTrue(paradeId > 0);

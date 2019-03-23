@@ -189,4 +189,20 @@ public class BrotherhoodController extends AbstractController {
 			res = principal == null;
 		return res;
 	}
+
+	@RequestMapping(value = "/deleteBrotherhood", method = RequestMethod.GET)
+	public ModelAndView deleteAllData() {
+
+		ModelAndView result;
+		final Actor s = this.actorService.findPrincipal();
+		try {
+			this.brotherhoodService.deleteBrotherhood((Brotherhood) s);
+			result = new ModelAndView("redirect:/j_spring_security_logout");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+
+			System.out.println("NO SE HA PODIDO BORRAR EL USUARIO");
+		}
+		return result;
+	}
 }
