@@ -2,9 +2,7 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -15,8 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
-import domain.Path;
-import domain.Segment;
+import domain.History;
+import domain.InceptionRecord;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -27,38 +25,24 @@ public class InceptionRecordServiceTest extends AbstractTest {
 
 	//Service-------------------------------------------
 	@Autowired
-	private SegmentService	segmentService;
+	private InceptionRecordService	inceptionRecordService;
 
 	@Autowired
-	private PathService		pathService;
+	private HistoryService			historyService;
 
 
 	// Tests
 
 	@Test
 	public void testFindOne() {
-		final Integer id = new ArrayList<Segment>(this.segmentService.findAll()).get(0).getId();
+		final Integer id = new ArrayList<InceptionRecord>(this.inceptionRecordService.findAll()).get(0).getId();
 		this.findOneTest(null, id, null);
 	}
 
 	@Test
 	public void testFindOneIdNegative() {
 		final Integer id = -1;
-		this.findOneTest(null, id, IllegalArgumentException.class);
-	}
-
-	@Test
-	public void testFindAllIds() {
-		final Collection<Integer> ids = new ArrayList<Integer>();
-		for (final Segment s : this.segmentService.findAll())
-			ids.add(s.getId());
-		this.findAllTest(null, ids, null);
-	}
-
-	@Test
-	public void testFindAllIdsWrongIds() {
-		final Collection<Integer> ids = Arrays.asList(-1, 0);
-		this.findAllTest(null, ids, IllegalArgumentException.class);
+		this.findOneTest(null, id, null);
 	}
 
 	@Test
@@ -68,113 +52,80 @@ public class InceptionRecordServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
-		final Path path = this.pathService.findOne(super.getEntityId("path1"));
-		this.createTest("brotherhood1", path, null);
+		this.createTest("brotherhood1", "history1", null);
 	}
 
 	@Test
 	public void testCreateWrongUser() {
-		final Path path = this.pathService.findOne(super.getEntityId("path1"));
-		this.createTest("brotherhood2", path, IllegalArgumentException.class);
+		this.createTest("brotherhood2", "history1", IllegalArgumentException.class);
 	}
 
 	@Test
 	public void testSave() {
-		final Double[] locations = new Double[] {
-			90.0, 180.0, 0.0, 0.0
-		};
-		final Date[] dates = new Date[] {
-			new Date(2019, 10, 10, 10, 10, 10), new Date(2019, 10, 11, 11, 11, 11)
-		};
-		this.saveTest("brotherhood1", "path1", locations, dates, null);
+		final List<String> photos = new ArrayList<String>();
+		photos.add("http://photo1");
+		photos.add("http://photo2");
+		this.saveTest("brotherhood1", new String[] {
+			"history1", "text", "title"
+		}, photos, null);
 	}
 
 	@Test
 	public void testSaveWrongUser() {
-		final Double[] locations = new Double[] {
-			90.0, 180.0, 0.0, 0.0
-		};
-		final Date[] dates = new Date[] {
-			new Date(2019, 10, 10, 10, 10, 10), new Date(2019, 10, 11, 11, 11, 11)
-		};
-		this.saveTest("brotherhood2", "path1", locations, dates, IllegalArgumentException.class);
+		final List<String> photos = new ArrayList<String>();
+		photos.add("http://photo1");
+		photos.add("http://photo2");
+		this.saveTest("brotherhood2", new String[] {
+			"history1", "text", "title"
+		}, photos, IllegalArgumentException.class);
 	}
 
 	@Test
-	public void testSaveWrongTime() {
-		final Double[] locations = new Double[] {
-			90.0, 180.0, 0.0, 0.0
-		};
-		final Date[] dates = new Date[] {
-			new Date(2020, 6, 29, 17, 00, 00), new Date(2020, 6, 29, 17, 30, 00)
-		};
-		this.saveTest("brotherhood2", "path1", locations, dates, IllegalArgumentException.class);
-	}
-
-	@Test
-	public void testSaveWrongLocations() {
-		final Double[] locations = new Double[] {
-			100.0, 190.0, 0.0, 0.0
-		};
-		final Date[] dates = new Date[] {
-			new Date(2019, 10, 10, 10, 10, 10), new Date(2019, 10, 11, 11, 11, 11)
-		};
-		this.saveTest("brotherhood2", "path1", locations, dates, IllegalArgumentException.class);
-		System.out.println("testSave");
+	public void testSaveNullText() {
+		final List<String> photos = new ArrayList<String>();
+		photos.add("http://photo1");
+		photos.add("http://photo2");
+		this.saveTest("brotherhood1", new String[] {
+			"history1", null, "title"
+		}, photos, IllegalArgumentException.class);
 	}
 
 	@Test
 	public void testUpdate() {
-		final Double[] locations = new Double[] {
-			90.0, 180.0, 0.0, 0.0
-		};
-		final Date[] dates = new Date[] {
-			new Date(2019, 10, 10, 10, 10, 10), new Date(2019, 10, 11, 11, 11, 11)
-		};
-		this.updateTest("brotherhood1", "segment1Path1", locations, dates, null);
+		final List<String> photos = new ArrayList<String>();
+		photos.add("http://photo1");
+		photos.add("http://photo2");
+		this.updateTest("brotherhood1", "inceptionRecord1", new String[] {
+			"history1", "text", "title"
+		}, photos, null);
 	}
-
 	@Test
 	public void testUpdateWrongUser() {
-		final Double[] locations = new Double[] {
-			90.0, 180.0, 0.0, 0.0
-		};
-		final Date[] dates = new Date[] {
-			new Date(2019, 10, 10, 10, 10, 10), new Date(2019, 10, 11, 11, 11, 11)
-		};
-		this.updateTest("brotherhood2", "segment1Path1", locations, dates, IllegalArgumentException.class);
+		final List<String> photos = new ArrayList<String>();
+		photos.add("http://photo1");
+		photos.add("http://photo2");
+		this.updateTest("brotherhood2", "inceptionRecord1", new String[] {
+			"history1", "text", "title"
+		}, photos, IllegalArgumentException.class);
 	}
-
 	@Test
-	public void testUpdateWrongTime() {
-		final Double[] locations = new Double[] {
-			90.0, 180.0, 0.0, 0.0
-		};
-		final Date[] dates = new Date[] {
-			new Date(2020, 6, 29, 17, 00, 00), new Date(2020, 6, 29, 17, 30, 00)
-		};
-		this.updateTest("brotherhood2", "segment1Path1", locations, dates, IllegalArgumentException.class);
-	}
-
-	@Test
-	public void testUpdateWrongLocations() {
-		final Double[] locations = new Double[] {
-			100.0, 190.0, 0.0, 0.0
-		};
-		final Date[] dates = new Date[] {
-			new Date(2019, 10, 10, 10, 10, 10), new Date(2019, 10, 11, 11, 11, 11)
-		};
-		this.updateTest("brotherhood2", "segment1Path1", locations, dates, IllegalArgumentException.class);
+	public void testUpdateNullTitle() {
+		final List<String> photos = new ArrayList<String>();
+		photos.add("http://photo1");
+		photos.add("http://photo2");
+		this.updateTest("brotherhood1", "inceptionRecord1", new String[] {
+			"history1", "text", null
+		}, photos, IllegalArgumentException.class);
 	}
 
 	@Test
 	public void testDelete() {
-		this.deleteTest("brotherhood1", "segment1Path1", null);
+		this.deleteTest("brotherhood1", "inceptionRecord1", null);
 	}
 
 	@Test
 	public void testDeleteWrongUser() {
-		this.deleteTest("brotherhood2", "segment1Path1", IllegalArgumentException.class);
+		this.deleteTest("brotherhood2", "inceptionRecord1", IllegalArgumentException.class);
 	}
 
 	// Methods
@@ -182,19 +133,7 @@ public class InceptionRecordServiceTest extends AbstractTest {
 	private void findOneTest(final String username, final Integer id, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
-			this.segmentService.findOne(id);
-		} catch (final Throwable t) {
-			super.authenticate(username);
-			caught = t.getClass();
-			super.authenticate(null);
-		}
-		super.checkExceptions(expected, caught);
-	}
-
-	private void findAllTest(final String username, final Collection<Integer> ids, final Class<?> expected) {
-		Class<?> caught = null;
-		try {
-			this.segmentService.findAll(ids);
+			this.inceptionRecordService.findOne(id);
 		} catch (final Throwable t) {
 			super.authenticate(username);
 			caught = t.getClass();
@@ -207,7 +146,7 @@ public class InceptionRecordServiceTest extends AbstractTest {
 		Class<?> caught = null;
 		try {
 			super.authenticate(username);
-			this.segmentService.findAll();
+			this.inceptionRecordService.findAll();
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -215,11 +154,28 @@ public class InceptionRecordServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	private void createTest(final String username, final Path path, final Class<?> expected) {
+	private void createTest(final String username, final String historyBeanName, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			super.authenticate(username);
-			this.segmentService.create(path);
+			final History history = this.historyService.findOne(super.getEntityId(historyBeanName));
+			this.inceptionRecordService.create(history);
+			super.authenticate(null);
+		} catch (final Throwable t) {
+			caught = t.getClass();
+		}
+		super.checkExceptions(expected, caught);
+	}
+	private void saveTest(final String username, final String[] parameters, final List<String> photos, final Class<?> expected) {
+		Class<?> caught = null;
+		try {
+			super.authenticate(username);
+			final String historyBeanName = parameters[0];
+			final History history = this.historyService.findOne(super.getEntityId(historyBeanName));
+			final InceptionRecord inceptionRecord = this.inceptionRecordService.create(history);
+			final InceptionRecord res = this.inceptionRecordAssignParameters(inceptionRecord, parameters, photos);
+			this.inceptionRecordService.save(res);
+			this.inceptionRecordService.flush();
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -227,14 +183,14 @@ public class InceptionRecordServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	private void saveTest(final String username, final String pathBeanName, final Double[] locations, final Date[] dates, final Class<?> expected) {
+	private void updateTest(final String username, final String inceptionRecordBeanName, final String[] parameters, final List<String> photos, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			super.authenticate(username);
-			final Path path = this.pathService.findOne(super.getEntityId(pathBeanName));
-			Segment segment = this.segmentService.create(path);
-			segment = this.segmentAssignParameters(segment, locations, dates);
-			this.segmentService.save(segment, true);
+			final InceptionRecord inceptionRecord = this.inceptionRecordService.findOne(super.getEntityId(inceptionRecordBeanName));
+			final InceptionRecord res = this.inceptionRecordAssignParameters(inceptionRecord, parameters, photos);
+			this.inceptionRecordService.save(res);
+			this.inceptionRecordService.flush();
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -242,26 +198,12 @@ public class InceptionRecordServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	private void updateTest(final String username, final String segmentBeanName, final Double[] locations, final Date[] dates, final Class<?> expected) {
+	public void deleteTest(final String username, final String inceptionRecordBeanName, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			super.authenticate(username);
-			Segment segment = this.segmentService.findOne(super.getEntityId(segmentBeanName));
-			segment = this.segmentAssignParameters(segment, locations, dates);
-			this.segmentService.save(segment, true);
-			super.authenticate(null);
-		} catch (final Throwable t) {
-			caught = t.getClass();
-		}
-		super.checkExceptions(expected, caught);
-	}
-
-	public void deleteTest(final String username, final String segmentBeanName, final Class<?> expected) {
-		Class<?> caught = null;
-		try {
-			super.authenticate(username);
-			final Segment segment = this.segmentService.findOne(super.getEntityId(segmentBeanName));
-			this.segmentService.delete(segment);
+			final InceptionRecord inceptionRecord = this.inceptionRecordService.findOne(super.getEntityId(inceptionRecordBeanName));
+			this.inceptionRecordService.delete(inceptionRecord);
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -271,14 +213,13 @@ public class InceptionRecordServiceTest extends AbstractTest {
 
 	// Others
 
-	public Segment segmentAssignParameters(final Segment s, final Double[] locations, final Date[] dates) {
-		s.setLatitudeDestination(locations[2]);
-		s.setLatitudeOrigin(locations[0]);
-		s.setLongitudeDestination(locations[3]);
-		s.setLongitudeOrigin(locations[1]);
-		s.setTimeOrigin(dates[0]);
-		s.setTimeDestination(dates[1]);
-		return s;
+	public InceptionRecord inceptionRecordAssignParameters(final InceptionRecord i, final String[] parameters, final List<String> photos) {
+		final History history = this.historyService.findOne(super.getEntityId(parameters[0]));
+		i.setHistory(history);
+		i.setPhotos(photos);
+		i.setText(parameters[1]);
+		i.setTitle(parameters[2]);
+		return i;
 	}
 
 }

@@ -2,12 +2,17 @@
 package services;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import repositories.DomainEntityRepository;
 import security.Authority;
@@ -21,6 +26,9 @@ public class ServiceUtils {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private MessageSource			messageSource;
 
 	@Autowired
 	private DomainEntityRepository	domainEntityRepository;
@@ -192,6 +200,12 @@ public class ServiceUtils {
 		if (object.getId() != 0)
 			res = this.domainEntityRepository.findById(object.getId());
 		return res;
+	}
+
+	public void addCustomFormMessageError(final String objectNAME, final String fieldName, final String messageCode, final BindingResult binding) {
+		final Locale locale = LocaleContextHolder.getLocale();
+		final String errorMessage = this.messageSource.getMessage("brotherhood.mustaccept", null, locale);
+		binding.addError(new FieldError("brotherhoodForm", "accept", errorMessage));
 	}
 
 }

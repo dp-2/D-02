@@ -2,13 +2,14 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -73,19 +74,87 @@ public class MarchServiceTestC7 extends AbstractTest {
 	@Test
 	public void testSave() {
 		this.saveTest("member2", new String[] {
-			"parade2", "member2", "", "PENDING"
+			"parade4", "member2", null, "PENDING"
 		}, new Integer[] {
-			7, 4
+			1, 5
+		}, null);
+	}
+	// Un usuario sin autoridad de miembro intenta crear y guardar una request march
+	@Test
+	public void testSaveWrongAuthority() {
+		this.saveTest("brotherhood1", new String[] {
+			"parade2", "brotherhood1", null, "PENDING"
+		}, new Integer[] {
+			1, 5
+		}, IllegalArgumentException.class);
+	}
+
+	// Un usuario pide marchar en una procesion de una hermandad a la que no pertenece
+	@Test
+	public void testSaveNotEnrolled() {
+		this.saveTest("member4", new String[] {
+			"parade2", "member4", null, "PENDING"
+		}, new Integer[] {
+			1, 5
+		}, IllegalArgumentException.class);
+	}
+
+	@Test
+	public void testSaveAlreadyRequested() {
+		this.saveTest("member1", new String[] {
+			"parade1", "member1", null, "PENDING"
+		}, new Integer[] {
+			1, 5
+		}, DataIntegrityViolationException.class);
+	}
+
+	// Un usuario crea y guarda una petición para otro usuario
+	@Test
+	public void testSaveWrongUser() {
+		this.saveTest("member1", new String[] {
+			"parade1", "member2", null, "PENDING"
+		}, new Integer[] {
+			1, 5
+		}, IllegalArgumentException.class);
+	}
+
+	// Un usuario modifica una march request
+	@Test
+	public void testUpdate() {
+		this.updateTest("brotherhood1", "march1", new String[] {
+			"parade1", "member1", null, "APPROVED"
+		}, new Integer[] {
+			43, 324
 		}, null);
 	}
 
-	// Un usuario sin autoridad de miembro intenta crear y guardar una request march
+	// Un usuario rechaza una request con motivo
 	@Test
-	public void testSaveWrongUser() {
-		this.saveTest("brotherhood1", new String[] {
-			"parade2", "brotherhood1", "", "PENDING"
+	public void testUpdateRejectWithReason() {
+		this.updateTest("brotherhood1", "march1", new String[] {
+			"parade1", "member1", "reason", "REJECTED"
 		}, new Integer[] {
-			7, 4
+			1, 5
+		}, null);
+	}
+
+	// Una hermandad actualiza una petición de otra hermandad
+	@Test
+	public void testUpdateWrongUser() {
+		this.updateTest("brotherhood2", "march1", new String[] {
+			"parade1", "member1", null, "APPROVED"
+		}, new Integer[] {
+			1, 5
+		}, IllegalArgumentException.class);
+	}
+
+	// Un usuario rechaza una request sin reason
+	@Test
+	public void testUpdateRejectWithoutReason() {
+		this.updateTest("brotherhood1", "march1", new String[] {
+			"parade1", "member1", null, "REJECTED"
+		}, new Integer[] {
+			1, 5
 		}, IllegalArgumentException.class);
 	}
 
@@ -148,6 +217,7 @@ public class MarchServiceTestC7 extends AbstractTest {
 			March march = this.marchService.create(paradeId, memberId);
 			march = this.marchAssignParameters(march, parameters, locations);
 			this.marchService.save(march);
+			this.marchService.flush();
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -184,13 +254,32 @@ public class MarchServiceTestC7 extends AbstractTest {
 
 	// Others
 
-	public March marchAssignParameters(final March m, final String[] parameters, final Integer[] location) {
-		m.setLocation(Arrays.asList(location[0], location[1]));
+	public March marchAssignParameters(final March m, final String[] parameters, final Integer[] locations) {
+		System.out.println(m.getStatus());
+		final List<Integer> locationsList = new ArrayList<Integer>();
+		locationsList.add(locations[0]);
+		locationsList.add(locations[1]);
+		m.setLocation(locationsList);
 		m.setParade(this.paradeService.findOne(super.getEntityId(parameters[0])));
 		m.setMember(this.memberService.findOne(super.getEntityId(parameters[1])));
 		m.setReason(parameters[2]);
 		m.setStatus(parameters[3]);
+		final March march = this.marchService.findOne(m.getId());
+		System.out.println(march.getStatus());
+		System.out.println();
+
 		return m;
 	}
+	// Sentence coverage
+
+	/* Se ha contemplado la casuística presente en el caso de uso */
+	/*
+	 * Se han contemplado los datos necesarios para comprobar que los mecanismos implementados
+	 * para eviatar el incumplimiento de las reglas de negocio funcionan correctamente
+	 */
+
+	// Data coverage
+
+	// El coverage es decir qué se está probando, como lo está comentado en los tests, pero más completo
 
 }

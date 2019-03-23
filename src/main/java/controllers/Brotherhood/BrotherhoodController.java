@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-import domain.Actor;
-import domain.Brotherhood;
-import domain.Url;
-import forms.BrotherhoodForm;
 import services.ActorService;
 import services.AreaService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
 import services.HistoryService;
+import controllers.AbstractController;
+import domain.Actor;
+import domain.Brotherhood;
+import domain.Url;
+import forms.BrotherhoodForm;
 
 @Controller
 @RequestMapping("brotherhood")
@@ -150,13 +150,16 @@ public class BrotherhoodController extends AbstractController {
 		final ModelAndView res = new ModelAndView("brotherhood/edit");
 		final Boolean isPrincipalAuthorizedEdit = this.isPrincipalAuthorizedEdit(brotherhoodForm);
 		res.addObject("brotherhoodForm", brotherhoodForm);
-		res.addObject("actorId", this.actorService.findPrincipal().getId());
+		try {
+			res.addObject("actorId", this.actorService.findPrincipal().getId());
+		} catch (final Throwable t) {
+			res.addObject("actorId", null);
+		}
 		res.addObject("message", message);
 		res.addObject("banner", this.configurationService.findOne().getBanner());
 		res.addObject("isPrincipalAuthorizedEdit", isPrincipalAuthorizedEdit);
 		return res;
 	}
-
 	private Boolean isPrincipalAuthorizedEdit(final BrotherhoodForm brotherhoodForm) {
 		Boolean res = false;
 		Actor principal = null;

@@ -43,7 +43,7 @@ public class InceptionRecordService {
 	public InceptionRecord create(final History history) {
 		Assert.notNull(history);
 		final InceptionRecord inceptionRecord = new InceptionRecord();
-
+		this.serviceUtils.checkActor(history.getBrotherhood());
 		final String photo = "https://content.thriveglobal.com/wp-content/uploads/2017/10/change-pixabay.jpg";
 		final List<String> photos = new ArrayList<>();
 		photos.add(photo);
@@ -54,7 +54,6 @@ public class InceptionRecordService {
 
 		return inceptionRecord;
 	}
-
 	public Collection<InceptionRecord> findAll() {
 		Collection<InceptionRecord> pr;
 		pr = this.InceptionRecordRepository.findAll();
@@ -84,6 +83,8 @@ public class InceptionRecordService {
 
 	public void delete(final InceptionRecord p) {
 		Assert.notNull(p);
+		final InceptionRecord inceptionRecord = (InceptionRecord) this.serviceUtils.checkObject(p);
+		this.serviceUtils.checkActor(inceptionRecord.getHistory().getBrotherhood());
 		this.InceptionRecordRepository.delete(p);
 	}
 
@@ -97,6 +98,10 @@ public class InceptionRecordService {
 		final InceptionRecord res = this.InceptionRecordRepository.findInceptionByHistoryId(historyId);
 
 		return res;
+	}
+
+	public void flush() {
+		this.InceptionRecordRepository.flush();
 	}
 
 }
