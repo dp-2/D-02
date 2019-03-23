@@ -92,7 +92,7 @@
 		<br />
 	
 	<button type="button"
-				onclick="javascript: relativeRedir('miscellaneousRecord/brotherhood/list.do')">
+				onclick="javascript: relativeRedir('miscellaneousRecord/brotherhood/list.do?historyId=${miscellaneousRecord.history.id}')">
 				<spring:message code="miscellaneousRecord.cancel" />
 			</button>
 </jstl:if>
