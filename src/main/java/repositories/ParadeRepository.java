@@ -53,7 +53,7 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select s.banner from Sponsorship s where (s.parade.id = ?1 and s.active=1) order by rand()")
 	List<String> findSponsorshipByParadeId(final int paradeId);
 
-	@Query("select s from Sponsorship s where (s.parade.id = ?1 and s.active=1)")
+	@Query("select s from Sponsorship s where (s.parade.id = ?1)")
 	List<Sponsorship> findSponsorshipsByParadeId(final int paradeId);
 
 	@Query("select a.chapter from Area a where a.brotherhood = (select p.brotherhood.id from Parade p where p.id = ?1)")

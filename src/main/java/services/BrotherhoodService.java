@@ -23,7 +23,6 @@ import repositories.BrotherhoodRepository;
 import security.Authority;
 import security.UserAccount;
 import security.UserAccountRepository;
-import domain.Actor;
 import domain.Area;
 import domain.Brotherhood;
 import domain.DFloat;
@@ -38,7 +37,6 @@ import domain.MiscellaneousRecord;
 import domain.Parade;
 import domain.Path;
 import domain.PeriodRecord;
-import domain.Segment;
 import domain.SocialProfile;
 import domain.Sponsorship;
 import domain.Url;
@@ -344,9 +342,9 @@ public class BrotherhoodService {
 				this.linkRecordService.delete(l);
 			}
 
-		this.historyService.delete(h);
+		this.inceptionRecordService.delete1(inceptionRecord);
 
-		this.inceptionRecordService.delete(inceptionRecord);
+		this.historyService.delete(h);
 
 		if (!enrolls.isEmpty())
 			for (final Enroll e : enrolls) {
@@ -354,14 +352,7 @@ public class BrotherhoodService {
 				final Collection<Enroll> enrolls1 = this.enrollService.findAll();
 				Assert.isTrue(!(enrolls1.contains(e)));
 			}
-		//final Collection<Box> boxes = this.actorService.findBoxByActorId(member.getId());
-		//		for (final Box b : boxes) {
-		//
-		//			Assert.isTrue(b.getActor().getId() == member.getId());
-		//			this.boxService.delete1(b);
-		//			final Collection<Box> boxes1 = this.boxService.findAll();
-		//			Assert.isTrue(!(boxes1.contains(b)));
-		//		}
+
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfileByActorId(brotherhood.getId());
 		if (!socialProfiles.isEmpty())
 			for (final SocialProfile s : socialProfiles)
@@ -384,12 +375,8 @@ public class BrotherhoodService {
 						Assert.isTrue(m.getParade().getId() == p.getId());
 						this.marchService.delete1(m);
 					}
-				if (path != null) {
-					if (!path.getSegments().isEmpty())
-						for (final Segment segment : path.getSegments())
-							this.segmentService.delete1(segment);
+				if (path != null)
 					this.pathService.delete1(path);
-				}
 
 			}
 
@@ -399,18 +386,28 @@ public class BrotherhoodService {
 		if (!parades.isEmpty())
 			for (final Parade parade : parades) {
 				final List<Sponsorship> sponsorships = this.paradeService.findSponsorshipsByParadeId(parade.getId());
+				int i = 0;
+				while (i <= sponsorships.size()) {
+					final int j = 0;
+					this.sponsorshipService.delete(sponsorships.get(j));
+					sponsorships.remove(sponsorships.get(j));
+					i++;
+					if (sponsorships.isEmpty() || sponsorships == null || sponsorships.size() == 0) {
+						final List<Sponsorship> sponsorships2 = this.paradeService.findSponsorshipsByParadeId(parade.getId());
+						System.out.println(sponsorships2.size());
+						this.paradeService.delete1(parade);
+					}
+				}
 
-				if (!sponsorships.isEmpty())
-					for (final Sponsorship sponsorship : sponsorships)
-						this.sponsorshipService.delete(sponsorship);
-				if (sponsorships.isEmpty())
-					this.paradeService.delete1(parade);
 			}
 
-		this.repository.delete(brotherhood.getId());
+		this.delete1(brotherhood);
 
-		final Collection<Actor> actors = this.actorService.findAll();
-		Assert.isTrue(!(actors.contains(brotherhood)));
+		//final Collection<Actor> actors = this.actorService.findAll();
+		//Assert.isTrue(!(actors.contains(brotherhood)));
+	}
+	public void delete1(final Brotherhood brotherhood) {
+		this.repository.delete(brotherhood);
 	}
 
 	public void flush() {

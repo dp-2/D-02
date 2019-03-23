@@ -91,6 +91,12 @@ public class InceptionRecordService {
 		this.InceptionRecordRepository.delete(p);
 	}
 
+	public void delete1(final InceptionRecord p) {
+		Assert.notNull(p);
+
+		this.InceptionRecordRepository.delete(p);
+	}
+
 	public History getHistoryByBrotherhood(final int historyId) {
 		final History res = this.historyService.findOne(historyId);
 

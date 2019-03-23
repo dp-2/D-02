@@ -18,14 +18,14 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.ParadeRepository;
+import security.LoginService;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.DFloat;
 import domain.Parade;
 import domain.Sponsorship;
 import forms.ParadeForm;
-import repositories.ParadeRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -110,7 +110,7 @@ public class ParadeService {
 		this.paradeRepository.delete(parade);
 	}
 	public void delete1(final Parade parade) {
-		this.checkPrincipal(parade);
+
 		this.paradeRepository.delete(parade);
 	}
 

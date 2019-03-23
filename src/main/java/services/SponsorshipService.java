@@ -107,6 +107,7 @@ public class SponsorshipService {
 
 		this.sponsorshipRepository.delete(sponsorship);
 		this.creditCardService.delete(sponsorship.getCreditCard());
+
 	}
 
 	// Other bussines methods ------------------------------ (Otras reglas de negocio, como por ejemplo findRegisteredUser())
