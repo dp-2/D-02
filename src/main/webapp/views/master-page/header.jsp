@@ -164,7 +164,8 @@
 						code="master.page.dfloat" /></a></li>
 			<li><a class="fNiv" href="history/brotherhood/myDisplay.do"><spring:message
 						code="master.page.history" /></a></li>
-
+			<li><a class="fNiv" href="brotherhood/brotherhood/edit.do"><spring:message
+						code="master.page.profile.edit" /></a></li>
 
 
 			<li><a class="fNiv" href="brotherhood/brotherhood/display.do"><spring:message

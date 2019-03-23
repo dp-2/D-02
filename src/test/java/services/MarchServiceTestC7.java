@@ -255,7 +255,6 @@ public class MarchServiceTestC7 extends AbstractTest {
 	// Others
 
 	public March marchAssignParameters(final March m, final String[] parameters, final Integer[] locations) {
-		System.out.println(m.getStatus());
 		final List<Integer> locationsList = new ArrayList<Integer>();
 		locationsList.add(locations[0]);
 		locationsList.add(locations[1]);
@@ -264,10 +263,6 @@ public class MarchServiceTestC7 extends AbstractTest {
 		m.setMember(this.memberService.findOne(super.getEntityId(parameters[1])));
 		m.setReason(parameters[2]);
 		m.setStatus(parameters[3]);
-		final March march = this.marchService.findOne(m.getId());
-		System.out.println(march.getStatus());
-		System.out.println();
-
 		return m;
 	}
 	// Sentence coverage

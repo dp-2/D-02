@@ -43,11 +43,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import domain.Actor;
 import domain.Administrator;
-
-import domain.Box;
-
 import domain.Area;
-
+import domain.Box;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.DFloat;
@@ -232,7 +229,8 @@ public class ActorService {
 			member.setMiddleName(actor.getMiddleName());
 
 			final Actor actor1 = this.memberService.save(member);
-			this.boxService.addSystemBox(actor1);
+			if (actor.getId() == 0)
+				this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(bro)) {
 			Brotherhood brotherhood = null;
 			if (actor.getId() != 0)
@@ -254,7 +252,8 @@ public class ActorService {
 			brotherhood.setMiddleName(actor.getMiddleName());
 
 			final Actor actor1 = this.brotherhoodService.save(brotherhood);
-			this.boxService.addSystemBox(actor1);
+			if (actor.getId() == 0)
+				this.boxService.addSystemBox(actor1);
 
 		} else if (authorities.contains(admin)) {
 			Administrator administrator = null;
@@ -276,7 +275,8 @@ public class ActorService {
 			administrator.setAddress(actor.getAddress());
 
 			final Actor actor1 = this.administratorService.save(administrator);
-			this.boxService.addSystemBox(actor1);
+			if (actor.getId() == 0)
+				this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(spon)) {
 			Sponsor sponsor = null;
 			if (actor.getId() != 0)
@@ -297,7 +297,8 @@ public class ActorService {
 			sponsor.setMiddleName(actor.getMiddleName());
 
 			final Actor actor1 = this.sponsorService.save(sponsor);
-			this.boxService.addSystemBox(actor1);
+			if (actor.getId() == 0)
+				this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(cha)) {
 			Chapter chapter = null;
 			if (actor.getId() != 0)
@@ -320,7 +321,8 @@ public class ActorService {
 			chapter.setTitle(chapter.getTitle());
 
 			final Actor actor1 = this.chapterService.save(chapter);
-			this.boxService.addSystemBox(actor1);
+			if (actor.getId() == 0)
+				this.boxService.addSystemBox(actor1);
 		}
 
 	}
@@ -354,7 +356,7 @@ public class ActorService {
 		res.setMiddleName(b.getMiddleName());
 		res.setAddress(b.getAddress());
 		final Authority auth = ((List<Authority>) b.getUserAccount().getAuthorities()).get(0);
-		if (res.getAuthority().contains("CHAPTER")) {
+		if (auth.getAuthority().equals(("CHAPTER"))) {
 			final Chapter c = this.chapterService.findOne(b.getId());
 			res.setTitle(c.getTitle());
 		}
@@ -593,11 +595,9 @@ public class ActorService {
 		final Actor actor = (Actor) this.serviceUtils.checkObject(a);
 	}
 
-
 	public Collection<Box> findBoxByActorId(final int actorId) {
 		return this.actorRepository.findBoxByActorId(actorId);
 	}
-
 
 	public Document docMember(final Document document, final Member member) throws DocumentException, MalformedURLException, IOException {
 
