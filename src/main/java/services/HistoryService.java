@@ -59,6 +59,8 @@ public class HistoryService {
 
 	public History save(final History history) {
 		Assert.notNull(history);
+		final History historyDB = (History) this.serviceUtils.checkObjectSave(history);
+
 		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
 		this.serviceUtils.checkActor(history.getBrotherhood());
 		this.serviceUtils.checkAuthority("BROTHERHOOD");

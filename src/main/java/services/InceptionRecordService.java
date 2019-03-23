@@ -70,6 +70,8 @@ public class InceptionRecordService {
 
 	public InceptionRecord save(final InceptionRecord inceptionRecord) {
 		Assert.notNull(inceptionRecord);
+		final InceptionRecord inceptionRecordDB = (InceptionRecord) this.serviceUtils.checkObjectSave(inceptionRecord);
+
 		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
 		this.serviceUtils.checkActor(inceptionRecord.getHistory().getBrotherhood());
 		this.serviceUtils.checkAuthority("BROTHERHOOD");

@@ -76,7 +76,7 @@ public class InceptionRecord extends DomainEntity {
 	@Valid
 	@NotEmpty
 	@EachURL
-	@EachSafeHtml
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getPhotos() {
 		return this.photos;
 	}
