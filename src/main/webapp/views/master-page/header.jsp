@@ -246,29 +246,30 @@
 									code="master.page.profile.edit" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('SPONSOR')">
-					<li><a href="sponsor/deleteSponsor.do" style="color: red"> <spring:message
+					<li><a href="sponsor/deleteSponsor.do" style="color: yellow"> <spring:message
 								code="master.page.profile.deleteActor" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('CHAPTER')">
-					<li><a href="chapter/deleteChapter.do" style="color: red"><spring:message
+					<li><a href="chapter/deleteChapter.do" style="color: yellow"><spring:message
 								code="master.page.profile.deleteActor" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('MEMBER')">
-					<li><a href="member/deleteMember.do" style="color: red"><spring:message
+					<li><a href="member/deleteMember.do" style="color: yellow"><spring:message
 								code="master.page.profile.deleteActor" /></a></li>
 					</security:authorize>
 					
 					<security:authorize access="hasRole('ADMIN')">
-					<li><a href="administrator/deleteAdmin.do" style="color: red"><spring:message
+					<li><a href="administrator/deleteAdmin.do" style="color:yellow"><spring:message
+								code="master.page.profile.deleteActor" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('BROTHERHOOD')">
+					<li><a href="brotherhood/deleteBrotherhood.do" style="color: yellow"><spring:message
 								code="master.page.profile.deleteActor" /></a></li>
 					</security:authorize>
 					<li><a href="j_spring_security_logout" ><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
-				<security:authorize access="hasRole('BROTHERHOOD')">
-					<li><a href="brotherhood/deleteBrotherhood.do" style="color: red"><spring:message
-								code="master.page.profile.deleteActor" /></a></li>
-					</security:authorize>
+				
 		</security:authorize>
 	</ul>
 </div>
