@@ -76,6 +76,7 @@ public class HistoryBrotherhoodController extends AbstractController {
 		history = this.historyService.findOne(historyId);
 
 		final InceptionRecord inceptionRecord = this.inceptionRecordService.getInceptionRecordByBrotherhood(history.getId());
+
 		final Collection<PeriodRecord> periodRecords = this.periodRecordService.findAllByHistoryId(history.getId());
 		final Collection<LinkRecord> linkRecords = this.linkRecordService.findAllByHistoryId(history.getId());
 		final Collection<MiscellaneousRecord> miscellaneousRecords = this.miscellaneousRecordService.findAllByHistoryId(history.getId());

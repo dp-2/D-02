@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -48,6 +49,9 @@ public class MarchService {
 	@Autowired
 	private BoxService		boxService;
 
+	@Autowired
+	private EnrollService	enrollService;
+
 
 	//Constructor----------------------------------------------------------------------------
 
@@ -82,17 +86,25 @@ public class MarchService {
 	public March findOne(final int MarchId) {
 		March march;
 		march = this.marchRepository.findOne(MarchId);
-		Assert.notNull(march);
 
 		return march;
 	}
+
+	// Hay que tener en cuenta que sól se debería poder hacer la March si su parade está aceptada
 
 	public March save(final March march) {
 		//Assert.isTrue(this.checkPrincipal(march) || this.checkPrincipalBro(march));
 		Assert.notNull(march);
 		if (march.getId() > 0) {
-			final March oldMarch = this.marchRepository.findOne(march.getId());
+			final March oldMarch = (March) this.serviceUtils.checkObjectSave(march);
+
+			this.serviceUtils.checkAnyActor(new Actor[] {
+				oldMarch.getParade().getBrotherhood(), oldMarch.getMember()
+			});
+			if (march.getStatus().equals("REJECTED"))
+				Assert.isTrue(StringUtils.isNotEmpty(march.getReason()));
 			if (!march.getStatus().equals(oldMarch.getStatus())) {
+				Assert.isTrue(march.getStatus().equals("PENDING"));
 				this.serviceUtils.checkActor(oldMarch.getParade().getBrotherhood());
 				final Actor system = this.actorService.findActorByUsername("system");
 				final Message message = this.messageService.create(this.boxService.findBoxByActorAndName(system, "outBox"));
@@ -110,24 +122,27 @@ public class MarchService {
 				message1.setTags("");
 				this.messageService.save(message1, true);
 			}
-		} else if (march.getId() == 0)
+		} else if (march.getId() == 0) {
+			this.serviceUtils.checkActor(march.getMember());
+			Assert.isTrue(this.memberService.listMembersByBrotherhood(march.getParade().getBrotherhood().getId()).contains(march.getMember()));
 			this.serviceUtils.checkAuthority(Authority.MEMBER);
-		final March result;
+		}
 		final List<Integer> a = new ArrayList<>();
 		//	final Collection<March> marchs = this.marchRepository.findAll();
-		if (march.getStatus().equals("APPROVED") && march.getLocation() == null)
+		if (march.getStatus().equals("APPROVED") && march.getLocation().isEmpty())
 			march.setLocation(this.isUniqueColumNum());
-		else if (march.getLocation() != null) {
+		else if (!march.getLocation().isEmpty()) {
 			march.setLocation(march.getLocation());
 			final Collection<March> marchs = this.marchRepository.findAll();
 			final Collection<List<Integer>> locations = new ArrayList<>();
 			for (final March m : marchs)
-				locations.add(m.getLocation());
+				if (!m.equals(march))
+					locations.add(m.getLocation());
 			Assert.isTrue(!(locations.contains(march.getLocation())), "errorposition");
 		} else
 			march.setLocation(a);
 
-		result = this.marchRepository.save(march);
+		final March result = this.marchRepository.save(march);
 
 		Assert.notNull(result);
 		//Assert.isTrue(marchs.contains(result));
@@ -210,6 +225,10 @@ public class MarchService {
 	public void delete1(final March march) {
 
 		this.marchRepository.delete(march);
+	}
+
+	public void flush() {
+		this.marchRepository.flush();
 	}
 
 }

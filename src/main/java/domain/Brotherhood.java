@@ -21,6 +21,8 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import cz.jirutka.validator.collection.constraints.EachSafeHtml;
+
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(uniqueConstraints = {
@@ -61,6 +63,7 @@ public class Brotherhood extends Actor {
 	@ElementCollection
 	@Valid
 	@NotNull
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<Url> getPictures() {
 		return this.pictures;
 	}

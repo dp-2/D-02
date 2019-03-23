@@ -90,7 +90,7 @@
 		<br />
 	
 	<button type="button"
-				onclick="javascript: relativeRedir('welcome/index')">
+				onclick="javascript: relativeRedir('')">
 				<spring:message code="inceptionRecord.cancel" />
 			</button>
 </jstl:if>

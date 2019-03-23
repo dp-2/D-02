@@ -53,6 +53,8 @@ public class MiscellaneousRecordService {
 	}
 	public MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
 		Assert.notNull(miscellaneousRecord);
+		final MiscellaneousRecord miscellaneousRecordDB = (MiscellaneousRecord) this.serviceUtils.checkObjectSave(miscellaneousRecord);
+
 		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
 		this.serviceUtils.checkActor(miscellaneousRecord.getHistory().getBrotherhood());
 		this.serviceUtils.checkAuthority("BROTHERHOOD");

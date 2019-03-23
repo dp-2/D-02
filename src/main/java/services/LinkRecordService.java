@@ -53,6 +53,7 @@ public class LinkRecordService {
 	}
 	public LinkRecord save(final LinkRecord record) {
 		Assert.notNull(record);
+		final LinkRecord linkRecordDB = (LinkRecord) this.serviceUtils.checkObjectSave(record);
 		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
 		this.serviceUtils.checkActor(record.getHistory().getBrotherhood());
 		this.serviceUtils.checkAuthority("BROTHERHOOD");

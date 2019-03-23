@@ -16,16 +16,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.AreaService;
+import services.BrotherhoodService;
+import services.ConfigurationService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Url;
 import forms.BrotherhoodForm;
-import services.ActorService;
-import services.AreaService;
-import services.BrotherhoodService;
-import services.ConfigurationService;
-import services.HistoryService;
 
 @Controller
 @RequestMapping("brotherhood")
@@ -39,8 +38,6 @@ public class BrotherhoodController extends AbstractController {
 	private ConfigurationService	configurationService;
 	@Autowired
 	private AreaService				areaService;
-	@Autowired
-	private HistoryService			historyService;
 
 
 	@RequestMapping(value = "/chapterList", method = RequestMethod.GET)
@@ -70,7 +67,7 @@ public class BrotherhoodController extends AbstractController {
 	public ModelAndView create() {
 		final Brotherhood brotherhood = this.brotherhoodService.create();
 		final BrotherhoodForm brotherhoodForm = this.brotherhoodService.construct(brotherhood);
-		//this.historyService.create(brotherhood);
+
 		return this.createEditModelAndView(brotherhoodForm);
 	}
 	@RequestMapping("brotherhood/edit")
@@ -92,7 +89,7 @@ public class BrotherhoodController extends AbstractController {
 			try {
 				final Brotherhood brotherhood = this.brotherhoodService.deconstruct(brotherhoodForm);
 				this.brotherhoodService.save(brotherhood);
-				res = new ModelAndView("redirect:/brotherhood/brotherhood/display.do");
+				res = new ModelAndView("redirect:/history/brotherhood/confirmation.do");
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(brotherhoodForm, "cannot.commit.error");
 			}
@@ -150,13 +147,16 @@ public class BrotherhoodController extends AbstractController {
 		final ModelAndView res = new ModelAndView("brotherhood/edit");
 		final Boolean isPrincipalAuthorizedEdit = this.isPrincipalAuthorizedEdit(brotherhoodForm);
 		res.addObject("brotherhoodForm", brotherhoodForm);
-		res.addObject("actorId", this.actorService.findPrincipal().getId());
+		try {
+			res.addObject("actorId", this.actorService.findPrincipal().getId());
+		} catch (final Throwable t) {
+			res.addObject("actorId", null);
+		}
 		res.addObject("message", message);
 		res.addObject("banner", this.configurationService.findOne().getBanner());
 		res.addObject("isPrincipalAuthorizedEdit", isPrincipalAuthorizedEdit);
 		return res;
 	}
-
 	private Boolean isPrincipalAuthorizedEdit(final BrotherhoodForm brotherhoodForm) {
 		Boolean res = false;
 		Actor principal = null;

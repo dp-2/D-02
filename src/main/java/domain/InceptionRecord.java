@@ -18,6 +18,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
+import cz.jirutka.validator.collection.constraints.EachSafeHtml;
+import cz.jirutka.validator.collection.constraints.EachURL;
+
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
@@ -37,6 +40,7 @@ public class InceptionRecord extends DomainEntity {
 	//Getters y setters de los atributos propios
 
 	@NotBlank
+	@NotNull
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTitle() {
 		return this.title;
@@ -47,6 +51,7 @@ public class InceptionRecord extends DomainEntity {
 	}
 
 	@NotBlank
+	@NotNull
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getText() {
 		return this.text;
@@ -70,6 +75,8 @@ public class InceptionRecord extends DomainEntity {
 	@ElementCollection
 	@Valid
 	@NotEmpty
+	@EachURL
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getPhotos() {
 		return this.photos;
 	}
