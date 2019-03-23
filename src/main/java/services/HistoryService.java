@@ -33,13 +33,14 @@ public class HistoryService {
 
 	//Services-----------------------------------------------------------------------------
 
-	public History create(final Brotherhood brotherhood) {
+	public History createAndSave(final Brotherhood brotherhood) {
 		Assert.notNull(brotherhood);
 		final History history = new History();
 
 		history.setBrotherhood(brotherhood);
 		history.setTitle("Default title");
-		this.inceptionService.create(history);
+
+		this.historyRepository.saveAndFlush(history);
 
 		return history;
 	}

@@ -13,6 +13,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -32,6 +34,7 @@ public class Segment extends DomainEntity {
 
 
 	@Range(min = -90, max = 90)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public double getLatitudeOrigin() {
 		return this.latitudeOrigin;
 	}
@@ -40,6 +43,7 @@ public class Segment extends DomainEntity {
 	}
 
 	@Range(min = -90, max = 90)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public double getLatitudeDestination() {
 		return this.latitudeDestination;
 	}
@@ -48,6 +52,7 @@ public class Segment extends DomainEntity {
 	}
 
 	@Range(min = -180, max = 180)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public double getLongitudeOrigin() {
 		return this.longitudeOrigin;
 	}
@@ -56,6 +61,7 @@ public class Segment extends DomainEntity {
 	}
 
 	@Range(min = -180, max = 180)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public double getLongitudeDestination() {
 		return this.longitudeDestination;
 	}

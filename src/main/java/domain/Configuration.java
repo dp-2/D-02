@@ -16,6 +16,8 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
+import cz.jirutka.validator.collection.constraints.EachSafeHtml;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Configuration extends DomainEntity {
@@ -73,6 +75,7 @@ public class Configuration extends DomainEntity {
 
 	@NotEmpty
 	@ElementCollection
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getSpamWordsEN() {
 		return this.spamWordsEN;
 	}
@@ -82,6 +85,7 @@ public class Configuration extends DomainEntity {
 
 	@NotEmpty
 	@ElementCollection
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getNegativeWordsEN() {
 		return this.negativeWordsEN;
 	}
@@ -91,6 +95,7 @@ public class Configuration extends DomainEntity {
 
 	@NotEmpty
 	@ElementCollection
+	@EachSafeHtml
 	public List<String> getPositiveWordsEN() {
 		return this.positiveWordsEN;
 	}
@@ -100,6 +105,7 @@ public class Configuration extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public String getWelcomeMessageES() {
 		return this.welcomeMessageES;
 	}
@@ -109,6 +115,7 @@ public class Configuration extends DomainEntity {
 
 	@NotEmpty
 	@ElementCollection
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getSpamWordsES() {
 		return this.spamWordsES;
 	}
@@ -118,6 +125,7 @@ public class Configuration extends DomainEntity {
 
 	@NotEmpty
 	@ElementCollection
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getNegativeWordsES() {
 		return this.negativeWordsES;
 	}
@@ -127,6 +135,7 @@ public class Configuration extends DomainEntity {
 
 	@NotEmpty
 	@ElementCollection
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getPositiveWordsES() {
 		return this.positiveWordsES;
 	}
@@ -157,12 +166,14 @@ public class Configuration extends DomainEntity {
 
 	@NotEmpty
 	@ElementCollection
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public void setCountryCode(final int countrtCode) {
 		this.countryCode = countrtCode;
 	}
 
 	@NotEmpty
 	@ElementCollection
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getMakeName() {
 		return this.makeName;
 	}
@@ -191,6 +202,7 @@ public class Configuration extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSecurityMessageES() {
 		return this.securityMessageES;
 	}
@@ -201,6 +213,7 @@ public class Configuration extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSecurityMessageEN() {
 		return this.securityMessageEN;
 	}

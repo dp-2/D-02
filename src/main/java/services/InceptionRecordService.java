@@ -40,10 +40,9 @@ public class InceptionRecordService {
 	}
 	// Simple CRUD methods
 
-	public InceptionRecord create(final History history) {
+	public InceptionRecord createAndSave(final History history) {
 		Assert.notNull(history);
 		final InceptionRecord inceptionRecord = new InceptionRecord();
-		this.serviceUtils.checkActor(history.getBrotherhood());
 		final String photo = "https://content.thriveglobal.com/wp-content/uploads/2017/10/change-pixabay.jpg";
 		final List<String> photos = new ArrayList<>();
 		photos.add(photo);
@@ -52,6 +51,8 @@ public class InceptionRecordService {
 		inceptionRecord.setText("Default text");
 		inceptionRecord.setPhotos(photos);
 
+		this.InceptionRecordRepository.saveAndFlush(inceptionRecord);
+		this.InceptionRecordRepository.flush();
 		return inceptionRecord;
 	}
 	public Collection<InceptionRecord> findAll() {
@@ -69,6 +70,8 @@ public class InceptionRecordService {
 
 	public InceptionRecord save(final InceptionRecord inceptionRecord) {
 		Assert.notNull(inceptionRecord);
+		final InceptionRecord inceptionRecordDB = (InceptionRecord) this.serviceUtils.checkObjectSave(inceptionRecord);
+
 		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
 		this.serviceUtils.checkActor(inceptionRecord.getHistory().getBrotherhood());
 		this.serviceUtils.checkAuthority("BROTHERHOOD");

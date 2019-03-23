@@ -19,7 +19,11 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import cz.jirutka.validator.collection.constraints.EachSafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -42,6 +46,7 @@ public class PeriodRecord extends DomainEntity {
 	//Getters y setters de los atributos propios
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTitle() {
 		return this.title;
 	}
@@ -51,6 +56,7 @@ public class PeriodRecord extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getText() {
 		return this.text;
 	}
@@ -96,6 +102,7 @@ public class PeriodRecord extends DomainEntity {
 	@ElementCollection
 	@Valid
 	@NotEmpty
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getPhotos() {
 		return this.photos;
 	}

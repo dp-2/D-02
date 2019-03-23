@@ -1,4 +1,4 @@
-9+9-6<%--
+<%--
  * action-1.jsp
  *
  * Copyright (C) 2018 Universidad de Sevilla
@@ -25,14 +25,20 @@
 
 <security:authorize access="hasRole('BROTHERHOOD')">
 
-<p>You should edit your history</p>
+<h2><spring:message code="history.confirmation"></spring:message></h2>
 
-<a
-				href="history/brotherhood/edit.do?historyId=${history.id}"><spring:message
-					code="history.edit"></spring:message></a>
-					<a
-				href="wellcome/index.do"><spring:message
-					code="history.cancel"></spring:message></a>
+
+
+<button type="button"
+				onclick="javascript: relativeRedir('history/brotherhood/edit.do?historyId=${history.id}')">
+				<spring:message code="periodRecord.edit" />
+			</button>
+
+<button type="button"
+				onclick="javascript:relativeRedir('brotherhood/brotherhood/display.do')">
+				<spring:message code="periodRecord.cancel" />
+			</button>
+
 
 
 	
