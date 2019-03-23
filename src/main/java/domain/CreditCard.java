@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -24,6 +26,7 @@ public class CreditCard extends DomainEntity {
 
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getHolderName() {
 		return this.holderName;
 	}
@@ -33,6 +36,7 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getMakeName() {
 		return this.makeName;
 	}
@@ -43,6 +47,7 @@ public class CreditCard extends DomainEntity {
 
 	@CreditCardNumber
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getNumber() {
 		return this.number;
 	}
@@ -52,6 +57,7 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 1, max = 12)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public int getExpirationMonth() {
 		return this.expirationMonth;
 	}
@@ -61,6 +67,7 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 2018, max = 3000)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public int getExpirationYear() {
 		return this.expirationYear;
 	}
@@ -70,6 +77,7 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 100, max = 999)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public int getCVVCode() {
 		return this.CVVCode;
 	}

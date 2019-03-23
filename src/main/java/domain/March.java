@@ -18,6 +18,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
+import cz.jirutka.validator.collection.constraints.EachSafeHtml;
+
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(uniqueConstraints = {
@@ -53,6 +55,7 @@ public class March extends DomainEntity {
 	}
 
 	@ElementCollection
+	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<Integer> getLocation() {
 		return this.location;
 	}
