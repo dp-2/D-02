@@ -20,7 +20,6 @@ import services.ActorService;
 import services.AreaService;
 import services.BrotherhoodService;
 import services.ConfigurationService;
-import services.HistoryService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Brotherhood;
@@ -39,8 +38,6 @@ public class BrotherhoodController extends AbstractController {
 	private ConfigurationService	configurationService;
 	@Autowired
 	private AreaService				areaService;
-	@Autowired
-	private HistoryService			historyService;
 
 
 	@RequestMapping(value = "/chapterList", method = RequestMethod.GET)
@@ -70,7 +67,7 @@ public class BrotherhoodController extends AbstractController {
 	public ModelAndView create() {
 		final Brotherhood brotherhood = this.brotherhoodService.create();
 		final BrotherhoodForm brotherhoodForm = this.brotherhoodService.construct(brotherhood);
-		//this.historyService.create(brotherhood);
+
 		return this.createEditModelAndView(brotherhoodForm);
 	}
 	@RequestMapping("brotherhood/edit")
@@ -92,7 +89,7 @@ public class BrotherhoodController extends AbstractController {
 			try {
 				final Brotherhood brotherhood = this.brotherhoodService.deconstruct(brotherhoodForm);
 				this.brotherhoodService.save(brotherhood);
-				res = new ModelAndView("redirect:/brotherhood/brotherhood/display.do");
+				res = new ModelAndView("redirect:/history/brotherhood/confirmation.do");
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(brotherhoodForm, "cannot.commit.error");
 			}

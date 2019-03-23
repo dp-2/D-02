@@ -40,10 +40,9 @@ public class InceptionRecordService {
 	}
 	// Simple CRUD methods
 
-	public InceptionRecord create(final History history) {
+	public InceptionRecord createAndSave(final History history) {
 		Assert.notNull(history);
 		final InceptionRecord inceptionRecord = new InceptionRecord();
-		this.serviceUtils.checkActor(history.getBrotherhood());
 		final String photo = "https://content.thriveglobal.com/wp-content/uploads/2017/10/change-pixabay.jpg";
 		final List<String> photos = new ArrayList<>();
 		photos.add(photo);
@@ -52,6 +51,8 @@ public class InceptionRecordService {
 		inceptionRecord.setText("Default text");
 		inceptionRecord.setPhotos(photos);
 
+		this.InceptionRecordRepository.saveAndFlush(inceptionRecord);
+		this.InceptionRecordRepository.flush();
 		return inceptionRecord;
 	}
 	public Collection<InceptionRecord> findAll() {

@@ -41,6 +41,9 @@
 			<legend>
 				<b><spring:message code="history.inceptionRecord"></spring:message></b>
 			</legend>
+			<jstl:if test="${inceptionRecord.title == 'Default Inception Record Title'}">
+			<h3 style="color: red;"> <spring:message code="history.confirmation"> </spring:message> </h3>
+			</jstl:if>
 			<acme:out code="history.inceptionRecord.title"
 				value="${inceptionRecord.title}" />
 

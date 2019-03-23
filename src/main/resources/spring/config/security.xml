@@ -264,6 +264,8 @@
 
 		<security:intercept-url pattern="/history/brotherhood/myDisplay.do"
 			access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/confirmation.do"
+			access="hasRole('BROTHERHOOD')" />
 
 		<security:intercept-url pattern="/history/brotherhood/edit.do"
 			access="hasRole('BROTHERHOOD')" />
