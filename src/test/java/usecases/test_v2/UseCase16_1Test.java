@@ -12,9 +12,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import domain.Actor;
+import domain.CreditCard;
+import domain.Parade;
 import domain.Sponsor;
 import domain.Sponsorship;
 import services.ActorService;
+import services.CreditCardService;
+import services.ParadeService;
 import services.SponsorService;
 import services.SponsorshipService;
 import utilities.AbstractTest;
@@ -43,6 +47,12 @@ public class UseCase16_1Test extends AbstractTest {
 	@Autowired
 	private SponsorService		sponsorService;
 
+	@Autowired
+	private ParadeService		paradeService;
+
+	@Autowired
+	private CreditCardService	cardService;
+
 	// Tests ------------------------------------------------------------------
 
 
@@ -60,6 +70,24 @@ public class UseCase16_1Test extends AbstractTest {
 		for (int i = 0; i < testingData.length; i++) {
 			System.out.println("Casuistica" + j);
 			this.templateListing((String) testingData[i][0], (Class<?>) testingData[i][1]);
+			j++;
+		}
+	}
+
+	@Test
+	public void driverCreating() {
+		System.out.println("=====CREATING=====");
+		final Object testingData[][] = {
+			{
+				"sponsor1", "parade3", null //Sponsor puede crear sus sponsorships (POSITIVO)
+			}, {
+				null, "parade3", AssertionError.class //Un actor no autenticado no deberia crear sponsorships (NEGATIVO) 
+			}
+		};
+		int j = 1;
+		for (int i = 0; i < testingData.length; i++) {
+			System.out.println("Casuistica" + j);
+			this.templateCreating((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
 			j++;
 		}
 	}
@@ -107,6 +135,53 @@ public class UseCase16_1Test extends AbstractTest {
 
 			System.out.println("\n");
 			System.out.println("Mostrados correctamente.");
+			System.out.println("-----------------------------");
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+
+			System.out.println(caught);
+			System.out.println("-----------------------------");
+		}
+		this.checkExceptions(expected, caught);
+	}
+
+	protected void templateCreating(final String username, final String parade, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+
+		try {
+
+			//Nos autenticamos
+			this.authenticate(username);
+			final Sponsor principal = this.sponsorService.findOne(this.getEntityId(username));
+
+			//Creamos el sponsorship
+			final Parade paradeBD = this.paradeService.findOne(this.getEntityId(parade));
+
+			final CreditCard creditCard = this.cardService.create();
+			creditCard.setCVVCode(222);
+			creditCard.setExpirationMonth(8);
+			creditCard.setExpirationYear(2020);
+			creditCard.setHolderName("Test");
+			creditCard.setMakeName("VISA");
+			creditCard.setNumber("1111222233334444");
+			final CreditCard savedCard = this.cardService.save(creditCard);
+
+			final Sponsorship sponsorship = this.sponsorshipService.create(principal.getId());
+			sponsorship.setBanner("http://test.com");
+			sponsorship.setTarget("http://test.com");
+			sponsorship.setActive(false);
+			sponsorship.setParade(paradeBD);
+			sponsorship.setCreditCard(savedCard);
+
+			//Guardamos
+			this.sponsorshipService.save(sponsorship);
+
+			//Nos desautenticamos
+			this.unauthenticate();
+
+			System.out.println("\n");
+			System.out.println("Creados correctamente.");
 			System.out.println("-----------------------------");
 		} catch (final Throwable oops) {
 			caught = oops.getClass();

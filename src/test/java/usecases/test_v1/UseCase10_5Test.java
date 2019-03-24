@@ -165,7 +165,7 @@ public class UseCase10_5Test extends AbstractTest {
 			parade.setMomentOrganised(new Date(2020, 7, 15));
 
 			//Guardamos la parade
-			final Parade save = this.paradeService.save(parade);
+			this.paradeService.save(parade);
 
 			//Nos desautenticamos
 			this.unauthenticate();
