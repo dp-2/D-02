@@ -59,10 +59,10 @@
 					code="linkRecord.brotherhoodRelated"></spring:message></a>
 	</display:column>
 	
-	<display:column>
-			<a href="brotherhood/edit.do?brotherhoodId=${linkRecord.history.brotherhood.id}"><spring:message
+<%-- 	<display:column>
+			<a href="brotherhood/brotherhood/display.do?brotherhoodId=${linkRecord.history.brotherhood.id}"><spring:message
 					code="linkRecord.brotherhood"></spring:message></a>
-	</display:column>
+	</display:column> --%>
 	
 	
 	<acme:column code="linkRecord.history" value="${linkRecord.history.title}"></acme:column>
