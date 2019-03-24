@@ -247,10 +247,60 @@
 			<spring:message code="dashboard.recordsByHistory">
 			</spring:message>
 		</legend>
-		<acme:out code="dashboard.recordsByHistory.avg" value="${avgC1}" />
-		<acme:out code="dashboard.recordsByHistory.max" value="${maxC1}" />
-		<acme:out code="dashboard.recordsByHistory.min" value="${minC1}" />
-		<acme:out code="dashboard.recordsByHistory.stddev" value="${stddevC1}" />
+		<fieldset>
+			<legend>
+				<spring:message code="dashboard.per">
+				</spring:message>
+			</legend>
+			<acme:out code="dashboard.avg" value="${avgC1P}" />
+			<acme:out code="dashboard.max" value="${maxC1P}" />
+			<acme:out code="dashboard.min" value="${minC1P}" />
+			<acme:out code="dashboard.stddev" value="${stddevC1P}" />
+		</fieldset>
+
+		<fieldset>
+			<legend>
+				<spring:message code="dashboard.legal">
+				</spring:message>
+			</legend>
+			<acme:out code="dashboard.avg" value="${avgC1LL}" />
+			<acme:out code="dashboard.max" value="${maxC1LL}" />
+			<acme:out code="dashboard.min" value="${minC1LL}" />
+			<acme:out code="dashboard.stddev" value="${stddevC1LL}" />
+		</fieldset>
+	</fieldset>
+
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.link">
+			</spring:message>
+		</legend>
+		<acme:out code="dashboard.avg" value="${avgC1L}" />
+		<acme:out code="dashboard.max" value="${maxC1L}" />
+		<acme:out code="dashboard.min" value="${minC1L}" />
+		<acme:out code="dashboard.stddev" value="${stddevC1L}" />
+	</fieldset>
+
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.inc">
+			</spring:message>
+		</legend>
+		<acme:out code="dashboard.avg" value="${avgC1I}" />
+		<acme:out code="dashboard.max" value="${maxC1I}" />
+		<acme:out code="dashboard.min" value="${minC1I}" />
+		<acme:out code="dashboard.stddev" value="${stddevC1I}" />
+	</fieldset>
+
+	<fieldset>
+		<legend>
+			<spring:message code="dashboard.mis">
+			</spring:message>
+		</legend>
+		<acme:out code="dashboard.avg" value="${avgC1M}" />
+		<acme:out code="dashboard.max" value="${maxC1M}" />
+		<acme:out code="dashboard.min" value="${minC1M}" />
+		<acme:out code="dashboard.stddev" value="${stddevC1M}" />
 	</fieldset>
 
 	<fieldset>

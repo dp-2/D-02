@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.InceptionRecordRepository;
 import domain.History;
 import domain.InceptionRecord;
+import repositories.InceptionRecordRepository;
 
 @Service
 @Transactional
@@ -111,6 +111,22 @@ public class InceptionRecordService {
 
 	public void flush() {
 		this.InceptionRecordRepository.flush();
+	}
+
+	public Double avgQueryC1() {
+		return this.InceptionRecordRepository.avgQueryC1();
+	}
+
+	public Double maxQueryC1() {
+		return this.InceptionRecordRepository.maxQueryC1();
+	}
+
+	public Double minQueryC1() {
+		return this.InceptionRecordRepository.minQueryC1();
+	}
+
+	public Double stddevQueryC1() {
+		return this.InceptionRecordRepository.stddevQueryC1();
 	}
 
 }

@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.LegalRecordRepository;
-import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
 import domain.LegalRecord;
+import repositories.LegalRecordRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -99,6 +99,22 @@ public class LegalRecordService {
 
 	public void flush() {
 		this.legalRecordRepository.flush();
+	}
+
+	public Double avgQueryC1() {
+		return this.legalRecordRepository.avgQueryC1();
+	}
+
+	public Double maxQueryC1() {
+		return this.legalRecordRepository.maxQueryC1();
+	}
+
+	public Double minQueryC1() {
+		return this.legalRecordRepository.minQueryC1();
+	}
+
+	public Double stddevQueryC1() {
+		return this.legalRecordRepository.stddevQueryC1();
 	}
 
 }
