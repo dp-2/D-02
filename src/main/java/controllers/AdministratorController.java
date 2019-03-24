@@ -411,7 +411,9 @@ public class AdministratorController extends AbstractController {
 			result = new ModelAndView("redirect:/j_spring_security_logout");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/welcome/index.do");
-			System.out.println("NO SE HA PODIDO BORRAR EL USUARIO");
+			if (oops.getMessage().equals("UniqueAdmin"))
+				result.addObject("message", "error.admin.unique");
+
 		}
 		return result;
 	}

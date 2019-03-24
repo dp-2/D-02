@@ -58,11 +58,11 @@
 				<spring:message code="history.cancel" />
 			</button>
 
-			<jstl:if test="${history.id != 0}">
+<%-- 			<jstl:if test="${history.id != 0}">
 				<input type="submit" name="delete"
 					value="<spring:message code="history.delete" />"
 					onclick="return confirm('<spring:message code="history.confirm.delete" />')" />&nbsp;
-	</jstl:if>
+	</jstl:if> --%>
 
 
 

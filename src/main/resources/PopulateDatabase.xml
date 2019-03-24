@@ -211,18 +211,7 @@
 	<!-- La contraseña de system es intencional, no se puede acceder a esta 
 		cuenta -->
 
-	<bean id="userAccountSystem" class="security.UserAccount">
-		<property name="username" value="system" />
-		<property name="password" value="system" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
+	
 
 
 	<!-- Other domain beans come here -->
@@ -449,20 +438,7 @@
 	</bean>
 
 
-	<bean id="system" class="domain.Administrator">
-		<property name="name" value="System" />
-		<property name="middleName" value="" />
-		<property name="surname" value="System" />
-		<property name="email" value="system@system.sys" />
-		<property name="phone" value="+34(456)123456789" />
-
-		<property name="spammer" value="false" />
-		<property name="banned" value="false" />
-		<property name="score" value="0.3" />
-
-		<property name="userAccount" ref="userAccountSystem" />
-	</bean>
-
+	
 
 	<!-- Area -->
 
@@ -513,161 +489,7 @@
 
 	<!-- Box -->
 
-	<!-- Boxes del system -->
-	<bean id="inboxSystem" class="domain.Box">
-		<property name="name" value="inBox" />
-		<property name="isSystem" value="true" />
-		<property name="rootBox" ref="inboxSystem" />
-		<property name="actor" ref="system" />
-
-	</bean>
-
-	<bean id="outboxSystem" class="domain.Box">
-		<property name="name" value="outBox" />
-		<property name="isSystem" value="true" />
-		<property name="rootBox" ref="outboxSystem" />
-		<property name="actor" ref="system" />
-
-	</bean>
-
-	<bean id="trashboxSystem" class="domain.Box">
-		<property name="name" value="trashBox" />
-		<property name="isSystem" value="true" />
-		<property name="rootBox" ref="trashboxSystem" />
-		<property name="actor" ref="system" />
-
-	</bean>
-
-
-	<bean id="spamboxSystem" class="domain.Box">
-		<property name="name" value="spamBox" />
-		<property name="isSystem" value="true" />
-		<property name="rootBox" ref="spamboxSystem" />
-		<property name="actor" ref="system" />
-
-	</bean>
-
-	<bean id="notificationBoxSystem" class="domain.Box">
-		<property name="name" value="notificationBox" />
-		<property name="isSystem" value="true" />
-		<property name="rootBox" ref="notificationBoxSystem" />
-		<property name="actor" ref="system" />
-
-	</bean>
-
-	<!-- Messages -->
-
-	<bean id="message1System" class="domain.Message">
-		<property name="subject" value="Subjeto" />
-		<property name="body" value="Cuerpo" />
-		<property name="moment" value="June 29, 2015 15:00" />
-		<property name="priority" value="HIGH" />
-		<property name="tags" value="tgs" />
-		<property name="box">
-			<ref bean="outboxSystem" />
-		</property>
-		<property name="sender">
-			<ref bean="system" />
-		</property>
-		<property name="recipient">
-			<ref bean="administrator1" />
-		</property>
-	</bean>
-
-	<bean id="message2System" class="domain.Message">
-		<property name="subject" value="Subjeto" />
-		<property name="body" value="Cuerpo" />
-		<property name="moment" value="June 29, 2015 15:00" />
-		<property name="priority" value="HIGH" />
-		<property name="tags" value="tgs" />
-		<property name="box">
-			<ref bean="folder1Admin1" />
-		</property>
-		<property name="sender">
-			<ref bean="administrator1" />
-		</property>
-		<property name="recipient">
-			<ref bean="system" />
-		</property>
-	</bean>
-
-
-	<bean id="message3System" class="domain.Message">
-		<property name="subject" value="Ayuda" />
-		<property name="body"
-			value="He perdido el cirio , lo deje un rato cuando estaba comiendo y me lo han robado ,salgo mañana y lo necesito " />
-		<property name="moment" value="January 14, 2018 10:45" />
-		<property name="priority" value="HIGH" />
-		<property name="tags" value="robo,cirio,nazareno,cacharro" />
-		<property name="box">
-			<ref bean="folder2Member1" />
-		</property>
-		<property name="sender">
-			<ref bean="member1" />
-		</property>
-		<property name="recipient">
-			<ref bean="administrator1" />
-		</property>
-	</bean>
-
-
-
-	<bean id="message4System" class="domain.Message">
-		<property name="subject" value="Ayuda" />
-		<property name="body"
-			value="He perdido el cirio , lo deje un rato cuando estaba comiendo y me lo han robado ,salgo mañana y lo necesito " />
-		<property name="moment" value="January 14, 2018 10:45" />
-		<property name="priority" value="HIGH" />
-		<property name="tags" value="robo,cirio,nazareno,cacharro" />
-		<property name="box">
-			<ref bean="folder1Admin1" />
-		</property>
-		<property name="sender">
-			<ref bean="administrator1" />
-		</property>
-		<property name="recipient">
-			<ref bean="member1" />
-		</property>
-	</bean>
-
-
-
-	<bean id="message5System" class="domain.Message">
-		<property name="subject" value="VIAGRA" />
-		<property name="body"
-			value="BUY NOW 70% AND HAVE A CHANCE OF BEING CHOSEN FOR A MILLION DOLAR PRICE IT´S 'Fabuloso' " />
-		<property name="moment" value="February 14, 2014 14:22" />
-		<property name="priority" value="LOW" />
-		<property name="tags" value="VIAGRA,SEX,CIALIS,MILLON" />
-		<property name="box">
-			<ref bean="folder2Member2" />
-		</property>
-		<property name="sender">
-			<ref bean="member2" />
-		</property>
-		<property name="recipient">
-			<ref bean="administrator1" />
-		</property>
-	</bean>
-
-	<bean id="message6System" class="domain.Message">
-		<property name="subject" value="VIAGRA" />
-		<property name="body"
-			value="BUY NOW 70% AND HAVE A CHANCE OF BEING CHOSEN FOR A MILLION DOLAR PRICE IT´S 'Fabuloso' " />
-		<property name="moment" value="February 14, 2014 14:22" />
-		<property name="priority" value="LOW" />
-		<property name="tags" value="VIAGRA,SEX,CIALIS,MILLON" />
-		<property name="box">
-			<ref bean="folder4Admin1" />
-		</property>
-		<property name="sender">
-			<ref bean="member2" />
-		</property>
-		<property name="recipient">
-			<ref bean="administrator1" />
-		</property>
-	</bean>
-
+	
 
 	<!-- Boxes del admin1 -->
 

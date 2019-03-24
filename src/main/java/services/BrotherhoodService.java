@@ -379,28 +379,33 @@ public class BrotherhoodService {
 					this.pathService.delete1(path);
 
 			}
-
-		area.setBrotherhood(null);
-		this.areaService.save(area);
-
+		if (area != null) {
+			area.setBrotherhood(null);
+			this.areaService.save(area);
+		}
 		if (!parades.isEmpty())
 			for (final Parade parade : parades) {
 				final List<Sponsorship> sponsorships = this.paradeService.findSponsorshipsByParadeId(parade.getId());
 				int i = 0;
-				while (i <= sponsorships.size()) {
-					final int j = 0;
-					this.sponsorshipService.delete(sponsorships.get(j));
-					sponsorships.remove(sponsorships.get(j));
-					i++;
-					if (sponsorships.isEmpty() || sponsorships == null || sponsorships.size() == 0) {
-						final List<Sponsorship> sponsorships2 = this.paradeService.findSponsorshipsByParadeId(parade.getId());
-						System.out.println(sponsorships2.size());
-						this.paradeService.delete1(parade);
+				if (!sponsorships.isEmpty())
+					while (i <= sponsorships.size()) {
+						final int j = 0;
+						this.sponsorshipService.delete(sponsorships.get(j));
+						sponsorships.remove(sponsorships.get(j));
+						i++;
+						if (sponsorships.isEmpty() || sponsorships == null || sponsorships.size() == 0) {
+							final List<Sponsorship> sponsorships2 = this.paradeService.findSponsorshipsByParadeId(parade.getId());
+							System.out.println(sponsorships2.size());
+							this.paradeService.delete1(parade);
+						}
 					}
-				}
 
 			}
-
+		for (final Parade parade : parades) {
+			final List<Sponsorship> sponsorships = this.paradeService.findSponsorshipsByParadeId(parade.getId());
+			if (sponsorships.isEmpty())
+				this.paradeService.delete1(parade);
+		}
 		this.delete1(brotherhood);
 
 		//final Collection<Actor> actors = this.actorService.findAll();

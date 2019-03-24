@@ -14,6 +14,7 @@ import services.ActorService;
 import services.AreaService;
 import services.ConfigurationService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Area;
 
 @Controller
@@ -44,11 +45,13 @@ public class AreaBrotherhoodController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Area> areas;
-
+		final Actor a = this.actorService.findPrincipal();
 		areas = this.areaService.findAll();
 		result = new ModelAndView("area/list");
 		result.addObject("areas", areas);
+		result.addObject("areaService", this.areaService);
 		result.addObject("requestURI", "area/list.do");
+		result.addObject("brotherhoodId", a.getId());
 		result.addObject("banner", this.configurationService.findOne().getBanner());
 
 		return result;
