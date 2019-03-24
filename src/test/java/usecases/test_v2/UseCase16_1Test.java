@@ -27,10 +27,10 @@ import utilities.AbstractTest;
 public class UseCase16_1Test extends AbstractTest {
 
 	//	16. An actor who is authenticated as a sponsor must be able to:
-	//		Manage his or her sponsorships, which includes listing,
-	//		showing, creating, updating, and removing them.
-	//		Note that removing a sponsorship does not actually delete it from the system,
-	//		but de-activates it. A de-activated sponsorship can be re-activated later.
+	//		1.	Manage his or her sponsorships, which includes listing,
+	//			showing, creating, updating, and removing them.
+	//			Note that removing a sponsorship does not actually delete it from the system,
+	//			but de-activates it. A de-activated sponsorship can be re-activated later.
 
 	// System under test ------------------------------------------------------
 
