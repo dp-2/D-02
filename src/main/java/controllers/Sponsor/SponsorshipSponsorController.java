@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import controllers.AbstractController;
+import domain.Actor;
+import domain.Parade;
+import domain.Sponsorship;
 import security.LoginService;
 import services.ActorService;
 import services.ConfigurationService;
 import services.ParadeService;
 import services.SponsorshipService;
-import controllers.AbstractController;
-import domain.Actor;
-import domain.Parade;
-import domain.Sponsorship;
 
 @Controller
 @RequestMapping("/sponsorship/sponsor")
@@ -73,6 +73,7 @@ public class SponsorshipSponsorController extends AbstractController {
 
 			result.addObject("sponsorships", sponsorships);
 			result.addObject("sponsorId", sponsorId);
+			result.addObject("banner", this.configurationService.findOne().getBanner());
 			result.addObject("requestURI", "sponsorship/sponsor/MyList.do");
 		}
 		return result;
@@ -161,6 +162,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		result.addObject("parades", parades);
 		result.addObject("makeName", makeName);
 		result.addObject("flatFare", flatFare);
+		result.addObject("banner", this.configurationService.findOne().getBanner());
 		result.addObject("requestURI", "sponsorship/sponsor/edit.do");
 
 		return result;

@@ -13,21 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
-import services.ChapterService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Chapter;
 import forms.ActorForm;
+import services.ActorService;
+import services.ChapterService;
+import services.ConfigurationService;
 
 @Controller
 @RequestMapping("chapter")
 public class ChapterController extends AbstractController {
 
 	@Autowired
-	private ChapterService	chapterService;
+	private ChapterService			chapterService;
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	//-------------------------- List ----------------------------------
@@ -39,6 +43,7 @@ public class ChapterController extends AbstractController {
 		chapters = this.chapterService.findAll();
 		result = new ModelAndView("chapter/list");
 		result.addObject("chapters", chapters);
+		result.addObject("banner", this.configurationService.findOne().getBanner());
 		result.addObject("requestURI", "chapter/list.do");
 
 		return result;
@@ -105,6 +110,7 @@ public class ChapterController extends AbstractController {
 		final Boolean isPrincipalAuthorizedEdit = this.isPrincipalAuthorizedEdit(actorForm);
 		res.addObject("chapterForm", actorForm);
 		res.addObject("message", message);
+		res.addObject("banner", this.configurationService.findOne().getBanner());
 		res.addObject("isPrincipalAuthorizedEdit", isPrincipalAuthorizedEdit);
 		return res;
 	}
