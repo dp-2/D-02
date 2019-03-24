@@ -17,7 +17,7 @@ public interface PeriodRecordRepository extends JpaRepository<PeriodRecord, Inte
 
 	//Queries Dashboard PARADE-------------------------------------------------------------
 
-	//C1
+	//C1-Period
 
 	@Query("select avg(1.0*(select count(p.history) from PeriodRecord p where p.history.id= h.id) ) from History h")
 	Double avgQueryC1();

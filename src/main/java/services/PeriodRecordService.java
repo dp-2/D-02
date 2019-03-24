@@ -53,7 +53,7 @@ public class PeriodRecordService {
 	}
 	public PeriodRecord save(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
-		final PeriodRecord periodRecordDB = (PeriodRecord) this.serviceUtils.checkObjectSave(periodRecord);
+
 		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
 		this.serviceUtils.checkActor(periodRecord.getHistory().getBrotherhood());
 		this.serviceUtils.checkAuthority("BROTHERHOOD");
@@ -79,6 +79,7 @@ public class PeriodRecordService {
 	}
 
 	public void delete(final PeriodRecord periodRecord) {
+		this.serviceUtils.checkActor(periodRecord.getHistory().getBrotherhood());
 		this.periodRecordRepository.delete(periodRecord);
 	}
 

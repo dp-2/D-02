@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.MiscellaneousRecordRepository;
-import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
 import domain.MiscellaneousRecord;
+import repositories.MiscellaneousRecordRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -81,6 +81,22 @@ public class MiscellaneousRecordService {
 
 	public void delete(final MiscellaneousRecord miscellaneousRecord) {
 		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
+	}
+
+	public Double avgQueryC1() {
+		return this.miscellaneousRecordRepository.avgQueryC1();
+	}
+
+	public Double maxQueryC1() {
+		return this.miscellaneousRecordRepository.maxQueryC1();
+	}
+
+	public Double minQueryC1() {
+		return this.miscellaneousRecordRepository.minQueryC1();
+	}
+
+	public Double stddevQueryC1() {
+		return this.miscellaneousRecordRepository.stddevQueryC1();
 	}
 
 }

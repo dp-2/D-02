@@ -1,8 +1,8 @@
 /*
  * AdministratorController.java
- * 
+ *
  * Copyright (C) 2019 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -22,6 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Administrator;
+import domain.Brotherhood;
+import domain.Enroll;
+import domain.Member;
+import domain.Parade;
+import domain.Warning;
 import services.ActorService;
 import services.AdministratorService;
 import services.AreaService;
@@ -30,69 +37,78 @@ import services.ChapterService;
 import services.ConfigurationService;
 import services.EnrollService;
 import services.FinderService;
+import services.InceptionRecordService;
+import services.LegalRecordService;
+import services.LinkRecordService;
 import services.MarchService;
 import services.MemberService;
+import services.MiscellaneousRecordService;
 import services.ParadeService;
 import services.PeriodRecordService;
 import services.PositionService;
 import services.SponsorshipService;
 import services.WarningService;
-import domain.Actor;
-import domain.Administrator;
-import domain.Brotherhood;
-import domain.Enroll;
-import domain.Member;
-import domain.Parade;
-import domain.Warning;
 
 @Controller
 @RequestMapping("/administrator")
 public class AdministratorController extends AbstractController {
 
 	@Autowired
-	private PositionService			positionService;
+	private PositionService				positionService;
 
 	@Autowired
-	private ParadeService			paradeService;
+	private ParadeService				paradeService;
 
 	@Autowired
-	private AdministratorService	administratorService;
+	private AdministratorService		administratorService;
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService				actorService;
 
 	@Autowired
-	private MemberService			memberService;
+	private MemberService				memberService;
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService			brotherhoodService;
 
 	@Autowired
-	private EnrollService			enrollService;
+	private EnrollService				enrollService;
 
 	@Autowired
-	private MarchService			marchService;
+	private MarchService				marchService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
+	private ConfigurationService		configurationService;
 
 	@Autowired
-	private AreaService				areaService;
+	private AreaService					areaService;
 
 	@Autowired
-	private FinderService			finderService;
+	private FinderService				finderService;
 
 	@Autowired
-	public WarningService			warningService;
+	public WarningService				warningService;
 
 	@Autowired
-	public PeriodRecordService		periodRecordService;
+	public PeriodRecordService			periodRecordService;
 
 	@Autowired
-	public SponsorshipService		sponsorshipService;
+	public InceptionRecordService		inceptionRecordService;
 
 	@Autowired
-	private ChapterService			chapterService;
+	public MiscellaneousRecordService	miscellaneousRecordService;
+
+	@Autowired
+	public LegalRecordService			legalRecordService;
+
+	@Autowired
+	public LinkRecordService			linkRecordService;
+
+	@Autowired
+	public SponsorshipService			sponsorshipService;
+
+	@Autowired
+	private ChapterService				chapterService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -224,30 +240,130 @@ public class AdministratorController extends AbstractController {
 
 		//DASHBOARD ACME-PARADE
 		//QueryC1
-		final Double avgC1 = this.periodRecordService.avgQueryC1();
-		final Double maxC1 = this.periodRecordService.maxQueryC1();
-		final Double minC1 = this.periodRecordService.minQueryC1();
-		final Double stddevC1 = this.periodRecordService.stddevQueryC1();
+		final Double avgC1P = this.periodRecordService.avgQueryC1();
+		final Double maxC1P = this.periodRecordService.maxQueryC1();
+		final Double minC1P = this.periodRecordService.minQueryC1();
+		final Double stddevC1P = this.periodRecordService.stddevQueryC1();
 
-		if (avgC1 != null)
-			result.addObject("avgC1", df.format(avgC1));
-		else
-			result.addObject("avgc1", 0.0);
+		final Double avgC1L = this.linkRecordService.avgQueryC1();
+		final Double maxC1L = this.linkRecordService.maxQueryC1();
+		final Double minC1L = this.linkRecordService.minQueryC1();
+		final Double stddevC1L = this.linkRecordService.stddevQueryC1();
 
-		if (maxC1 != null)
-			result.addObject("maxC1", df.format(maxC1));
-		else
-			result.addObject("maxC1", 0.0);
+		final Double avgC1M = this.miscellaneousRecordService.avgQueryC1();
+		final Double maxC1M = this.miscellaneousRecordService.maxQueryC1();
+		final Double minC1M = this.miscellaneousRecordService.minQueryC1();
+		final Double stddevC1M = this.miscellaneousRecordService.stddevQueryC1();
 
-		if (minC1 != null)
-			result.addObject("minC1", df.format(minC1));
-		else
-			result.addObject("minC1", 0.0);
+		final Double avgC1LL = this.legalRecordService.avgQueryC1();
+		final Double maxC1LL = this.legalRecordService.maxQueryC1();
+		final Double minC1LL = this.legalRecordService.minQueryC1();
+		final Double stddevC1LL = this.legalRecordService.stddevQueryC1();
 
-		if (stddevC1 != null)
-			result.addObject("stddevC1", df.format(stddevC1));
+		final Double avgC1I = this.inceptionRecordService.avgQueryC1();
+		final Double maxC1I = this.inceptionRecordService.maxQueryC1();
+		final Double minC1I = this.inceptionRecordService.minQueryC1();
+		final Double stddevC1I = this.inceptionRecordService.stddevQueryC1();
+
+		if (avgC1P != null)
+			result.addObject("avgC1P", df.format(avgC1P));
 		else
-			result.addObject("stddevc1", 0.0);
+			result.addObject("avgC1P", 0.0);
+
+		if (maxC1P != null)
+			result.addObject("maxC1P", df.format(maxC1P));
+		else
+			result.addObject("maxC1P", 0.0);
+
+		if (minC1P != null)
+			result.addObject("minC1P", df.format(minC1P));
+		else
+			result.addObject("minC1P", 0.0);
+
+		if (stddevC1P != null)
+			result.addObject("stddevC1P", df.format(stddevC1P));
+		else
+			result.addObject("stddevC1P", 0.0);
+
+		if (avgC1L != null)
+			result.addObject("avgC1L", df.format(avgC1L));
+		else
+			result.addObject("avgC1L", 0.0);
+
+		if (maxC1L != null)
+			result.addObject("maxC1L", df.format(maxC1L));
+		else
+			result.addObject("maxC1L", 0.0);
+
+		if (minC1L != null)
+			result.addObject("minC1L", df.format(minC1L));
+		else
+			result.addObject("minC1L", 0.0);
+
+		if (stddevC1L != null)
+			result.addObject("stddevC1L", df.format(stddevC1L));
+		else
+			result.addObject("stddevC1L", 0.0);
+
+		if (avgC1LL != null)
+			result.addObject("avgC1LL", df.format(avgC1LL));
+		else
+			result.addObject("avgC1LL", 0.0);
+
+		if (maxC1LL != null)
+			result.addObject("maxC1LL", df.format(maxC1LL));
+		else
+			result.addObject("maxC1LL", 0.0);
+
+		if (minC1LL != null)
+			result.addObject("minC1LL", df.format(minC1LL));
+		else
+			result.addObject("minC1LL", 0.0);
+
+		if (stddevC1LL != null)
+			result.addObject("stddevC1LL", df.format(stddevC1LL));
+		else
+			result.addObject("stddevC1LL", 0.0);
+
+		if (avgC1M != null)
+			result.addObject("avgC1M", df.format(avgC1M));
+		else
+			result.addObject("avgC1M", 0.0);
+
+		if (maxC1M != null)
+			result.addObject("maxC1M", df.format(maxC1M));
+		else
+			result.addObject("maxC1M", 0.0);
+
+		if (minC1M != null)
+			result.addObject("minC1M", df.format(minC1M));
+		else
+			result.addObject("minC1M", 0.0);
+
+		if (stddevC1M != null)
+			result.addObject("stddevC1M", df.format(stddevC1M));
+		else
+			result.addObject("stddevC1M", 0.0);
+
+		if (avgC1I != null)
+			result.addObject("avgC1I", df.format(avgC1I));
+		else
+			result.addObject("avgC1I", 0.0);
+
+		if (maxC1I != null)
+			result.addObject("maxC1I", df.format(maxC1I));
+		else
+			result.addObject("maxC1I", 0.0);
+
+		if (minC1I != null)
+			result.addObject("minC1I", df.format(minC1I));
+		else
+			result.addObject("minC1I", 0.0);
+
+		if (stddevC1I != null)
+			result.addObject("stddevC1I", df.format(stddevC1I));
+		else
+			result.addObject("stddevC1I", 0.0);
 
 		//QUERY C2
 		final String queryC2 = this.brotherhoodService.brotherhoodLargestHistory().get(0);
@@ -271,22 +387,22 @@ public class AdministratorController extends AbstractController {
 		final Double minB2 = this.chapterService.queryB2MIN();
 		final Double stddevB2 = this.chapterService.queryB2STDDEV();
 
-		if (avgC1 != null)
+		if (avgB2 != null)
 			result.addObject("avgB2", df.format(avgB2));
 		else
 			result.addObject("avgB2", 0.0);
 
-		if (maxC1 != null)
+		if (maxB2 != null)
 			result.addObject("maxB2", df.format(maxB2));
 		else
 			result.addObject("maxB2", 0.0);
 
-		if (minC1 != null)
+		if (minB2 != null)
 			result.addObject("minB2", df.format(minB2));
 		else
 			result.addObject("minB2", 0.0);
 
-		if (stddevC1 != null)
+		if (stddevB2 != null)
 			result.addObject("stddevB2", df.format(stddevB2));
 		else
 			result.addObject("stddevB2", 0.0);

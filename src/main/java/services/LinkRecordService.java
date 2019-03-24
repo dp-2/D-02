@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.LinkRecordRepository;
-import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
 import domain.LinkRecord;
+import repositories.LinkRecordRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -80,6 +80,22 @@ public class LinkRecordService {
 
 	public void delete(final LinkRecord record) {
 		this.linkRecordRepository.delete(record);
+	}
+
+	public Double avgQueryC1() {
+		return this.linkRecordRepository.avgQueryC1();
+	}
+
+	public Double maxQueryC1() {
+		return this.linkRecordRepository.maxQueryC1();
+	}
+
+	public Double minQueryC1() {
+		return this.linkRecordRepository.minQueryC1();
+	}
+
+	public Double stddevQueryC1() {
+		return this.linkRecordRepository.stddevQueryC1();
 	}
 
 }
