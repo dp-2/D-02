@@ -106,12 +106,15 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final PeriodRecord periodRecord, final BindingResult binding) {
 		ModelAndView result;
+		final Exception dateErr = new Exception("fechas MAL");
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(periodRecord);
 			System.out.println(binding.getAllErrors());
 		} else
 			try {
+				if (!periodRecord.getStartYear().before(periodRecord.getEndYear()))
+					throw dateErr;
 				this.periodRecordService.save(periodRecord);
 				result = new ModelAndView("redirect:list.do?historyId=" + periodRecord.getHistory().getId());
 			} catch (final Throwable oops) {
