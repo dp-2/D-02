@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.AreaRepository;
+import security.LoginService;
 import domain.Actor;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
-import repositories.AreaRepository;
-import security.LoginService;
 
 @Service
 @Transactional

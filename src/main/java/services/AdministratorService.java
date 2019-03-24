@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
@@ -319,6 +320,7 @@ public class AdministratorService {
 
 	public void deleteAdmin(final Administrator admin) {
 		Assert.notNull(admin);
+		this.checkNumAdmin();
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findProfileByActorId(admin.getId());
 		for (final SocialProfile s : socialProfiles) {
 			Assert.isTrue(s.getActor().getId() == admin.getId());
@@ -327,6 +329,15 @@ public class AdministratorService {
 		this.administratorRepository.delete(admin.getId());
 		final Collection<Actor> actors = this.actorService.findAll();
 		Assert.isTrue(!(actors.contains(admin)));
+	}
+
+	public boolean checkNumAdmin() {
+		final List<Administrator> a = this.administratorRepository.findAll();
+		boolean res = false;
+		if (a.size() > 1)
+			res = true;
+		Assert.isTrue(res == true, "UniqueAdmin");
+		return res;
 	}
 
 }
