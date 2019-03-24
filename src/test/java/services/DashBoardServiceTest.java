@@ -29,41 +29,6 @@ public class DashBoardServiceTest extends AbstractTest {
 	private MemberService		memberService;
 
 
-	@Test
-	public void authorityTest() {
-		final Object AccessDashBoardTest[][] = {
-			{
-				"admin", java.lang.IllegalArgumentException.class
-			//Probamos con un user admin que no exista
-			}, {
-				"admin1", null
-			//Este admin si esta registrado en el sistema
-			},
-
-		};
-		for (int i = 0; i < AccessDashBoardTest.length; i++)
-			this.AuthorityMethod((String) AccessDashBoardTest[i][0], (Class<?>) AccessDashBoardTest[i][1]);
-	}
-
-	private void AuthorityMethod(final String username, final Class<?> expected) {
-		Class<?> caught;
-
-		caught = null;
-		try {
-			this.authenticate(username);
-
-			this.areaService.avgHermandadesPorArea();
-			this.brotherhoodService.brotherhoodLargestHistory();
-			this.brotherhoodService.brotherhoodLargestHistoryThanAVG();
-			//			final Actor a = this.actorService.findActorByUsername("member2");
-			//			this.administratorService.banActor(a);
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-
-		this.checkExceptions(expected, caught);
-	}
-
 	//Aqui vamos a probar que los parametros de las queries son correctos o incorrectos segun queramos,para esperar que funcione
 	@Test
 	public void dashboardValueTest() {
@@ -118,4 +83,39 @@ public class DashBoardServiceTest extends AbstractTest {
 
 		this.checkExceptions(expected, caught);
 	}
+
+	@Test
+	public void adminTest() {
+		final Object AccessDashBoardTest[][] = {
+			{
+				"admin", java.lang.IllegalArgumentException.class
+			//Probamos con un user admin que no exista
+			}, {
+				"admin1", null
+			//Este admin si esta registrado en el sistema
+			},
+
+		};
+		for (int i = 0; i < AccessDashBoardTest.length; i++)
+			this.adminTestTemplate((String) AccessDashBoardTest[i][0], (Class<?>) AccessDashBoardTest[i][1]);
+	}
+
+	private void adminTestTemplate(final String username, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(username);
+			this.areaService.avgHermandadesPorArea();
+			this.brotherhoodService.brotherhoodLargestHistory();
+			this.brotherhoodService.brotherhoodLargestHistoryThanAVG();
+			//			final Actor a = this.actorService.findActorByUsername("member2");
+			//			this.administratorService.banActor(a);
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+
 }
