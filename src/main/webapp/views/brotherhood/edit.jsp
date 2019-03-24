@@ -66,7 +66,4 @@
 		<br/>
 		<br/>
 
-	<acme:cancel url="/actor/export.do?actorId=${actorId}"
-		code="actor.export" />
-
 </jstl:if>

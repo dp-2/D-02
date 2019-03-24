@@ -26,12 +26,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
-import repositories.ActorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
-import security.UserAccountRepository;
-
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -52,8 +46,15 @@ import domain.March;
 import domain.Member;
 import domain.Message;
 import domain.Parade;
+import domain.Proclaim;
 import domain.Sponsor;
+import domain.Sponsorship;
 import forms.ActorForm;
+import repositories.ActorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -117,6 +118,12 @@ public class ActorService {
 
 	@Autowired
 	private DFloatService			dFloatService;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
+
+	@Autowired
+	private ProclaimService			proclaimService;
 
 
 	public Actor create(final String authority) {
@@ -470,7 +477,7 @@ public class ActorService {
 
 			try {
 
-				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\" + member.getUserAccount().getUsername() + "_Data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\" + member.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
 				document = this.docMember(document, member);
@@ -489,7 +496,7 @@ public class ActorService {
 			final Brotherhood brotherhood = this.brotherhoodService.findOne(actor.getId());
 
 			try {
-				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\" + brotherhood.getUserAccount().getUsername() + "_Data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\" + brotherhood.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
 				document = this.docBrotherhood(document, brotherhood);
@@ -505,7 +512,7 @@ public class ActorService {
 			final Administrator administrator = this.administratorService.findOne(actor.getId());
 
 			try {
-				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\" + administrator.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
 				document.close();
@@ -520,9 +527,10 @@ public class ActorService {
 			final Sponsor sponsor = this.sponsorService.findOne(actor.getId());
 
 			try {
-				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\" + sponsor.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
+				document = this.docSponsor(document, sponsor);
 				document.close();
 				pdfWriter.close();
 			} catch (final IOException e) {
@@ -536,9 +544,10 @@ public class ActorService {
 			final Chapter chapter = this.chapterService.findOne(actor.getId());
 
 			try {
-				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Downloads\\Export_Data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\" + chapter.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
+				document = this.docChapter(document, chapter);
 				document.close();
 				pdfWriter.close();
 			} catch (final IOException e) {
@@ -589,10 +598,6 @@ public class ActorService {
 		final Image iTextImage = Image.getInstance(baos.toByteArray());
 		iTextImage.scaleToFit(100f, 200f);
 		return iTextImage;
-	}
-
-	public void delete(final Actor a) {
-		final Actor actor = (Actor) this.serviceUtils.checkObject(a);
 	}
 
 	public Collection<Box> findBoxByActorId(final int actorId) {
@@ -686,6 +691,45 @@ public class ActorService {
 					document.add(this.urlToImage(new URL(string)));
 					document.add(new Paragraph("\n"));
 				}
+			}
+		}
+
+		return document;
+	}
+
+	public Document docSponsor(final Document document, final Sponsor sponsor) throws DocumentException, MalformedURLException, IOException {
+
+		final List<Sponsorship> sponsorships = new ArrayList<>(this.sponsorshipService.findSponsorshipsBySponsorId(sponsor.getId()));
+		if (!sponsorships.isEmpty()) {
+			document.add(new Paragraph("SPONSORSHIPS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			document.add(new Paragraph("\n"));
+			for (final Sponsorship sponsorship : sponsorships) {
+				if (!sponsorship.getBanner().isEmpty())
+					document.add(this.urlToImage(new URL(sponsorship.getBanner())));
+				document.add(new Paragraph("\n"));
+				if (sponsorship.getActive() == true)
+					document.add(new Paragraph("Activated"));
+				else
+					document.add(new Paragraph("Desactivated"));
+				document.add(new Paragraph("\n"));
+			}
+		}
+
+		return document;
+	}
+
+	public Document docChapter(final Document document, final Chapter chapter) throws DocumentException, MalformedURLException, IOException {
+
+		final List<Proclaim> proclaims = new ArrayList<>(this.proclaimService.findProclaimByChapter(chapter.getId()));
+		if (!proclaims.isEmpty()) {
+			document.add(new Paragraph("PROCLAIMS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+			document.add(new Paragraph("\n"));
+			int i = 1;
+			for (final Proclaim proclaim : proclaims) {
+				document.add(new Paragraph("Proclaim" + " " + i + ":"));
+				document.add(new Paragraph(proclaim.getText()));
+				document.add(new Paragraph("\n"));
+				i++;
 			}
 		}
 
