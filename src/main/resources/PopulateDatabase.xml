@@ -335,8 +335,8 @@
 		<property name="holderName" value="holderName1" />
 		<property name="makeName" value="VISA" />
 		<property name="number" value="4172711227177926" />
-		<property name="expirationMonth" value="1" />
-		<property name="expirationYear" value="2019" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2020" />
 		<property name="CVVCode" value="110" />
 	</bean>
 
@@ -1864,8 +1864,8 @@
 		<property name="title" value="History1"></property>
 
 	</bean>
-	
-	
+
+
 
 
 
@@ -2049,8 +2049,8 @@
 
 	</bean>
 
-	
-	
+
+
 	<bean id="history3" class="domain.History">
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="title" value="History sobre los Gitanos Volumen 2"></property>
