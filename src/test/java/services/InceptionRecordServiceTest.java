@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.History;
@@ -48,16 +49,6 @@ public class InceptionRecordServiceTest extends AbstractTest {
 	@Test
 	public void testFindAll() {
 		this.findAllTest(null, null);
-	}
-
-	@Test
-	public void testCreate() {
-		this.createTest("brotherhood1", "history1", null);
-	}
-
-	@Test
-	public void testCreateWrongUser() {
-		this.createTest("brotherhood2", "history1", IllegalArgumentException.class);
 	}
 
 	@Test
@@ -135,28 +126,15 @@ public class InceptionRecordServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	private void createTest(final String username, final String historyBeanName, final Class<?> expected) {
-		Class<?> caught = null;
-		try {
-			super.authenticate(username);
-			final History history = this.historyService.findOne(super.getEntityId(historyBeanName));
-			this.inceptionRecordService.create(history);
-			super.authenticate(null);
-		} catch (final Throwable t) {
-			caught = t.getClass();
-		}
-		super.checkExceptions(expected, caught);
-	}
 	private void saveTest(final String username, final String[] parameters, final List<String> photos, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			super.authenticate(username);
 			final String historyBeanName = parameters[0];
 			final History history = this.historyService.findOne(super.getEntityId(historyBeanName));
-			final InceptionRecord inceptionRecord = this.inceptionRecordService.create(history);
-			final InceptionRecord res = this.inceptionRecordAssignParameters(inceptionRecord, parameters, photos);
-			this.inceptionRecordService.save(res);
+			final InceptionRecord res = this.inceptionRecordService.createAndSave(history);
 			this.inceptionRecordService.flush();
+			Assert.notNull(this.inceptionRecordService.findOne(res.getId()));
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -168,10 +146,13 @@ public class InceptionRecordServiceTest extends AbstractTest {
 		Class<?> caught = null;
 		try {
 			super.authenticate(username);
-			final InceptionRecord inceptionRecord = this.inceptionRecordService.findOne(super.getEntityId(inceptionRecordBeanName));
-			final InceptionRecord res = this.inceptionRecordAssignParameters(inceptionRecord, parameters, photos);
-			this.inceptionRecordService.save(res);
+			InceptionRecord inceptionRecord = this.inceptionRecordService.findOne(super.getEntityId(inceptionRecordBeanName));
+			final Integer inceptionRecordId = inceptionRecord.getId();
+			final Integer inceptionRecordVersion = inceptionRecord.getVersion();
+			inceptionRecord = this.inceptionRecordAssignParameters(inceptionRecord, parameters, photos);
+			final InceptionRecord res = this.inceptionRecordService.save(inceptionRecord);
 			this.inceptionRecordService.flush();
+			Assert.isTrue(res.getId() == inceptionRecordId && res.getVersion() == inceptionRecordVersion + 1);
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();
@@ -185,6 +166,7 @@ public class InceptionRecordServiceTest extends AbstractTest {
 			super.authenticate(username);
 			final InceptionRecord inceptionRecord = this.inceptionRecordService.findOne(super.getEntityId(inceptionRecordBeanName));
 			this.inceptionRecordService.delete(inceptionRecord);
+			Assert.isNull(this.inceptionRecordService.findOne(inceptionRecord.getId()));
 			super.authenticate(null);
 		} catch (final Throwable t) {
 			caught = t.getClass();

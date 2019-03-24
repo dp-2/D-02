@@ -58,7 +58,7 @@ public class LegalRecordService {
 		Assert.notNull(legalRecord);
 		final LegalRecord legalRecordDB = (LegalRecord) this.serviceUtils.checkObjectSave(legalRecord);
 		//compruebo que el brotherhood que está intentando editar sea el el dueño del historial al que pertenece dicho Record
-		this.serviceUtils.checkActor(legalRecord.getHistory().getBrotherhood());
+		this.serviceUtils.checkActor(legalRecordDB.getHistory().getBrotherhood());
 		this.serviceUtils.checkAuthority("BROTHERHOOD");
 
 		//comprobamos que el id del objeto no sea nulo o negativo por seguridad

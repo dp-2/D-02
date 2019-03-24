@@ -59,16 +59,6 @@ public class BrotherhoodServiceTest extends AbstractTest {
 		//this.deleteTest("brotherhood2", "brotherhood1", IllegalArgumentException.class);
 	}
 
-	@Test
-	public void surpriseMotherfucker() {
-		final List<Url> pictures = new ArrayList<Url>();
-		final Date establishedMoment = new Date(System.currentTimeMillis() - 1000);
-		// Se crea y guarda guarda un brotherhood
-		this.updateTest("brotherhood2", "brotherhood1", new String[] {
-			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "title", "username", "password"
-		}, pictures, false, false, 0, establishedMoment, IllegalArgumentException.class);
-	}
-
 	// Templates
 
 	private void updateTest(final String username, final String brotherhoodBeanName, final String[] parameters, final List<Url> pictures, final Boolean banned, final Boolean spammer, final Integer score, final Date establishedMoment,
