@@ -39,11 +39,6 @@ public class PeriodRecord extends DomainEntity {
 	private Date			endYear;
 	private List<String>	photos;
 
-	//relaciones
-	private History			history;
-
-
-	//Getters y setters de los atributos propios
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
@@ -65,18 +60,6 @@ public class PeriodRecord extends DomainEntity {
 		this.text = text;
 	}
 
-	@NotNull
-	@Valid
-	@ManyToOne(optional = true)
-	public History getHistory() {
-		return this.history;
-	}
-
-	public void setHistory(final History history) {
-		this.history = history;
-	}
-
-	//Getters y Setters
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
@@ -109,6 +92,22 @@ public class PeriodRecord extends DomainEntity {
 
 	public void setPhotos(final List<String> photos) {
 		this.photos = photos;
+	}
+
+
+	//relaciones
+	private History history;
+
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = true)
+	public History getHistory() {
+		return this.history;
+	}
+
+	public void setHistory(final History history) {
+		this.history = history;
 	}
 
 }

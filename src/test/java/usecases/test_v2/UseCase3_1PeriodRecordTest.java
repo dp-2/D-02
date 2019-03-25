@@ -13,15 +13,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.util.AssertionErrors;
 
+import domain.Brotherhood;
+import domain.History;
+import domain.PeriodRecord;
 import services.BrotherhoodService;
 import services.HistoryService;
 import services.PeriodRecordService;
 import utilities.AbstractTest;
-import domain.Brotherhood;
-import domain.History;
-import domain.PeriodRecord;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -36,13 +35,13 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	BrotherhoodService	brotherhoodService;
+	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	PeriodRecordService	periodRecordService;
+	private PeriodRecordService	periodRecordService;
 
 	@Autowired
-	HistoryService		historyService;
+	private HistoryService		historyService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -56,7 +55,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Brotherhood puede ver sus periodRecords (POSITIVO)
 			}, {
 				"member1", NullPointerException.class
-			//Un member no deberia ver sus periodRecords (NEGATIVO) 
+			//Un member no deberia ver sus periodRecords (NEGATIVO)
 			}
 		};
 		int j = 1;
@@ -76,7 +75,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Brotherhood1 puede editar sus periodRecord (POSITIVO)
 			}, {
 				"brotherhood1", "periodRecord2", IllegalArgumentException.class
-			//Brotherhood1 no deberia editar periodRecord2 porque no es suyo (NEGATIVO) 
+			//Brotherhood1 no deberia editar periodRecord2 porque no es suyo (NEGATIVO)
 			}
 		};
 		int j = 1;
@@ -93,11 +92,11 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "a", null
+				"brotherhood1", "test", null
 			//Brotherhood1 puede crear sus periodRecord (POSITIVO)
 			}, {
-				"brotherhood1", null, AssertionErrors.class
-			//Brotherhood1 no deberia crear un periodRecord con text nulo (NEGATIVO) 
+				null, "test", IllegalArgumentException.class
+			//Brotherhood1 no deberia crear un periodRecord con text nulo (NEGATIVO)
 			}
 		};
 		int j = 1;
@@ -118,7 +117,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Brotherhood1 puede borrar sus periodRecord (POSITIVO)
 			}, {
 				"brotherhood1", "periodRecord2", IllegalArgumentException.class
-			//Brotherhood1 no deberia borrar un periodRecord que no es suya (NEGATIVO) 
+			//Brotherhood1 no deberia borrar un periodRecord que no es suya (NEGATIVO)
 			}
 		};
 		int j = 1;
@@ -194,7 +193,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateCreate(final String username, final String title, final Class<?> expected) {
+	protected void templateCreate(final String username, final String string, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -205,18 +204,19 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 
 			//Creamos un periodRecord para la historia de la hermandad logueada
 			final PeriodRecord periodRecordbd = this.periodRecordService.create();
-			periodRecordbd.setText("b");
+			periodRecordbd.setText("a");
 			periodRecordbd.setEndYear(new Date(2018, 02, 12));
 			periodRecordbd.setStartYear(new Date(2017, 02, 12));
-			periodRecordbd.setTitle(title);
+			periodRecordbd.setTitle(string);
 			final String a = "http://a.com";
 			final List<String> p = new ArrayList<>();
 			p.add(a);
 			periodRecordbd.setPhotos(p);
 
 			//Gruadamos
-			this.periodRecordService.save(periodRecordbd);
+			final PeriodRecord saved = this.periodRecordService.save(periodRecordbd);
 
+			System.out.println(this.periodRecordService.findOne(saved.getId()).getTitle());
 			//Nos desautenticamos
 			this.unauthenticate();
 
