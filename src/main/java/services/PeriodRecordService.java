@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.PeriodRecordRepository;
-import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
 import domain.PeriodRecord;
+import repositories.PeriodRecordRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -51,6 +51,7 @@ public class PeriodRecordService {
 		periodRecord.setHistory(history);
 		return periodRecord;
 	}
+
 	public PeriodRecord save(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
 

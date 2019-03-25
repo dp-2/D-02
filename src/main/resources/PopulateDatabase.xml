@@ -211,7 +211,7 @@
 	<!-- La contraseña de system es intencional, no se puede acceder a esta 
 		cuenta -->
 
-	
+
 
 
 	<!-- Other domain beans come here -->
@@ -438,7 +438,7 @@
 	</bean>
 
 
-	
+
 
 	<!-- Area -->
 
@@ -489,7 +489,7 @@
 
 	<!-- Box -->
 
-	
+
 
 	<!-- Boxes del admin1 -->
 
@@ -1536,7 +1536,7 @@
 	<!-- Configuration -->
 
 	<bean id="configuration" class="domain.Configuration">
-		<property name="nameSys" value="Acme-Madrugá" />
+		<property name="nameSys" value="Acme-Parade" />
 		<property name="banner" value="https://tinyurl.com/acme-madruga" />
 		<property name="welcomeMessageEN"
 			value="Welcome to Acme Parade¡! The site to organise your parades." />
