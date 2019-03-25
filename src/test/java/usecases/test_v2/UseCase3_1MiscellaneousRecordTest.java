@@ -92,8 +92,8 @@ public class UseCase3_1MiscellaneousRecordTest extends AbstractTest {
 				"brotherhood1", "miscellaneousRecord1", null
 			//Brotherhood1 puede crear sus miscellaneousRecord (POSITIVO)
 			}, {
-				"brotherhood1", null, AssertionError.class
-			//Brotherhood1 no deberia crear un miscellaneousRecord con text nulo (NEGATIVO) 
+				"member1", "aa", NullPointerException.class
+			//Member no deberia crear un miscellaneousRecord (NEGATIVO) 
 			}
 		};
 		int j = 1;
