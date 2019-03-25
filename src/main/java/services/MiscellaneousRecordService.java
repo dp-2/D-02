@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.MiscellaneousRecordRepository;
+import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
 import domain.MiscellaneousRecord;
-import repositories.MiscellaneousRecordRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -80,6 +80,7 @@ public class MiscellaneousRecordService {
 	}
 
 	public void delete(final MiscellaneousRecord miscellaneousRecord) {
+		this.serviceUtils.checkActor(miscellaneousRecord.getHistory().getBrotherhood());
 		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
 	}
 
