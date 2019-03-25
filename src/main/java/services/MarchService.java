@@ -104,7 +104,7 @@ public class MarchService {
 			if (march.getStatus().equals("REJECTED"))
 				Assert.isTrue(StringUtils.isNotEmpty(march.getReason()));
 			if (!march.getStatus().equals(oldMarch.getStatus())) {
-				Assert.isTrue(march.getStatus().equals("PENDING"));
+				Assert.isTrue(oldMarch.getStatus().equals("PENDING"));
 				this.serviceUtils.checkActor(oldMarch.getParade().getBrotherhood());
 				final Actor system = this.actorService.findActorByUsername("system");
 				final Message message = this.messageService.create(this.boxService.findBoxByActorAndName(system, "outBox"));
@@ -129,9 +129,9 @@ public class MarchService {
 		}
 		final List<Integer> a = new ArrayList<>();
 		//	final Collection<March> marchs = this.marchRepository.findAll();
-		if (march.getStatus().equals("APPROVED") && march.getLocation().isEmpty())
+		if (march.getStatus().equals("APPROVED") && march.getLocation() == null)
 			march.setLocation(this.isUniqueColumNum());
-		else if (!march.getLocation().isEmpty()) {
+		else if (march.getLocation() != null) {
 			march.setLocation(march.getLocation());
 			final Collection<March> marchs = this.marchRepository.findAll();
 			final Collection<List<Integer>> locations = new ArrayList<>();

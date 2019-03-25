@@ -17,6 +17,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <%@page import="java.util.Collection"%>
 
@@ -71,6 +72,8 @@
 				height="100px" width="100px" />
 		</jstl:if>
 	</display:column>
+
+	<acme:column value="${row.title}" code="brotherhood.title" />
 
 	<jstl:if test="${row.status=='SUBMITTED'}">
 		<display:column property="status" titleKey="parade.status"
