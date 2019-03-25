@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.LinkRecordRepository;
+import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
 import domain.LinkRecord;
-import repositories.LinkRecordRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -79,6 +79,7 @@ public class LinkRecordService {
 	}
 
 	public void delete(final LinkRecord record) {
+		this.serviceUtils.checkActor(record.getHistory().getBrotherhood());
 		this.linkRecordRepository.delete(record);
 	}
 

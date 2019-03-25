@@ -1,10 +1,7 @@
 
 package usecases.test_v2;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -13,22 +10,21 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.util.AssertionErrors;
 
 import services.BrotherhoodService;
 import services.HistoryService;
-import services.PeriodRecordService;
+import services.LinkRecordService;
 import utilities.AbstractTest;
 import domain.Brotherhood;
 import domain.History;
-import domain.PeriodRecord;
+import domain.LinkRecord;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class UseCase3_1PeriodRecordTest extends AbstractTest {
+public class UseCase3_1LinkRecordTest extends AbstractTest {
 
 	// 3.1 Manage their history, which includes listing, displaying, creating,
 	//updating, and deleting its records
@@ -39,7 +35,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 	BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	PeriodRecordService	periodRecordService;
+	LinkRecordService	linkRecordService;
 
 	@Autowired
 	HistoryService		historyService;
@@ -53,10 +49,10 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"brotherhood1", null
-			//Brotherhood puede ver sus periodRecords (POSITIVO)
+			//Brotherhood puede ver sus linkRecords (POSITIVO)
 			}, {
 				"member1", NullPointerException.class
-			//Un member no deberia ver sus periodRecords (NEGATIVO) 
+			//Un member no deberia ver sus linkRecords (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -72,11 +68,11 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "periodRecord1", null
-			//Brotherhood1 puede editar sus periodRecord (POSITIVO)
+				"brotherhood1", "linkRecord1", null
+			//Brotherhood1 puede editar sus linkRecord (POSITIVO)
 			}, {
-				"brotherhood1", "periodRecord2", IllegalArgumentException.class
-			//Brotherhood1 no deberia editar periodRecord2 porque no es suyo (NEGATIVO) 
+				"brotherhood1", "linkRecord3", IllegalArgumentException.class
+			//Brotherhood1 no deberia editar linkRecord3 porque no es suyo (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -94,10 +90,10 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"brotherhood1", "a", null
-			//Brotherhood1 puede crear sus periodRecord (POSITIVO)
+			//Brotherhood1 puede crear sus linkRecord (POSITIVO)
 			}, {
-				"brotherhood1", null, AssertionErrors.class
-			//Brotherhood1 no deberia crear un periodRecord con text nulo (NEGATIVO) 
+				null, "b", IllegalArgumentException.class
+			//Un actor que no exista no deberia crear un linkRecord (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -114,11 +110,11 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		System.out.println("=====DELETING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "periodRecord1", null
-			//Brotherhood1 puede borrar sus periodRecord (POSITIVO)
+				"brotherhood1", "linkRecord1", null
+			//Brotherhood1 puede borrar sus linkRecord (POSITIVO)
 			}, {
-				"brotherhood1", "periodRecord2", IllegalArgumentException.class
-			//Brotherhood1 no deberia borrar un periodRecord que no es suya (NEGATIVO) 
+				"brotherhood1", "linkRecord3", IllegalArgumentException.class
+			//Brotherhood1 no deberia borrar un linkRecord que no es suyo (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -141,10 +137,11 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 			final Brotherhood principal = this.brotherhoodService.findOne(this.getEntityId(username));
+			//Cogemos la history
 			final History h = this.historyService.findOneByBrotherhoodId(principal.getId());
-			//Buscamos los periodRecord de la historia
-			final Collection<PeriodRecord> periodRecords = this.periodRecordService.findAllByHistoryId(h.getId());
-			for (final PeriodRecord p : periodRecords)
+			//Buscamos los linkRecord de la historia
+			final Collection<LinkRecord> linkRecords = this.linkRecordService.findAllByHistoryId(h.getId());
+			for (final LinkRecord p : linkRecords)
 				System.out.println(p.getTitle());
 			//Nos desautenticamos
 			this.unauthenticate();
@@ -161,7 +158,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateUpdating(final String username, final String periodRecord, final Class<?> expected) {
+	protected void templateUpdating(final String username, final String linkRecord, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -170,14 +167,14 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Cogemos y editamos un periodRecord
-			final PeriodRecord periodRecordbd = this.periodRecordService.findOne(this.getEntityId(periodRecord));
+			//Cogemos y editamos un linkRecord
+			final LinkRecord linkRecordbd = this.linkRecordService.findOne(this.getEntityId(linkRecord));
 
 			//Cambiamos la propiedad text
-			periodRecordbd.setText("a");
+			linkRecordbd.setText("a");
 
 			//Gruadamos
-			this.periodRecordService.save(periodRecordbd);
+			this.linkRecordService.save(linkRecordbd);
 
 			//Nos desautenticamos
 			this.unauthenticate();
@@ -194,7 +191,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateCreate(final String username, final String title, final Class<?> expected) {
+	protected void templateCreate(final String username, final String text, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -203,19 +200,14 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Creamos un periodRecord para la historia de la hermandad logueada
-			final PeriodRecord periodRecordbd = this.periodRecordService.create();
-			periodRecordbd.setText("b");
-			periodRecordbd.setEndYear(new Date(2018, 02, 12));
-			periodRecordbd.setStartYear(new Date(2017, 02, 12));
-			periodRecordbd.setTitle(title);
-			final String a = "http://a.com";
-			final List<String> p = new ArrayList<>();
-			p.add(a);
-			periodRecordbd.setPhotos(p);
+			//Creamos un linkRecord para la historia de la hermandad logueada
+			final LinkRecord linkRecordbd = this.linkRecordService.create();
+			linkRecordbd.setText(text);
+			linkRecordbd.setTitle("a");
+			linkRecordbd.setLinkBrotherhood("http://a.com");
 
 			//Gruadamos
-			this.periodRecordService.save(periodRecordbd);
+			this.linkRecordService.save(linkRecordbd);
 
 			//Nos desautenticamos
 			this.unauthenticate();
@@ -232,7 +224,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateDelete(final String username, final String periodRecord, final Class<?> expected) {
+	protected void templateDelete(final String username, final String linkRecord, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -242,9 +234,9 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			this.authenticate(username);
 
 			//Cogemos una periodrecord de la hermandad
-			final PeriodRecord periodRecordbd = this.periodRecordService.findOne(this.getEntityId(periodRecord));
+			final LinkRecord linkRecordbd = this.linkRecordService.findOne(this.getEntityId(linkRecord));
 			//Borramos la  period record de la historia
-			this.periodRecordService.delete(periodRecordbd);
+			this.linkRecordService.delete(linkRecordbd);
 
 			//Nos desautenticamos
 			this.unauthenticate();
