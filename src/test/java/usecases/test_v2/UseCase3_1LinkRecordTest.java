@@ -93,7 +93,7 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 			//Brotherhood1 puede crear sus linkRecord (POSITIVO)
 			}, {
 				null, "b", IllegalArgumentException.class
-			//Brotherhood1 no deberia crear un linkRecord con text nulo (NEGATIVO) 
+			//Un actor que no exista no deberia crear un linkRecord (NEGATIVO) 
 			}
 		};
 		int j = 1;
