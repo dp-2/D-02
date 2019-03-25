@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.util.AssertionErrors;
 
 import services.BrotherhoodService;
 import services.HistoryService;
@@ -92,17 +93,17 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "periodRecord1", null
+				"brotherhood1", "a", null
 			//Brotherhood1 puede crear sus periodRecord (POSITIVO)
 			}, {
-				"brotherhood1", null, AssertionError.class
+				"brotherhood1", null, AssertionErrors.class
 			//Brotherhood1 no deberia crear un periodRecord con text nulo (NEGATIVO) 
 			}
 		};
 		int j = 1;
 		for (int i = 0; i < testingData.length; i++) {
 			System.out.println("Casuistica" + j);
-			this.templateUpdating((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.templateCreate((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
 			j++;
 		}
 
@@ -123,7 +124,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		int j = 1;
 		for (int i = 0; i < testingData.length; i++) {
 			System.out.println("Casuistica" + j);
-			this.templateUpdating((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.templateDelete((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
 			j++;
 		}
 
@@ -193,7 +194,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateCreate(final String username, final String text, final Class<?> expected) {
+	protected void templateCreate(final String username, final String title, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -204,10 +205,10 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 
 			//Creamos un periodRecord para la historia de la hermandad logueada
 			final PeriodRecord periodRecordbd = this.periodRecordService.create();
-			periodRecordbd.setText(text);
+			periodRecordbd.setText("b");
 			periodRecordbd.setEndYear(new Date(2018, 02, 12));
 			periodRecordbd.setStartYear(new Date(2017, 02, 12));
-			periodRecordbd.setTitle("a");
+			periodRecordbd.setTitle(title);
 			final String a = "http://a.com";
 			final List<String> p = new ArrayList<>();
 			p.add(a);
