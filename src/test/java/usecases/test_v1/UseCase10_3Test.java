@@ -82,24 +82,6 @@ public class UseCase10_3Test extends AbstractTest {
 	}
 
 	@Test
-	public void driverEnrolling() {
-		System.out.println("=====CREATING=====");
-		final Object testingData[][] = {
-			{
-				"brotherhood1", "member1", null,
-			//Brotherhood1 puede enrolar nuevos member (POSITIVO)
-			}
-		};
-		int j = 1;
-		for (int i = 0; i < testingData.length; i++) {
-			System.out.println("Casuistica" + j);
-			this.templateEnrolling((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
-			j++;
-		}
-
-	}
-
-	@Test
 	public void driverKicking() {
 		System.out.println("=====DELETING=====");
 		final Object testingData[][] = {
@@ -169,36 +151,6 @@ public class UseCase10_3Test extends AbstractTest {
 
 			System.out.println("\n");
 			System.out.println("Editando correctamente.");
-			System.out.println("-----------------------------");
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-
-			System.out.println(caught);
-			System.out.println("-----------------------------");
-		}
-		this.checkExceptions(expected, caught);
-	}
-
-	protected void templateEnrolling(final String username, final String username2, final Class<?> expected) {
-		Class<?> caught;
-		caught = null;
-
-		try {
-
-			//Nos autenticamos
-			this.authenticate(username);
-			final Brotherhood principal = this.brotherhoodService.findOne(this.getEntityId(username));
-			final Member secundary = this.memberService.findOne(this.getEntityId(username2));
-			//Creamos un enroll para la historia de la hermandad logueada
-			final Enroll enroll = this.enrollService.create(principal.getId());
-			//Guardamos
-			this.enrollService.save(enroll);
-
-			//Nos desautenticamos
-			this.unauthenticate();
-
-			System.out.println("\n");
-			System.out.println("Creando correctamente.");
 			System.out.println("-----------------------------");
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
