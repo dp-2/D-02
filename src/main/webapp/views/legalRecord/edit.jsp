@@ -94,8 +94,5 @@
 		<br />
 		<br />
 	
-	<button type="button"
-				onclick="javascript: relativeRedir('history/brotherhood/myDisplay.do')">
-				<spring:message code="legalRecord.cancel" />
-			</button>
+	<acme:cancel url="" code="legalRecord.back" />
 </jstl:if>

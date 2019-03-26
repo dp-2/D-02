@@ -86,8 +86,5 @@
 		<br />
 		<br />
 	
-	<button type="button"
-				onclick="javascript: relativeRedir('')">
-				<spring:message code="inceptionRecord.cancel" />
-			</button>
+	<acme:cancel url=" " code="inceptionRecord.back" />
 </jstl:if>
