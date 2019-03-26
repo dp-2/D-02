@@ -73,6 +73,7 @@
 
 
 			</form:form>
+			<acme:cancel url="linkRecord/brotherhood/list.do?historyId=${linkRecord.history.id}" code="linkRecord.cancel" />
 
 
 		</div>

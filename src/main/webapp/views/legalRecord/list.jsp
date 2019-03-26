@@ -76,6 +76,10 @@
 		onclick="javascript:relativeRedir('legalRecord/brotherhood/create.do')" />
 </security:authorize>
 
+<%--  Boton de ATRAS --%>
+<acme:cancel url="history/display.do?brotherhoodId=${history.brotherhood.id}" code="legalRecord.back" />
+
+
 
 
 

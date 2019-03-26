@@ -92,6 +92,7 @@
 
 
 		</form:form>
+		<acme:cancel url="periodRecord/brotherhood/list.do?historyId=${periodRecord.history.id}" code="periodRecord.cancel" />
 
 	</div>
 
