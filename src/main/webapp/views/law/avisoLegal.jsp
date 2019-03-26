@@ -86,6 +86,13 @@
 		<o:p></o:p></span>
 </p>
 
+<p>
+	<span style='font-family: "Arial", "sans-serif"; color: black'><spring:message
+			code="law.avisoLegal.p11" />
+		<o:p></o:p></span>
+</p>
+
+
 
 
 </html>
