@@ -72,9 +72,9 @@
 	<br />
 	<br />
 
-
-	<a href="actor/export.do?actorId=${actorId }"
-		onclick="javascript:confirm('<spring:message code="actor.export.ask"/>')"><spring:message
-			code="actor.export" /></a>
-
+	<security:authorize access="isAuthenticated()">
+		<a href="actor/export.do?actorId=${actorId }"
+			onclick="javascript:confirm('<spring:message code="actor.export.ask"/>')"><spring:message
+				code="actor.export" /></a>
+	</security:authorize>
 </jstl:if>
