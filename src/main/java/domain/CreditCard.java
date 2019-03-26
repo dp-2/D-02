@@ -57,7 +57,6 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 1, max = 12)
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public int getExpirationMonth() {
 		return this.expirationMonth;
 	}
@@ -67,7 +66,6 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 2018, max = 3000)
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public int getExpirationYear() {
 		return this.expirationYear;
 	}
@@ -77,7 +75,6 @@ public class CreditCard extends DomainEntity {
 	}
 
 	@Range(min = 100, max = 999)
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public int getCVVCode() {
 		return this.CVVCode;
 	}
