@@ -81,12 +81,8 @@
 		onclick="javascript:relativeRedir('linkRecord/brotherhood/create.do')" />
 </security:authorize>
 
-<%-- <%--  Boton de ATRAS
-<security:authorize access="hasRole('BROTHERHOOD')">
+<%--  Boton de ATRAS --%>
+<acme:cancel url="history/display.do?brotherhoodId=${history.brotherhood.id}" code="linkRecord.back" />
 
-	<input type="button" name="back"
-		value="<spring:message code="linkRecord.back"></spring:message>"
-		onclick="javascript:relativeRedir('history/brotherhood/display.do')" />
-</security:authorize> --%>
 
 

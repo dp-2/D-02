@@ -55,10 +55,7 @@
 			<input type="submit" name="save"
 				value="<spring:message code="inceptionRecord.save"></spring:message>" />
 
-			<button type="button"
-				onclick="javascript: relativeRedir('inceptionRecord/brotherhood/display.do?inceptionRecordId=${inceptionRecord.id}')">
-				<spring:message code="inceptionRecord.cancel" />
-			</button>
+			<acme:cancel url="history/display.do?brotherhoodId=${inceptionRecord.history.brotherhood.id}" code="inceptionRecord.cancel" />
 
 
 
