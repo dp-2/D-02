@@ -114,9 +114,5 @@
 
 		<br />
 		<br />
-	
-	<button type="button"
-				onclick="javascript: relativeRedir('periodRecord/brotherhood/list.do?historyId=${periodRecord.history.id}')">
-				<spring:message code="history.return" />
-			</button>
+	<acme:cancel url="" code="periodRecord.back" />
 </jstl:if>
