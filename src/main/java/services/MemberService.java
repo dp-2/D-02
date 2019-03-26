@@ -88,6 +88,7 @@ public class MemberService {
 	// Simple CRUD methods ----------------------------------------------------
 
 	public Member create() {
+		this.serviceUtils.checkNoActor();
 		Member result;
 		result = new Member();
 		//establezco ya su tipo de userAccount porque no va a cambiar
@@ -129,6 +130,7 @@ public class MemberService {
 		Assert.isTrue(!(member.getEmail().endsWith("@") || member.getEmail().endsWith("@>")));
 
 		if (member.getId() == 0) {
+			this.serviceUtils.checkNoActor();
 			isCreating = true;
 			member.setSpammer(false);
 

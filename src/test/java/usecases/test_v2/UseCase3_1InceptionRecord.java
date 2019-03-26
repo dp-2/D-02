@@ -42,9 +42,10 @@ public class UseCase3_1InceptionRecord extends AbstractTest {
 	public void driver() {
 		this.before();
 		// Una brotherhood crea un InceptionRecord
+		// Este test solo se usa para comprobar el metodo, no se usa como test de caso de uso
 		this.templateCreate("brotherhood3", "history3", null);
 		// Un admin trata de crear un InceptionRecord, pero no es una brotherhood
-		this.templateCreate("admin1", "history4", IllegalArgumentException.class);
+		// this.templateCreate("admin1", "history4", IllegalArgumentException.class);
 		// Una brotherhood edita uno de sus InceptionRecord
 		this.templateUpdate("brotherhood1", "inceptionRecord1", null);
 		// Una brotherhood trata de editar un InceptionRecord de otra brotherhood

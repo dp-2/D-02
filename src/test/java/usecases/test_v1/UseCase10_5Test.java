@@ -24,7 +24,7 @@ import domain.Parade;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class UseCase8_1Test extends AbstractTest {
+public class UseCase10_5Test extends AbstractTest {
 
 	//	10. An actor who is authenticated as a brotherhood must be able to::
 	//		5.	Manage their parade, which includes listing,
