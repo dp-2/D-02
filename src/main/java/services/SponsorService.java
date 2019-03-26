@@ -216,7 +216,7 @@ public class SponsorService {
 			Assert.isTrue(s.getSponsor().getId() == sponsor.getId());
 
 			this.sponsorshipService.delete(s);
-			this.creditCardService.delete(s.getCreditCard());
+
 			final Collection<Sponsorship> sponsorships1 = this.sponsorshipService.findAll();
 			Assert.isTrue(!(sponsorships1.contains(s)));
 
