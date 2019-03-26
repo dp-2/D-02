@@ -55,7 +55,8 @@ public class WelcomeController extends AbstractController {
 		final String banner = configuration.getBanner();
 
 		final String welcomeMessage = this.configurationService.internacionalizcionWelcome();
-		final boolean isFailSystem = configuration.isFailSystem();
+		final boolean isFailSystemA = configuration.isFailSystem();
+		final boolean isFailSystemO = configuration.isFailSystem();
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
@@ -67,10 +68,10 @@ public class WelcomeController extends AbstractController {
 		result.addObject("banner", banner);
 		result.addObject("warning", warning);
 		result.addObject("moment", moment);
-		result.addObject("isFailSystem", isFailSystem);
+		result.addObject("isFailSystemA", isFailSystemA);
 
-		if (configuration.isFailSystem() == true) {
-
+		if (isFailSystemO == true) {
+			result.addObject("isFailSystemO", isFailSystemO);
 			final String securityMessage = this.configurationService.internacionalizcionSecurityMessage();
 			result.addObject("securityMessage", securityMessage);
 		}
@@ -102,6 +103,30 @@ public class WelcomeController extends AbstractController {
 		} catch (final Exception e) {
 			throw e;
 		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/indexCerrar")
+	public ModelAndView cerrarIndex() {
+		ModelAndView result;
+		SimpleDateFormat formatter;
+		String moment;
+		final Configuration configuration = this.configurationService.findOne();
+
+		final String nameSys = configuration.getNameSys();
+		final String banner = configuration.getBanner();
+
+		final String welcomeMessage = this.configurationService.internacionalizcionWelcome();
+
+		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		moment = formatter.format(new Date());
+
+		result = new ModelAndView("welcome/indexCerrar");
+		result.addObject("nameSys", nameSys);
+		result.addObject("welcomeMessage", welcomeMessage);
+		result.addObject("banner", banner);
+		result.addObject("moment", moment);
 
 		return result;
 	}

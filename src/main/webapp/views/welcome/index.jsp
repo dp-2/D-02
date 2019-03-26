@@ -18,7 +18,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
 <h3>${nameSys}</h3>
 <br />
 <p>${welcomeMessage}</p>
@@ -30,12 +29,12 @@
 			<spring:message code="master.security.message1" />
 		</legend>
 
-		<jstl:if test="${isFailSystem==true}">
+		<jstl:if test="${isFailSystemA==true}">
 			<p style="color: red">
 				<spring:message code="master.security.message.admin1" />
 			</p>
 		</jstl:if>
-		<jstl:if test="${isFailSystem==false}">
+		<jstl:if test="${isFailSystemA==false}">
 			<p style="color: red">
 				<spring:message code="master.security.message.admin2" />
 			</p>
@@ -61,12 +60,19 @@
 </p>
 
 <!-- Mensaje de Seguridad -->
+
+
+
 <security:authorize
 	access="hasAnyRole('SPONSOR','MEMBER','BROTHERHOOD','CHAPTER')">
 
-	<jstl:if test="${isFailSystem == true}">
+
+
+	<jstl:if test="${isFailSystemO == true}">
 		<div class="modal-wrapper" id="popup">
+
 			<div class="popup-contenedor" align="center">
+
 				<h2>
 					<spring:message code="master.security.message1" />
 				</h2>
@@ -75,10 +81,12 @@
 				<p style="font-size: 15px;">
 					<spring:message code="master.security.message2" />
 				</p>
-
-				<a class="popup-cerrar"
-					href="https://localhost:8443/Acme-Parade/welcome/index.do">X</a>
+				<%-- <form:form>
+					<button class="popup-cerrar" name="cerrar">X</button>
+				</form:form> --%>
+				<a class="popup-cerrar" href="welcome/indexCerrar.do">X</a>
 			</div>
+
 		</div>
 	</jstl:if>
 </security:authorize>
