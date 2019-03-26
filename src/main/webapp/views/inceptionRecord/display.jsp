@@ -37,7 +37,7 @@
 	
 	<jstl:if test='${brotherhood.userAccount.username == username}'>
 
-	<spring:message code="brotherhood.edit" var="edit"></spring:message>
+	<spring:message code="inceptionRecord.edit" var="edit"></spring:message>
 	<input type="button" name="edit" value="${edit}"
 		onclick="javascript:relativeRedir('inceptionRecord/brotherhood/edit.do?inceptionRecordId=${inceptionRecord.id}')" />
 </jstl:if>
