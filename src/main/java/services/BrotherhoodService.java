@@ -19,10 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
-import repositories.BrotherhoodRepository;
-import security.Authority;
-import security.UserAccount;
-import security.UserAccountRepository;
 import domain.Area;
 import domain.Brotherhood;
 import domain.DFloat;
@@ -41,6 +37,10 @@ import domain.SocialProfile;
 import domain.Sponsorship;
 import domain.Url;
 import forms.BrotherhoodForm;
+import repositories.BrotherhoodRepository;
+import security.Authority;
+import security.UserAccount;
+import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -140,6 +140,7 @@ public class BrotherhoodService {
 
 	public Brotherhood save(final Brotherhood b) {
 		final Brotherhood brotherhood = (Brotherhood) this.serviceUtils.checkObjectSave(b);
+
 		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		final String hash = encoder.encodePassword(b.getUserAccount().getPassword(), null);
 		if (b.getId() == 0) {

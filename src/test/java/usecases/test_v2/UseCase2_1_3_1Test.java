@@ -1,5 +1,5 @@
 
-package services;
+package usecases.test_v2;
 
 import java.util.List;
 
@@ -12,6 +12,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import services.ActorService;
+import services.BrotherhoodService;
+import services.HistoryService;
+import services.LegalRecordService;
+import services.LinkRecordService;
+import services.MiscellaneousRecordService;
+import services.PeriodRecordService;
 import utilities.AbstractTest;
 import domain.Brotherhood;
 import domain.History;
@@ -25,7 +32,7 @@ import domain.PeriodRecord;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class HistoryServiceTest extends AbstractTest {
+public class UseCase2_1_3_1Test extends AbstractTest {
 
 	//Service----------------------------------------------------------------------
 

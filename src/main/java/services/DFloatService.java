@@ -37,6 +37,7 @@ public class DFloatService {
 	public DFloat create() {
 		DFloat res;
 		Brotherhood brotherhood;
+		this.serviceUtils.checkAuthority("BROTHERHOOD");
 		final Collection<Parade> parades = new ArrayList<>();
 		brotherhood = (Brotherhood) this.actorService.findByUserAccount(LoginService.getPrincipal());
 		res = new DFloat();
@@ -45,7 +46,6 @@ public class DFloatService {
 
 		return res;
 	}
-
 	public Collection<DFloat> findAll() {
 		return this.dfloatRepository.findAll();
 	}
@@ -57,6 +57,7 @@ public class DFloatService {
 	public DFloat save(final DFloat dfloat) {
 		DFloat res = null;
 		Assert.notNull(dfloat);
+		this.serviceUtils.checkActor(dfloat.getBrotherhood());
 		this.serviceUtils.checkObjectSave(dfloat);
 
 		res = this.dfloatRepository.save(dfloat);
@@ -66,6 +67,7 @@ public class DFloatService {
 
 	public void delete(final DFloat dfloat) {
 		Assert.notNull(dfloat);
+		this.serviceUtils.checkActor(dfloat.getBrotherhood());
 		this.dfloatRepository.delete(dfloat);
 	}
 

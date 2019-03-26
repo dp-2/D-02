@@ -210,8 +210,17 @@
 
 	<!-- La contraseña de system es intencional, no se puede acceder a esta 
 		cuenta -->
-
-
+	<bean id="userAccountSystem" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="system" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 
 	<!-- Other domain beans come here -->
@@ -436,6 +445,22 @@
 		<property name="address" value="" />
 		<property name="userAccount" ref="userAccount4" />
 	</bean>
+	
+	<bean id="system" class="domain.Administrator">
+		<property name="name" value="system" />
+		<property name="middleName" value="" />
+		<property name="surname" value="system" />
+		<property name="photo"
+			value="" />
+		<property name="email" value="system@system.com" />
+		<property name="phone" value="+34(456)473456789" />
+
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="score" value="0.7" />
+		<property name="address" value="" />
+		<property name="userAccount" ref="userAccountSystem" />
+	</bean>
 
 
 
@@ -488,6 +513,50 @@
 
 
 	<!-- Box -->
+	
+	<!-- Boxes del system -->
+
+	<bean id="inboxSystem" class="domain.Box">
+		<property name="name" value="inBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="inboxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+
+	<bean id="outboxSystem" class="domain.Box">
+		<property name="name" value="outBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="outboxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+
+	<bean id="trashboxSystem" class="domain.Box">
+		<property name="name" value="trashBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="trashboxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+
+
+	<bean id="spamboxSystem" class="domain.Box">
+		<property name="name" value="spamBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="spamboxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+
+	<bean id="notificationBoxSystem" class="domain.Box">
+		<property name="name" value="notificationBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="notificationBoxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+	
 
 
 
