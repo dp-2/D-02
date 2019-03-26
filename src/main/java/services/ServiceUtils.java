@@ -196,7 +196,6 @@ public class ServiceUtils {
 	}
 
 	public DomainEntity checkObjectExists(final DomainEntity object) {
-		this.domainEntityRepository.findAll();
 		DomainEntity res = object;
 		if (object.getId() != 0)
 			res = this.domainEntityRepository.findById(object.getId());
