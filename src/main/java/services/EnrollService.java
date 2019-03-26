@@ -39,6 +39,9 @@ public class EnrollService {
 	@Autowired
 	private PositionService		positionService;
 
+	@Autowired
+	private ServiceUtils		serviceUtils;
+
 
 	//Constructor----------------------------------------------------------------------------
 
@@ -53,6 +56,9 @@ public class EnrollService {
 		final Member member = this.memberService.findOne(a.getId());
 		final Brotherhood brotherhood = this.brotherhoodService.findOne(brotherhoodId);
 		final Position position = this.positionService.findAll().get(0);
+		final Collection<Brotherhood> brotherhoods = this.enrollRepository.findBrotherhoodByMemberId(member.getId());
+
+		Assert.isTrue(!(brotherhoods.contains(brotherhood)));
 
 		enroll.setStatus("PENDING");
 		enroll.getStatus();
@@ -135,6 +141,7 @@ public class EnrollService {
 		Enroll enroll;
 		enroll = this.enrollRepository.findOne(enrollId);
 		final Date fechaActual = new Date(System.currentTimeMillis() - 1000);
+		//		this.serviceUtils.checkActor(enroll.getBrotherhood());
 
 		enroll.setEndMoment(fechaActual);
 		enroll.setStatus("OUT");
