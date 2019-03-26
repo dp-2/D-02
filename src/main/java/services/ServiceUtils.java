@@ -14,11 +14,11 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-import domain.Actor;
-import domain.DomainEntity;
 import repositories.DomainEntityRepository;
 import security.Authority;
 import security.LoginService;
+import domain.Actor;
+import domain.DomainEntity;
 
 @Service
 @Transactional
@@ -132,10 +132,13 @@ public class ServiceUtils {
 			// Comprueba que el Actor está en la base de datos
 			Assert.notNull(this.actorService.findOne(a.getId()));
 			// Comprueba que el actor de entrada y el actor logueado son el mismo
+			Actor principal = null;
+			try {
+				principal = this.actorService.findByUserAccount(LoginService.getPrincipal());
+			} catch (final Throwable t) {
 
-			final Actor principal = a;
-
-			Assert.isTrue(principal.equals(a));
+			}
+			Assert.isTrue(a.equals(principal));
 		}
 	}
 

@@ -123,6 +123,8 @@ public class MarchService {
 				this.messageService.save(message1, true);
 			}
 		} else if (march.getId() == 0) {
+			System.out.println(this.actorService.findPrincipal());
+			System.out.println(march.getMember());
 			this.serviceUtils.checkActor(march.getMember());
 			Assert.isTrue(this.memberService.listMembersByBrotherhood(march.getParade().getBrotherhood().getId()).contains(march.getMember()));
 			this.serviceUtils.checkAuthority(Authority.MEMBER);

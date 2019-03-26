@@ -320,8 +320,9 @@ public class MemberService {
 			Assert.isTrue(!(enrolls1.contains(e)));
 		}
 		this.memberRepository.delete(member.getId());
-		this.finderService.delete(finder);
-
+		if (finder != null)
+			this.finderService.delete(finder);
+		this.memberRepository.flush();
 		final Collection<Actor> actors = this.actorService.findAll();
 		Assert.isTrue(!(actors.contains(member)));
 	}

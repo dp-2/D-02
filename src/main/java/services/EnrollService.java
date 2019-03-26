@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.EnrollRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
@@ -38,6 +39,9 @@ public class EnrollService {
 
 	@Autowired
 	private PositionService		positionService;
+
+	@Autowired
+	private ServiceUtils		serviceUtils;
 
 
 	//Constructor----------------------------------------------------------------------------
@@ -130,7 +134,6 @@ public class EnrollService {
 	public Collection<Brotherhood> findBrotherhoodByMemberId(final int memberId) {
 		return this.enrollRepository.findBrotherhoodByMemberId(memberId);
 	}
-
 	public Enroll goOut(final int enrollId) {
 		Enroll enroll;
 		enroll = this.enrollRepository.findOne(enrollId);
@@ -143,6 +146,7 @@ public class EnrollService {
 	}
 
 	public Collection<Brotherhood> findBrotherhoodsByMemberId(final int memberId) {
+		this.serviceUtils.checkAuthority(Authority.MEMBER);
 		return this.enrollRepository.findBrotherhoodsByMemberId(memberId);
 	}
 
