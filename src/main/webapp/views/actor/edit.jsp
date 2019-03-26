@@ -56,11 +56,14 @@
 		<br />
 		<br />
 
-		<acme:cancel url="/actor/export.do?actorId=${actorId}"
-			code="actor.export" />
+
+
+
 
 	</form:form>
 
-
+	<a href="actor/export.do?actorId=${actorId }"
+		onclick="javascript:confirm('<spring:message code="actor.export.ask"/>')"><spring:message
+			code="actor.export" /></a>
 
 </jstl:if>
