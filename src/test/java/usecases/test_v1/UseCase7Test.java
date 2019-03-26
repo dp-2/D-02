@@ -114,27 +114,27 @@ public class UseCase7Test extends AbstractTest {
 	}
 
 	private void templateUpdate(final String username, final String marchBeanName, final String[] parameters, final Integer[] locations, final Class<?> expected) {
-		final Class<?> caught = null;
-		//try {
-		super.authenticate(username);
-		March march = this.marchService.findOne(super.getEntityId(marchBeanName));
-		final int marchId = march.getId();
-		final int marchVersion = march.getVersion();
-		march = this.marchAssignParametersNoLocations(march, parameters);
-		final March res = this.marchService.save(march);
-		Assert.isTrue(res.getId() == marchId && res.getVersion() == marchVersion + 1);
-		// Comprueba que si está aprobada se asignan las posiciones automáticamente
-		if (res.getStatus().equals("APPROVED")) {
-			Assert.notNull(res.getLocation());
-			Assert.notEmpty(res.getLocation());
-			for (final Integer i : res.getLocation())
-				Assert.isTrue(i >= 0);
+		Class<?> caught = null;
+		try {
+			super.authenticate(username);
+			March march = this.marchService.findOne(super.getEntityId(marchBeanName));
+			final int marchId = march.getId();
+			final int marchVersion = march.getVersion();
+			march = this.marchAssignParametersNoLocations(march, parameters);
+			final March res = this.marchService.save(march);
+			Assert.isTrue(res.getId() == marchId && res.getVersion() == marchVersion + 1);
+			// Comprueba que si está aprobada se asignan las posiciones automáticamente
+			if (res.getStatus().equals("APPROVED")) {
+				Assert.notNull(res.getLocation());
+				Assert.notEmpty(res.getLocation());
+				for (final Integer i : res.getLocation())
+					Assert.isTrue(i >= 0);
+			}
+			super.authenticate(null);
+		} catch (final Throwable t) {
+			caught = t.getClass();
 		}
-		super.authenticate(null);
-		//} catch (final Throwable t) {
-		//caught = t.getClass();
-		//}
-		//super.checkExceptions(expected, caught);
+		super.checkExceptions(expected, caught);
 	}
 
 	// Others
