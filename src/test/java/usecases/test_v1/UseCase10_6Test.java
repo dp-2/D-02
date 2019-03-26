@@ -72,7 +72,7 @@ public class UseCase10_6Test extends AbstractTest {
 				"brotherhood1", "march1", null
 			//Brotherhood1 puede editar sus march (POSITIVO)
 			}, {
-				"brotherhood2", null, NullPointerException.class
+				"brotherhood2", null, AssertionError.class
 			//Brotherhood1 no deberia editar un march que no existe(NEGATIVO)
 			}
 		};
