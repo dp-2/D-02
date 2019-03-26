@@ -69,6 +69,7 @@
 
 
 		</form:form>
+		<acme:cancel url="miscellaneousRecord/brotherhood/list.do?historyId=${miscellaneousRecord.history.id}" code="miscellaneousRecord.cancel" />
 
 	</div>
 
@@ -81,11 +82,11 @@
 </jstl:if>
 <jstl:if
 	test='${miscellaneousRecord.history.brotherhood.userAccount.username != username}'>
-	<h1 style="color: red;">
-		<b><spring:message code="miscellaneousRecord.permissions"></spring:message></b>
+	<h1>
+		<b><spring:message code="history.permissions"></spring:message></b>
 	</h1>
 	
-	<img src="https://cdn.shopify.com/s/files/1/1061/1924/products/Very_Angry_Emoji_7f7bb8df-d9dc-4cda-b79f-5453e764d4ea_large.png?v=1480481058" alt="Cuestionario Picture"
+	<img src="http://lymediseaseuk.com/wp-content/uploads/2018/07/oops-300x300.png" alt="Cuestionario Picture"
 			style="width: 10%; height: 10%;">
 
 		<br />

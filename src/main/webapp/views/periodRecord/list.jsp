@@ -75,11 +75,9 @@
 </security:authorize>
 
 <%--  Boton de ATRAS --%>
-<%-- <security:authorize access="hasRole('BROTHERHOOD')">
+<acme:cancel url="history/display.do?brotherhoodId=${history.brotherhood.id}" code="periodRecord.back" />
 
-	<input type="button" name="back"
-		value="<spring:message code="periodRecord.back"></spring:message>"
-		onclick="javascript:relativeRedir('history/brotherhood/display.do')" />
-</security:authorize> --%>
+
+
 
 

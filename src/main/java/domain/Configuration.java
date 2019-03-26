@@ -72,7 +72,6 @@ public class Configuration extends DomainEntity {
 	public void setWelcomeMessageEN(final String welcomeMessageEN) {
 		this.welcomeMessageEN = welcomeMessageEN;
 	}
-
 	@NotEmpty
 	@ElementCollection
 	@EachSafeHtml(whitelistType = WhiteListType.NONE)
@@ -82,7 +81,6 @@ public class Configuration extends DomainEntity {
 	public void setSpamWordsEN(final List<String> spamWordsEN) {
 		this.spamWordsEN = spamWordsEN;
 	}
-
 	@NotEmpty
 	@ElementCollection
 	@EachSafeHtml(whitelistType = WhiteListType.NONE)
@@ -92,7 +90,6 @@ public class Configuration extends DomainEntity {
 	public void setNegativeWordsEN(final List<String> negativeWordsEN) {
 		this.negativeWordsEN = negativeWordsEN;
 	}
-
 	@NotEmpty
 	@ElementCollection
 	@EachSafeHtml
@@ -105,14 +102,12 @@ public class Configuration extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public String getWelcomeMessageES() {
 		return this.welcomeMessageES;
 	}
 	public void setWelcomeMessageES(final String welcomeMessageES) {
 		this.welcomeMessageES = welcomeMessageES;
 	}
-
 	@NotEmpty
 	@ElementCollection
 	@EachSafeHtml(whitelistType = WhiteListType.NONE)
@@ -122,7 +117,6 @@ public class Configuration extends DomainEntity {
 	public void setSpamWordsES(final List<String> spamWordsES) {
 		this.spamWordsES = spamWordsES;
 	}
-
 	@NotEmpty
 	@ElementCollection
 	@EachSafeHtml(whitelistType = WhiteListType.NONE)
@@ -132,7 +126,6 @@ public class Configuration extends DomainEntity {
 	public void setNegativeWordsES(final List<String> negativeWordsES) {
 		this.negativeWordsES = negativeWordsES;
 	}
-
 	@NotEmpty
 	@ElementCollection
 	@EachSafeHtml(whitelistType = WhiteListType.NONE)
@@ -164,13 +157,9 @@ public class Configuration extends DomainEntity {
 		return this.countryCode;
 	}
 
-	@NotEmpty
-	@ElementCollection
-	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public void setCountryCode(final int countrtCode) {
 		this.countryCode = countrtCode;
 	}
-
 	@NotEmpty
 	@ElementCollection
 	@EachSafeHtml(whitelistType = WhiteListType.NONE)
@@ -202,7 +191,6 @@ public class Configuration extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSecurityMessageES() {
 		return this.securityMessageES;
 	}
@@ -213,7 +201,6 @@ public class Configuration extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSecurityMessageEN() {
 		return this.securityMessageEN;
 	}

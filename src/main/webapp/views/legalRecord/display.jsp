@@ -34,8 +34,7 @@
 <input type="button" name="edit" value="<spring:message code="legalRecord.edit"></spring:message>" onclick="javascript:relativeRedir('legalRecord/brotherhood/edit.do?legalRecordId=${legalRecord.id}')"/>
 </jstl:if>
 </security:authorize>	
-<input type="button" name="cancel" value="<spring:message code="legalRecord.cancel"></spring:message>" onclick="javascript:relativeRedir('legalRecord/brotherhood/list.do?historyId=${legalRecord.history.id}')" />	
-
+<acme:cancel url="legalRecord/brotherhood/list.do?historyId=${legalRecord.history.id}" code="legalRecord.back" />
 
 
 

@@ -55,10 +55,7 @@
 			<input type="submit" name="save"
 				value="<spring:message code="inceptionRecord.save"></spring:message>" />
 
-			<button type="button"
-				onclick="javascript: relativeRedir('inceptionRecord/brotherhood/display.do?inceptionRecordId=${inceptionRecord.id}')">
-				<spring:message code="inceptionRecord.cancel" />
-			</button>
+			<acme:cancel url="history/display.do?brotherhoodId=${inceptionRecord.history.brotherhood.id}" code="inceptionRecord.cancel" />
 
 
 
@@ -79,11 +76,11 @@
 </jstl:if>
 <jstl:if
 	test='${inceptionRecord.history.brotherhood.userAccount.username != username && inceptionRecord.id != 0}'>
-	<h1 style="color: red;">
-		<b><spring:message code="inceptionRecord.permissions"></spring:message></b>
+	<h1>
+		<b><spring:message code="history.permissions"></spring:message></b>
 	</h1>
 	
-	<img src="https://cdn.shopify.com/s/files/1/1061/1924/products/Very_Angry_Emoji_7f7bb8df-d9dc-4cda-b79f-5453e764d4ea_large.png?v=1480481058" alt="Cuestionario Picture"
+	<img src="http://lymediseaseuk.com/wp-content/uploads/2018/07/oops-300x300.png" alt="Cuestionario Picture"
 			style="width: 10%; height: 10%;">
 
 		<br />
