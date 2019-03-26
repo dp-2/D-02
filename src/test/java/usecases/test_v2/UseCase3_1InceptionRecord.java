@@ -23,7 +23,7 @@ import domain.InceptionRecord;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class UseCase3_InceptionRecord extends AbstractTest {
+public class UseCase3_1InceptionRecord extends AbstractTest {
 
 	//Service-------------------------------------------------------------------------
 

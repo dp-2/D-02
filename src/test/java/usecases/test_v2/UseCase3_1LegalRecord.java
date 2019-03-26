@@ -21,7 +21,7 @@ import domain.LegalRecord;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class UseCase3_LegalRecord extends AbstractTest {
+public class UseCase3_1LegalRecord extends AbstractTest {
 
 	//Service-------------------------------------------------------------------------
 

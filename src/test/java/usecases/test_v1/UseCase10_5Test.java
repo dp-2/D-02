@@ -13,18 +13,18 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import domain.Brotherhood;
-import domain.Parade;
 import services.BrotherhoodService;
 import services.ParadeService;
 import utilities.AbstractTest;
+import domain.Brotherhood;
+import domain.Parade;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class UseCase10_5Test extends AbstractTest {
+public class UseCase8_1Test extends AbstractTest {
 
 	//	10. An actor who is authenticated as a brotherhood must be able to::
 	//		5.	Manage their parade, which includes listing,
@@ -38,17 +38,19 @@ public class UseCase10_5Test extends AbstractTest {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
-	// Tests ------------------------------------------------------------------
 
+	// Tests ------------------------------------------------------------------
 
 	@Test
 	public void driverListing() {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", null //Brotherhood puede ver sus parades (POSITIVO)
+				"brotherhood1", null
+			//Brotherhood puede ver sus parades (POSITIVO)
 			}, {
-				null, AssertionError.class //Un actor no autenticado no tiene parades (NEGATIVO) 
+				null, AssertionError.class
+			//Un actor no autenticado no tiene parades (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -64,9 +66,11 @@ public class UseCase10_5Test extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", null //Brotherhood puede crear parades (POSITIVO)
+				"brotherhood1", null
+			//Brotherhood puede crear parades (POSITIVO)
 			}, {
-				null, IllegalArgumentException.class //Un actor no autenticado no puede crear parades (NEGATIVO) 
+				null, IllegalArgumentException.class
+			//Un actor no autenticado no puede crear parades (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -82,9 +86,11 @@ public class UseCase10_5Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "parade1", null//Parade no final (POSITIVO)
+				"brotherhood1", "parade1", null
+			//Parade no final (POSITIVO)
 			}, {
-				"brotherhood1", "parade3", IllegalArgumentException.class //Parade final(NEGATIVO) 
+				"brotherhood1", "parade3", IllegalArgumentException.class
+			//Parade final(NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -101,9 +107,11 @@ public class UseCase10_5Test extends AbstractTest {
 		System.out.println("=====DELETING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "parade1", null//Parade no final (POSITIVO)
+				"brotherhood1", "parade1", null
+			//Parade no final (POSITIVO)
 			}, {
-				"brotherhood1", "parade3", DataIntegrityViolationException.class //Parade final(NEGATIVO) 
+				"brotherhood1", "parade3", DataIntegrityViolationException.class
+			//Parade final(NEGATIVO) 
 			}
 		};
 		int j = 1;
