@@ -32,7 +32,7 @@ import domain.PeriodRecord;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class UseCase2_1_3_1Test extends AbstractTest {
+public class UseCase2_1and3_1Test extends AbstractTest {
 
 	//Service----------------------------------------------------------------------
 
@@ -157,87 +157,26 @@ public class UseCase2_1_3_1Test extends AbstractTest {
 		Assert.isTrue(lr.getTitle() == "TEST");
 
 	}
-	//
-	//	@Override
-	//	@Before
-	//	public void setUp() {
-	//		this.authenticate("brotherhood2");
-	//		final Brotherhood br = (Brotherhood) this.actorService.findActorByUsername("brotherhood2");
-	//		final History h = this.historyService.findOneByBrotherhoodId(br.getId());
-	//		final MiscellaneousRecord m = this.miscellaneousService.create();
-	//		m.setHistory(h);
-	//		m.setText("TEST");
-	//		m.setTitle("TEST");
-	//
-	//		this.miscellaneousService.save(m);
-	//		this.historyService.save(h);
-	//		this.unauthenticate();
-	//	}
-	//	
-	//	@Test
-	//	public void editMiscellaneousTest() {
-	//		this.authenticate("brotherhood1");
-	//		final MiscellaneousRecord m = this.miscellaneousService.findOne(6715);
-	//		m.setTitle("Si sale este texto es que todo ha ido correctamente");
-	//		this.unauthenticate();
-	//		System.out.println(m.getTitle());
-	//		Assert.isTrue(m.getTitle() == "Si sale este texto es que todo ha ido correctamente");
-	//
-	//	}
 
 	@Test
-	public void editMIscellaneousRecordHistory() {
+	public void editAndDeleteRecordsHistory() {
 		this.authenticate("brotherhood1");
-		final MiscellaneousRecord m = this.miscellaneousService.findOne(6715);
-		m.setTitle("Si sale este texto es que todo ha ido correctamente");
+		final Brotherhood br = (Brotherhood) this.actorService.findActorByUsername("brotherhood1");
+		final Integer id = br.getId();
+		this.historyService.findOneByBrotherhoodId(id);
+		final History h = this.historyService.findOneByBrotherhoodId(id);
+		final List<MiscellaneousRecord> m = (List<MiscellaneousRecord>) this.miscellaneousService.findAll();
+		final MiscellaneousRecord m1 = m.get(0);
+
+		final List<LegalRecord> l = (List<LegalRecord>) this.legalService.findAll();
+		final LegalRecord l1 = l.get(0);
+		m1.setTitle("TEST");
+		m1.setText("Test");
+		m1.setHistory(h);
+		this.legalService.delete(l1);
+		this.miscellaneousService.save(m1);
 		this.unauthenticate();
-		System.out.println(m.getTitle());
-		Assert.isTrue(m.getTitle() == "Si sale este texto es que todo ha ido correctamente");
+		Assert.isTrue(m1.getTitle() == "TEST");
 
 	}
-
-	//------------------------------------------------------------------------------------------
-
-	//	@Test
-	//	public void testEditRecordsHistory() {
-	//		final Object AccessDashBoardTest[][] = {
-	//			{
-	//				//				"brotherhood", "TitleChange", java.lang.IllegalArgumentException.class
-	//				//			//Probamos con un user admin que no exista
-	//				//			}, {
-	//				"brotherhood1", "TitleChange", null
-	//			//Este admin si esta registrado en el sistema
-	//			},
-	//
-	//		};
-	//		for (int i = 0; i < AccessDashBoardTest.length; i++)
-	//			this.template((String) AccessDashBoardTest[i][0], (String) AccessDashBoardTest[i][1], (Class<?>) AccessDashBoardTest[i][2]);
-	//	}
-	//	private void template(final String username, final String title, final Class<?> expected) {
-	//		Class<?> caught;
-	//
-	//		caught = null;
-	//		try {
-	//			this.authenticate(username);
-	//
-	//			final List<History> res = this.historyService.findAll();
-	//			final History h = res.get(0);
-	//			final List<MiscellaneousRecord> Mrecords = (List<MiscellaneousRecord>) this.miscellaneousService.findAllByHistoryId(h.getId());
-	//			final MiscellaneousRecord m1 = Mrecords.get(0);
-	//			if (m1.getHistory() == h) {
-	//				m1.setTitle(title);
-	//				this.miscellaneousService.save(m1);
-	//				this.historyService.save(h);
-	//				final String nuevoTitulo = h.getTitle();
-	//				Assert.isTrue(nuevoTitulo == title);
-	//				Assert.isTrue(m1.getTitle() == title);
-	//			} else
-	//				System.out.println("MAL");
-	//
-	//		} catch (final Throwable oops) {
-	//			caught = oops.getClass();
-	//		}
-	//
-	//		this.checkExceptions(expected, caught);
-	//	}
 }
