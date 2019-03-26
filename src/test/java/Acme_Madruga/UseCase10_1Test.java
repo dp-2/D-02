@@ -1,5 +1,5 @@
 
-package usecases.test_v1;
+package Acme_Madruga;
 
 import java.util.Collection;
 
@@ -22,7 +22,7 @@ import domain.DFloat;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class UseCase10_4Test extends AbstractTest {
+public class UseCase10_1Test extends AbstractTest {
 
 	// 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
 

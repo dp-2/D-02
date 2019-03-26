@@ -1,10 +1,7 @@
 
-package usecases.test_v2;
+package Acme_Parade;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -14,20 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import domain.Brotherhood;
-import domain.History;
-import domain.PeriodRecord;
 import services.BrotherhoodService;
 import services.HistoryService;
-import services.PeriodRecordService;
+import services.MiscellaneousRecordService;
 import utilities.AbstractTest;
+import domain.Brotherhood;
+import domain.History;
+import domain.MiscellaneousRecord;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class UseCase3_1PeriodRecordTest extends AbstractTest {
+public class UseCase3_1MiscellaneousRecordTest extends AbstractTest {
 
 	// 3.1 Manage their history, which includes listing, displaying, creating,
 	//updating, and deleting its records
@@ -35,13 +32,13 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	BrotherhoodService			brotherhoodService;
 
 	@Autowired
-	private PeriodRecordService	periodRecordService;
+	MiscellaneousRecordService	miscellaneousRecordService;
 
 	@Autowired
-	private HistoryService		historyService;
+	HistoryService				historyService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -52,10 +49,10 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"brotherhood1", null
-			//Brotherhood puede ver sus periodRecords (POSITIVO)
+			//Brotherhood puede ver sus miscellaneousRecords (POSITIVO)
 			}, {
 				"member1", NullPointerException.class
-			//Un member no deberia ver sus periodRecords (NEGATIVO)
+			//Un member no deberia ver sus miscellaneousRecords (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -71,11 +68,11 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "periodRecord1", null
-			//Brotherhood1 puede editar sus periodRecord (POSITIVO)
+				"brotherhood1", "miscellaneousRecord1", null
+			//Brotherhood1 puede editar sus miscellaneousRecord (POSITIVO)
 			}, {
-				"brotherhood1", "periodRecord2", IllegalArgumentException.class
-			//Brotherhood1 no deberia editar periodRecord2 porque no es suyo (NEGATIVO)
+				"brotherhood1", "miscellaneousRecord2", IllegalArgumentException.class
+			//Brotherhood1 no deberia editar miscellaneousRecord2 porque no es suyo (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -92,11 +89,11 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "test", null
-			//Brotherhood1 puede crear sus periodRecord (POSITIVO)
+				"brotherhood1", "miscellaneousRecord1", null
+			//Brotherhood1 puede crear sus miscellaneousRecord (POSITIVO)
 			}, {
-				null, "test", IllegalArgumentException.class
-			//Brotherhood1 no deberia crear un periodRecord con text nulo (NEGATIVO)
+				"member1", "aa", NullPointerException.class
+			//Member no deberia crear un miscellaneousRecord (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -113,11 +110,11 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		System.out.println("=====DELETING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "periodRecord1", null
-			//Brotherhood1 puede borrar sus periodRecord (POSITIVO)
+				"brotherhood1", "miscellaneousRecord1", null
+			//Brotherhood1 puede borrar sus miscellaneousRecord (POSITIVO)
 			}, {
-				"brotherhood1", "periodRecord2", IllegalArgumentException.class
-			//Brotherhood1 no deberia borrar un periodRecord que no es suya (NEGATIVO)
+				"brotherhood1", "miscellaneousRecord2", IllegalArgumentException.class
+			//Brotherhood1 no deberia borrar un miscellaneousRecord que no es suyo (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -141,10 +138,10 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			this.authenticate(username);
 			final Brotherhood principal = this.brotherhoodService.findOne(this.getEntityId(username));
 			final History h = this.historyService.findOneByBrotherhoodId(principal.getId());
-			//Buscamos los periodRecord de la historia
-			final Collection<PeriodRecord> periodRecords = this.periodRecordService.findAllByHistoryId(h.getId());
-			for (final PeriodRecord p : periodRecords)
-				System.out.println(p.getTitle());
+			//Buscamos los miscellaneousRecord de la historia
+			final Collection<MiscellaneousRecord> miscellaneousRecords = this.miscellaneousRecordService.findAllByHistoryId(h.getId());
+			for (final MiscellaneousRecord m : miscellaneousRecords)
+				System.out.println(m.getTitle());
 			//Nos desautenticamos
 			this.unauthenticate();
 
@@ -160,7 +157,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateUpdating(final String username, final String periodRecord, final Class<?> expected) {
+	protected void templateUpdating(final String username, final String miscellaneousRecord, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -169,14 +166,14 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Cogemos y editamos un periodRecord
-			final PeriodRecord periodRecordbd = this.periodRecordService.findOne(this.getEntityId(periodRecord));
+			//Cogemos y editamos un miscellaneousRecord
+			final MiscellaneousRecord miscellaneousRecordbd = this.miscellaneousRecordService.findOne(this.getEntityId(miscellaneousRecord));
 
 			//Cambiamos la propiedad text
-			periodRecordbd.setText("a");
+			miscellaneousRecordbd.setText("a");
 
 			//Gruadamos
-			this.periodRecordService.save(periodRecordbd);
+			this.miscellaneousRecordService.save(miscellaneousRecordbd);
 
 			//Nos desautenticamos
 			this.unauthenticate();
@@ -193,7 +190,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateCreate(final String username, final String string, final Class<?> expected) {
+	protected void templateCreate(final String username, final String text, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -202,21 +199,15 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Creamos un periodRecord para la historia de la hermandad logueada
-			final PeriodRecord periodRecordbd = this.periodRecordService.create();
-			periodRecordbd.setText("a");
-			periodRecordbd.setEndYear(new Date(2018, 02, 12));
-			periodRecordbd.setStartYear(new Date(2017, 02, 12));
-			periodRecordbd.setTitle(string);
+			//Creamos un miscellaneousRecord para la historia de la hermandad logueada
+			final MiscellaneousRecord miscellaneousRecordbd = this.miscellaneousRecordService.create();
+			miscellaneousRecordbd.setText(text);
+			miscellaneousRecordbd.setTitle("a");
 			final String a = "http://a.com";
-			final List<String> p = new ArrayList<>();
-			p.add(a);
-			periodRecordbd.setPhotos(p);
 
 			//Gruadamos
-			final PeriodRecord saved = this.periodRecordService.save(periodRecordbd);
+			this.miscellaneousRecordService.save(miscellaneousRecordbd);
 
-			System.out.println(this.periodRecordService.findOne(saved.getId()).getTitle());
 			//Nos desautenticamos
 			this.unauthenticate();
 
@@ -232,7 +223,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateDelete(final String username, final String periodRecord, final Class<?> expected) {
+	protected void templateDelete(final String username, final String miscellaneousRecord, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -241,10 +232,10 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Cogemos una periodrecord de la hermandad
-			final PeriodRecord periodRecordbd = this.periodRecordService.findOne(this.getEntityId(periodRecord));
-			//Borramos la  period record de la historia
-			this.periodRecordService.delete(periodRecordbd);
+			//Cogemos una miscellaneousrecord de la hermandad
+			final MiscellaneousRecord miscellaneousRecordbd = this.miscellaneousRecordService.findOne(this.getEntityId(miscellaneousRecord));
+			//Borramos la  miscellaneousRecord de la historia
+			this.miscellaneousRecordService.delete(miscellaneousRecordbd);
 
 			//Nos desautenticamos
 			this.unauthenticate();

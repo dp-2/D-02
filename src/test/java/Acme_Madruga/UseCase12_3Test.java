@@ -1,5 +1,5 @@
 
-package usecases.test_v1;
+package Acme_Madruga;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

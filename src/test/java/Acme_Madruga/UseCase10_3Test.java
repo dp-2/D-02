@@ -1,8 +1,7 @@
 
-package usecases.test_v1;
+package Acme_Madruga;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -13,33 +12,32 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import services.BrotherhoodService;
-import services.MarchService;
-import services.ParadeService;
+import services.EnrollService;
+import services.MemberService;
 import utilities.AbstractTest;
 import domain.Brotherhood;
-import domain.March;
-import domain.Parade;
+import domain.Enroll;
+import domain.Member;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class UseCase10_6Test extends AbstractTest {
+public class UseCase10_3Test extends AbstractTest {
 
-	// 3.1 Manage their history, which includes listing, displaying, creating,
-	//updating, and deleting its records
+	// 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
 
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private MarchService		marchService;
+	MemberService		memberService;
 
 	@Autowired
-	private ParadeService		paradeService;
+	EnrollService		enrollService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -50,12 +48,13 @@ public class UseCase10_6Test extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				"brotherhood1", null
-			//brotherhood1 puede ver las peticiones de sus desfiles(POSITIVO)
+			//Brotherhood puede ver sus members (POSITIVO)
 			}, {
-				"sponsor1", NullPointerException.class
-			//Sponsor 1 no tiene desfiles y por lo tanto no puede ver las peticiones(NEGATIVO)
+				"chapter1", NullPointerException.class
+			//Un chapter no deberia ver sus members (NEGATIVO) 
 			}
 		};
+
 		int j = 1;
 		for (int i = 0; i < testingData.length; i++) {
 			System.out.println("Casuistica" + j);
@@ -69,11 +68,8 @@ public class UseCase10_6Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "march1", null
-			//Brotherhood1 puede editar sus march (POSITIVO)
-			}, {
-				"brotherhood2", null, AssertionError.class
-			//Brotherhood1 no deberia editar un march que no existe(NEGATIVO)
+				"brotherhood1", "enroll1", null
+			//Brotherhood1 puede editar sus member (POSITIVO)
 			}
 		};
 		int j = 1;
@@ -85,6 +81,23 @@ public class UseCase10_6Test extends AbstractTest {
 
 	}
 
+	@Test
+	public void driverKicking() {
+		System.out.println("=====DELETING=====");
+		final Object testingData[][] = {
+			{
+				"brotherhood1", "enroll1", null
+			//Brotherhood1 puede echar sus member (POSITIVO)
+			}
+		};
+		int j = 1;
+		for (int i = 0; i < testingData.length; i++) {
+			System.out.println("Casuistica" + j);
+			this.templateDelete((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+			j++;
+		}
+
+	}
 	// Ancillary methods ------------------------------------------------------
 
 	protected void templateListing(final String username, final Class<?> expected) {
@@ -96,14 +109,10 @@ public class UseCase10_6Test extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 			final Brotherhood principal = this.brotherhoodService.findOne(this.getEntityId(username));
-			final List<Parade> parades = this.paradeService.findParadesByBrotherhoodId(principal.getId());
-			for (final Parade p : parades) {
-				//Mostramos un march que pasamos por parámetro
-				final Collection<March> marchs = this.marchService.findMarchsByParade(p.getId());
-				for (final March m : marchs)
-					System.out.println(m.getStatus());
-
-			}
+			//Buscamos los dfloat del brotherhood
+			final Collection<Member> member = this.memberService.listMembersByBrotherhood(principal.getId());
+			for (final Member d : member)
+				System.out.println(d.getName());
 			//Nos desautenticamos
 			this.unauthenticate();
 
@@ -119,7 +128,7 @@ public class UseCase10_6Test extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateUpdating(final String username, final String march, final Class<?> expected) {
+	protected void templateUpdating(final String username, final String enroll1, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -128,14 +137,14 @@ public class UseCase10_6Test extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Cogemos y editamos un march
-			final March march2 = this.marchService.findOne(this.getEntityId(march));
+			//Cogemos y editamos un dfloat
+			final Enroll enroll = this.enrollService.findOne(this.getEntityId(enroll1));
 
-			//Cambiamos la propiedad status
-			march2.setStatus("PENDING");
+			//Cambiamos la propiedad title
+			enroll.setStatus("ACCEPTED");
 
-			//Gruadamos
-			this.marchService.save(march2);
+			//Guardamos
+			this.enrollService.save(enroll);
 
 			//Nos desautenticamos
 			this.unauthenticate();
@@ -152,4 +161,32 @@ public class UseCase10_6Test extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
+	protected void templateDelete(final String username, final String enroll1, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+
+		try {
+
+			//Nos autenticamos
+			this.authenticate(username);
+
+			//Cogemos una miscellaneousrecord de la hermandad
+			final Enroll enroll = this.enrollService.findOne(this.getEntityId(enroll1));
+			//Borramos la  miscellaneousRecord de la historia
+			this.enrollService.goOut(enroll.getId());
+
+			//Nos desautenticamos
+			this.unauthenticate();
+
+			System.out.println("\n");
+			System.out.println("Borrando correctamente.");
+			System.out.println("-----------------------------");
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+
+			System.out.println(caught);
+			System.out.println("-----------------------------");
+		}
+		this.checkExceptions(expected, caught);
+	}
 }

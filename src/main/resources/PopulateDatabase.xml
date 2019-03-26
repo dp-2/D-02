@@ -1606,7 +1606,7 @@
 
 	<bean id="configuration" class="domain.Configuration">
 		<property name="nameSys" value="Acme-Parade" />
-		<property name="banner" value="https://tinyurl.com/acme-madruga" />
+		<property name="banner" value="https://i.ibb.co/MZ6qL84/wwwww.png" />
 		<property name="welcomeMessageEN"
 			value="Welcome to Acme Parade¡! The site to organise your parades." />
 		<property name="welcomeMessageES"

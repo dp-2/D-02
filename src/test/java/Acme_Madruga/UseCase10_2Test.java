@@ -1,58 +1,54 @@
 
-package usecases.test_v2;
+package Acme_Madruga;
 
-import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import services.BrotherhoodService;
-import services.HistoryService;
-import services.LinkRecordService;
-import utilities.AbstractTest;
 import domain.Brotherhood;
-import domain.History;
-import domain.LinkRecord;
+import domain.Parade;
+import services.BrotherhoodService;
+import services.ParadeService;
+import utilities.AbstractTest;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class UseCase3_1LinkRecordTest extends AbstractTest {
+public class UseCase10_2Test extends AbstractTest {
 
-	// 3.1 Manage their history, which includes listing, displaying, creating,
-	//updating, and deleting its records
+	//	10. An actor who is authenticated as a brotherhood must be able to::
+	//		5.	Manage their parade, which includes listing,
+	//			showing, creating, updating, and deleting them.
 
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	BrotherhoodService	brotherhoodService;
+	private ParadeService		paradeService;
 
 	@Autowired
-	LinkRecordService	linkRecordService;
-
-	@Autowired
-	HistoryService		historyService;
-
+	private BrotherhoodService	brotherhoodService;
 
 	// Tests ------------------------------------------------------------------
+
 
 	@Test
 	public void driverListing() {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", null
-			//Brotherhood puede ver sus linkRecords (POSITIVO)
+				"brotherhood1", null //Brotherhood puede ver sus parades (POSITIVO)
 			}, {
-				"member1", NullPointerException.class
-			//Un member no deberia ver sus linkRecords (NEGATIVO) 
+				null, AssertionError.class //Un actor no autenticado no tiene parades (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -64,15 +60,31 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 	}
 
 	@Test
+	public void driverCreating() {
+		System.out.println("=====CREATING=====");
+		final Object testingData[][] = {
+			{
+				"brotherhood1", null //Brotherhood puede crear parades (POSITIVO)
+			}, {
+				null, IllegalArgumentException.class //Un actor no autenticado no puede crear parades (NEGATIVO) 
+			}
+		};
+		int j = 1;
+		for (int i = 0; i < testingData.length; i++) {
+			System.out.println("Casuistica" + j);
+			this.templateCreating((String) testingData[i][0], (Class<?>) testingData[i][1]);
+			j++;
+		}
+	}
+
+	@Test
 	public void driverUpdating() {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "linkRecord1", null
-			//Brotherhood1 puede editar sus linkRecord (POSITIVO)
+				"brotherhood1", "parade1", null//Parade no final (POSITIVO)
 			}, {
-				"brotherhood1", "linkRecord3", IllegalArgumentException.class
-			//Brotherhood1 no deberia editar linkRecord3 porque no es suyo (NEGATIVO) 
+				"brotherhood1", "parade3", IllegalArgumentException.class //Parade final(NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -85,42 +97,19 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 	}
 
 	@Test
-	public void driverCreating() {
-		System.out.println("=====CREATING=====");
-		final Object testingData[][] = {
-			{
-				"brotherhood1", "a", null
-			//Brotherhood1 puede crear sus linkRecord (POSITIVO)
-			}, {
-				null, "b", IllegalArgumentException.class
-			//Un actor que no exista no deberia crear un linkRecord (NEGATIVO) 
-			}
-		};
-		int j = 1;
-		for (int i = 0; i < testingData.length; i++) {
-			System.out.println("Casuistica" + j);
-			this.templateCreate((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
-			j++;
-		}
-
-	}
-
-	@Test
 	public void driverDeleting() {
 		System.out.println("=====DELETING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "linkRecord1", null
-			//Brotherhood1 puede borrar sus linkRecord (POSITIVO)
+				"brotherhood1", "parade1", null//Parade no final (POSITIVO)
 			}, {
-				"brotherhood1", "linkRecord3", IllegalArgumentException.class
-			//Brotherhood1 no deberia borrar un linkRecord que no es suyo (NEGATIVO) 
+				"brotherhood1", "parade3", DataIntegrityViolationException.class //Parade final(NEGATIVO) 
 			}
 		};
 		int j = 1;
 		for (int i = 0; i < testingData.length; i++) {
 			System.out.println("Casuistica" + j);
-			this.templateDelete((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.templateDeleting((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
 			j++;
 		}
 
@@ -137,12 +126,14 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 			final Brotherhood principal = this.brotherhoodService.findOne(this.getEntityId(username));
-			//Cogemos la history
-			final History h = this.historyService.findOneByBrotherhoodId(principal.getId());
-			//Buscamos los linkRecord de la historia
-			final Collection<LinkRecord> linkRecords = this.linkRecordService.findAllByHistoryId(h.getId());
-			for (final LinkRecord p : linkRecords)
-				System.out.println(p.getTitle());
+
+			//Buscamos los sponsorships
+			final List<Parade> parades = this.paradeService.findParadesByBrotherhoodId(principal.getId());
+			for (final Parade parade : parades)
+				if (parade.isFfinal() == true)
+					System.out.println(parade.getTitle() + ", FINAL");
+				else
+					System.out.println(parade.getTitle() + ", NO FINAL");
 			//Nos desautenticamos
 			this.unauthenticate();
 
@@ -158,7 +149,7 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateUpdating(final String username, final String linkRecord, final Class<?> expected) {
+	protected void templateCreating(final String username, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -167,20 +158,20 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Cogemos y editamos un linkRecord
-			final LinkRecord linkRecordbd = this.linkRecordService.findOne(this.getEntityId(linkRecord));
+			//Creamos una parade
+			final Parade parade = this.paradeService.create();
+			parade.setDescription("Description Test");
+			parade.setTitle("Title Test");
+			parade.setMomentOrganised(new Date(2020, 7, 15));
 
-			//Cambiamos la propiedad text
-			linkRecordbd.setText("a");
-
-			//Gruadamos
-			this.linkRecordService.save(linkRecordbd);
+			//Guardamos la parade
+			this.paradeService.save(parade);
 
 			//Nos desautenticamos
 			this.unauthenticate();
 
 			System.out.println("\n");
-			System.out.println("Editando correctamente.");
+			System.out.println("Creado correctamente.");
 			System.out.println("-----------------------------");
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -191,7 +182,7 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateCreate(final String username, final String text, final Class<?> expected) {
+	protected void templateUpdating(final String username, final String parade, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -200,20 +191,21 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Creamos un linkRecord para la historia de la hermandad logueada
-			final LinkRecord linkRecordbd = this.linkRecordService.create();
-			linkRecordbd.setText(text);
-			linkRecordbd.setTitle("a");
-			linkRecordbd.setLinkBrotherhood("http://a.com");
+			//Cogemos y editamos una parade
+			final Parade paradeBD = this.paradeService.findOne(this.getEntityId(parade));
 
-			//Gruadamos
-			this.linkRecordService.save(linkRecordbd);
+			paradeBD.setTitle("Title Test");
+
+			//Guardamos
+			final Parade saved = this.paradeService.save(paradeBD);
+
+			System.out.println(saved.getTitle());
 
 			//Nos desautenticamos
 			this.unauthenticate();
 
 			System.out.println("\n");
-			System.out.println("Creando correctamente.");
+			System.out.println("Editado correctamente.");
 			System.out.println("-----------------------------");
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -224,7 +216,7 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateDelete(final String username, final String linkRecord, final Class<?> expected) {
+	protected void templateDeleting(final String username, final String parade, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -233,16 +225,17 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Cogemos una periodrecord de la hermandad
-			final LinkRecord linkRecordbd = this.linkRecordService.findOne(this.getEntityId(linkRecord));
-			//Borramos la  period record de la historia
-			this.linkRecordService.delete(linkRecordbd);
+			//Cogemos una parade
+			final Parade paradeBD = this.paradeService.findOne(this.getEntityId(parade));
+
+			//Borramos
+			this.paradeService.delete(paradeBD);
 
 			//Nos desautenticamos
 			this.unauthenticate();
 
 			System.out.println("\n");
-			System.out.println("Borrando correctamente.");
+			System.out.println("Borrado correctamente.");
 			System.out.println("-----------------------------");
 		} catch (final Throwable oops) {
 			caught = oops.getClass();

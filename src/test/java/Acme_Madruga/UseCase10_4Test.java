@@ -1,54 +1,52 @@
 
-package usecases.test_v1;
+package Acme_Madruga;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import domain.Brotherhood;
-import domain.Parade;
 import services.BrotherhoodService;
-import services.ParadeService;
+import services.DFloatService;
 import utilities.AbstractTest;
+import domain.Brotherhood;
+import domain.DFloat;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class UseCase10_2Test extends AbstractTest {
+public class UseCase10_4Test extends AbstractTest {
 
-	//	10. An actor who is authenticated as a brotherhood must be able to::
-	//		5.	Manage their parade, which includes listing,
-	//			showing, creating, updating, and deleting them.
+	// 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
 
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private ParadeService		paradeService;
+	BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	DFloatService		dfloatService;
+
 
 	// Tests ------------------------------------------------------------------
-
 
 	@Test
 	public void driverListing() {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", null //Brotherhood puede ver sus parades (POSITIVO)
+				"brotherhood1", null
+			//Brotherhood puede ver sus dfloats (POSITIVO)
 			}, {
-				null, AssertionError.class //Un actor no autenticado no tiene parades (NEGATIVO) 
+				"member1", NullPointerException.class
+			//Un member no deberia ver sus dfloats (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -60,31 +58,15 @@ public class UseCase10_2Test extends AbstractTest {
 	}
 
 	@Test
-	public void driverCreating() {
-		System.out.println("=====CREATING=====");
-		final Object testingData[][] = {
-			{
-				"brotherhood1", null //Brotherhood puede crear parades (POSITIVO)
-			}, {
-				null, IllegalArgumentException.class //Un actor no autenticado no puede crear parades (NEGATIVO) 
-			}
-		};
-		int j = 1;
-		for (int i = 0; i < testingData.length; i++) {
-			System.out.println("Casuistica" + j);
-			this.templateCreating((String) testingData[i][0], (Class<?>) testingData[i][1]);
-			j++;
-		}
-	}
-
-	@Test
 	public void driverUpdating() {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "parade1", null//Parade no final (POSITIVO)
+				"brotherhood1", "dfloat1", null
+			//Brotherhood1 puede editar sus dfloat (POSITIVO)
 			}, {
-				"brotherhood1", "parade3", IllegalArgumentException.class //Parade final(NEGATIVO) 
+				"brotherhood1", "dfloat2", IllegalArgumentException.class
+			//Brotherhood1 no deberia editar dfloat porque no es suyo (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -97,19 +79,42 @@ public class UseCase10_2Test extends AbstractTest {
 	}
 
 	@Test
-	public void driverDeleting() {
-		System.out.println("=====DELETING=====");
+	public void driverCreating() {
+		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
-				"brotherhood1", "parade1", null//Parade no final (POSITIVO)
+				"brotherhood1", "dfloat1", null
+			//Brotherhood1 puede crear sus dfloat (POSITIVO)
 			}, {
-				"brotherhood1", "parade3", DataIntegrityViolationException.class //Parade final(NEGATIVO) 
+				"member1", "aa", IllegalArgumentException.class
+			//Member no deberia crear un dfloat (NEGATIVO) 
 			}
 		};
 		int j = 1;
 		for (int i = 0; i < testingData.length; i++) {
 			System.out.println("Casuistica" + j);
-			this.templateDeleting((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.templateCreate((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+			j++;
+		}
+
+	}
+
+	@Test
+	public void driverDeleting() {
+		System.out.println("=====DELETING=====");
+		final Object testingData[][] = {
+			{
+				"brotherhood1", "dfloat1", null
+			//Brotherhood1 puede borrar sus dfloat (POSITIVO)
+			}, {
+				"brotherhood1", "dfloat2", IllegalArgumentException.class
+			//Brotherhood1 no deberia borrar un dfloat que no es suyo (NEGATIVO) 
+			}
+		};
+		int j = 1;
+		for (int i = 0; i < testingData.length; i++) {
+			System.out.println("Casuistica" + j);
+			this.templateDelete((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
 			j++;
 		}
 
@@ -126,14 +131,10 @@ public class UseCase10_2Test extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 			final Brotherhood principal = this.brotherhoodService.findOne(this.getEntityId(username));
-
-			//Buscamos los sponsorships
-			final List<Parade> parades = this.paradeService.findParadesByBrotherhoodId(principal.getId());
-			for (final Parade parade : parades)
-				if (parade.isFfinal() == true)
-					System.out.println(parade.getTitle() + ", FINAL");
-				else
-					System.out.println(parade.getTitle() + ", NO FINAL");
+			//Buscamos los dfloat del brotherhood
+			final Collection<DFloat> dfloat = this.dfloatService.findAllDFloatsByBrotherhood(principal);
+			for (final DFloat d : dfloat)
+				System.out.println(d.getTitle());
 			//Nos desautenticamos
 			this.unauthenticate();
 
@@ -149,7 +150,7 @@ public class UseCase10_2Test extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateCreating(final String username, final Class<?> expected) {
+	protected void templateUpdating(final String username, final String dfloat1, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -158,54 +159,20 @@ public class UseCase10_2Test extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Creamos una parade
-			final Parade parade = this.paradeService.create();
-			parade.setDescription("Description Test");
-			parade.setTitle("Title Test");
-			parade.setMomentOrganised(new Date(2020, 7, 15));
+			//Cogemos y editamos un dfloat
+			final DFloat dfloat = this.dfloatService.findOne(this.getEntityId(dfloat1));
 
-			//Guardamos la parade
-			this.paradeService.save(parade);
-
-			//Nos desautenticamos
-			this.unauthenticate();
-
-			System.out.println("\n");
-			System.out.println("Creado correctamente.");
-			System.out.println("-----------------------------");
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-
-			System.out.println(caught);
-			System.out.println("-----------------------------");
-		}
-		this.checkExceptions(expected, caught);
-	}
-
-	protected void templateUpdating(final String username, final String parade, final Class<?> expected) {
-		Class<?> caught;
-		caught = null;
-
-		try {
-
-			//Nos autenticamos
-			this.authenticate(username);
-
-			//Cogemos y editamos una parade
-			final Parade paradeBD = this.paradeService.findOne(this.getEntityId(parade));
-
-			paradeBD.setTitle("Title Test");
+			//Cambiamos la propiedad title
+			dfloat.setTitle("a");
 
 			//Guardamos
-			final Parade saved = this.paradeService.save(paradeBD);
-
-			System.out.println(saved.getTitle());
+			this.dfloatService.save(dfloat);
 
 			//Nos desautenticamos
 			this.unauthenticate();
 
 			System.out.println("\n");
-			System.out.println("Editado correctamente.");
+			System.out.println("Editando correctamente.");
 			System.out.println("-----------------------------");
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -216,7 +183,7 @@ public class UseCase10_2Test extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateDeleting(final String username, final String parade, final Class<?> expected) {
+	protected void templateCreate(final String username, final String text, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -225,17 +192,49 @@ public class UseCase10_2Test extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Cogemos una parade
-			final Parade paradeBD = this.paradeService.findOne(this.getEntityId(parade));
+			//Creamos un miscellaneousRecord para la historia de la hermandad logueada
+			final DFloat dfloatbd = this.dfloatService.create();
+			dfloatbd.setDescription(text);
+			dfloatbd.setTitle("a");
+			final String a = "http://a.com";
 
-			//Borramos
-			this.paradeService.delete(paradeBD);
+			//Guardamos
+			this.dfloatService.save(dfloatbd);
 
 			//Nos desautenticamos
 			this.unauthenticate();
 
 			System.out.println("\n");
-			System.out.println("Borrado correctamente.");
+			System.out.println("Creando correctamente.");
+			System.out.println("-----------------------------");
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+
+			System.out.println(caught);
+			System.out.println("-----------------------------");
+		}
+		this.checkExceptions(expected, caught);
+	}
+
+	protected void templateDelete(final String username, final String dfloat1, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+
+		try {
+
+			//Nos autenticamos
+			this.authenticate(username);
+
+			//Cogemos una miscellaneousrecord de la hermandad
+			final DFloat dfloatbd = this.dfloatService.findOne(this.getEntityId(dfloat1));
+			//Borramos la  miscellaneousRecord de la historia
+			this.dfloatService.delete(dfloatbd);
+
+			//Nos desautenticamos
+			this.unauthenticate();
+
+			System.out.println("\n");
+			System.out.println("Borrando correctamente.");
 			System.out.println("-----------------------------");
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
