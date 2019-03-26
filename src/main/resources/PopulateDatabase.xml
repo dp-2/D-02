@@ -513,6 +513,50 @@
 
 
 	<!-- Box -->
+	
+	<!-- Boxes del system -->
+
+	<bean id="inboxSystem" class="domain.Box">
+		<property name="name" value="inBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="inboxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+
+	<bean id="outboxSystem" class="domain.Box">
+		<property name="name" value="outBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="outboxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+
+	<bean id="trashboxSystem" class="domain.Box">
+		<property name="name" value="trashBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="trashboxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+
+
+	<bean id="spamboxSystem" class="domain.Box">
+		<property name="name" value="spamBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="spamboxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+
+	<bean id="notificationBoxSystem" class="domain.Box">
+		<property name="name" value="notificationBox" />
+		<property name="isSystem" value="true" />
+		<property name="rootBox" ref="notificationBoxSystem" />
+		<property name="actor" ref="system" />
+
+	</bean>
+	
 
 
 
