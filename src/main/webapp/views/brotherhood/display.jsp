@@ -97,10 +97,7 @@
 		href="brotherhood/brotherhood/edit.do?brotherhoodId=${brotherhood.id}"><spring:message
 			code="brotherhood.edit" /></a>
 
-	<br />
-	<br />
-	<acme:cancel url="/actor/export.do?actorId=${actorId}"
-		code="actor.export" />
+
 </jstl:if>
 
 

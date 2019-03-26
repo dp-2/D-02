@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.FinderRepository;
-import security.Authority;
-import security.LoginService;
 import domain.Finder;
 import domain.Member;
 import domain.Parade;
+import repositories.FinderRepository;
+import security.Authority;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -78,6 +78,10 @@ public class FinderService {
 	public Finder findOneByPrincipal() {
 		final Member member = this.memberService.findMemberByUserAcountId(LoginService.getPrincipal().getId());
 		return this.finderRepository.findFinderByMemberId(member.getId());
+	}
+
+	public Finder findOne(final Integer id) {
+		return this.finderRepository.findOne(id);
 	}
 
 	//Other------------------------------------------------------------------------------------------------
@@ -160,7 +164,7 @@ public class FinderService {
 					res.add(parade);
 		}
 
-		if (f.getArea() == null && f.getMinDate() == null && f.getMaxDate() == null && f.getMaxDate() == null)
+		if (f.getArea() == null && f.getMinDate() == null && f.getMaxDate() == null && f.getMaxDate() == null && f.getKeyword() == null)
 			res = this.paradeService.findParadesFinal();
 
 		return res;
