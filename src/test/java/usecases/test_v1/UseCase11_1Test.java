@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import domain.Enroll;
+import services.BrotherhoodService;
 import services.EnrollService;
 import utilities.AbstractTest;
 
@@ -22,46 +22,49 @@ import utilities.AbstractTest;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class UseCase11_2Test extends AbstractTest {
+public class UseCase11_1Test extends AbstractTest {
 
 	//	11. An actor who is authenticated as a member must be able to::
-	//		2.	Drop out from a brotherhood to which he or she belongs. The system must
-	//			record the moment then the drop out takes place. A member may be re-enrolled
-	//			after he or she drops out.
+	//		1.	Manage his or her requests to march on a procession, which
+	//			includes listing them by status, showing, creating them,
+	//			and deleting them. Note that the requests cannot be updated,
+	//			but they can be deleted as long as they are in the pending status.
 
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private EnrollService enrollService;
+	private EnrollService		enrollService;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 
 
 	// Tests ------------------------------------------------------------------
 
 	@Test
-	@Before
-	public void driverDropingOut() {
-		System.out.println("=====DROP OUT=====");
+	public void driverDeleting() {
+		System.out.println("=====DELATING=====");
 		final Object testingData[][] = {
 			{
-				"member1", null //Un miembro puede salirse de una hermandad  (POSITIVO)
+				"member2", null //Un miembro puede borrar su peticion de una hermandad  (POSITIVO)
 			}, {
-				null, AssertionError.class //Un actor no autenticado no puede salirse de una hermandad (NEGATIVO) 
+				null, AssertionError.class //Un actor no autenticado no puede borrar su peticion  de una hermandad (NEGATIVO) 
 			}
 		};
 		int j = 1;
 		for (int i = 0; i < testingData.length; i++) {
 			System.out.println("Casuistica" + j);
-			this.templateDropingOut((String) testingData[i][0], (Class<?>) testingData[i][1]);
+			this.templateDeleting((String) testingData[i][0], (Class<?>) testingData[i][1]);
 			j++;
 		}
 	}
 
 	@Test
-	public void driverEnrolling() {
-		System.out.println("=====ENROLLING=====");
+	public void driverCreating() {
+		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
-				"member1", null//Un miembro podrá hacer un enroll sobre una hermandad (POSITIVO)
+				"member2", null//Un miembro podrá hacer un enroll sobre una hermandad (POSITIVO)
 			}, {
 				null, AssertionError.class // Un actor no autenticado no podrá hacer un enroll sobre una hermandad(NEGATIVO) 
 			}
@@ -69,7 +72,7 @@ public class UseCase11_2Test extends AbstractTest {
 		int j = 1;
 		for (int i = 0; i < testingData.length; i++) {
 			System.out.println("Casuistica" + j);
-			this.templateEnrolling((String) testingData[i][0], (Class<?>) testingData[i][1]);
+			this.templateCreating((String) testingData[i][0], (Class<?>) testingData[i][1]);
 			j++;
 		}
 
@@ -77,7 +80,7 @@ public class UseCase11_2Test extends AbstractTest {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected void templateEnrolling(final String username, final Class<?> expected) {
+	protected void templateCreating(final String username, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -126,7 +129,7 @@ public class UseCase11_2Test extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void templateDropingOut(final String username, final Class<?> expected) {
+	protected void templateDeleting(final String username, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
@@ -143,13 +146,13 @@ public class UseCase11_2Test extends AbstractTest {
 				else
 					System.out.println(enroll.getBrotherhood().getTitle() + ", " + enroll.getStatus() + ", DROP OUT: " + enroll.getEndMoment());
 
-				//Si no estamos fuera, nos salimos
-				if (enroll.getEndMoment() == null)
-					this.enrollService.goOut(enroll.getId());
+				//Si no
+				if (enroll.getStatus().equals("PENDING"))
+					this.enrollService.delete1(enroll);
 			}
 
 			System.out.println("\n");
-			System.out.println("Droping out brotherhoods:");
+			System.out.println("Deleting enrolls:");
 			final List<Enroll> enrolls2 = new ArrayList<>(this.enrollService.findEnrollByMember(this.getEntityId(username)));
 			for (final Enroll enroll : enrolls2)
 				if (enroll.getEndMoment() == null)
