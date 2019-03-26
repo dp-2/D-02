@@ -151,7 +151,12 @@ public class BrotherhoodController extends AbstractController {
 		res.addObject("message", message);
 		res.addObject("banner", this.configurationService.findOne().getBanner());
 		res.addObject("isPrincipalAuthorizedEdit", isPrincipalAuthorizedEdit);
-		res.addObject("actorId", this.actorService.findPrincipal().getId());
+		try {
+			res.addObject("actorId", this.actorService.findPrincipal().getId());
+		} catch (final Exception e) {
+			res.addObject("actorId", null);
+		}
+
 		return res;
 	}
 	private Boolean isPrincipalAuthorizedEdit(final BrotherhoodForm brotherhoodForm) {
