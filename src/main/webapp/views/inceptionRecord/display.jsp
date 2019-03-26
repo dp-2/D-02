@@ -43,7 +43,7 @@
 	<input type="button" name="edit" value="${edit}"
 		onclick="javascript:relativeRedir('inceptionRecord/brotherhood/edit.do?inceptionRecordId=${inceptionRecord.id}')" />
 		
-	<acme:cancel url="history/display.do?brotherhoodId=${inceptionRecord.history.brotherhood.id}" code="inceptionRecord.cancel" />
+	<acme:cancel url="history/display.do?brotherhoodId=${inceptionRecord.history.brotherhood.id}" code="inceptionRecord.back" />
 		
 	<%-- <input type="button" name="back" value="${back}"
 		onclick="javascript:relativeRedir('inceptionRecord/brotherhood/edit.do?inceptionRecordId=${inceptionRecord.id}')" /> --%>
