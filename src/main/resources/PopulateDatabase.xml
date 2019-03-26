@@ -210,8 +210,17 @@
 
 	<!-- La contraseña de system es intencional, no se puede acceder a esta 
 		cuenta -->
-
-
+	<bean id="userAccountSystem" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="system" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 
 	<!-- Other domain beans come here -->
@@ -435,6 +444,22 @@
 		<property name="score" value="0.7" />
 		<property name="address" value="" />
 		<property name="userAccount" ref="userAccount4" />
+	</bean>
+	
+	<bean id="system" class="domain.Administrator">
+		<property name="name" value="system" />
+		<property name="middleName" value="" />
+		<property name="surname" value="system" />
+		<property name="photo"
+			value="" />
+		<property name="email" value="system@system.com" />
+		<property name="phone" value="+34(456)473456789" />
+
+		<property name="spammer" value="false" />
+		<property name="banned" value="false" />
+		<property name="score" value="0.7" />
+		<property name="address" value="" />
+		<property name="userAccount" ref="userAccountSystem" />
 	</bean>
 
 
