@@ -102,7 +102,6 @@ public class Configuration extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public String getWelcomeMessageES() {
 		return this.welcomeMessageES;
 	}
