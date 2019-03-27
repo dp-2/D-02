@@ -21,24 +21,19 @@ import domain.Actor;
 @Transactional
 public class UseCase9_2Test extends AbstractTest {
 
-	//9. An actor who is authenticated must be able to:
-	//2. Edit his or her personal data.
-
-	//Services---------------------------------------------------------------------
 	@Autowired
 	private ActorService	actorService;
 
 
-	//Test-------------------------------------------------------------------------
 	@Test
 	public void authorityTest() {
 		final Object AccessDashBoardTest[][] = {
 			{
 				"FalseBoy", "TEST", java.lang.IllegalArgumentException.class
-			//Probamos con un user admin que no exista y que no debia editar sus datos(CASO NEGATIVO)
+			//Probamos con un user admin que no exista
 			}, {
 				"member2", "TEST", null
-			//Este admin si esta registrado en el sistema y puede editar sus datos personales(CASO POSITIVO)
+			//Este admin si esta registrado en el sistema
 			},
 
 		};
@@ -52,13 +47,9 @@ public class UseCase9_2Test extends AbstractTest {
 		caught = null;
 		final String result = "VACIO";
 		try {
-			//Nos autenticamos
 			this.authenticate(username);
-			//Encontramos el actor cuyo nombre de usuario es igual a que pasamos por parámetros
 			final Actor a = this.actorService.findActorByUsername(username);
-			//Modificamos su nombre
 			a.setName(name);
-			//Guardamos el cambio
 			this.actorService.save(a);
 			if (username == a.getName())
 				Assert.isTrue(result.equals(name));

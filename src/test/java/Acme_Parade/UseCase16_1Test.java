@@ -11,17 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import domain.Actor;
+import domain.CreditCard;
+import domain.Parade;
+import domain.Sponsor;
+import domain.Sponsorship;
 import services.ActorService;
 import services.CreditCardService;
 import services.ParadeService;
 import services.SponsorService;
 import services.SponsorshipService;
 import utilities.AbstractTest;
-import domain.Actor;
-import domain.CreditCard;
-import domain.Parade;
-import domain.Sponsor;
-import domain.Sponsorship;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -53,19 +53,17 @@ public class UseCase16_1Test extends AbstractTest {
 	@Autowired
 	private CreditCardService	cardService;
 
-
 	// Tests ------------------------------------------------------------------
+
 
 	@Test
 	public void driverListing() {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
-				"sponsor1", null
-			//Sponsor1 puede ver sus sponsorships (POSITIVO)
+				"sponsor1", null //Sponsor puede ver sus sponsorships (POSITIVO)
 			}, {
-				null, IllegalArgumentException.class
-			//Un actor no autenticado no deberia ver sponsorships (NEGATIVO) 
+				null, IllegalArgumentException.class //Un actor no autenticado no deberia ver sponsorships (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -81,11 +79,9 @@ public class UseCase16_1Test extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
-				"sponsor1", "parade3", null
-			//Sponsor puede crear sus sponsorships (POSITIVO)
+				"sponsor1", "parade3", null //Sponsor puede crear sus sponsorships (POSITIVO)
 			}, {
-				null, "parade3", AssertionError.class
-			//Un actor no autenticado no deberia crear sponsorships (NEGATIVO) 
+				null, "parade3", AssertionError.class //Un actor no autenticado no deberia crear sponsorships (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -101,11 +97,9 @@ public class UseCase16_1Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
-				"sponsor1", null
-			//Sponsor puede editar sus sponsorship (POSITIVO)
+				"sponsor1", null//Sponsor puede editar sus sponsorship (POSITIVO)
 			}, {
-				null, AssertionError.class
-			//Un actor no autenticado no deberia editar sponsorships (NEGATIVO) 
+				null, AssertionError.class //Un actor no autenticado no deberia editar sponsorships (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -122,11 +116,9 @@ public class UseCase16_1Test extends AbstractTest {
 		System.out.println("=====DESACTIVATING=====");
 		final Object testingData[][] = {
 			{
-				"sponsor1", null
-			//Sponsor puede editar sus sponsorship (POSITIVO)
+				"sponsor1", null//Sponsor puede editar sus sponsorship (POSITIVO)
 			}, {
-				null, AssertionError.class
-			//Un actor no autenticado no deberia editar sponsorships (NEGATIVO) 
+				null, AssertionError.class //Un actor no autenticado no deberia editar sponsorships (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -143,11 +135,9 @@ public class UseCase16_1Test extends AbstractTest {
 		System.out.println("=====ACTIVATING=====");
 		final Object testingData[][] = {
 			{
-				"sponsor1", null
-			//Sponsor puede editar sus sponsorship (POSITIVO)
+				"sponsor1", null//Sponsor puede editar sus sponsorship (POSITIVO)
 			}, {
-				null, AssertionError.class
-			//Un actor no autenticado no deberia editar sponsorships (NEGATIVO) 
+				null, AssertionError.class //Un actor no autenticado no deberia editar sponsorships (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -205,7 +195,7 @@ public class UseCase16_1Test extends AbstractTest {
 
 			//Creamos el sponsorship
 			final Parade paradeBD = this.paradeService.findOne(this.getEntityId(parade));
-			//Creamos la tarjeta que va a tener ese sponsorship
+
 			final CreditCard creditCard = this.cardService.create();
 			creditCard.setCVVCode(222);
 			creditCard.setExpirationMonth(8);
@@ -214,7 +204,7 @@ public class UseCase16_1Test extends AbstractTest {
 			creditCard.setMakeName("VISA");
 			creditCard.setNumber("1111222233334444");
 			final CreditCard savedCard = this.cardService.save(creditCard);
-			//Creamos el sponsorship
+
 			final Sponsorship sponsorship = this.sponsorshipService.create(principal.getId());
 			sponsorship.setBanner("http://test.com");
 			sponsorship.setTarget("http://test.com");
@@ -251,7 +241,7 @@ public class UseCase16_1Test extends AbstractTest {
 			final int sponsorId = this.getEntityId(username);
 			final Sponsor principal = this.sponsorService.findOne(sponsorId);
 
-			//Buscamos los sponsorships del sponsor con el que nos logueamos
+			//Buscamos los sponsorships
 			final List<Sponsorship> sponsorships = this.sponsorshipService.findSponsorshipsBySponsorId(principal.getId());
 
 			//Cogemos y editamos un sponsorship
@@ -261,7 +251,7 @@ public class UseCase16_1Test extends AbstractTest {
 				System.out.println(sponsorship.getBanner() + ", ACTIVATED");
 			else
 				System.out.println(sponsorship.getBanner() + ", DESACTIVATED");
-			//Modificamos la propiedad active
+
 			sponsorship.setActive(false);
 
 			//Gruadamos
@@ -308,10 +298,10 @@ public class UseCase16_1Test extends AbstractTest {
 				System.out.println(sponsorship.getBanner() + ", ACTIVATED");
 			else
 				System.out.println(sponsorship.getBanner() + ", DESACTIVATED");
-			//Modificamos el sponsorship para desactivarlo
+
 			sponsorship.setActive(false);
 
-			//Guardamos
+			//Gruadamos
 			final Sponsorship saved = this.sponsorshipService.save(sponsorship);
 
 			if (saved.getActive() == true)
@@ -355,10 +345,10 @@ public class UseCase16_1Test extends AbstractTest {
 				System.out.println(sponsorship.getBanner() + ", ACTIVATED");
 			else
 				System.out.println(sponsorship.getBanner() + ", DESACTIVATED");
-			//Modificamos el sporsorship activandolo
+
 			sponsorship.setActive(true);
 
-			//Guardamos
+			//Gruadamos
 			final Sponsorship saved = this.sponsorshipService.save(sponsorship);
 
 			if (saved.getActive() == true)

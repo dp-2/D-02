@@ -42,7 +42,6 @@ public class InceptionRecordService {
 
 	public InceptionRecord createAndSave(final History history) {
 		final History historyDB = (History) this.serviceUtils.checkObject(history);
-		this.serviceUtils.checkActor(history.getBrotherhood());
 		Assert.notNull(history);
 		final InceptionRecord inceptionRecord = new InceptionRecord();
 		final String photo = "https://content.thriveglobal.com/wp-content/uploads/2017/10/change-pixabay.jpg";
