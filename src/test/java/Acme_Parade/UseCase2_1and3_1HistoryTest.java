@@ -32,7 +32,12 @@ import domain.PeriodRecord;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class UseCase2_1and3_1Test extends AbstractTest {
+public class UseCase2_1and3_1HistoryTest extends AbstractTest {
+
+	//2. An actor who is not authenticated must be able to:
+	//1. Display the history of every brotherhood that he or she can display.
+	//3. An actor who is authenticated as a brotherhood must be able to:
+	//1. Manage their history, which includes listing, displaying, creating, updating, and deleting its records.
 
 	//Service----------------------------------------------------------------------
 
@@ -58,16 +63,16 @@ public class UseCase2_1and3_1Test extends AbstractTest {
 		final Object AccessDashBoardTest[][] = {
 			{
 				"brotherhood", java.lang.IllegalArgumentException.class
-			//Probamos con un user admin que no exista
+			//Probamos con un usuario que no exista y por lo tanto no debe mostrar la history(CASO NEGATIVO)
 			}, {
 				"brotherhood1", null
-			//Este admin si esta registrado en el sistema
+			//Este hermandad si esta registrado en el sistema y deberia ver la historia(CASO POSITIVO)
 			}, {
-				"member1", null
-			//Este admin si esta registrado en el sistema
+				null, null
+			//Entramos como un actor no autenticado y deberia ver la history(CASO POSITIVO)
 			}, {
 				"DonHacker", java.lang.IllegalArgumentException.class
-			//Este admin si esta registrado en el sistema
+			//Este admin no  esta registrado en el sistema y no deberia mostrar la history(CASO NEGATIVO)
 			},
 
 		};
@@ -75,13 +80,15 @@ public class UseCase2_1and3_1Test extends AbstractTest {
 			this.AuthorityMethod((String) AccessDashBoardTest[i][0], (Class<?>) AccessDashBoardTest[i][1]);
 	}
 
+	//Metodo para comprobar el display
 	private void AuthorityMethod(final String username, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
 		try {
+			//Nos autenticamos
 			this.authenticate(username);
-
+			//Cogemos una historia
 			this.historyService.findAll().get(0);
 
 		} catch (final Throwable oops) {
@@ -96,16 +103,16 @@ public class UseCase2_1and3_1Test extends AbstractTest {
 		final Object AccessDashBoardTest[][] = {
 			{
 				"brotherhood", "TitleChange", java.lang.IllegalArgumentException.class
-			//Probamos con un user admin que no exista
+			//Probamos con un user brotherhood que no exista y por lo tanto no tiene historia(CASO NEGATIVO)
 			}, {
 				"brotherhood1", "TitleChange", null
-			//Este admin si esta registrado en el sistema
+			//Esta hermandad si esta registrado en el sistema y puede editar su historia(CASO POSITIVO)
 			}, {
 				"member1", "TitleChange", java.lang.IllegalArgumentException.class
-			//Este admin si esta registrado en el sistema
+			//Un miembro no debe editar una historia(CASO NEGATIVO)
 			}, {
 				"DonHacker", "TitleChange", java.lang.IllegalArgumentException.class
-			//Este admin si esta registrado en el sistema
+			//Este usuario no existe no deberia editar una historia(CASO NEGATIVO)
 			},
 
 		};
@@ -117,11 +124,15 @@ public class UseCase2_1and3_1Test extends AbstractTest {
 
 		caught = null;
 		try {
+			//Nos autenticamos
 			this.authenticate(username);
 
 			final List<History> res = this.historyService.findAll();
+			//Cogemos una historia
 			final History h = res.get(0);
+			//Modificamos el titulo
 			h.setTitle(title);
+			//Guardamos
 			this.historyService.save(h);
 			final String nuevoTitulo = h.getTitle();
 			Assert.isTrue(nuevoTitulo == title);
@@ -138,7 +149,9 @@ public class UseCase2_1and3_1Test extends AbstractTest {
 		this.authenticate("brotherhood1");
 		final Brotherhood br = (Brotherhood) this.actorService.findActorByUsername("brotherhood1");
 		final Integer id = br.getId();
+		//Cogemos la historia del actor logueado
 		this.historyService.findOneByBrotherhoodId(id);
+		//Creamos sus records
 		final MiscellaneousRecord m = this.miscellaneousService.create();
 		final LinkRecord l = this.linkService.create();
 		final PeriodRecord p = this.personalService.create();
@@ -148,9 +161,10 @@ public class UseCase2_1and3_1Test extends AbstractTest {
 		p.setTitle("TEST");
 		lr.setTitle("TEST");
 		m.setText("TEXT");
+		//Guardamos
 		this.miscellaneousService.save(m);
 		this.unauthenticate();
-		//System.out.println(m.getTitle());
+
 		Assert.isTrue(m.getTitle() == "TEST");
 		Assert.isTrue(l.getTitle() == "TEST");
 		Assert.isTrue(p.getTitle() == "TEST");
@@ -160,9 +174,11 @@ public class UseCase2_1and3_1Test extends AbstractTest {
 
 	@Test
 	public void editAndDeleteRecordsHistory() {
+		//Nos autenticamos
 		this.authenticate("brotherhood1");
 		final Brotherhood br = (Brotherhood) this.actorService.findActorByUsername("brotherhood1");
 		final Integer id = br.getId();
+		//cogemos la historia del actor logueado
 		this.historyService.findOneByBrotherhoodId(id);
 		final History h = this.historyService.findOneByBrotherhoodId(id);
 		final List<MiscellaneousRecord> m = (List<MiscellaneousRecord>) this.miscellaneousService.findAll();
@@ -173,7 +189,9 @@ public class UseCase2_1and3_1Test extends AbstractTest {
 		m1.setTitle("TEST");
 		m1.setText("Test");
 		m1.setHistory(h);
+		//Borramos
 		this.legalService.delete(l1);
+		//Guardamo el cambio
 		this.miscellaneousService.save(m1);
 		this.unauthenticate();
 		Assert.isTrue(m1.getTitle() == "TEST");
