@@ -477,7 +477,7 @@ public class ActorService {
 
 			try {
 
-				final OutputStream outputStream = new FileOutputStream("C:\\" + member.getUserAccount().getUsername() + "_data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\" + member.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
 				document = this.docMember(document, member);
@@ -496,7 +496,7 @@ public class ActorService {
 			final Brotherhood brotherhood = this.brotherhoodService.findOne(actor.getId());
 
 			try {
-				final OutputStream outputStream = new FileOutputStream("C:\\" + brotherhood.getUserAccount().getUsername() + "_data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\" + brotherhood.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
 				document = this.docBrotherhood(document, brotherhood);
@@ -512,7 +512,7 @@ public class ActorService {
 			final Administrator administrator = this.administratorService.findOne(actor.getId());
 
 			try {
-				final OutputStream outputStream = new FileOutputStream("C:\\" + administrator.getUserAccount().getUsername() + "_data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\" + administrator.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
 				document.close();
@@ -527,7 +527,7 @@ public class ActorService {
 			final Sponsor sponsor = this.sponsorService.findOne(actor.getId());
 
 			try {
-				final OutputStream outputStream = new FileOutputStream("C:\\" + sponsor.getUserAccount().getUsername() + "_data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\" + sponsor.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
 				document = this.docSponsor(document, sponsor);
@@ -544,7 +544,7 @@ public class ActorService {
 			final Chapter chapter = this.chapterService.findOne(actor.getId());
 
 			try {
-				final OutputStream outputStream = new FileOutputStream("C:\\" + chapter.getUserAccount().getUsername() + "_data.pdf");
+				final OutputStream outputStream = new FileOutputStream("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\" + chapter.getUserAccount().getUsername() + "_data.pdf");
 				final PdfWriter pdfWriter = PdfWriter.getInstance(document, outputStream);
 				document = this.initDoc(actor, document);
 				document = this.docChapter(document, chapter);
