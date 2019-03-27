@@ -27,8 +27,12 @@ import domain.Parade;
 @Transactional
 public class UseCase10_6Test extends AbstractTest {
 
-	// 3.1 Manage their history, which includes listing, displaying, creating,
-	//updating, and deleting its records
+	// 10.6 Manage the request to march on a procession, which includes listing them by status,
+	//	showing them, and deciding on them. When the decision on a pending request is to
+	//	accept it, the brotherhood must provide a position in the procession, which is identified 
+	//	by means of a row and a column; the system must check that no two members can march at the same
+	//	row/column; the system must suggest a good position automatically, but the brotherhood may change 
+	//	it. When the decision is to reject it, the brotherhood must provide an explanation.
 
 	// System under test ------------------------------------------------------
 

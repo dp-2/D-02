@@ -32,6 +32,9 @@ import domain.Url;
 @Transactional
 public class UseCase11_3Test extends AbstractTest {
 
+	//	11. An actor who is authenticated as a member must be able to:
+	//		3. List the brotherhoods to which he or she belongs or has belonged.
+
 	//Service-------------------------------------------------------------------------
 
 	@Autowired

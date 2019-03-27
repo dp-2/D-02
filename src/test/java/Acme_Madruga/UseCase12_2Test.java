@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import services.AdministratorService;
 import services.PositionService;
 import utilities.AbstractTest;
-import domain.Administrator;
 import domain.Position;
 
 @ContextConfiguration(locations = {
@@ -24,7 +23,8 @@ import domain.Position;
 @Transactional
 public class UseCase12_2Test extends AbstractTest {
 
-	// 12.2 Manage the catalogue of positions, which includes listing, showing, creating, updating, and deleting them. Positions can be deleted as long as they are not used
+	// 12.2 Manage the catalogue of positions, which includes listing, showing, creating, updating, and deleting them.
+	//	Positions can be deleted as long as they are not used
 
 	// System under test ------------------------------------------------------
 
@@ -45,7 +45,7 @@ public class UseCase12_2Test extends AbstractTest {
 				"admin1", null
 			//Un administrator puede ver las positions (POSITIVO)
 			}, {
-				"member1", NullPointerException.class
+				"member1", IllegalArgumentException.class
 			//Un member no deberia ver lass positions (NEGATIVO) 
 			}
 		};
@@ -130,7 +130,6 @@ public class UseCase12_2Test extends AbstractTest {
 
 			//Nos autenticamos
 			this.authenticate(username);
-			final Administrator principal = this.adminService.findOne(this.getEntityId(username));
 			//Buscamos los dfloat del brotherhood
 			final Collection<Position> position = this.positionService.findAll();
 			for (final Position d : position)
