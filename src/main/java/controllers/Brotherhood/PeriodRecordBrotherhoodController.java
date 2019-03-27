@@ -115,14 +115,20 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 			try {
 				if (!periodRecord.getStartYear().before(periodRecord.getEndYear()))
 					throw dateErr;
-				this.periodRecordService.save(periodRecord);
-				result = new ModelAndView("redirect:list.do?historyId=" + periodRecord.getHistory().getId());
+				else if (this.periodRecordService.checkEquals(periodRecord))
+					result = this.createEditModelAndView(periodRecord, "history.equalsRecord.error");
+				else {
+					this.periodRecordService.save(periodRecord);
+					result = new ModelAndView("redirect:list.do?historyId=" + periodRecord.getHistory().getId());
+				}
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+				if (oops.getMessage().equals("fechas MAL"))
+					result = this.createEditModelAndView(periodRecord, "periodRecord.date.error");
+				else
+					result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
 			}
 		return result;
 	}
-
 	protected ModelAndView createEditModelAndView(final PeriodRecord periodRecord, final String message) {
 		final ModelAndView result;
 

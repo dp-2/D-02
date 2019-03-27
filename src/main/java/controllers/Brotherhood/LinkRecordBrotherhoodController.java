@@ -115,8 +115,12 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 			System.out.println(binding.getAllErrors());
 		} else
 			try {
-				this.linkRecordService.save(record);
-				result = new ModelAndView("redirect:list.do?historyId=" + record.getHistory().getId());
+				if (this.linkRecordService.checkEquals(record))
+					result = this.createEditModelAndView(record, "history.equalsRecord.error");
+				else {
+					this.linkRecordService.save(record);
+					result = new ModelAndView("redirect:list.do?historyId=" + record.getHistory().getId());
+				}
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(record, "linkRecord.commit.error");
 			}

@@ -100,4 +100,15 @@ public class MiscellaneousRecordService {
 		return this.miscellaneousRecordRepository.stddevQueryC1();
 	}
 
+	public Boolean checkEquals(final MiscellaneousRecord record) {
+		Boolean res = false;
+		final Collection<MiscellaneousRecord> todos = this.miscellaneousRecordRepository.findAll();
+		for (final MiscellaneousRecord r : todos)
+			if (r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
+				res = true;
+				break;
+			}
+		return res;
+	}
+
 }

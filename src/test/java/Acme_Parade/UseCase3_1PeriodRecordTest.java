@@ -14,13 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import domain.Brotherhood;
-import domain.History;
-import domain.PeriodRecord;
 import services.BrotherhoodService;
 import services.HistoryService;
 import services.PeriodRecordService;
 import utilities.AbstractTest;
+import domain.Brotherhood;
+import domain.History;
+import domain.PeriodRecord;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -30,7 +30,7 @@ import utilities.AbstractTest;
 public class UseCase3_1PeriodRecordTest extends AbstractTest {
 
 	// 3.1 Manage their history, which includes listing, displaying, creating,
-	//updating, and deleting its records
+	//updating, and deleting its period records
 
 	// System under test ------------------------------------------------------
 
@@ -140,6 +140,7 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 			final Brotherhood principal = this.brotherhoodService.findOne(this.getEntityId(username));
+			//Cogemos la historia del actor logueado
 			final History h = this.historyService.findOneByBrotherhoodId(principal.getId());
 			//Buscamos los periodRecord de la historia
 			final Collection<PeriodRecord> periodRecords = this.periodRecordService.findAllByHistoryId(h.getId());

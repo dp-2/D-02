@@ -20,6 +20,19 @@ import utilities.AbstractTest;
 })
 public class UseCase12_3Test extends AbstractTest {
 
+	//12.3 Display a dashboard with the following information:
+	//	 The average, the minimum, the maximum, and the standard deviation of the
+	//	number of members per brotherhood.
+	//	 The largest brotherhoods.
+	//	 The smallest brotherhoods.
+	//	 The ratio of requests to march in a procession, grouped by their status.
+	//	 The processions that are going to be organised in 30 days or less.
+	//	3
+	//	 The ratio of requests to march grouped by status.
+	//	 The listing of members who have got at least 10% the maximum number of
+	//	request to march accepted.
+	//	 A histogram of positions.
+
 	@Autowired
 	private AreaService			areaService;
 

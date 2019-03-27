@@ -12,10 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import domain.Enroll;
-import services.BrotherhoodService;
 import services.EnrollService;
 import utilities.AbstractTest;
+import domain.Enroll;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -33,10 +32,7 @@ public class UseCase11_1Test extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private EnrollService		enrollService;
-
-	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private EnrollService	enrollService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -46,9 +42,11 @@ public class UseCase11_1Test extends AbstractTest {
 		System.out.println("=====DELATING=====");
 		final Object testingData[][] = {
 			{
-				"member2", null //Un miembro puede borrar su peticion de una hermandad  (POSITIVO)
+				"member2", null
+			//Un miembro puede borrar su peticion de una hermandad  (POSITIVO)
 			}, {
-				null, AssertionError.class //Un actor no autenticado no puede borrar su peticion  de una hermandad (NEGATIVO) 
+				null, AssertionError.class
+			//Un actor no autenticado no puede borrar su peticion  de una hermandad (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -64,9 +62,11 @@ public class UseCase11_1Test extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
-				"member2", null//Un miembro podrá hacer un enroll sobre una hermandad (POSITIVO)
+				"member2", null
+			//Un miembro podrá hacer un enroll sobre una hermandad (POSITIVO)
 			}, {
-				null, AssertionError.class // Un actor no autenticado no podrá hacer un enroll sobre una hermandad(NEGATIVO) 
+				null, AssertionError.class
+			// Un actor no autenticado no podrá hacer un enroll sobre una hermandad(NEGATIVO) 
 			}
 		};
 		int j = 1;

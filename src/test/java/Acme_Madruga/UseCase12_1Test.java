@@ -14,11 +14,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import domain.Administrator;
 import security.Authority;
 import security.UserAccount;
 import services.AdministratorService;
 import utilities.AbstractTest;
+import domain.Administrator;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -33,7 +33,7 @@ public class UseCase12_1Test extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private AdministratorService administratorService;
+	private AdministratorService	administratorService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -49,7 +49,7 @@ public class UseCase12_1Test extends AbstractTest {
 			"address", "email@email.com", "middleName", "name", "650190424", "http://photo", "surname", "username2", "password2"
 		}, IllegalArgumentException.class);
 	}
-	// Methods
+	// Ancillary Methods
 
 	private void templateRegisterAdmin(final String username, final String[] parameters, final Class<?> expected) {
 		Class<?> caught = null;

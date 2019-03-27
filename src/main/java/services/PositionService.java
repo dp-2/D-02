@@ -22,6 +22,9 @@ public class PositionService {
 	@Autowired
 	private PositionRepository	positionRepository;
 
+	@Autowired
+	private ServiceUtils		serviceUtils;
+
 
 	//	@Autowired
 	//	private EnrollService		enrollService;
@@ -34,13 +37,14 @@ public class PositionService {
 
 	// Simple CRUD methods -------------------------------------------------------------------
 	public Position create() {
+		this.serviceUtils.checkAuthority("ADMIN");
 		final Position p = new Position();
 		return p;
 	}
 
 	public List<Position> findAll() {
 		final List<Position> positions;
-
+		this.serviceUtils.checkAuthority("ADMIN");
 		positions = this.positionRepository.findAll();
 		Assert.notNull(positions);
 
@@ -62,6 +66,7 @@ public class PositionService {
 	}
 	public void delete(final Position position) {
 
+		this.serviceUtils.checkAuthority("ADMIN");
 		Assert.notNull(position);
 		this.positionRepository.delete(position);
 	}

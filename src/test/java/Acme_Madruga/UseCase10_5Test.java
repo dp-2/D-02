@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -110,7 +109,7 @@ public class UseCase10_5Test extends AbstractTest {
 				"brotherhood1", "parade1", null
 			//Parade no final (POSITIVO)
 			}, {
-				"brotherhood1", "parade3", DataIntegrityViolationException.class
+				"brotherhood1", "parade3", IllegalArgumentException.class
 			//Parade final(NEGATIVO) 
 			}
 		};

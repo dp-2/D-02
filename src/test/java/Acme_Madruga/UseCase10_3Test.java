@@ -26,7 +26,8 @@ import domain.Member;
 @Transactional
 public class UseCase10_3Test extends AbstractTest {
 
-	// 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
+	// 10.3 Manage the members of the brotherhood, which includes listing, showing, enrolling,
+	//	and removing them. When a member is enrolled, a position must be selected by the brotherhood
 
 	// System under test ------------------------------------------------------
 
@@ -109,7 +110,7 @@ public class UseCase10_3Test extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 			final Brotherhood principal = this.brotherhoodService.findOne(this.getEntityId(username));
-			//Buscamos los dfloat del brotherhood
+			//Buscamos los member del brotherhood
 			final Collection<Member> member = this.memberService.listMembersByBrotherhood(principal.getId());
 			for (final Member d : member)
 				System.out.println(d.getName());
@@ -137,7 +138,7 @@ public class UseCase10_3Test extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Cogemos y editamos un dfloat
+			//Cogemos y editamos un member
 			final Enroll enroll = this.enrollService.findOne(this.getEntityId(enroll1));
 
 			//Cambiamos la propiedad title

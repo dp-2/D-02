@@ -1,5 +1,5 @@
 
-package services;
+package Acme_Parade;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import services.AreaService;
+import services.BrotherhoodService;
+import services.MemberService;
 import utilities.AbstractTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -17,7 +20,7 @@ import utilities.AbstractTest;
 	"classpath:spring/junit.xml",
 })
 @Transactional
-public class DashBoardServiceTest extends AbstractTest {
+public class UseCase4_1Test extends AbstractTest {
 
 	@Autowired
 	private AreaService			areaService;

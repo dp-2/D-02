@@ -24,7 +24,7 @@ import domain.DFloat;
 @Transactional
 public class UseCase10_4Test extends AbstractTest {
 
-	// 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
+	// 10.4 Manage their floats, which includes listing, showing, creating, updating, and deleting them
 
 	// System under test ------------------------------------------------------
 

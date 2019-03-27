@@ -19,71 +19,85 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$(function() {
-		$("#datepicker1").datepicker({  dateFormat: "yy/mm/dd", yearRange: "1700:2018",    changeMonth: true,
-		      changeYear: true});
-		$("#datepicker2").datepicker({ dateFormat: "yy/mm/dd",yearRange: "1700:2500",    changeMonth: true,
-		      changeYear: true});
+		$("#datepicker1").datepicker({
+			dateFormat : "yy/mm/dd",
+			yearRange : "1700:2018",
+			changeMonth : true,
+			changeYear : true
+		});
+		$("#datepicker2").datepicker({
+			dateFormat : "yy/mm/dd",
+			yearRange : "1700:2500",
+			changeMonth : true,
+			changeYear : true
+		});
 	});
 </script>
 
 
 <security:authentication property="principal.username" var="username" />
 <jstl:if
-		test='${periodRecord.history.brotherhood.userAccount.username == username || periodRecord.id == 0}'>
-<security:authorize access="hasRole('BROTHERHOOD')">
-	<div>
+	test='${periodRecord.history.brotherhood.userAccount.username == username || periodRecord.id == 0}'>
+	<security:authorize access="hasRole('BROTHERHOOD')">
+		<div>
 
-		<form:form action="periodRecord/brotherhood/edit.do" method="post"
-			id="formCreate" name="formCreate" modelAttribute="periodRecord">
+			<form:form action="periodRecord/brotherhood/edit.do" method="post"
+				id="formCreate" name="formCreate" modelAttribute="periodRecord">
 
-			<!-- Atributos hidden-->
+				<!-- Atributos hidden-->
 
-			<form:hidden path="id" />
-			<form:hidden path="version" />
-			<form:hidden path="history" />
-			
-
-
-			<fieldset>
-				<!-------------------Form ------------------------------------>
-				<acme:labelForm code="periodRecord.title" path="title" />
-				<acme:labelForm code="periodRecord.text" path="text" />
-				
-				<form:label path="startYear"><spring:message code="periodRecord.startYear"></spring:message></form:label>
-				<form:input path="startYear" id="datepicker1" />
-				<form:errors cssClass="error" path="startYear" />
-				<br>
-				
-				<form:label path="endYear"><spring:message code="periodRecord.endYear"></spring:message></form:label>
-				<form:input path="endYear" id="datepicker2" />
-				<form:errors cssClass="error" path="endYear" />
-				<br>
-				
-				<acme:textarea code="periodRecord.photos" path="photos" readonly="false" />
- 				
-				
-
-			</fieldset>
+				<form:hidden path="id" />
+				<form:hidden path="version" />
+				<form:hidden path="history" />
 
 
-			<!--  Los botones de crear y cancelar -->
 
-			<input type="submit" name="save"
-				value="<spring:message code="periodRecord.save"></spring:message>" />
+				<fieldset>
+					<!-------------------Form ------------------------------------>
+					<acme:labelForm code="periodRecord.title" path="title" />
+					<acme:labelForm code="periodRecord.text" path="text" />
 
-			<%-- <button type="button"
+					<form:label path="startYear">
+						<spring:message code="periodRecord.startYear"></spring:message>
+					</form:label>
+					<form:input path="startYear" id="datepicker1" />
+					<form:errors cssClass="error" path="startYear" />
+					<br>
+
+					<form:label path="endYear">
+						<spring:message code="periodRecord.endYear"></spring:message>
+					</form:label>
+					<form:input path="endYear" id="datepicker2" />
+					<form:errors cssClass="error" path="endYear" />
+					<br>
+
+					<acme:textarea code="periodRecord.photos" path="photos"
+						readonly="false" />
+
+
+
+				</fieldset>
+
+
+				<!--  Los botones de crear y cancelar -->
+
+				<input type="submit" name="save"
+					value="<spring:message code="periodRecord.save"></spring:message>" />
+
+				<%-- <button type="button"
 				onclick="javascript: relativeRedir('periodRecord/brotherhood/list.do')">
 				<spring:message code="periodRecord.cancel" />
 			</button> --%>
 
-			<jstl:if test="${periodRecord.id != 0}">
-				<input type="submit" name="delete"
-					value="<spring:message code="periodRecord.delete" />"
-					onclick="return confirm('<spring:message code="periodRecord.confirm.delete" />')" />&nbsp;
+				<jstl:if test="${periodRecord.id != 0}">
+					<input type="submit" name="delete"
+						value="<spring:message code="periodRecord.delete" />"
+						onclick="return confirm('<spring:message code="periodRecord.confirm.delete" />')" />&nbsp;
 	</jstl:if>
 
 
@@ -91,28 +105,31 @@
 
 
 
-		</form:form>
-		<acme:cancel url="periodRecord/brotherhood/list.do?historyId=${periodRecord.history.id}" code="periodRecord.cancel" />
+			</form:form>
+			<acme:cancel
+				url="periodRecord/brotherhood/list.do?historyId=${periodRecord.history.id}"
+				code="periodRecord.cancel" />
 
-	</div>
+		</div>
 
 
 
 
 
-</security:authorize>
+	</security:authorize>
 
 </jstl:if>
 <jstl:if
 	test='${periodRecord.history.brotherhood.userAccount.username != username}'>
-	<h1 >
+	<h1>
 		<b><spring:message code="history.permissions"></spring:message></b>
 	</h1>
-	
-	<img src="http://lymediseaseuk.com/wp-content/uploads/2018/07/oops-300x300.png" alt="Cuestionario Picture"
-			style="width: 10%; height: 10%;">
 
-		<br />
-		<br />
+	<img
+		src="http://lymediseaseuk.com/wp-content/uploads/2018/07/oops-300x300.png"
+		alt="Cuestionario Picture" style="width: 10%; height: 10%;">
+
+	<br />
+	<br />
 	<acme:cancel url="" code="periodRecord.back" />
 </jstl:if>

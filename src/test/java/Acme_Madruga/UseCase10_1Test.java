@@ -192,11 +192,10 @@ public class UseCase10_1Test extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Creamos un miscellaneousRecord para la historia de la hermandad logueada
+			//Creamos un dfloat 
 			final DFloat dfloatbd = this.dfloatService.create();
 			dfloatbd.setDescription(text);
 			dfloatbd.setTitle("a");
-			final String a = "http://a.com";
 
 			//Guardamos
 			this.dfloatService.save(dfloatbd);
@@ -225,9 +224,9 @@ public class UseCase10_1Test extends AbstractTest {
 			//Nos autenticamos
 			this.authenticate(username);
 
-			//Cogemos una miscellaneousrecord de la hermandad
+			//Cogemos una dfloat de la hermandad
 			final DFloat dfloatbd = this.dfloatService.findOne(this.getEntityId(dfloat1));
-			//Borramos la  miscellaneousRecord de la historia
+			//Borramos la  dfloat de la historia
 			this.dfloatService.delete(dfloatbd);
 
 			//Nos desautenticamos
