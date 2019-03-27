@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.PeriodRecordRepository;
+import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
 import domain.PeriodRecord;
-import repositories.PeriodRecordRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -98,6 +98,17 @@ public class PeriodRecordService {
 
 	public Double stddevQueryC1() {
 		return this.periodRecordRepository.stddevQueryC1();
+	}
+
+	public Boolean checkEquals(final PeriodRecord record) {
+		Boolean res = false;
+		final Collection<PeriodRecord> todos = this.periodRecordRepository.findAll();
+		for (final PeriodRecord r : todos)
+			if (r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
+				res = true;
+				break;
+			}
+		return res;
 	}
 
 }

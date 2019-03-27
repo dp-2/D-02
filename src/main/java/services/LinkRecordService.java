@@ -99,4 +99,15 @@ public class LinkRecordService {
 		return this.linkRecordRepository.stddevQueryC1();
 	}
 
+	public Boolean checkEquals(final LinkRecord record) {
+		Boolean res = false;
+		final Collection<LinkRecord> todos = this.linkRecordRepository.findAll();
+		for (final LinkRecord r : todos)
+			if (r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
+				res = true;
+				break;
+			}
+		return res;
+	}
+
 }

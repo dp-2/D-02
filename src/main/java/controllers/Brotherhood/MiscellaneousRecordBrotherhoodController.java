@@ -112,8 +112,12 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 			System.out.println(binding.getAllErrors());
 		} else
 			try {
-				this.miscellaneousRecordService.save(miscellaneousRecord);
-				result = new ModelAndView("redirect:list.do?historyId=" + miscellaneousRecord.getHistory().getId());
+				if (this.miscellaneousRecordService.checkEquals(miscellaneousRecord))
+					result = this.createEditModelAndView(miscellaneousRecord, "history.equalsRecord.error");
+				else {
+					this.miscellaneousRecordService.save(miscellaneousRecord);
+					result = new ModelAndView("redirect:list.do?historyId=" + miscellaneousRecord.getHistory().getId());
+				}
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
 			}

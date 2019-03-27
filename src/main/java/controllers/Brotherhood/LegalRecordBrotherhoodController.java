@@ -112,8 +112,12 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 			System.out.println(binding.getAllErrors());
 		} else
 			try {
-				this.legalRecordService.save(legalRecord);
-				result = new ModelAndView("redirect:list.do?historyId=" + legalRecord.getHistory().getId());
+				if (this.legalRecordService.checkEquals(legalRecord))
+					result = this.createEditModelAndView(legalRecord, "history.equalsRecord.error");
+				else {
+					this.legalRecordService.save(legalRecord);
+					result = new ModelAndView("redirect:list.do?historyId=" + legalRecord.getHistory().getId());
+				}
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(legalRecord, "legalRecord.commit.error");
 			}

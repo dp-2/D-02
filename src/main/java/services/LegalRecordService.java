@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.LegalRecordRepository;
+import security.LoginService;
 import domain.Brotherhood;
 import domain.History;
 import domain.LegalRecord;
-import repositories.LegalRecordRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -115,6 +115,17 @@ public class LegalRecordService {
 
 	public Double stddevQueryC1() {
 		return this.legalRecordRepository.stddevQueryC1();
+	}
+
+	public Boolean checkEquals(final LegalRecord record) {
+		Boolean res = false;
+		final Collection<LegalRecord> todos = this.legalRecordRepository.findAll();
+		for (final LegalRecord r : todos)
+			if (r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
+				res = true;
+				break;
+			}
+		return res;
 	}
 
 }
