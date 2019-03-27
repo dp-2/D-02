@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import domain.Administrator;
 import security.Authority;
@@ -38,73 +39,52 @@ public class UseCase12_1Test extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 
 	@Test
-	public void driverRegister() {
-		System.out.println("=====LISTING=====");
-		final Object testingData[][] = {
-			{
-				"admin1", null //Administrador pricipal el que realizara la accion (POSITIVO)
-			}, {
-				"member1", null //Actor que no podrá realizar la accion (NEGATIVO)
-			}
-		};
-		int j = 1;
-		for (int i = 0; i < testingData.length; i++) {
-			System.out.println("Casuistica" + j);
-			this.templateRegister((String) testingData[i][0], (Class<?>) testingData[i][1]);
-			j++;
-		}
+	public void driver() {
+		// Se registra como admin
+		this.templateRegisterAdmin("admin1", new String[] {
+			"address", "email@email.com", "middleName", "name", "650190424", "http://photo", "surname", "username", "password"
+		}, null);
+		// Un actor trata de registrarse como brotherhood
+		this.templateRegisterAdmin(null, new String[] {
+			"address", "email@email.com", "middleName", "name", "650190424", "http://photo", "surname", "username2", "password2"
+		}, IllegalArgumentException.class);
 	}
+	// Methods
 
-	// Ancillary methods ------------------------------------------------------
-
-	protected void templateRegister(final String username, final Class<?> expected) {
-		Class<?> caught;
-		caught = null;
-
+	private void templateRegisterAdmin(final String username, final String[] parameters, final Class<?> expected) {
+		Class<?> caught = null;
 		try {
-
-			//Nos autenticamos
-			this.authenticate(username);
-
-			//Creamos un admin
-			final Administrator administrator = this.administratorService.create();
-			administrator.setName("name");
-			administrator.setEmail("hhdhfkjfsd@sdhd.com");
-			administrator.setPhone("650190425");
-			administrator.setSurname("surname");
-			administrator.setPhoto("http://fkjdhsfkjsd.com");
-
-			final UserAccount account = new UserAccount();
-			account.setUsername("admintest");
-			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-			account.setPassword(encoder.encodePassword("admintest", null));
-			account.setEnabled(true);
-
-			final Authority authority = new Authority();
-			authority.setAuthority("ADMIN");
-
-			final List<Authority> authorities = new ArrayList<>();
-			authorities.add(authority);
-
-			account.setAuthorities(authorities);
-
-			final Administrator saved = this.administratorService.save(administrator);
-			//mostramos su username
-			System.out.println(saved.getUserAccount().getUsername());
-
-			//Nos desautenticamos
-			this.unauthenticate();
-
-			System.out.println("\n");
-			System.out.println("Mostrados correctamente.");
-			System.out.println("-----------------------------");
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-
-			System.out.println(caught);
-			System.out.println("-----------------------------");
+			super.authenticate(username);
+			Administrator administrator = this.administratorService.create();
+			administrator = this.adminAssignParameters(administrator, parameters);
+			final Administrator res = this.administratorService.save(administrator);
+			Assert.notNull(this.administratorService.findOne(res.getId()));
+			super.authenticate(null);
+		} catch (final Throwable t) {
+			caught = t.getClass();
 		}
-		this.checkExceptions(expected, caught);
+		super.checkExceptions(expected, caught);
 	}
 
+	public Administrator adminAssignParameters(final Administrator a, final String[] parameters) {
+		a.setAddress(parameters[0]);
+		a.setEmail(parameters[1]);
+		a.setMiddleName(parameters[2]);
+		a.setName(parameters[3]);
+		a.setPhone(parameters[4]);
+		a.setPhoto(parameters[5]);
+		a.setSurname(parameters[6]);
+
+		final UserAccount account = new UserAccount();
+		final Authority authority = new Authority();
+		authority.setAuthority("ADMIN");
+		final List<Authority> authorities = new ArrayList<>();
+		authorities.add(authority);
+		a.setUserAccount(account);
+
+		a.getUserAccount().setUsername(parameters[7]);
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		a.getUserAccount().setPassword(encoder.encodePassword(parameters[8], null));
+		return a;
+	}
 }

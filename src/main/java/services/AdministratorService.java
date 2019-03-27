@@ -17,16 +17,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
-import repositories.AdministratorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Configuration;
 import domain.Message;
 import domain.SocialProfile;
 import forms.AdministratorForm;
+import repositories.AdministratorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -92,6 +92,9 @@ public class AdministratorService {
 		if (administrator.getId() == 0) {
 			isCreating = true;
 			administrator.setSpammer(false);
+
+			//Comprobamos que el actor sea un admin
+			this.serviceUtils.checkAuthority("ADMIN");
 
 			//comprobamos que ningún actor resté autenticado (ya que ningun actor puede crear los customers)
 			//this.serviceUtils.checkNoActor();
