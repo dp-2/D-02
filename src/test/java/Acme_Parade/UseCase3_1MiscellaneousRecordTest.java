@@ -27,7 +27,7 @@ import domain.MiscellaneousRecord;
 public class UseCase3_1MiscellaneousRecordTest extends AbstractTest {
 
 	// 3.1 Manage their history, which includes listing, displaying, creating,
-	//updating, and deleting its records
+	//updating, and deleting its miscellaneous records
 
 	// System under test ------------------------------------------------------
 
@@ -203,7 +203,6 @@ public class UseCase3_1MiscellaneousRecordTest extends AbstractTest {
 			final MiscellaneousRecord miscellaneousRecordbd = this.miscellaneousRecordService.create();
 			miscellaneousRecordbd.setText(text);
 			miscellaneousRecordbd.setTitle("a");
-			final String a = "http://a.com";
 
 			//Gruadamos
 			this.miscellaneousRecordService.save(miscellaneousRecordbd);

@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import domain.Finder;
-import domain.Parade;
 import services.FinderService;
 import utilities.AbstractTest;
+import domain.Finder;
+import domain.Parade;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -30,19 +30,21 @@ public class UseCase21_2Test extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private FinderService finderService;
+	private FinderService	finderService;
+
 
 	// Tests ------------------------------------------------------------------
-
 
 	@Test
 	public void driverListing() {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
-				"member1", null //Un miembro puede ver sus resultados (POSITIVO)
+				"member1", null
+			//Un miembro puede ver sus resultados (POSITIVO)
 			}, {
-				null, IllegalArgumentException.class //Un actor autneticado no tiene resultados de una busqueda (NEGATIVO) 
+				null, IllegalArgumentException.class
+			//Un actor no autenticado no tiene resultados de una busqueda (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -58,9 +60,11 @@ public class UseCase21_2Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
-				"member1", "finder1", null//Un miembro puede actualizar el criterio de busqueda (POSITIVO)
+				"member1", "finder1", null
+			//Un miembro puede actualizar el criterio de busqueda (POSITIVO)
 			}, {
-				"member2", "finder1", IllegalArgumentException.class //Ese finder no pertenece a ese miembro (NEGATIVO) 
+				"member2", "finder1", IllegalArgumentException.class
+			//Ese finder no pertenece a ese miembro (NEGATIVO) 
 			}
 		};
 		int j = 1;

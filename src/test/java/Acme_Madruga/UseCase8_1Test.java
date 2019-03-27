@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import services.BrotherhoodService;
-import services.HistoryService;
 import services.MemberService;
 import utilities.AbstractTest;
 import domain.Brotherhood;
@@ -28,6 +27,9 @@ import domain.Url;
 @Transactional
 public class UseCase8_1Test extends AbstractTest {
 
+	//8. An actor who is not authenticated must be able to:
+	//1. Register to the system as a member or a brotherhood.
+
 	//Service-------------------------------------------------------------------------
 
 	@Autowired
@@ -35,30 +37,25 @@ public class UseCase8_1Test extends AbstractTest {
 	@Autowired
 	private MemberService		memberService;
 
-	//Service-------------------------------------------
-
-	@Autowired
-	private HistoryService		historyService;
-
 
 	// Tests
 
 	@Test
 	public void driver() {
 		final List<Url> pictures = new ArrayList<Url>();
-		// Se registra como brotherhood
+		// Se registra como hermandad(CASO POSITIVO)
 		this.templateRegisterBrotherhood(null, new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "title", "username", "password"
 		}, pictures, null);
-		// Un actor trata de registrarse como brotherhood
+		// Un hermandad trata de registrarse estando logueada (CASO NEGATIVO)
 		this.templateRegisterBrotherhood("brotherhood1", new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "title", "username2", "password2"
 		}, pictures, IllegalArgumentException.class);
-		// Se registra como member
+		// Se registra como miembro (CASO POSITVO)
 		this.templateRegisterMember(null, new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "username3", "password3"
 		}, pictures, null);
-		// Un actor trata de registrarse como member
+		// Un miembro trata de registrarse estando logueado(CASO NEGATIVO)
 		this.templateRegisterMember("member1", new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "username4", "password4"
 		}, pictures, IllegalArgumentException.class);
@@ -68,10 +65,14 @@ public class UseCase8_1Test extends AbstractTest {
 	private void templateRegisterBrotherhood(final String username, final String[] parameters, final List<Url> pictures, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
+			//Nos autenticamos
 			super.authenticate(username);
 			Brotherhood b = this.brotherhoodService.create();
+			//Asignamos los parámetros para crear la hermandad
 			b = this.brotherhoodAssignParameters(b, parameters, pictures);
+			//Guardamos la hermandad
 			final Brotherhood res = this.brotherhoodService.save(b);
+			//Comprobamos que existe
 			Assert.notNull(this.brotherhoodService.findOne(res.getId()));
 			super.authenticate(null);
 		} catch (final Throwable t) {
@@ -83,10 +84,13 @@ public class UseCase8_1Test extends AbstractTest {
 	private void templateRegisterMember(final String username, final String[] parameters, final List<Url> pictures, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
+			//Nos autenticamos
 			super.authenticate(username);
 			Member m = this.memberService.create();
+			//Asignamos los parametros de entrada al miembro creado
 			m = this.memberAssignParameters(m, parameters, pictures);
 			final Member res = this.memberService.save(m);
+			//Comprobamos qu existe
 			Assert.notNull(this.memberService.findOne(res.getId()));
 			super.authenticate(null);
 		} catch (final Throwable t) {
@@ -96,7 +100,7 @@ public class UseCase8_1Test extends AbstractTest {
 	}
 
 	// Others
-
+	//Método que asigna los valores de entrada a las propiedades de una hermandad.
 	public Brotherhood brotherhoodAssignParameters(final Brotherhood b, final String[] parameters, final List<Url> pictures) {
 		b.setAddress(parameters[0]);
 		b.setEmail(parameters[1]);
@@ -111,7 +115,7 @@ public class UseCase8_1Test extends AbstractTest {
 		b.setPictures(pictures);
 		return b;
 	}
-
+	//Método que asigna los valores de entrada a las propiedades de un miembro
 	public Member memberAssignParameters(final Member m, final String[] parameters, final List<Url> pictures) {
 		m.setAddress(parameters[0]);
 		m.setEmail(parameters[1]);

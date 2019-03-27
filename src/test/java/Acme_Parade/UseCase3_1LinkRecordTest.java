@@ -27,7 +27,7 @@ import domain.LinkRecord;
 public class UseCase3_1LinkRecordTest extends AbstractTest {
 
 	// 3.1 Manage their history, which includes listing, displaying, creating,
-	//updating, and deleting its records
+	//updating, and deleting its link records
 
 	// System under test ------------------------------------------------------
 
@@ -52,7 +52,7 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 			//Brotherhood puede ver sus linkRecords (POSITIVO)
 			}, {
 				"member1", NullPointerException.class
-			//Un member no deberia ver sus linkRecords (NEGATIVO) 
+			//Un member no deberia ver sus linkRecords,ya que un miembro no tiene una historia (NEGATIVO) 
 			}
 		};
 		int j = 1;
@@ -93,7 +93,7 @@ public class UseCase3_1LinkRecordTest extends AbstractTest {
 			//Brotherhood1 puede crear sus linkRecord (POSITIVO)
 			}, {
 				null, "b", IllegalArgumentException.class
-			//Un actor que no exista no deberia crear un linkRecord (NEGATIVO) 
+			//Un actor que no esta autenticado no deberia crear un linkRecord (NEGATIVO) 
 			}
 		};
 		int j = 1;

@@ -21,6 +21,7 @@ import domain.Parade;
 public class UseCase9_1Test extends AbstractTest {
 
 	// 9.1 Do the same as an actor who is not authenticated, but register to the system
+	//Listamos los desfiles que pueden ser listado por un actor no autenticado.
 
 	// System under test ------------------------------------------------------
 
