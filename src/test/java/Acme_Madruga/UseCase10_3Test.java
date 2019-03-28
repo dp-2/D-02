@@ -26,7 +26,7 @@ import domain.Member;
 @Transactional
 public class UseCase10_3Test extends AbstractTest {
 
-	// 10.3 Manage the members of the brotherhood, which includes listing, showing, enrolling,
+	//a) 10.3 Manage the members of the brotherhood, which includes listing, showing, enrolling,
 	//	and removing them. When a member is enrolled, a position must be selected by the brotherhood
 
 	// System under test ------------------------------------------------------
@@ -48,9 +48,17 @@ public class UseCase10_3Test extends AbstractTest {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1
 				"brotherhood1", null
 			//Brotherhood puede ver sus members (POSITIVO)
 			}, {
+
+				//b) Negative test , because a chapter cannot see his members
+				//c) analysis of sentence coverage: 100%
+				//d) Using the chapter1
 				"chapter1", NullPointerException.class
 			//Un chapter no deberia ver sus members (NEGATIVO) 
 			}
@@ -69,6 +77,10 @@ public class UseCase10_3Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and one of his enrolls
 				"brotherhood1", "enroll1", null
 			//Brotherhood1 puede editar sus member (POSITIVO)
 			}
@@ -87,6 +99,10 @@ public class UseCase10_3Test extends AbstractTest {
 		System.out.println("=====DELETING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and one of his enrolls
 				"brotherhood1", "enroll1", null
 			//Brotherhood1 puede echar sus member (POSITIVO)
 			}
