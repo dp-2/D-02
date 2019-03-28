@@ -51,11 +51,18 @@ public class UseCase12_3Test extends AbstractTest {
 	public void dashboardValueTest() {
 		final Object valueTest[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using an expected value
 				"MAX", 4.0, null
 			//Este valor es el esperado segun nuestro populate base
 			},
 
 			{
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using an expected value
 				"MIN", 0.0, null
 			//Este valor es el esperado segun nuestro populate base
 			}, {
@@ -65,6 +72,9 @@ public class UseCase12_3Test extends AbstractTest {
 			},
 
 			{
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using an expected value
 				"STD", 9999.0, java.lang.IllegalArgumentException.class
 			//Este valor NO es el de nuestro populate base
 			},
@@ -105,9 +115,17 @@ public class UseCase12_3Test extends AbstractTest {
 	public void adminTest() {
 		final Object AccessDashBoardTest[][] = {
 			{
+
+				//b) Negative test , because the 'admin' doesn't exist
+				//c) analysis of sentence coverage: 100%
+				//d) Using an actor who doesn't exist
 				"admin", java.lang.IllegalArgumentException.class
 			//Probamos con un user admin que no exista
 			}, {
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using an actor who is the admin1
 				"admin1", null
 			//Este admin si esta registrado en el sistema
 			},
