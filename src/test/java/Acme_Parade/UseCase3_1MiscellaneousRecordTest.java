@@ -50,9 +50,15 @@ public class UseCase3_1MiscellaneousRecordTest extends AbstractTest {
 			{
 				"brotherhood1", null
 			//Brotherhood puede ver sus miscellaneousRecords (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) The user can list the miscellaneous records from his/her history
 			}, {
 				"member1", NullPointerException.class
 			//Un member no deberia ver sus miscellaneousRecords (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) A member doesn't have any history so he/she cannot list any records
 			}
 		};
 		int j = 1;
@@ -70,9 +76,15 @@ public class UseCase3_1MiscellaneousRecordTest extends AbstractTest {
 			{
 				"brotherhood1", "miscellaneousRecord1", null
 			//Brotherhood1 puede editar sus miscellaneousRecord (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood can edit his/her miscellaneous records
 			}, {
 				"brotherhood1", "miscellaneousRecord2", IllegalArgumentException.class
 			//Brotherhood1 no deberia editar miscellaneousRecord2 porque no es suyo (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood cannot edit miscellaneous records that aren't from his/her history
 			}
 		};
 		int j = 1;
@@ -91,9 +103,16 @@ public class UseCase3_1MiscellaneousRecordTest extends AbstractTest {
 			{
 				"brotherhood1", "miscellaneousRecord1", null
 			//Brotherhood1 puede crear sus miscellaneousRecord (POSITIVO)
+			//Brotherhood1 puede crear sus linkRecord (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood can create his/her miscellaneous records
 			}, {
 				"member1", "aa", NullPointerException.class
 			//Member no deberia crear un miscellaneousRecord (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) A member cannot create any records, since he/she doesn't have any history
 			}
 		};
 		int j = 1;
@@ -112,9 +131,15 @@ public class UseCase3_1MiscellaneousRecordTest extends AbstractTest {
 			{
 				"brotherhood1", "miscellaneousRecord1", null
 			//Brotherhood1 puede borrar sus miscellaneousRecord (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood can delete his/her miscellaneous records
 			}, {
 				"brotherhood1", "miscellaneousRecord2", IllegalArgumentException.class
 			//Brotherhood1 no deberia borrar un miscellaneousRecord que no es suyo (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood cannot delete miscellaneous records that aren't from his/her history
 			}
 		};
 		int j = 1;

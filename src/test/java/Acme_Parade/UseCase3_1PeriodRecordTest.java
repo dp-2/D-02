@@ -53,9 +53,15 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			{
 				"brotherhood1", null
 			//Brotherhood puede ver sus periodRecords (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) The user can list the period records from his/her history
 			}, {
 				"member1", NullPointerException.class
 			//Un member no deberia ver sus periodRecords (NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) A member doesn't have any history so he/she cannot list any records
 			}
 		};
 		int j = 1;
@@ -73,9 +79,15 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			{
 				"brotherhood1", "periodRecord1", null
 			//Brotherhood1 puede editar sus periodRecord (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood can edit his/her period records
 			}, {
 				"brotherhood1", "periodRecord2", IllegalArgumentException.class
 			//Brotherhood1 no deberia editar periodRecord2 porque no es suyo (NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood cannot edit period records that aren't from his/her history
 			}
 		};
 		int j = 1;
@@ -94,9 +106,15 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			{
 				"brotherhood1", "test", null
 			//Brotherhood1 puede crear sus periodRecord (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood can create his/her period records
 			}, {
 				null, "test", IllegalArgumentException.class
 			//Brotherhood1 no deberia crear un periodRecord con text nulo (NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) A anonymous actor cannot create any records, since he/she doesn't have any history
 			}
 		};
 		int j = 1;
@@ -115,9 +133,15 @@ public class UseCase3_1PeriodRecordTest extends AbstractTest {
 			{
 				"brotherhood1", "periodRecord1", null
 			//Brotherhood1 puede borrar sus periodRecord (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood can delete his/her period records
 			}, {
 				"brotherhood1", "periodRecord2", IllegalArgumentException.class
 			//Brotherhood1 no deberia borrar un periodRecord que no es suya (NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) A brotherhood cannot delete period records that aren't from his/her history
 			}
 		};
 		int j = 1;

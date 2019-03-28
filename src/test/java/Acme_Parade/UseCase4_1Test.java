@@ -39,20 +39,32 @@ public class UseCase4_1Test extends AbstractTest {
 			{
 				"MAX", 4.0, null
 			//Este valor es el esperado segun nuestro populate base
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) No apply
 			},
 
 			{
 				"MIN", 0.0, null
 			//Este valor es el esperado segun nuestro populate base
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) No apply
 			}, {
 
 				"AVG", 9999.0, java.lang.IllegalArgumentException.class
 			//Este valor NO es el de nuestro populate base
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) No apply
 			},
 
 			{
 				"STD", 9999.0, java.lang.IllegalArgumentException.class
 			//Este valor NO es el de nuestro populate base
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) No apply
 			},
 		};
 		for (int i = 0; i < valueTest.length; i++)
@@ -93,9 +105,15 @@ public class UseCase4_1Test extends AbstractTest {
 			{
 				"admin", java.lang.IllegalArgumentException.class
 			//Probamos con un user admin que no exista
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) This user doesn't exists, so it cannot access the dashboard
 			}, {
 				"admin1", null
 			//Este admin si esta registrado en el sistema
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) An administrator can access the dashboard
 			},
 
 		};
