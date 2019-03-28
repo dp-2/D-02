@@ -42,9 +42,17 @@ public class UseCase11_1Test extends AbstractTest {
 		System.out.println("=====DELATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member2
 				"member2", null
 			//Un miembro puede borrar su peticion de una hermandad  (POSITIVO)
 			}, {
+
+				//b) Negative test , because a non authenticated actor doesn't have enrolls
+				//c) analysis of sentence coverage: 100%
+				//d) Using a non authenticated actor
 				null, AssertionError.class
 			//Un actor no autenticado no puede borrar su peticion  de una hermandad (NEGATIVO) 
 			}
@@ -62,9 +70,17 @@ public class UseCase11_1Test extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member2
 				"member2", null
 			//Un miembro podrá hacer un enroll sobre una hermandad (POSITIVO)
 			}, {
+
+				//b) Negative test , because a non authenticated actor cannot create an enrolls
+				//c) analysis of sentence coverage: 100%
+				//d) Using a non authenticated actor
 				null, AssertionError.class
 			// Un actor no autenticado no podrá hacer un enroll sobre una hermandad(NEGATIVO) 
 			}
