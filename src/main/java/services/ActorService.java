@@ -17,6 +17,7 @@ import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -25,6 +26,12 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
+
+import repositories.ActorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import security.UserAccountRepository;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
@@ -50,11 +57,6 @@ import domain.Proclaim;
 import domain.Sponsor;
 import domain.Sponsorship;
 import forms.ActorForm;
-import repositories.ActorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
-import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -567,19 +569,19 @@ public class ActorService {
 
 			document.add(new Paragraph("USER DATA.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
 			document.add(new Paragraph("\n"));
-			if (!actor.getPhoto().isEmpty()) {
+			if (StringUtils.isNotEmpty(actor.getPhoto())) {
 				final URL url = new URL(actor.getPhoto());
 				document.add(this.urlToImage(url));
 			}
 			document.add(new Paragraph("\n"));
 			document.add(new Paragraph("Name: " + actor.getName()));
-			if (!actor.getMiddleName().isEmpty())
+			if (StringUtils.isNotEmpty(actor.getMiddleName()))
 				document.add(new Paragraph("Middle Name: " + actor.getMiddleName()));
 			document.add(new Paragraph("Surname: " + actor.getSurname()));
-			if (!actor.getAddress().isEmpty())
+			if (StringUtils.isNotEmpty(actor.getAddress()))
 				document.add(new Paragraph("Address: " + actor.getAddress()));
 			document.add(new Paragraph("Email: " + actor.getEmail()));
-			if (!actor.getPhone().isEmpty())
+			if (StringUtils.isNotEmpty(actor.getPhone()))
 				document.add(new Paragraph("Phone: " + actor.getPhone()));
 
 		} catch (final DocumentException e) {
@@ -607,91 +609,99 @@ public class ActorService {
 	public Document docMember(final Document document, final Member member) throws DocumentException, MalformedURLException, IOException {
 
 		final List<Brotherhood> brotherhoods = new ArrayList<>(this.enrollService.findBrotherhoodsByMemberId(member.getId()));
-		if (!brotherhoods.isEmpty()) {
-			document.add(new Paragraph("BROTHERHOODS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
-			document.add(new Paragraph("\n"));
-			for (final Brotherhood brotherhood : brotherhoods) {
-				if (!brotherhood.getPhoto().isEmpty())
-					document.add(this.urlToImage(new URL(brotherhood.getPhoto())));
+		if (brotherhoods != null)
+			if (!brotherhoods.isEmpty()) {
+				document.add(new Paragraph("BROTHERHOODS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
 				document.add(new Paragraph("\n"));
-				document.add(new Paragraph(brotherhood.getTitle()));
-				document.add(new Paragraph("\n"));
+				for (final Brotherhood brotherhood : brotherhoods) {
+					if (StringUtils.isNotEmpty(brotherhood.getPhoto()))
+						document.add(this.urlToImage(new URL(brotherhood.getPhoto())));
+					document.add(new Paragraph("\n"));
+					document.add(new Paragraph(brotherhood.getTitle()));
+					document.add(new Paragraph("\n"));
+				}
 			}
-		}
 
 		final List<Parade> parades = this.paradeService.findParadeOfMemberAPPROVED(member.getId());
 		final List<March> marchs = new ArrayList<>(this.marchService.findMarchsByMemberAPPROVED(member.getId()));
-		if (!parades.isEmpty()) {
-			document.add(new Paragraph("PARADES.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
-			document.add(new Paragraph("\n"));
-			for (final Parade parade : parades) {
-				document.add(new Paragraph(parade.getTitle() + " --> " + parade.getBrotherhood().getTitle()));
+		if (parades != null)
+			if (!parades.isEmpty()) {
+				document.add(new Paragraph("PARADES.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
 				document.add(new Paragraph("\n"));
-				if (!marchs.isEmpty())
-					for (final March march : marchs)
-						if (march.getParade().getId() == parade.getId())
-							document.add(new Paragraph("Location: Row (" + march.getLocation().get(0) + ") and Column (" + march.getLocation().get(1) + ")"));
+				for (final Parade parade : parades) {
+					document.add(new Paragraph(parade.getTitle() + " --> " + parade.getBrotherhood().getTitle()));
+					document.add(new Paragraph("\n"));
+					if (marchs != null)
+						if (!marchs.isEmpty())
+							for (final March march : marchs)
+								if (march.getParade().getId() == parade.getId())
+									document.add(new Paragraph("Location: Row (" + march.getLocation().get(0) + ") and Column (" + march.getLocation().get(1) + ")"));
 
+				}
 			}
-		}
 		return document;
 	}
 
 	public Document docBrotherhood(final Document document, final Brotherhood brotherhood) throws DocumentException, MalformedURLException, IOException {
 
 		final List<Parade> parades = new ArrayList<>(this.paradeService.findParadesByBrotherhoodId(brotherhood.getId()));
-		if (!parades.isEmpty()) {
-			document.add(new Paragraph("PARADES.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
-			document.add(new Paragraph("\n"));
-			for (final Parade parade : parades) {
+		if (parades != null)
+			if (!parades.isEmpty()) {
+				document.add(new Paragraph("PARADES.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
 				document.add(new Paragraph("\n"));
-				document.add(new Paragraph(parade.getTitle() + " --> " + parade.getMomentOrganised()));
-				document.add(new Paragraph("\n"));
-			}
-		}
-
-		final List<Member> members = this.memberService.listMembersByBrotherhood(brotherhood.getId());
-		if (!parades.isEmpty()) {
-			document.add(new Paragraph("MEMBERS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
-			document.add(new Paragraph("\n"));
-			for (final Member member : members) {
-				document.add(new Paragraph("\n"));
-				document.add(new Paragraph(member.getUserAccount().getUsername() + ": " + member.getName() + " " + member.getSurname()));
-				document.add(new Paragraph("\n"));
-			}
-		}
-
-		final List<DFloat> dFloats = new ArrayList<>(this.dFloatService.SearchDFloatsByBrotherhood(brotherhood.getId()));
-		if (!parades.isEmpty()) {
-			document.add(new Paragraph("FLOATS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
-			document.add(new Paragraph("\n"));
-			for (final DFloat dFloat : dFloats) {
-				document.add(new Paragraph("-----------------------"));
-				document.add(new Paragraph("\n"));
-				document.add(new Paragraph(dFloat.getTitle()));
-				document.add(new Paragraph("\n"));
-				if (!dFloat.getPictures().isEmpty()) {
-					final String[] strings = dFloat.getPictures().split(",");
-					for (final String string : strings) {
-						document.add(this.urlToImage(new URL(string)));
-						document.add(new Paragraph("\n"));
-					}
+				for (final Parade parade : parades) {
+					document.add(new Paragraph("\n"));
+					document.add(new Paragraph(parade.getTitle() + " --> " + parade.getMomentOrganised()));
+					document.add(new Paragraph("\n"));
 				}
 			}
-		}
+
+		final List<Member> members = this.memberService.listMembersByBrotherhood(brotherhood.getId());
+		if (parades != null)
+			if (!parades.isEmpty()) {
+				document.add(new Paragraph("MEMBERS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+				document.add(new Paragraph("\n"));
+				for (final Member member : members) {
+					document.add(new Paragraph("\n"));
+					document.add(new Paragraph(member.getUserAccount().getUsername() + ": " + member.getName() + " " + member.getSurname()));
+					document.add(new Paragraph("\n"));
+				}
+			}
+
+		final List<DFloat> dFloats = new ArrayList<>(this.dFloatService.SearchDFloatsByBrotherhood(brotherhood.getId()));
+		if (parades != null)
+			if (!parades.isEmpty()) {
+				document.add(new Paragraph("FLOATS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
+				document.add(new Paragraph("\n"));
+				for (final DFloat dFloat : dFloats) {
+					document.add(new Paragraph("-----------------------"));
+					document.add(new Paragraph("\n"));
+					document.add(new Paragraph(dFloat.getTitle()));
+					document.add(new Paragraph("\n"));
+					if (dFloat.getPictures() != null)
+						if (!dFloat.getPictures().isEmpty()) {
+							final String[] strings = dFloat.getPictures().split(",");
+							for (final String string : strings) {
+								document.add(this.urlToImage(new URL(string)));
+								document.add(new Paragraph("\n"));
+							}
+						}
+				}
+			}
 
 		final Area area = this.areaService.findAreaByBrotherhoodId(brotherhood.getId());
 		if (area != null) {
 			document.add(new Paragraph("AREA.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
 			document.add(new Paragraph("\n"));
 			document.add(new Paragraph(area.getName()));
-			if (!area.getPictures().isEmpty()) {
-				final String[] strings = area.getPictures().split(",");
-				for (final String string : strings) {
-					document.add(this.urlToImage(new URL(string)));
-					document.add(new Paragraph("\n"));
+			if (area.getPictures() != null)
+				if (!area.getPictures().isEmpty()) {
+					final String[] strings = area.getPictures().split(",");
+					for (final String string : strings) {
+						document.add(this.urlToImage(new URL(string)));
+						document.add(new Paragraph("\n"));
+					}
 				}
-			}
 		}
 
 		return document;
@@ -700,20 +710,21 @@ public class ActorService {
 	public Document docSponsor(final Document document, final Sponsor sponsor) throws DocumentException, MalformedURLException, IOException {
 
 		final List<Sponsorship> sponsorships = new ArrayList<>(this.sponsorshipService.findSponsorshipsBySponsorId(sponsor.getId()));
-		if (!sponsorships.isEmpty()) {
-			document.add(new Paragraph("SPONSORSHIPS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
-			document.add(new Paragraph("\n"));
-			for (final Sponsorship sponsorship : sponsorships) {
-				if (!sponsorship.getBanner().isEmpty())
-					document.add(this.urlToImage(new URL(sponsorship.getBanner())));
+		if (sponsorships != null)
+			if (!sponsorships.isEmpty()) {
+				document.add(new Paragraph("SPONSORSHIPS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
 				document.add(new Paragraph("\n"));
-				if (sponsorship.getActive() == true)
-					document.add(new Paragraph("Activated"));
-				else
-					document.add(new Paragraph("Desactivated"));
-				document.add(new Paragraph("\n"));
+				for (final Sponsorship sponsorship : sponsorships) {
+					if (StringUtils.isNotEmpty(sponsorship.getBanner()))
+						document.add(this.urlToImage(new URL(sponsorship.getBanner())));
+					document.add(new Paragraph("\n"));
+					if (sponsorship.getActive() == true)
+						document.add(new Paragraph("Activated"));
+					else
+						document.add(new Paragraph("Desactivated"));
+					document.add(new Paragraph("\n"));
+				}
 			}
-		}
 
 		return document;
 	}
@@ -721,17 +732,18 @@ public class ActorService {
 	public Document docChapter(final Document document, final Chapter chapter) throws DocumentException, MalformedURLException, IOException {
 
 		final List<Proclaim> proclaims = new ArrayList<>(this.proclaimService.findProclaimByChapter(chapter.getId()));
-		if (!proclaims.isEmpty()) {
-			document.add(new Paragraph("PROCLAIMS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
-			document.add(new Paragraph("\n"));
-			int i = 1;
-			for (final Proclaim proclaim : proclaims) {
-				document.add(new Paragraph("Proclaim" + " " + i + ":"));
-				document.add(new Paragraph(proclaim.getText()));
+		if (proclaims != null)
+			if (!proclaims.isEmpty()) {
+				document.add(new Paragraph("PROCLAIMS.", new Font(FontFactory.getFont("arial", 22, Font.UNDERLINE))));
 				document.add(new Paragraph("\n"));
-				i++;
+				int i = 1;
+				for (final Proclaim proclaim : proclaims) {
+					document.add(new Paragraph("Proclaim" + " " + i + ":"));
+					document.add(new Paragraph(proclaim.getText()));
+					document.add(new Paragraph("\n"));
+					i++;
+				}
 			}
-		}
 
 		return document;
 	}

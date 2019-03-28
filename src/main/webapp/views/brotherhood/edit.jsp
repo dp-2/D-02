@@ -41,6 +41,7 @@
 		<acme:textbox path="address" code="brotherhood.address" />
 		<acme:textbox path="photo" code="brotherhood.photo" />
 		<acme:textbox path="title" code="brotherhood.title" />
+		<acme:textbox path="establishedMoment" code="brotherhood.establishedMoment" />
 
 		<div>
 			<fieldset>

@@ -1424,28 +1424,28 @@
 	</bean>
 
 	<bean id="brotherhood3" class="domain.Brotherhood">
-		<property name="name" value="Los panaderos" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Alter pistoribus" />
+		<property name="name" value="Los Panaderos" />
+		<property name="middleName" value="Panaderos" />
+		<property name="surname" value="et panaderos" />
 		<property name="photo"
-			value="https://upload.wikimedia.org/wikipedia/commons/1/18/Hermandad_de_los_Panaderos_escudo.jpg " />
-		<property name="email" value="somosLosPanaderosSS@gmail.com" />
-		<property name="phone" value="+34(457)658224565" />
+			value="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Escudo_de_la_Hermandad_de_la_Macarena_%28Sevilla%29.svg/200px-Escudo_de_la_Hermandad_de_la_Macarena_%28Sevilla%29.svg.png " />
+		<property name="email" value="sevillaLosPanaderos@gmail.com" />
+		<property name="phone" value="+34(447)458227465" />
 
 		<property name="spammer" value="false" />
 		<property name="banned" value="false" />
-		<property name="score" value="0.5" />
+		<property name="score" value="0.8" />
 
 		<property name="userAccount" ref="userAccount7" />
 
 
-		<property name="title" value="Hermanad de los panaderos de Sevilla" />
-		<property name="establishedMoment" value="May 29, 1968 22:05" />
+		<property name="title" value="Hermanad de los panaderos sevilla" />
+		<property name="establishedMoment" value="February 27, 1978 22:05" />
 		<property name="pictures">
 			<list>
 				<bean id="picture1brotherhood3" class="domain.Url">
 					<property name="url"
-						value="https://upload.wikimedia.org/wikipedia/commons/1/18/Hermandad_de_los_Panaderos_escudo.jpg" />
+						value="https://i.ytimg.com/vi/MyqFc0nG9l0/hqdefault.jpg" />
 				</bean>
 			</list>
 		</property>

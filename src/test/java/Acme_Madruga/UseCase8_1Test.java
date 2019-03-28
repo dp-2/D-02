@@ -2,6 +2,7 @@
 package Acme_Madruga;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -43,14 +44,15 @@ public class UseCase8_1Test extends AbstractTest {
 	@Test
 	public void driver() {
 		final List<Url> pictures = new ArrayList<Url>();
+		final Date establishedMoment = new Date(System.currentTimeMillis() - 1000);
 		/// Se registra como hermandad(CASO POSITIVO)
 		this.templateRegisterBrotherhood(null, new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "title", "username", "password"
-		}, pictures, null);
+		}, pictures, establishedMoment, null);
 		// Un hermandad trata de registrarse estando logueada  (CASO NEGATIVO)
 		this.templateRegisterBrotherhood("brotherhood1", new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "title", "username2", "password2"
-		}, pictures, IllegalArgumentException.class);
+		}, pictures, establishedMoment, IllegalArgumentException.class);
 		// Se registra como miembro (CASO POSITVO)
 		this.templateRegisterMember(null, new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "username3", "password3"
@@ -62,14 +64,14 @@ public class UseCase8_1Test extends AbstractTest {
 	}
 	// Methods
 
-	private void templateRegisterBrotherhood(final String username, final String[] parameters, final List<Url> pictures, final Class<?> expected) {
+	private void templateRegisterBrotherhood(final String username, final String[] parameters, final List<Url> pictures, final Date establishedMoment, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
 			//Nos autenticamos
 			super.authenticate(username);
 			Brotherhood b = this.brotherhoodService.create();
 			//Asignamos los parámetros para crear la hermandad
-			b = this.brotherhoodAssignParameters(b, parameters, pictures);
+			b = this.brotherhoodAssignParameters(b, parameters, pictures, establishedMoment);
 			//Guardamos la hermandad
 			final Brotherhood res = this.brotherhoodService.save(b);
 			//Comprobamos que existe
@@ -101,7 +103,7 @@ public class UseCase8_1Test extends AbstractTest {
 
 	// Others
 	//Método que asigna los valores de entrada a las propiedades de una hermandad.
-	public Brotherhood brotherhoodAssignParameters(final Brotherhood b, final String[] parameters, final List<Url> pictures) {
+	public Brotherhood brotherhoodAssignParameters(final Brotherhood b, final String[] parameters, final List<Url> pictures, final Date establishedMoment) {
 		b.setAddress(parameters[0]);
 		b.setEmail(parameters[1]);
 		b.setMiddleName(parameters[2]);
@@ -113,6 +115,7 @@ public class UseCase8_1Test extends AbstractTest {
 		b.getUserAccount().setUsername(parameters[8]);
 		b.getUserAccount().setPassword(parameters[9]);
 		b.setPictures(pictures);
+		b.setEstablishedMoment(establishedMoment);
 		return b;
 	}
 	//Método que asigna los valores de entrada a las propiedades de un miembro

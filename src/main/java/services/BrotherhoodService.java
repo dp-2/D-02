@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -131,7 +130,6 @@ public class BrotherhoodService {
 		final Brotherhood res = new Brotherhood();
 		res.setBanned(false);
 		res.setSpammer(false);
-		res.setEstablishedMoment(new Date(System.currentTimeMillis() - 1000));
 		res.setPictures(new ArrayList<Url>());
 		res.setUserAccount(new UserAccount());
 		res.setScore(0.);
@@ -147,7 +145,6 @@ public class BrotherhoodService {
 			this.serviceUtils.checkNoActor();
 			b.setBanned(false);
 			b.setSpammer(false);
-			b.setEstablishedMoment(new Date(System.currentTimeMillis() - 1000));
 			b.setScore(0.);
 			b.getUserAccount().setPassword(hash);
 
@@ -174,7 +171,6 @@ public class BrotherhoodService {
 				b.setMiddleName(brotherhood.getMiddleName());
 				b.setScore(brotherhood.getScore());
 			}
-			b.setEstablishedMoment(brotherhood.getEstablishedMoment());
 		}
 		final UserAccount userAccount = this.userAccountRepository.save(b.getUserAccount());
 		brotherhood.setUserAccount(userAccount);
@@ -209,6 +205,7 @@ public class BrotherhoodService {
 		res.setVersion(b.getVersion());
 		res.setMiddleName(b.getMiddleName());
 		res.setAddress(b.getAddress());
+		res.setEstablishedMoment(b.getEstablishedMoment());
 		return res;
 	}
 
@@ -257,6 +254,7 @@ public class BrotherhoodService {
 		res.setPhoto(form.getPhoto());
 		res.setPictures(form.getPictures());
 		res.setSurname(form.getSurname());
+		res.setEstablishedMoment(form.getEstablishedMoment());
 		res.setTitle(form.getTitle());
 		res.getUserAccount().setUsername(form.getUsername());
 		res.getUserAccount().setPassword(form.getPassword());
