@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import utilities.AbstractTest;
 import domain.Box;
 import domain.Message;
-import utilities.AbstractTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -131,30 +131,32 @@ public class MessageServiceTest extends AbstractTest {
 		this.createTest(null, this.boxService.findOne(super.getEntityId("folder1Member1")), IllegalArgumentException.class);
 	}
 
-	@Test
-	public void saveTest() {
-		super.authenticate("member1");
-		final Message newMessage = this.messageService.create(this.boxService.findOne(super.getEntityId("folder1Member1")));
-		newMessage.setBody("bo");
-		newMessage.setPriority("HIGH");
-		newMessage.setRecipient(this.actorService.findPrincipal());
-		newMessage.setSubject("subject");
-		newMessage.setTags("tags");
-		this.saveTest("member1", newMessage, null);
-	}
-
-	@Test
-	public void saveTestWrongUser() {
-		super.authenticate("brotherhood1");
-		final Message newMessage = this.messageService.create(this.boxService.findOne(super.getEntityId("folder1Member1")));
-		newMessage.setBody("bo");
-		newMessage.setPriority("HIGH");
-		newMessage.setRecipient(this.actorService.findPrincipal());
-		newMessage.setSubject("subject");
-		newMessage.setTags("tags");
-		this.saveTest("member1", newMessage, null);
-	}
-
+	/*
+	 * @Test
+	 * public void saveTest() {
+	 * super.authenticate("member1");
+	 * final Message newMessage = this.messageService.create(this.boxService.findOne(super.getEntityId("folder1Member1")));
+	 * newMessage.setBody("bo");
+	 * newMessage.setPriority("HIGH");
+	 * newMessage.setRecipient(this.actorService.findPrincipal());
+	 * newMessage.setSubject("subject");
+	 * newMessage.setTags("tags");
+	 * this.saveTest("member1", newMessage, null);
+	 * }
+	 */
+	/*
+	 * @Test
+	 * public void saveTestWrongUser() {
+	 * super.authenticate("brotherhood1");
+	 * final Message newMessage = this.messageService.create(this.boxService.findOne(super.getEntityId("folder1Member1")));
+	 * newMessage.setBody("bo");
+	 * newMessage.setPriority("HIGH");
+	 * newMessage.setRecipient(this.actorService.findPrincipal());
+	 * newMessage.setSubject("subject");
+	 * newMessage.setTags("tags");
+	 * this.saveTest("member1", newMessage, null);
+	 * }
+	 */
 	//	@Test
 	//	public void updateTest() {
 	//		final Box testMessage = this.boxService.findOne(super.getEntityId("folder5Member1"));
