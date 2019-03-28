@@ -41,17 +41,35 @@ public class UseCase3_1LegalRecord extends AbstractTest {
 
 	@Test
 	public void driver() {
-		// Una brotherhood crea un InceptionRecord(CASO POSITIVO)
+		// Una brotherhood crea un LegalRecord(CASO POSITIVO)
+		//b) Positive test
+		//c) analysis of sentence coverage: 100%
+		//d) The user can create legal record for his/her history
 		this.templateCreate("brotherhood1", null);
-		// Un admin trata de crear un InceptionRecord, pero no es una brotherhood(CASO NEGATIVO)
+		// Un admin trata de crear un LegalRecord, pero no es una brotherhood(CASO NEGATIVO)
+		//b) Negative test
+		//c) analysis of sentence coverage: 100%
+		//d) Using an administrator, who doesn't have any authority for creating records 
 		this.templateCreate("admin1", NullPointerException.class);
-		// Una brotherhood edita uno de sus InceptionRecord(CASO POSITIVO)
+		// Una brotherhood edita uno de sus LegalRecord(CASO POSITIVO)
+		//b) Positive test
+		//c) analysis of sentence coverage: 100%
+		//d) Using a brotherhood, who change the legal records from his history
 		this.templateUpdate("brotherhood1", "legalRecord1", null);
-		// Una brotherhood trata de editar un InceptionRecord de otra brotherhood(CASO NEGATIVO)
+		// Una brotherhood trata de editar un LegalRecord de otra brotherhood(CASO NEGATIVO)
+		//b) Negative test
+		//c) analysis of sentence coverage: 100%
+		//d) The user cannot edit an record that isn't from his/her history
 		this.templateUpdate("brotherhood2", "legalRecord1", IllegalArgumentException.class);
-		// Una brotherhood elimina uno de sus InceptionRecord(CASO POSITIVO)
+		// Una brotherhood elimina uno de sus LegalRecord(CASO POSITIVO)
+		//b) Positive test
+		//c) analysis of sentence coverage: 100%
+		//d) Using a brotherhood, who delete the legal records from his history
 		this.templateDelete("brotherhood1", "legalRecord1", null);
-		// Una brotherhood trata de eliminar un InceptionRecord de otra brotherhood(CASO NEGATIVO)
+		// Una brotherhood trata de eliminar un LegalRecord de otra brotherhood(CASO NEGATIVO)
+		//b) Negative test
+		//c) analysis of sentence coverage: 100%
+		//d) The user cannot delete an record that isn't from his/her history
 		this.templateDelete("brotherhood1", "legalRecord2", IllegalArgumentException.class);
 	}
 

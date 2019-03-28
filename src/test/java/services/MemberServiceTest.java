@@ -30,11 +30,13 @@ public class MemberServiceTest extends AbstractTest {
 
 	//test-------------------------------------------------------------------
 
-	@Test
-	public void createCorrecto() {
-		final Member member = this.memberService.create();
-		Assert.notNull(member);
-	}
+	/*
+	 * @Test
+	 * public void createCorrecto() {
+	 * final Member member = this.memberService.create();
+	 * Assert.notNull(member);
+	 * }
+	 */
 
 	@Test
 	public void testSaveCorrecto() {

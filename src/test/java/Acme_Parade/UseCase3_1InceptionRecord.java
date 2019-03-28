@@ -45,16 +45,34 @@ public class UseCase3_1InceptionRecord extends AbstractTest {
 	public void driver() {
 		this.before();
 		// Una brotherhood crea un InceptionRecord(CASO POSITIVO)
+		//b) Positive test
+		//c) analysis of sentence coverage: 100%
+		//d) Using a brotherhood, who create the inception records from his history
 		this.templateCreate("brotherhood3", "history3", null);
 		// Un admin trata de crear un InceptionRecord, pero no es una brotherhood(CASO NEGATIVO)
+		//b) Negative test
+		//c) analysis of sentence coverage: 100%
+		//d) Using an administrator, who doesn't have any authority for creating records 
 		this.templateCreate("admin1", "history4", IllegalArgumentException.class);
 		// Una brotherhood edita uno de sus InceptionRecord(CASO POSITIVO)
+		//b) Positive test
+		//c) analysis of sentence coverage: 100%
+		//d) Using a brotherhood, who change the inception records from his history
 		this.templateUpdate("brotherhood1", "inceptionRecord1", null);
 		// Una brotherhood trata de editar un InceptionRecord de otra brotherhood(CASO NEGATIVO)
+		//b) Negative test
+		//c) analysis of sentence coverage: 100%
+		//d) The user cannot edit an record that isn't from his/her history
 		this.templateUpdate("brotherhood2", "inceptionRecord1", IllegalArgumentException.class);
 		// Una brotherhood elimina uno de sus InceptionRecord(CASO POSITIVO)
+		//b) Positive test
+		//c) analysis of sentence coverage: 100%
+		//d) Using a brotherhood, who delete the inception records from his history
 		this.templateDelete("brotherhood1", "inceptionRecord1", null);
 		// Una brotherhood trata de eliminar un InceptionRecord de otra brotherhood(CASO NEGATIVO)
+		//b) Negative test
+		//c) analysis of sentence coverage: 100%
+		//d) The user cannot delete an record that isn't from his/her history
 		this.templateDelete("brotherhood1", "inceptionRecord2", IllegalArgumentException.class);
 	}
 

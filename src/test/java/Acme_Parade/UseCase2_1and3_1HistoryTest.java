@@ -66,15 +66,27 @@ public class UseCase2_1and3_1HistoryTest extends AbstractTest {
 			{
 				"brotherhood", java.lang.IllegalArgumentException.class
 			//Probamos con un usuario que no exista y por lo tanto no debe mostrar la history(CASO NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Using a non existent actor, who is a brotherhood, so the user cannot see any history
 			}, {
 				"brotherhood1", null
 			//Este hermandad si esta registrado en el sistema y deberia ver la historia(CASO POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) The user is a registered brotherhood
 			}, {
 				null, null
 			//Entramos como un actor no autenticado y deberia ver la history(CASO POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) The user is anonymous
 			}, {
 				"DonHacker", java.lang.IllegalArgumentException.class
 			//Este admin no  esta registrado en el sistema y no deberia mostrar la history(CASO NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Using a non existent actor, who is an admin, so the user cannot see any history
 			},
 
 		};
@@ -106,15 +118,27 @@ public class UseCase2_1and3_1HistoryTest extends AbstractTest {
 			{
 				"brotherhood", "TitleChange", java.lang.IllegalArgumentException.class
 			//Probamos con un user brotherhood que no exista y por lo tanto no tiene historia(CASO NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Using a non existent actor, so the user doesn't have any history
 			}, {
 				"brotherhood1", "TitleChange", null
 			//Esta hermandad si esta registrado en el sistema y puede editar su historia(CASO POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Using a registered brotherhood
 			}, {
 				"member1", "TitleChange", java.lang.IllegalArgumentException.class
 			//Un miembro no debe editar una historia(CASO NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Using a member, who has no authority for changing any history
 			}, {
 				"DonHacker", "TitleChange", java.lang.IllegalArgumentException.class
 			//Este usuario no existe no deberia editar una historia(CASO NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Using a non existent actor, so it cannot edit any history
 			},
 
 		};
@@ -171,7 +195,9 @@ public class UseCase2_1and3_1HistoryTest extends AbstractTest {
 		Assert.isTrue(l.getTitle() == "TEST");
 		Assert.isTrue(p.getTitle() == "TEST");
 		Assert.isTrue(lr.getTitle() == "TEST");
-
+		//b) Positive test
+		//c) analysis of sentence coverage: 95.6%
+		//d) Using a brotherhood, who can add and change record in his/her history
 	}
 
 	@Test
@@ -197,13 +223,18 @@ public class UseCase2_1and3_1HistoryTest extends AbstractTest {
 		this.miscellaneousService.save(m1);
 		this.unauthenticate();
 		Assert.isTrue(m1.getTitle() == "TEST");
-
+		//b) Positive test
+		//c) analysis of sentence coverage: 98.6%
+		//d) Using a brotherhood for editing the records 
 	}
 
 	@Test
 	public void driver() {
 		final List<Url> pictures = new ArrayList<Url>();
 		/// Se registra como hermandad(CASO POSITIVO)
+		//b) Positive test
+		//c) analysis of sentence coverage: 100%
+		//d) Using an anonymous user, who can register as a brotherhood
 		this.templateRegisterBrotherhoodAndCreateHistory(null, new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "title", "username", "password"
 		}, pictures, null);

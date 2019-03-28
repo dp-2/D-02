@@ -30,7 +30,7 @@ import domain.Sponsorship;
 @Transactional
 public class UseCase16_1Test extends AbstractTest {
 
-	//	16. An actor who is authenticated as a sponsor must be able to:
+	//a)	16. An actor who is authenticated as a sponsor must be able to:
 	//		1.	Manage his or her sponsorships, which includes listing,
 	//			showing, creating, updating, and removing them.
 	//			Note that removing a sponsorship does not actually delete it from the system,
@@ -63,9 +63,16 @@ public class UseCase16_1Test extends AbstractTest {
 			{
 				"sponsor1", null
 			//Sponsor puede ver sus sponsorships (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Using one of the actors that is the sponsor1, who is a sponsor
+
 			}, {
 				null, IllegalArgumentException.class
 			//Un actor no autenticado no deberia ver sponsorships (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Not using any actor, so the user cannot list sponsorships
 			}
 		};
 		int j = 1;
@@ -83,9 +90,15 @@ public class UseCase16_1Test extends AbstractTest {
 			{
 				"sponsor1", "parade3", null
 			//Sponsor puede crear sus sponsorships (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Using one of the actors that is the sponsor1, who is a sponsor
 			}, {
 				null, "parade3", AssertionError.class
-			//Un actor no autenticado no deberia crear sponsorships (NEGATIVO) 
+			//Un actor no autenticado no deberia crear sponsorships (NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Not using any actor, so the user cannot create a sponsorship
 			}
 		};
 		int j = 1;
@@ -103,9 +116,15 @@ public class UseCase16_1Test extends AbstractTest {
 			{
 				"sponsor1", null
 			//Sponsor puede editar sus sponsorship (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Using one of the actors that is the sponsor1, who is a sponsor
 			}, {
 				null, AssertionError.class
 			//Un actor no autenticado no deberia editar sponsorships (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Not using any actor, so the user cannot edit any sponsorship
 			}
 		};
 		int j = 1;
@@ -124,9 +143,15 @@ public class UseCase16_1Test extends AbstractTest {
 			{
 				"sponsor1", null
 			//Sponsor puede editar sus sponsorship (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Using one of the actors that is the sponsor1, who is a sponsor
 			}, {
 				null, AssertionError.class
 			//Un actor no autenticado no deberia editar sponsorships (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Not using any actor, so the user cannot edit any sponsorship
 			}
 		};
 		int j = 1;
@@ -145,9 +170,15 @@ public class UseCase16_1Test extends AbstractTest {
 			{
 				"sponsor1", null
 			//Sponsor puede editar sus sponsorship (POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Using one of the actors that is the sponsor1, who is a sponsor
 			}, {
 				null, AssertionError.class
 			//Un actor no autenticado no deberia editar sponsorships (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Not using any actor, so the user cannot edit any sponsorship
 			}
 		};
 		int j = 1;

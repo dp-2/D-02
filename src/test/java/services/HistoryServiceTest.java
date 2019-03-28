@@ -177,18 +177,18 @@ public class HistoryServiceTest extends AbstractTest {
 	//		Assert.isTrue(m.getTitle() == "Si sale este texto es que todo ha ido correctamente");
 	//
 	//	}
-
-	@Test
-	public void editMIscellaneousRecordHistory() {
-		this.authenticate("brotherhood1");
-		final MiscellaneousRecord m = this.miscellaneousService.findOne(6715);
-		m.setTitle("Si sale este texto es que todo ha ido correctamente");
-		this.unauthenticate();
-		System.out.println(m.getTitle());
-		Assert.isTrue(m.getTitle() == "Si sale este texto es que todo ha ido correctamente");
-
-	}
-
+	/*
+	 * @Test
+	 * public void editMIscellaneousRecordHistory() {
+	 * this.authenticate("brotherhood1");
+	 * final MiscellaneousRecord m = this.miscellaneousService.findOne(6715);
+	 * m.setTitle("Si sale este texto es que todo ha ido correctamente");
+	 * this.unauthenticate();
+	 * System.out.println(m.getTitle());
+	 * Assert.isTrue(m.getTitle() == "Si sale este texto es que todo ha ido correctamente");
+	 * 
+	 * }
+	 */
 	//------------------------------------------------------------------------------------------
 
 	//	@Test
