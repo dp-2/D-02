@@ -46,18 +46,30 @@ public class UseCase8_1Test extends AbstractTest {
 		final List<Url> pictures = new ArrayList<Url>();
 		final Date establishedMoment = new Date(System.currentTimeMillis() - 1000);
 		/// Se registra como hermandad(CASO POSITIVO)
+		//b) Positive test
+		//c) analysis of sentence coverage: 100%
+		//d) A anonymous user can register as a brotherhood
 		this.templateRegisterBrotherhood(null, new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "title", "username", "password"
 		}, pictures, establishedMoment, null);
-		// Un hermandad trata de registrarse estando logueada  (CASO NEGATIVO)
+		// Una hermandad trata de registrarse estando logueada  (CASO NEGATIVO)
+		//b) Negative test
+		//c) analysis of sentence coverage: 100%
+		//d) A registered user cannot register himself/herself again as a brotherhood
 		this.templateRegisterBrotherhood("brotherhood1", new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "title", "username2", "password2"
 		}, pictures, establishedMoment, IllegalArgumentException.class);
-		// Se registra como miembro (CASO POSITVO)
+		// Se registra como miembro (CASO POSITIVO)
+		//b) Positive test
+		//c) analysis of sentence coverage: 100%
+		//d) A anonymous user can register as a member
 		this.templateRegisterMember(null, new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "username3", "password3"
 		}, pictures, null);
 		// Un miembro trata de registrarse estando logueado(CASO NEGATIVO)
+		//b) Negative test
+		//c) analysis of sentence coverage: 100%
+		//d) A registered user cannot register himself/herself again as a member
 		this.templateRegisterMember("member1", new String[] {
 			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "username4", "password4"
 		}, pictures, IllegalArgumentException.class);
