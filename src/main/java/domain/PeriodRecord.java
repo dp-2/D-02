@@ -24,6 +24,7 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import cz.jirutka.validator.collection.constraints.EachSafeHtml;
+import cz.jirutka.validator.collection.constraints.EachURL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -85,6 +86,7 @@ public class PeriodRecord extends DomainEntity {
 	@ElementCollection
 	@Valid
 	@NotEmpty
+	@EachURL
 	@EachSafeHtml(whitelistType = WhiteListType.NONE)
 	public List<String> getPhotos() {
 		return this.photos;
@@ -96,7 +98,7 @@ public class PeriodRecord extends DomainEntity {
 
 
 	//relaciones
-	private History history;
+	private History	history;
 
 
 	@NotNull

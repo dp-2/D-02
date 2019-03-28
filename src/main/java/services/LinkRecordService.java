@@ -103,7 +103,7 @@ public class LinkRecordService {
 		Boolean res = false;
 		final Collection<LinkRecord> todos = this.linkRecordRepository.findAll();
 		for (final LinkRecord r : todos)
-			if (r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
+			if (r.getId() != record.getId() && r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
 				res = true;
 				break;
 			}

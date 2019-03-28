@@ -104,7 +104,7 @@ public class PeriodRecordService {
 		Boolean res = false;
 		final Collection<PeriodRecord> todos = this.periodRecordRepository.findAll();
 		for (final PeriodRecord r : todos)
-			if (r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
+			if (r.getId() != record.getId() && r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
 				res = true;
 				break;
 			}
