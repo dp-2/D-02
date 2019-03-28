@@ -38,6 +38,9 @@ public class UseCase9_1Test extends AbstractTest {
 			{
 				"sponsor1", "parade4", null
 			//Sponsor1 puede ver una parade final(POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Any user can access to a final parade
 			}
 		//No hemos encontrado un caso negativo para este caso de uso
 		};

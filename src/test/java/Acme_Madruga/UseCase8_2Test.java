@@ -53,6 +53,9 @@ public class UseCase8_2Test extends AbstractTest {
 			{
 				null
 			//Probamos el unico caso que es si lo muestre (POSITIVO) 
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Any user can list the brotherhoods
 			}
 		};
 		int j = 1;
@@ -70,12 +73,21 @@ public class UseCase8_2Test extends AbstractTest {
 			{
 				"brotherhood1", null
 			//Todos pueden ver los miembros de brotherhood 1(POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Any user can list the members of a brotherhood
 			}, {
 				"brotherhood2", null
 			//Todos pueden ver los miembros de brotherhood 2(POSITIVO) 
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Any user can list the members of a brotherhood
 			}, {
 				"brotherhood200", AssertionError.class
-			//No se puede acceder a una brotherhood inexistente (NEGATIVO) 
+			//No se puede acceder a una brotherhood inexistente (NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Users can't list the members of a brotherhood that doesn't exist
 			}
 		};
 		int j = 1;
@@ -93,12 +105,21 @@ public class UseCase8_2Test extends AbstractTest {
 			{
 				"brotherhood1", null
 			//Todos pueden ver los parades de brotherhood 1(POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Any user can list the parades of a brotherhood
 			}, {
 				"brotherhood2", null
 			//Todos pueden ver los parades de brotherhood 2(POSITIVO) 
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Any user can list the parades of a brotherhood
 			}, {
 				"brotherhood200", AssertionError.class
 			//No se puede acceder a una brotherhood inexistente (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Users can't list the parades of a brotherhood that doesn't exist
 			}
 		};
 		int j = 1;
@@ -116,12 +137,21 @@ public class UseCase8_2Test extends AbstractTest {
 			{
 				"brotherhood1", null
 			//Todos pueden ver los dfloats de brotherhood 1(POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Any user can list the floats of a brotherhood
 			}, {
 				"brotherhood2", null
 			//Todos pueden ver los dfloats de brotherhood 2(POSITIVO) 
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) Any user can list the floats of a brotherhood
 			}, {
 				"brotherhood200", AssertionError.class
 			//No se puede acceder a una brotherhood inexistente (NEGATIVO) 
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) Users can't list the floats of a brotherhood that doesn't exists
 			}
 		};
 		int j = 1;
