@@ -43,9 +43,16 @@ public class UseCase11_2Test extends AbstractTest {
 		System.out.println("=====DROP OUT=====");
 		final Object testingData[][] = {
 			{
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member2
 				"member1", null
 			//Un miembro puede salirse de una hermandad  (POSITIVO)
 			}, {
+
+				//b) Negative test , because a non authenticated actor cannot get out of any enroll because he doesn't have enrolls
+				//c) analysis of sentence coverage: 100%
+				//d) Using a non authenticated actor
 				null, AssertionError.class
 			//Un actor no autenticado no puede salirse de una hermandad (NEGATIVO) 
 			}
@@ -63,9 +70,17 @@ public class UseCase11_2Test extends AbstractTest {
 		System.out.println("=====ENROLLING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member2
 				"member2", null
 			//Un miembro podrá hacer un enroll sobre una hermandad (POSITIVO)
 			}, {
+
+				//b) Negative test , because a non authenticated actor cannot create an enroll
+				//c) analysis of sentence coverage: 100%
+				//d) Using a non authenticated actor
 				null, AssertionError.class
 			// Un actor no autenticado no podrá hacer un enroll sobre una hermandad(NEGATIVO) 
 			}

@@ -78,7 +78,7 @@ public class UseCase11_1Test extends AbstractTest {
 			//Un miembro podrá hacer un enroll sobre una hermandad (POSITIVO)
 			}, {
 
-				//b) Negative test , because a non authenticated actor cannot create an enrolls
+				//b) Negative test , because a non authenticated actor cannot create an enroll
 				//c) analysis of sentence coverage: 100%
 				//d) Using a non authenticated actor
 				null, AssertionError.class
