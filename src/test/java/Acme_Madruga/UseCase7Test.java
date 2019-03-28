@@ -52,26 +52,56 @@ public class UseCase7Test extends AbstractTest {
 	@Test
 	public void driver() {
 		this.before();
+
+		//b) Positive tests
+		//c) analysis of sentence coverage: 100%
+		//d) Using one of the actors that is the member2, the parade 4 and the Status PENDING
+
 		// Un usuario crea y guarda una march request (POSITIVO)
 		this.templateSave("member2", new String[] {
 			"parade4", "member2", null, "PENDING"
 		}, null, null);
+
+		//b) Negative test , a member can´t create a march for other member
+		//c) analysis of sentence coverage: 100%
+		//d) Using one of the actors that is the member 1, member2, parade 1 and the status PENDING
+
 		//Un usuario crea y guarda una petición para otro usuario (NEGATIVO)
 		this.templateSave("member2", new String[] {
 			"parade1", "member1", null, "PENDING"
 		}, null, IllegalArgumentException.class);
+
+		//b) Positive tests
+		//c) analysis of sentence coverage: 100%
+		//d) Using one of the actors that is the member4, the march4, the parade 4 and the Status APPROVED
+
 		// Un usuario aprueba una march request (POSITIVO)
 		this.templateUpdate("brotherhood1", "march4", new String[] {
 			"parade1", "member4", null, "APPROVED"
 		}, null, null);
+
+		//b) Negative test , a brotherhood can´t edit a march for other member
+		//c) analysis of sentence coverage: 100%
+		//d) Using one of the actors that is the brotherhood3, member2, parade 1 and the status APPROVED
+
 		// Un usuario aprueba una march request que no es suya (NEGATIVO)
 		this.templateUpdate("brotherhood3", "march2", new String[] {
 			"parade1", "member2", null, "APPROVED"
 		}, null, IllegalArgumentException.class);
+
+		//b) Positive tests
+		//c) analysis of sentence coverage: 100%
+		//d) Using one of the actors that is the brotherhood1, the member1, the march5, the parade3 and the Status REJECTED
+
 		// Un usuario rechaza una request con motivo (POSITIVO)
 		this.templateUpdate("brotherhood1", "march5", new String[] {
 			"parade3", "member1", "reason", "REJECTED"
 		}, null, null);
+
+		//b) Negative test , a brotherhood can´t delete a march without a reason
+		//c) analysis of sentence coverage: 100%
+		//d) Using one of the actors that is the brotherhood1, member2, march3, parade3 and the status REJECTED
+
 		// Un usuario rechaza una request sin reason (NEGATIVO)
 		this.templateUpdate("brotherhood1", "march3", new String[] {
 			"parade3", "member2", null, "REJECTED"

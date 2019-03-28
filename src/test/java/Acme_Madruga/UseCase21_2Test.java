@@ -40,9 +40,17 @@ public class UseCase21_2Test extends AbstractTest {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member1
 				"member1", null
 			//Un miembro puede ver sus resultados (POSITIVO)
 			}, {
+
+				//b) Negative test , because a non authenticated actor doesn't have finder
+				//c) analysis of sentence coverage: 100%
+				//d) Using a non authenticated actor
 				null, IllegalArgumentException.class
 			//Un actor no autenticado no tiene resultados de una busqueda (NEGATIVO) 
 			}
@@ -60,9 +68,17 @@ public class UseCase21_2Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member1 and one of his finders
 				"member1", "finder1", null
 			//Un miembro puede actualizar el criterio de busqueda (POSITIVO)
 			}, {
+
+				//b) Negative tests because a member cannot edit any other member's finder
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member2 and a finder that doesn't belong to him
 				"member2", "finder1", IllegalArgumentException.class
 			//Ese finder no pertenece a ese miembro (NEGATIVO) 
 			}
