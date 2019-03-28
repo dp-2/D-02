@@ -1589,13 +1589,13 @@
 		<property name="surname" value="Montoya" />
 		<property name="photo"
 			value="https://i.ytimg.com/vi/q5Hw6os7Mf4/maxresdefault.jpg" />
-		<property name="email" value="tumatasteAMiPadre@gmail.com" />
+		<property name="email" value="imonto@gmail.com" />
 		<property name="phone" value="+34(556)458446749" />
 
 		<property name="spammer" value="false" />
 		<property name="banned" value="false" />
 		<property name="score" value="0.5" />
-		<property name="address" value="Calle soy iñigo montoya,preparate a morir" />
+		<property name="address" value="Calle soy iñigo montoya,preparate" />
 		<property name="userAccount" ref="userAccount10" />
 
 	</bean>
