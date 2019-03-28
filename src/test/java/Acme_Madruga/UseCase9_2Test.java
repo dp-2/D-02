@@ -36,9 +36,15 @@ public class UseCase9_2Test extends AbstractTest {
 			{
 				"FalseBoy", "TEST", java.lang.IllegalArgumentException.class
 			//Probamos con un user admin que no exista y que no debia editar sus datos(CASO NEGATIVO)
+			//b) Negative test
+			//c) analysis of sentence coverage: 100%
+			//d) This user doesn't exists, so it cannot edit his/her data
 			}, {
 				"member2", "TEST", null
 			//Este admin si esta registrado en el sistema y puede editar sus datos personales(CASO POSITIVO)
+			//b) Positive test
+			//c) analysis of sentence coverage: 100%
+			//d) An administrator can edit his/her data
 			},
 
 		};

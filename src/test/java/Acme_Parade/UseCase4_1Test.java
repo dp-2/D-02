@@ -105,7 +105,7 @@ public class UseCase4_1Test extends AbstractTest {
 			{
 				"admin", java.lang.IllegalArgumentException.class
 			//Probamos con un user admin que no exista
-			//b) Positive test
+			//b) Negative test
 			//c) analysis of sentence coverage: 100%
 			//d) This user doesn't exists, so it cannot access the dashboard
 			}, {
