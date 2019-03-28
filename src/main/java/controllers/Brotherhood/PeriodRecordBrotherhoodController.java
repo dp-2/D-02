@@ -109,8 +109,10 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		final Exception dateErr = new Exception("fechas MAL");
 
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(periodRecord);
-			System.out.println(binding.getAllErrors());
+			if (binding.getAllErrors().toString().contains("URL"))
+				result = this.createEditModelAndView(periodRecord, "history.URL.error");
+			else
+				result = this.createEditModelAndView(periodRecord);
 		} else
 			try {
 				if (!periodRecord.getStartYear().before(periodRecord.getEndYear()))
