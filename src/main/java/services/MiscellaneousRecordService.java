@@ -104,7 +104,7 @@ public class MiscellaneousRecordService {
 		Boolean res = false;
 		final Collection<MiscellaneousRecord> todos = this.miscellaneousRecordRepository.findAll();
 		for (final MiscellaneousRecord r : todos)
-			if (r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
+			if (r.getId() != record.getId() && r.getHistory().equals(record.getHistory()) && r.getTitle().equals(record.getTitle()) && r.getText().equals(record.getText())) {
 				res = true;
 				break;
 			}
