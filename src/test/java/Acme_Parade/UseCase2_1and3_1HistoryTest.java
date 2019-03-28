@@ -1,6 +1,7 @@
 
 package Acme_Parade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -26,6 +27,7 @@ import domain.LegalRecord;
 import domain.LinkRecord;
 import domain.MiscellaneousRecord;
 import domain.PeriodRecord;
+import domain.Url;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -196,5 +198,51 @@ public class UseCase2_1and3_1HistoryTest extends AbstractTest {
 		this.unauthenticate();
 		Assert.isTrue(m1.getTitle() == "TEST");
 
+	}
+
+	@Test
+	public void driver() {
+		final List<Url> pictures = new ArrayList<Url>();
+		/// Se registra como hermandad(CASO POSITIVO)
+		this.templateRegisterBrotherhoodAndCreateHistory(null, new String[] {
+			"address", "email@email.com", "middleName", "name", "phone", "http://photo", "surname", "title", "username", "password"
+		}, pictures, null);
+
+	}
+	// Methods
+
+	private void templateRegisterBrotherhoodAndCreateHistory(final String username, final String[] parameters, final List<Url> pictures, final Class<?> expected) {
+		Class<?> caught = null;
+		try {
+			//Nos autenticamos
+			super.authenticate(username);
+			Brotherhood b = this.brotherhoodService.create();
+			//Asignamos los parámetros para crear la hermandad
+			b = this.brotherhoodAssignParameters(b, parameters, pictures);
+			//Guardamos la hermandad
+			final Brotherhood res = this.brotherhoodService.save(b);
+			//Comprobamos que existe
+			Assert.notNull(this.brotherhoodService.findOne(res.getId()));
+			super.authenticate(null);
+		} catch (final Throwable t) {
+			caught = t.getClass();
+		}
+		super.checkExceptions(expected, caught);
+	}
+	// Others
+	//Método que asigna los valores de entrada a las propiedades de una hermandad.
+	public Brotherhood brotherhoodAssignParameters(final Brotherhood b, final String[] parameters, final List<Url> pictures) {
+		b.setAddress(parameters[0]);
+		b.setEmail(parameters[1]);
+		b.setMiddleName(parameters[2]);
+		b.setName(parameters[3]);
+		b.setPhone(parameters[4]);
+		b.setPhoto(parameters[5]);
+		b.setSurname(parameters[6]);
+		b.setTitle(parameters[7]);
+		b.getUserAccount().setUsername(parameters[8]);
+		b.getUserAccount().setPassword(parameters[9]);
+		b.setPictures(pictures);
+		return b;
 	}
 }
