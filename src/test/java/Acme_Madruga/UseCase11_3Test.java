@@ -58,9 +58,14 @@ public class UseCase11_3Test extends AbstractTest {
 		expectedBrotherhoods1.add(this.brotherhoodService.findOne(super.getEntityId("brotherhood1")));
 		expectedBrotherhoods1.add(this.brotherhoodService.findOne(super.getEntityId("brotherhood2")));
 		final List<Brotherhood> expectedBrotherhoods2 = new ArrayList<Brotherhood>();
-
+		//b) Positive tests
+		//c) analysis of sentence coverage: 100%
+		//d) Using one of the actors that is the member2
 		// Un miembro consulta el listado de Brotherhoods a las que pertenece o ha pertenecido (POSITIVO)
 		this.templateListBelongedBrotherhoodsTest("member2", expectedBrotherhoods1, null);
+		//b) Negative test , because a non authenticated actor doesn't have enrolls
+		//c) analysis of sentence coverage: 100%
+		//d) Using a non authenticated actor
 		// Un usuario sin autenticar consulta el listado de Brotherhoods a las que pertenece o ha pertenecido (NEGATIVO)
 		this.templateListBelongedBrotherhoodsTest("brotherhood1", expectedBrotherhoods2, IllegalArgumentException.class);
 	}
