@@ -24,7 +24,7 @@ import domain.DFloat;
 @Transactional
 public class UseCase10_1Test extends AbstractTest {
 
-	// 10.1 
+	//a) Functional requirements - 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
 
 	// System under test ------------------------------------------------------
 
@@ -43,18 +43,16 @@ public class UseCase10_1Test extends AbstractTest {
 		final Object testingData[][] = {
 			{
 
-				//a) Functional requirements - 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
 				//b) Positive tests
-				//c) analysis of sentence coverage: 92.3%
+				//c) analysis of sentence coverage: 100%
 				//d) Using one of the actors that is the brotherhood1
 
 				"brotherhood1", null
 			//Brotherhood puede ver sus dfloats (POSITIVO)
 			}, {
 
-				//a) Functional requirements - 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
 				//b) Negative test , a member can´t manage floats
-				//c) analysis of sentence coverage: 92.3%
+				//c) analysis of sentence coverage: 100%
 				//d) Using one of the actors that is the member1
 				"member1", NullPointerException.class
 			//Un member no deberia ver sus dfloats (NEGATIVO) 
@@ -73,9 +71,18 @@ public class UseCase10_1Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1
+
 				"brotherhood1", "dfloat1", null
 			//Brotherhood1 puede editar sus dfloat (POSITIVO)
 			}, {
+
+				//b) Negative tests because a brotherhood cannot edit any other brotherhood's dfloat
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and a float that doesn't belong to him
 				"brotherhood1", "dfloat2", IllegalArgumentException.class
 			//Brotherhood1 no deberia editar dfloat porque no es suyo (NEGATIVO) 
 			}
@@ -94,9 +101,18 @@ public class UseCase10_1Test extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and one of his floats
+
 				"brotherhood1", "dfloat1", null
 			//Brotherhood1 puede crear sus dfloat (POSITIVO)
 			}, {
+
+				//b) Negative tests because a member cannot create a float
+				//c) analysis of sentence coverage: 100%
+				//d) Using an actor that is a member
 				"member1", "aa", IllegalArgumentException.class
 			//Member no deberia crear un dfloat (NEGATIVO) 
 			}
@@ -115,9 +131,16 @@ public class UseCase10_1Test extends AbstractTest {
 		System.out.println("=====DELETING=====");
 		final Object testingData[][] = {
 			{
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and one of his floats
 				"brotherhood1", "dfloat1", null
 			//Brotherhood1 puede borrar sus dfloat (POSITIVO)
 			}, {
+
+				//b) Negative tests because a brotherhood cannot delete any other brotherhood's dfloat
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and a float that doesn't belong to him
 				"brotherhood1", "dfloat2", IllegalArgumentException.class
 			//Brotherhood1 no deberia borrar un dfloat que no es suyo (NEGATIVO) 
 			}
