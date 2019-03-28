@@ -53,9 +53,17 @@ public class UseCase10_6Test extends AbstractTest {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1
 				"brotherhood1", null
 			//brotherhood1 puede ver las peticiones de sus desfiles(POSITIVO)
 			}, {
+
+				//b) Negative test , because a sponsor doens't have marchs
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the sponsor1
 				"sponsor1", NullPointerException.class
 			//Sponsor 1 no tiene desfiles y por lo tanto no puede ver las peticiones(NEGATIVO)
 			}
@@ -73,9 +81,17 @@ public class UseCase10_6Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and one of his marchs
 				"brotherhood1", "march1", null
 			//Brotherhood1 puede editar sus march (POSITIVO)
 			}, {
+
+				//b) Negative test , because the march doesn't exist
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and a null march
 				"brotherhood2", null, AssertionError.class
 			//Brotherhood1 no deberia editar un march que no existe(NEGATIVO)
 			}

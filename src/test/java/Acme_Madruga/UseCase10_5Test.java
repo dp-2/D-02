@@ -45,9 +45,17 @@ public class UseCase10_5Test extends AbstractTest {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1
 				"brotherhood1", null
 			//Brotherhood puede ver sus parades (POSITIVO)
 			}, {
+
+				//b) Negative test , because a non authenticated actor doesn't have parades
+				//c) analysis of sentence coverage: 100%
+				//d) Using a non authenticated actor
 				null, AssertionError.class
 			//Un actor no autenticado no tiene parades (NEGATIVO) 
 			}
@@ -65,9 +73,16 @@ public class UseCase10_5Test extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1
 				"brotherhood1", null
 			//Brotherhood puede crear parades (POSITIVO)
 			}, {
+
+				//b) Negative test , because a non authenticated actor cannot create parades
+				//c) analysis of sentence coverage: 100%
+				//d) Using a non authenticated actor
 				null, IllegalArgumentException.class
 			//Un actor no autenticado no puede crear parades (NEGATIVO) 
 			}
@@ -85,9 +100,17 @@ public class UseCase10_5Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and one of his parades
 				"brotherhood1", "parade1", null
 			//Parade no final (POSITIVO)
 			}, {
+
+				//b) Negative test , because the parade is in final mode
+				//c) analysis of sentence coverage: 100%
+				//d) Using a parade in final mode
 				"brotherhood1", "parade3", IllegalArgumentException.class
 			//Parade final(NEGATIVO) 
 			}
@@ -106,9 +129,16 @@ public class UseCase10_5Test extends AbstractTest {
 		System.out.println("=====DELETING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and one of his parades
 				"brotherhood1", "parade1", null
 			//Parade no final (POSITIVO)
 			}, {
+				//b) Negative test , because the parade is in final mode
+				//c) analysis of sentence coverage: 100%
+				//d) Using a parade in final mode
 				"brotherhood1", "parade3", IllegalArgumentException.class
 			//Parade final(NEGATIVO) 
 			}
