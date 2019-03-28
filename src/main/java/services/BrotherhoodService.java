@@ -19,6 +19,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
+import repositories.BrotherhoodRepository;
+import security.Authority;
+import security.UserAccount;
+import security.UserAccountRepository;
 import domain.Area;
 import domain.Brotherhood;
 import domain.DFloat;
@@ -37,10 +41,6 @@ import domain.SocialProfile;
 import domain.Sponsorship;
 import domain.Url;
 import forms.BrotherhoodForm;
-import repositories.BrotherhoodRepository;
-import security.Authority;
-import security.UserAccount;
-import security.UserAccountRepository;
 
 @Service
 @Transactional
@@ -183,7 +183,7 @@ public class BrotherhoodService {
 			this.boxService.addSystemBox(res);
 			this.historyService.createAndSave(res);
 			final History historyDB = this.historyService.findOneByBrotherhoodId(res.getId());
-			this.inceptionRecordService.createAndSave(historyDB);
+			this.inceptionRecordService.createAndSaveWhenRegisterBrotherhood(historyDB);
 
 		}
 		return res;

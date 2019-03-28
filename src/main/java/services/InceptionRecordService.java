@@ -57,6 +57,25 @@ public class InceptionRecordService {
 		this.InceptionRecordRepository.flush();
 		return res;
 	}
+
+	public InceptionRecord createAndSaveWhenRegisterBrotherhood(final History history) {
+		final History historyDB = (History) this.serviceUtils.checkObject(history);
+		this.serviceUtils.checkNoActor();
+		Assert.notNull(history);
+		final InceptionRecord inceptionRecord = new InceptionRecord();
+		final String photo = "https://content.thriveglobal.com/wp-content/uploads/2017/10/change-pixabay.jpg";
+		final List<String> photos = new ArrayList<>();
+		photos.add(photo);
+		inceptionRecord.setHistory(history);
+		inceptionRecord.setTitle("Default Inception Record Title");
+		inceptionRecord.setText("Default text");
+		inceptionRecord.setPhotos(photos);
+
+		final InceptionRecord res = this.InceptionRecordRepository.saveAndFlush(inceptionRecord);
+		this.InceptionRecordRepository.flush();
+		return res;
+	}
+
 	public Collection<InceptionRecord> findAll() {
 		Collection<InceptionRecord> pr;
 		pr = this.InceptionRecordRepository.findAll();
