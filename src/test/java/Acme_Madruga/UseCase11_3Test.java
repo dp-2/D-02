@@ -22,8 +22,6 @@ import services.MemberService;
 import utilities.AbstractTest;
 import domain.Actor;
 import domain.Brotherhood;
-import domain.Member;
-import domain.Url;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -80,35 +78,6 @@ public class UseCase11_3Test extends AbstractTest {
 			caught = t.getClass();
 		}
 		super.checkExceptions(expected, caught);
-	}
-	// Others
-
-	public Brotherhood brotherhoodAssignParameters(final Brotherhood b, final String[] parameters, final List<Url> pictures) {
-		b.setAddress(parameters[0]);
-		b.setEmail(parameters[1]);
-		b.setMiddleName(parameters[2]);
-		b.setName(parameters[3]);
-		b.setPhone(parameters[4]);
-		b.setPhoto(parameters[5]);
-		b.setSurname(parameters[6]);
-		b.setTitle(parameters[7]);
-		b.getUserAccount().setUsername(parameters[8]);
-		b.getUserAccount().setPassword(parameters[9]);
-		b.setPictures(pictures);
-		return b;
-	}
-
-	public Member memberAssignParameters(final Member m, final String[] parameters, final List<Url> pictures) {
-		m.setAddress(parameters[0]);
-		m.setEmail(parameters[1]);
-		m.setMiddleName(parameters[2]);
-		m.setName(parameters[3]);
-		m.setPhone(parameters[4]);
-		m.setPhoto(parameters[5]);
-		m.setSurname(parameters[6]);
-		m.getUserAccount().setUsername(parameters[7]);
-		m.getUserAccount().setPassword(parameters[8]);
-		return m;
 	}
 
 }

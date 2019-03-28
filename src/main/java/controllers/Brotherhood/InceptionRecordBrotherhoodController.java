@@ -71,6 +71,10 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(inceptionRecord);
 			System.out.println(binding.getAllErrors());
+			if (binding.getAllErrors().toString().contains("URL"))
+				result = this.createEditModelAndView(inceptionRecord, "history.URL.error");
+			else
+				result = this.createEditModelAndView(inceptionRecord);
 		} else
 			try {
 				this.inceptionService.save(inceptionRecord);
