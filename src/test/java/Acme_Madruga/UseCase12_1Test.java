@@ -40,11 +40,20 @@ public class UseCase12_1Test extends AbstractTest {
 
 	@Test
 	public void driver() {
-		// Se registra como admin
+		// Un admin registra a otro admin 
+
+		//b) Positive tests
+		//c) analysis of sentence coverage: 100%
+		//d) Using one of the actors that is the admin1
 		this.templateRegisterAdmin("admin1", new String[] {
 			"address", "email@email.com", "middleName", "name", "650190424", "http://photo", "surname", "username", "password"
 		}, null);
-		// Un actor trata de registrarse como brotherhood
+
+		//b) Negative test , because a non authenticated actor doesn't crate admins
+		//c) analysis of sentence coverage: 100%
+		//d) Using a non authenticated actor
+
+		// Un actor trata de registrarse como admin
 		this.templateRegisterAdmin(null, new String[] {
 			"address", "email@email.com", "middleName", "name", "650190424", "http://photo", "surname", "username2", "password2"
 		}, IllegalArgumentException.class);
