@@ -24,7 +24,7 @@ import domain.DFloat;
 @Transactional
 public class UseCase10_1Test extends AbstractTest {
 
-	// 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
+	// 10.1 
 
 	// System under test ------------------------------------------------------
 
@@ -42,9 +42,20 @@ public class UseCase10_1Test extends AbstractTest {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
+
+				//a) Functional requirements - 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
+				//b) Positive tests
+				//c) analysis of sentence coverage: 92.3%
+				//d) analysis of data coverage.
+
 				"brotherhood1", null
 			//Brotherhood puede ver sus dfloats (POSITIVO)
 			}, {
+
+				//a) Functional requirements - 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
+				//b) Negative test , a member can´t manage floats
+				//c) analysis of sentence coverage: 92.3%
+				//d) analysis of data coverage.
 				"member1", NullPointerException.class
 			//Un member no deberia ver sus dfloats (NEGATIVO) 
 			}
