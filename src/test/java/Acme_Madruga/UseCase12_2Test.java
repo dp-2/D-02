@@ -42,9 +42,17 @@ public class UseCase12_2Test extends AbstractTest {
 		System.out.println("=====LISTING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the admin1
 				"admin1", null
 			//Un administrator puede ver las positions (POSITIVO)
 			}, {
+
+				//b) Negative test , a member can´t see the positions
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member1
 				"member1", IllegalArgumentException.class
 			//Un member no deberia ver lass positions (NEGATIVO) 
 			}
@@ -62,9 +70,17 @@ public class UseCase12_2Test extends AbstractTest {
 		System.out.println("=====UPDATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the admin1 and the position1
 				"admin1", "position1", null
 			//administrator1 puede editar sus position (POSITIVO)
 			}, {
+
+				//b) Negative test , a brotherhood can´t update the positions
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the brotherhood1 and the position1
 				"brotherhoood1", "position1", IllegalArgumentException.class
 			//brotherhood1 no deberia editar position  (NEGATIVO) 
 			}
@@ -83,9 +99,17 @@ public class UseCase12_2Test extends AbstractTest {
 		System.out.println("=====CREATING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the admin1 and one of his positions
 				"admin1", "position1", null
 			//administrator1 puede crear una position (POSITIVO)
 			}, {
+
+				//b) Negative tests because a brotherhood1 cannot create a position
+				//c) analysis of sentence coverage: 100%
+				//d) Using an actor that is a brotherhood1
 				"brotherhood1", "aa", IllegalArgumentException.class
 			//Member no deberia crear una position (NEGATIVO) 
 			}
@@ -104,9 +128,17 @@ public class UseCase12_2Test extends AbstractTest {
 		System.out.println("=====DELETING=====");
 		final Object testingData[][] = {
 			{
+
+				//b) Positive tests
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member and one of the positions
 				"admin1", "position1", null
 			//administrator1 puede borrar sus dfloat (POSITIVO)
 			}, {
+
+				//b) Negative tests because a brotherhood cannot delete any other brotherhood's dfloat
+				//c) analysis of sentence coverage: 100%
+				//d) Using one of the actors that is the member1
 				"member1", "position2", IllegalArgumentException.class
 			//member1 no deberia borrar un dfloat que no es suyo (NEGATIVO) 
 			}
