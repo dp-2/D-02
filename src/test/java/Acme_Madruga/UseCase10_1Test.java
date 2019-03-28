@@ -46,7 +46,7 @@ public class UseCase10_1Test extends AbstractTest {
 				//a) Functional requirements - 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
 				//b) Positive tests
 				//c) analysis of sentence coverage: 92.3%
-				//d) analysis of data coverage.
+				//d) Using one of the actors that is the brotherhood1
 
 				"brotherhood1", null
 			//Brotherhood puede ver sus dfloats (POSITIVO)
@@ -55,7 +55,7 @@ public class UseCase10_1Test extends AbstractTest {
 				//a) Functional requirements - 10.1 Manage their floats, which includes listing, showing, creating, updating, and deleting them
 				//b) Negative test , a member can´t manage floats
 				//c) analysis of sentence coverage: 92.3%
-				//d) analysis of data coverage.
+				//d) Using one of the actors that is the member1
 				"member1", NullPointerException.class
 			//Un member no deberia ver sus dfloats (NEGATIVO) 
 			}
