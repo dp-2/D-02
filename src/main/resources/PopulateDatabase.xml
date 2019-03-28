@@ -418,7 +418,7 @@
 		<property name="middleName" value="" />
 		<property name="surname" value="García" />
 		<property name="photo"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+			value="https://isastudentblog.files.wordpress.com/2012/04/jesusfloat.jpg" />
 		<property name="email" value="maxagar@gmail.com" />
 		<property name="phone" value="+34(456)123456789" />
 
@@ -435,7 +435,7 @@
 		<property name="middleName" value="" />
 		<property name="surname" value="DelBario" />
 		<property name="photo"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+			value="https://isastudentblog.files.wordpress.com/2012/04/jesusfloat.jpg" />
 		<property name="email" value="juliki@gmail.com" />
 		<property name="phone" value="+34(456)473456789" />
 
@@ -470,14 +470,14 @@
 		<property name="name" value="Catedral de sevilla" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="pictures"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+			value="https://isastudentblog.files.wordpress.com/2012/04/jesusfloat.jpg" />
 	</bean>
 
 	<bean id="area2" class="domain.Area">
 		<property name="name" value="Capilla del cristo de la serenidad" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="pictures"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+			value="https://isastudentblog.files.wordpress.com/2012/04/jesusfloat.jpg" />
 	</bean>
 
 	<bean id="area3" class="domain.Area">
@@ -1244,7 +1244,7 @@
 		<property name="title" value="La pasion de cristo" />
 		<property name="description" value="La pasion de cristo es una desfile normal " />
 		<property name="pictures"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+			value="https://isastudentblog.files.wordpress.com/2012/04/jesusfloat.jpg" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="parades">
 			<list>
@@ -1258,7 +1258,7 @@
 		<property name="description"
 			value="La no pasion de cristo es lo que es ni mas ni menos asi que punto en boca ya juan,PUNTO EN BOCA " />
 		<property name="pictures"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+			value="https://isastudentblog.files.wordpress.com/2012/04/jesusfloat.jpg" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="parades">
 			<list>
@@ -1533,7 +1533,7 @@
 		<property name="middleName" value="Manuel" />
 		<property name="surname" value="Montes" />
 		<property name="photo"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+			value="https://isastudentblog.files.wordpress.com/2012/04/jesusfloat.jpg" />
 		<property name="email" value="juanmontes@gmail.com" />
 		<property name="phone" value="+34(456)123456749" />
 
@@ -1551,7 +1551,7 @@
 		<property name="middleName" value="Arturo" />
 		<property name="surname" value="Del rio" />
 		<property name="photo"
-			value="https://cdn.pixabay.com/photo/2017/06/26/02/47/people-2442565_960_720.jpg" />
+			value="https://isastudentblog.files.wordpress.com/2012/04/jesusfloat.jpg" />
 		<property name="email" value="adelvalle@gmail.com" />
 		<property name="phone" value="+34(456)778456749" />
 

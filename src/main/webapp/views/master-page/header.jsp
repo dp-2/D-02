@@ -111,18 +111,7 @@
 			<li><a class="fNiv"
 				href="message/actor/create.do?isBroadcast=true"><spring:message
 						code="master.page.broadcast" /></a></li>
-			<jstl:if test="${warning.isWarning == true}">
-				<li><a href="administrator/adviseFalse.do"><spring:message
-							code="advise.unBreach" /></a></li>
 
-			</jstl:if>
-
-			<jstl:if test="${warning.isWarning == false}">
-				<li><a href="administrator/adviseTrue.do"><spring:message
-							code="advise.breach" /></a></li>
-
-
-			</jstl:if>
 
 		</security:authorize>
 
